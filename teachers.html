@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="assets/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="sticky-head">
+  <header class="hero py-3"><div class="container-xl" id="hero"></div></header>
+  <nav class="sticky-tabs navbar-expand-md" id="stickyNav">
+    <div class="container-xl"><div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="nav" id="menu"></ul>
+    </div></div>
+  </nav>
+</div>
+<div class="container-xl">
+  <div class="row g-4">
+    <div class="col-lg-9" id="main"></div>
+    <div class="col-lg-3"><div class="rail pt-4" id="rail"></div></div>
+  </div>
+</div>
+<div class="foot"><div class="container-xl">© 2026 СПбГМТУ · Управление информационных технологий</div></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const has=k=>Array.isArray(T[k])&&T[k].length;
+let T;
+fetch('data/teachers.json?v='+Date.now()).then(r=>r.json()).then(d=>{
+  T=d.teachers.find(t=>t.id===new URLSearchParams(location.search).get('id'))||d.teachers[0];
+  if(!T){document.getElementById('main').innerHTML='<p class="p-4">Нет данных.</p>';return;}
+  document.title=(T.short||T.name)+' — СПбГМТУ';
+  hero(); menu(); main(); rail();
+});
+const sec=(id,t,i)=>`<section class="section" id="${id}"><h2 class="sec-title">${t}</h2><div class="rule"></div>${i}</section>`;
+const sub=(t,i)=>`<h3 class="sub-title">${t}</h3><div class="rule rule-sm"></div>${i}`;
+const timeline=a=>`<ul class="timeline">${a.map(i=>`<li><span class="year">${esc(i.year)}</span><div class="tl-body"><b>${esc(i.title)}</b> ${esc(i.text)}</div></li>`).join('')}</ul>`;
+const cards=(a,col='col-md-6')=>`<div class="row g-3">${a.map(i=>`<div class="${col}"><div class="card-lift p-3">${i.tag?`<span class="tag t-amber">${esc(i.tag)}</span>`:''}<h3 class="fs-6 mt-2 mb-1">${esc(i.title)}</h3><small class="text-secondary">${esc(i.text)}</small></div></div>`).join('')}</div>`;
+const pubs=a=>a.map(i=>`<div class="pub"><span class="py">${esc(i.year)}</span><div><b>${esc(i.title)}</b> ${esc(i.text)} ${i.tag?`<span class="tag t-teal">${esc(i.tag)}</span>`:''}</div></div>`).join('');
+const table=(h,a)=>`<div class="table-responsive"><table class="table align-middle"><thead><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${a.map(r=>`<tr>${['a','b','c','d','e','f'].map(k=>r[k]!==undefined?`<td>${esc(r[k])}</td>`:'').join('')}</tr>`).join('')}</tbody></table></div>`;
+function hero(){document.getElementById('hero').innerHTML=`
+ <div class="row g-3 align-items-center">
+  <div class="col-md-3"><div class="hero-photo"><img src="${esc(T.photo)}" alt=""></div></div>
+  <div class="col-md-9">
+    <span class="kicker muted">Преподаватель</span><span class="kicker mt-1">${esc(T.faculty)}</span>
+    <h1>${esc(T.name).replace(' ','<br>')}</h1><p class="post">${esc(T.post)}</p>
+    <div class="d-flex flex-wrap gap-2 chips-row">${(T.chips||[]).map(c=>`<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('')}</div>
+  </div>
+  <button class="nav-toggler d-md-none" data-bs-toggle="collapse" data-bs-target="#mainMenu"><i class="bi bi-list"></i></button>
+ </div>`;}
+function menu(){
+ const M=[['education','Образование',has('education')||has('upk')],['career','Карьера',has('career')],
+ ['ped','Педагогическая деятельность',has('programs')||has('courses')||has('books')||has('schedule')||has('session')],
+ ['science','Научная деятельность',has('metrics')||has('projects')||has('patents')||has('publications')||T.science_text],
+ ['social','Общественная деятельность',has('social')],['news','Новости',has('news')],['contact','Контакты',true]];
+ document.getElementById('menu').innerHTML=M.filter(m=>m[2]).map(m=>`<li class="nav-item"><a class="nav-link" href="#${m[0]}">${m[1]}</a></li>`).join('');}
+function newsBlock(){
+ const p=[];for(let i=0;i<T.news.length;i+=9)p.push(T.news.slice(i,i+9));
+ return sec('news','Упоминание в новостях',`<div id="newsCarousel" class="carousel slide news-slider" data-bs-ride="false"><div class="carousel-inner">${p.map((pg,pi)=>`<div class="carousel-item ${pi?'':'active'}"><div class="row g-4">${pg.map(n=>`<div class="col-sm-6 col-lg-4"><div class="news-item"><div class="news-img"><img src="${esc(n.img)}" alt=""></div><small class="text-secondary">${esc(n.date)}</small><h3 class="fs-6 fw-bold mt-1 mb-0">${esc(n.title)}</h3></div></div>`).join('')}</div></div>`).join('')}</div>${p.length>1?`<button class="news-nav prev" data-bs-target="#newsCarousel" data-bs-slide="prev"><i class="bi bi-chevron-left"></i></button><button class="news-nav next" data-bs-target="#newsCarousel" data-bs-slide="next"><i class="bi bi-chevron-right"></i></button><div class="carousel-indicators">${p.map((_,pi)=>`<button data-bs-target="#newsCarousel" data-bs-slide-to="${pi}" class="${pi?'':'active'}"></button>`).join('')}</div>`:''}</div>`);}
+function main(){const o=[];
+ if(has('positions'))o.push(`<div class="positions"><div class="positions-icon"><i class="bi bi-person-badge"></i></div><div><h2 class="positions-title">Занимаемые должности</h2><ul class="positions-list">${T.positions.map((x,i)=>`<li class="${i?'':'main'}">${esc(x)}</li>`).join('')}</ul></div></div>`);
+ if(has('education')||has('upk'))o.push(sec('education','Образование',(has('education')?timeline(T.education):'')+(has('upk')?sub('Повышение квалификации',cards(T.upk)):'')));
+ if(has('career'))o.push(sec('career','Карьера',timeline(T.career)));
+ if(has('programs')||has('courses')||has('books')||has('schedule')||has('session'))
+   o.push(sec('ped','Педагогическая деятельность',
+     (has('programs')?sub('Образовательные программы',cards(T.programs,'col-md-4')):'')+
+     (has('courses')?sub('Читаемые дисциплины',table(['Дисциплина','Уровень','Курс','Семестр','Часы'],T.courses)):'')+
+     (has('books')?sub('Учебные пособия',pubs(T.books)):'')+
+     (has('schedule')?sub('Расписание занятий',table(['День','Время','Дисциплина','Тип','Группа','Ауд.'],T.schedule)):'')+
+     (has('session')?sub('Расписание сессии',table(['Дата','Время','Дисциплина','Форма','Группа','Ауд.'],T.session)):'')));
+ if(has('metrics')||has('projects')||has('patents')||has('publications')||T.science_text)
+   o.push(sec('science','Научная деятельность',
+     (has('metrics')?`<div class="row g-2 mb-4">${T.metrics.map(m=>`<div class="col-6 col-md-3"><div class="metric"><div class="n">${esc(m.n)}</div><small>${esc(m.l)}</small></div></div>`).join('')}</div>`:'')+
+     (T.science_text?`<p>${esc(T.science_text)}</p>`:'')+
+     (has('projects')?sub('Проекты',timeline(T.projects)):'')+
+     (has('patents')?sub('Патенты и НИОКР',pubs(T.patents)):'')+
+     (has('publications')?sub('Избранные публикации',pubs(T.publications)):'')));
+ if(has('social'))o.push(sec('social','Общественная деятельность',timeline(T.social)));
+ if(has('news'))o.push(newsBlock());
+ o.push(sec('contact','Контактная информация',`<div class="row g-4"><div class="col-md-6">
+   <p><i class="bi bi-envelope me-2"></i><b>E-mail:</b> <a href="mailto:${esc(T.email)}">${esc(T.email)}</a></p>
+   <p><i class="bi bi-telephone me-2"></i><b>Кафедра:</b> ${esc(T.phone)}</p>
+   <p><i class="bi bi-geo-alt me-2"></i><b>Адрес:</b> ${esc(T.address)}</p>
+   <p><i class="bi bi-clock me-2"></i><b>Приёмные часы:</b> ${esc(T.hours)}</p></div>
+   <div class="col-md-6"><form id="cform"><div class="mb-2"><input class="form-control" placeholder="Ваше имя" required></div>
+   <div class="mb-2"><input type="email" class="form-control" placeholder="E-mail" required></div>
+   <div class="mb-2"><textarea class="form-control" rows="4" placeholder="Сообщение" required></textarea></div>
+   <button class="btn btn-amber w-100">Отправить</button><p id="fok" class="small mt-2 mb-0" style="display:none;color:var(--teal)">Сообщение отправлено!</p></form></div></div>`));
+ document.getElementById('main').innerHTML=o.join('');
+ document.getElementById('cform').addEventListener('submit',e=>{e.preventDefault();document.getElementById('fok').style.display='block';});}
+function rail(){document.getElementById('rail').innerHTML=`
+ <div class="rail-card"><h3><i class="bi bi-bell"></i>Ближайшие события</h3>${(T.events||[]).map(e=>`<div class="evt"><b>${esc(e.t)}</b><br>${esc(e.x)}</div>`).join('')}</div>
+ <div class="rail-card"><h3><i class="bi bi-easel"></i>Учебный процесс</h3>
+   <a class="btn-side" href="#schedule"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
+   <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
+   <a class="btn-side" href="#ped"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a></div>
+ <div class="rail-card mb-0"><h3><i class="bi bi-link-45deg"></i>Профили</h3>${(T.profiles||[]).map(p=>`<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right arr"></i></a>`).join('')}</div>`;}
+</script>
+</body></html>

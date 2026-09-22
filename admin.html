@@ -84,12 +84,26 @@ function addTeacher(){collect();data.teachers.push({id:'new'+Date.now(),name:'Н
 function delTeacher(){if(!confirm('Удалить преподавателя?'))return;collect();data.teachers.splice(cur,1);cur=0;buildSel();build();}
 async function save(){
   collect();
-  document.getElementById('status').textContent='публикую…';
-  const g=await gh('/contents/'+PATH); const cur_file=await g.json();
-  const body={message:'admin: update '+new Date().toISOString(),
-    content:unescape(encodeURIComponent(JSON.stringify(data,null,1))), sha:cur_file.sha};
-  const r=await gh('/contents/'+PATH,{method:'PUT',body:JSON.stringify(body)});
-  document.getElementById('status').textContent=r.ok?'✔ опубликовано (Pages обновится за ~1 мин)':'✗ ошибка '+r.status;
+  const st = document.getElementById('status');
+  st.textContent = 'публикую…';
+
+  // свежий sha файла (защита от конфликтов)
+  const g = await gh('/contents/' + PATH);
+  if (!g.ok) { st.textContent = '✗ не удалось прочитать файл: ' + g.status; return; }
+  const cur = await g.json();
+
+  const json = JSON.stringify(data, null, 1);
+  const body = {
+    message: 'admin: update ' + new Date().toISOString(),
+    content: btoa(unescape(encodeURIComponent(json))),   // ← ВОТ ЭТОГО НЕ ХВАТАЛО: base64
+    sha: cur.sha
+  };
+
+  const r = await gh('/contents/' + PATH, { method: 'PUT', body: JSON.stringify(body) });
+  const res = await r.json().catch(() => ({}));
+  st.textContent = r.ok
+    ? '✔ опубликовано (Pages обновится за ~1 мин)'
+    : '✗ ошибка ' + r.status + ': ' + (res.message || 'неизвестно');
 }
 if(TOK) load();
 </script></body></html>

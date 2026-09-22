@@ -135,7 +135,7 @@
         /* Личные данные — как было */
         document.getElementById('pf').innerHTML = FIELDS.map(f => {
           const [k, l, w] = f;                       // ← распаковываем ширину
-          return `<div class="${w || 'col-md-4'}">   // ← подставляем её (по умолчанию col-md-4)
+          return `<div class="${w || 'col-md-4'}">   
     <label class="small text-secondary">${l}</label>
     <input class="form-control form-control-sm" data-f="${k}"
            value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`;

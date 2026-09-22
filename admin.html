@@ -133,11 +133,13 @@
         const t = data.teachers[cur];
 
         /* Личные данные — как было */
-        document.getElementById('pf').innerHTML = FIELDS.map(([k, l]) =>
-          `<div class="col-md-4"><label class="small text-secondary">${l}</label>
-     <input class="form-control form-control-sm" data-f="${k}"
-            value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`
-        ).join('');
+        document.getElementById('pf').innerHTML = FIELDS.map(f => {
+          const [k, l, w] = f;                       // ← распаковываем ширину
+          return `<div class="${w || 'col-md-4'}">   // ← подставляем её (по умолчанию col-md-4)
+    <label class="small text-secondary">${l}</label>
+    <input class="form-control form-control-sm" data-f="${k}"
+           value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`;
+        }).join('');
 
         // ════════════════════════════════════════════════
         // ← НОВОЕ: блок «Внешние ссылки» перед списком секций

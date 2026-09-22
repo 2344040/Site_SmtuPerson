@@ -57,24 +57,52 @@
       <div id="secs"></div>
     </div>
     <script>
+
+
+
       /* ═══ НАСТРОЙКИ ═══ */
       const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
-      const GATE = '';            // необязательный локальный пароль-ширма, напр. 'kafedra2026'
-      /* ═════════════════ */
-      const FIELDS = [['id', 'ID (латиницей)'], ['name', 'ФИО'], ['short', 'ФИО коротко'], ['faculty', 'Факультет'], ['post', 'Должность'], ['photo', 'URL фото'], ['email', 'E-mail'], ['phone', 'Телефон'], ['address', 'Адрес'], ['hours', 'Приёмные часы'], ['science_text', 'Текст о научных интересах']];
+
+      const GATE = '';
+      const FIELDS = [
+        ['id', 'ID (латиницей)'], ['name', 'ФИО полное'], ['short', 'ФИО коротко'],
+        ['faculty', 'Факультет'], ['university', 'Университет (кратко)'], ['post', 'Должность под ФИО'],
+        ['photo', 'URL фото'], ['email', 'E-mail'], ['phone', 'Телефон'], ['address', 'Адрес'],
+        ['hours', 'Приёмные часы'], ['share_tg_url', 'URL для Telegram share'],
+        ['share_vk_url', 'URL для VK share']
+      ];
       const KEYS = {
-        education: ['year', 'title', 'text'], upk: ['year', 'title', 'text'], career: ['year', 'title', 'text'],
-        achievements: ['tag', 'title', 'text'], programs: ['tag', 'title', 'text'], books: ['year', 'title', 'text', 'tag'],
-        publications: ['year', 'title', 'text', 'tag'], patents: ['year', 'title', 'text', 'tag'], projects: ['year', 'title', 'text'],
-        social: ['year', 'title', 'text'], courses: ['a', 'b', 'c', 'd', 'e'], schedule: ['a', 'b', 'c', 'd', 'e', 'f'], session: ['a', 'b', 'c', 'd', 'e', 'f'],
-        news: ['date', 'title', 'img', 'url'], metrics: ['n', 'l'], profiles: ['t', 'u'], events: ['t', 'x'], chips: ['*'], positions: ['*']
+        chips: ['*'], positions: ['*'],
+        education: ['year', 'title', 'text'], upk: ['year', 'title', 'text'],
+        career: ['year', 'title', 'text'],
+        achievements: ['year', 'icon', 'title', 'text'],  // icon = award / trophy
+        programs: ['tag', 'title', 'text'],
+        courses: ['a', 'b', 'c', 'd', 'e'],
+        schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
+        session: ['a', 'b', 'c', 'd', 'e', 'f'],
+        books: ['year', 'title', 'text', 'tag'],
+        publications: ['year', 'title', 'text', 'tag', 'link', 'doi'],
+        patents: ['year', 'title', 'text', 'tag'],
+        projects: ['year', 'title', 'text'],
+        social: ['title', 'text'],
+        metrics: ['n', 'l'],
+        events: ['t', 'x', 'now'],   // t = заголовок, x = описание, now = true/false
+        profiles: ['t', 'u'],
+        news: ['date', 'title', 'img', 'url']
       };
       const NAMES = {
-        education: 'Образование', upk: 'Повышение квалификации', career: 'Карьера', achievements: 'Достижения',
-        programs: 'Программы', books: 'Пособия', publications: 'Публикации', patents: 'Патенты', projects: 'Проекты', social: 'Общественная',
-        courses: 'Дисциплины (таблица)', schedule: 'Расписание (таблица)', session: 'Сессия (таблица)', news: 'Новости',
-        metrics: 'Метрики', profiles: 'Профили', events: 'События', chips: 'Чипсы', positions: 'Должности (верхний блок)'
+        chips: 'Чипсы', positions: 'Должности (верхний блок)',
+        education: 'Образование', upk: 'Повышение квалификации',
+        career: 'Карьера', achievements: 'Профессиональные достижения',
+        programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
+        books: 'Пособия', publications: 'Публикации', patents: 'Патенты', projects: 'Проекты',
+        social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
+        profiles: 'Профили (правый сайдбар)', news: 'Новости'
       };
+
+
+
+
       let TOK = sessionStorage.tok || '', data = null, cur = 0;
       const H = { 'Authorization': 'Bearer ' + (() => TOK)(), 'Content-Type': 'application/json' };
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u, { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
@@ -90,63 +118,139 @@
         buildSel(); build();
       }
       function buildSel() { document.getElementById('tsel').innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join(''); document.getElementById('tsel').value = cur; }
+
+
+
       function build() {
         const t = data.teachers[cur];
-        document.getElementById('pf').innerHTML = FIELDS.map(([k, l]) => `<div class="col-md-4"><label class="small text-secondary">${l}</label><input class="form-control form-control-sm" data-f="${k}" value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`).join('');
-        document.getElementById('secs').innerHTML = Object.keys(KEYS).map(k => {
+
+        /* Личные данные — как было */
+        document.getElementById('pf').innerHTML = FIELDS.map(([k, l]) =>
+          `<div class="col-md-4"><label class="small text-secondary">${l}</label>
+     <input class="form-control form-control-sm" data-f="${k}"
+            value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`
+        ).join('');
+
+        // ════════════════════════════════════════════════
+        // ← НОВОЕ: блок «Внешние ссылки» перед списком секций
+        // ════════════════════════════════════════════════
+        const extBlock = `
+    <details class="card p-2 mb-2" open>
+      <summary class="fw-bold">Внешние ссылки</summary>
+      <div class="row g-2 mt-2">
+        <div class="col-md-6">
+          <label class="small text-secondary">URL расписания (внешняя ссылка)</label>
+          <input class="form-control form-control-sm" data-ext="schedule"
+                 value="${(t.external_links?.schedule || '').replace(/"/g, '&quot;')}">
+        </div>
+      </div>
+    </details>`;
+
+        /* Список секций — почти как было, но внутри рендера строки
+           добавлена поддержка чекбокса для поля `now` в events */
+        document.getElementById('secs').innerHTML = extBlock + Object.keys(KEYS).map(k => {
           const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-          return `<details class="card p-2 mb-2"><summary class="fw-bold">${NAMES[k]}</summary>
-      <table class="ed mt-2">${arr.map((row, i) => `<tr>${KEYS[k].map(c => `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(c === '*' ? row : (row[c] || '')).replace(/"/g, '&quot;')}"></td>`).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</table>
-      <button class="btn btn-sm btn-outline-dark mt-1" onclick="add('${k}')">+ строка</button></details>`;
+          return `<details class="card p-2 mb-2">
+      <summary class="fw-bold">${NAMES[k]}</summary>
+      <table class="ed mt-2">${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
+            const isArrItem = KEYS[k][0] === '*';
+            const val = isArrItem ? row : (row[c] || '');
+
+            // ← НОВОЕ: для events.now рендерим чекбокс вместо input
+            if (k === 'events' && c === 'now') {
+              return `<td><input type="checkbox"
+                        data-sec="${k}" data-i="${i}" data-k="${c}"
+                        ${val ? 'checked' : ''}></td>`;
+            }
+            return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}"
+                       value="${String(val).replace(/"/g, '&quot;')}"></td>`;
+          }).join('')
+            }<td><button class="btn btn-sm btn-outline-danger"
+                   onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}
+      </table>
+      <button class="btn btn-sm btn-outline-dark mt-1"
+              onclick="add('${k}')">+ строка</button>
+    </details>`;
         }).join('');
       }
+
+
       function collect() {
         const t = data.teachers[cur];
+
+        /* Собираем личные данные — как было */
         document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+
+        // ← НОВОЕ: собираем блок «Внешние ссылки»
+        if (!t.external_links) t.external_links = {};
+        document.querySelectorAll('[data-ext]').forEach(i => {
+          t.external_links[i.dataset.ext] = i.value;
+        });
+
+        /* Сбрасываем все массивы секций — как было */
         Object.keys(KEYS).forEach(k => { t[k] = []; });
+
+        /* Собираем данные из таблиц секций — почти как было,
+           но с поддержкой чекбоксов */
         document.querySelectorAll('[data-sec]').forEach(i => {
-          const { sec, i: idx, k } = i.dataset, row = (t[sec][+idx] = t[sec][+idx] || (KEYS[sec][0] === '*' ? '' : {}));
-          if (k === '*') t[sec][+idx] = i.value; else row[k] = i.value;
+          const { sec, i: idx, k } = i.dataset;
+          const row = (t[sec][+idx] = t[sec][+idx] || (KEYS[sec][0] === '*' ? '' : {}));
+
+          const isArrItem = KEYS[sec][0] === '*';
+          const isCheckbox = i.type === 'checkbox';
+
+          // ← НОВОЕ: если это чекбокс — читаем .checked, иначе .value
+          if (isArrItem) {
+            t[sec][+idx] = i.value;
+          } else {
+            row[k] = isCheckbox ? i.checked : i.value;
+          }
         });
       }
+
+
       function add(k) { collect(); const t = data.teachers[cur]; t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']))); build(); }
       function rm(k, i) { collect(); data.teachers[cur][k].splice(i, 1); build(); }
       function addTeacher() { collect(); data.teachers.push({ id: 'new' + Date.now(), name: 'Новый преподаватель', chips: [], positions: [], education: [], career: [], news: [] }); cur = data.teachers.length - 1; buildSel(); build(); }
       function delTeacher() { if (!confirm('Удалить преподавателя?')) return; collect(); data.teachers.splice(cur, 1); cur = 0; buildSel(); build(); }
-async function save(){
-  collect();
-  const st = document.getElementById('status');
-  st.textContent = 'v3: сохраняю…';          // маркер версии: видите "v3:" — код новый
-  try{
-    const g = await gh('/contents/' + PATH);
-    if(!g.ok){
-      const e = await g.json().catch(()=>({}));
-      alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message||''));
-      st.textContent = '✗ GET ' + g.status; return;
-    }
-    const cur = await g.json();
 
-    const json = JSON.stringify(data, null, 1);
-    const b64  = btoa(unescape(encodeURIComponent(json)));   // base64 с поддержкой кириллицы
 
-    const r = await gh('/contents/' + PATH, {
-      method: 'PUT',
-      body: JSON.stringify({ message: 'admin: update ' + new Date().toISOString(),
-                             content: b64, sha: cur.sha })
-    });
-    const res = await r.json().catch(()=>({}));
-    console.log('PUT', r.status, res);
-    if(r.ok){
-      st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
-    } else {
-      st.textContent = '✗ ' + r.status;
-      alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res)));
-    }
-  }catch(err){
-    st.textContent = '✗ сбой скрипта';
-    alert('Исключение: ' + err);
-  }
-}
+      async function save() {
+        collect();
+        const st = document.getElementById('status');
+        st.textContent = 'v3: сохраняю…';          // маркер версии: видите "v3:" — код новый
+        try {
+          const g = await gh('/contents/' + PATH);
+          if (!g.ok) {
+            const e = await g.json().catch(() => ({}));
+            alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
+            st.textContent = '✗ GET ' + g.status; return;
+          }
+          const cur = await g.json();
+
+          const json = JSON.stringify(data, null, 1);
+          const b64 = btoa(unescape(encodeURIComponent(json)));   // base64 с поддержкой кириллицы
+
+          const r = await gh('/contents/' + PATH, {
+            method: 'PUT',
+            body: JSON.stringify({
+              message: 'admin: update ' + new Date().toISOString(),
+              content: b64, sha: cur.sha
+            })
+          });
+          const res = await r.json().catch(() => ({}));
+          console.log('PUT', r.status, res);
+          if (r.ok) {
+            st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
+          } else {
+            st.textContent = '✗ ' + r.status;
+            alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res)));
+          }
+        } catch (err) {
+          st.textContent = '✗ сбой скрипта';
+          alert('Исключение: ' + err);
+        }
+      }
       if (TOK) load();
     </script>
 </body>

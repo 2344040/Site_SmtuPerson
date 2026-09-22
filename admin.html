@@ -121,92 +121,93 @@
 
 
 
-      function build() {
-        const t = data.teachers[cur];
+function build(){
+  const t = data.teachers[cur];
 
-        /* Личные данные — как было */
-        document.getElementById('pf').innerHTML = FIELDS.map(([k, l]) =>
-          `<div class="col-md-4"><label class="small text-secondary">${l}</label>
+  /* Личные данные — как было */
+  document.getElementById('pf').innerHTML = FIELDS.map(([k,l]) =>
+    `<div class="col-md-4"><label class="small text-secondary">${l}</label>
      <input class="form-control form-control-sm" data-f="${k}"
-            value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`
-        ).join('');
+            value="${(t[k]||'').replace(/"/g,'&quot;')}"></div>`
+  ).join('');
 
-        // ════════════════════════════════════════════════
-        // ← НОВОЕ: блок «Внешние ссылки» перед списком секций
-        // ════════════════════════════════════════════════
-        const extBlock = `
+  // ════════════════════════════════════════════════
+  // ← НОВОЕ: блок «Внешние ссылки» перед списком секций
+  // ════════════════════════════════════════════════
+  const extBlock = `
     <details class="card p-2 mb-2" open>
       <summary class="fw-bold">Внешние ссылки</summary>
       <div class="row g-2 mt-2">
         <div class="col-md-6">
           <label class="small text-secondary">URL расписания (внешняя ссылка)</label>
           <input class="form-control form-control-sm" data-ext="schedule"
-                 value="${(t.external_links?.schedule || '').replace(/"/g, '&quot;')}">
+                 value="${(t.external_links?.schedule || '').replace(/"/g,'&quot;')}">
         </div>
       </div>
     </details>`;
 
-        /* Список секций — почти как было, но внутри рендера строки
-           добавлена поддержка чекбокса для поля `now` в events */
-        document.getElementById('secs').innerHTML = extBlock + Object.keys(KEYS).map(k => {
-          const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-          return `<details class="card p-2 mb-2">
+  /* Список секций — почти как было, но внутри рендера строки
+     добавлена поддержка чекбокса для поля `now` в events */
+  document.getElementById('secs').innerHTML = extBlock + Object.keys(KEYS).map(k => {
+    const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
+    return `<details class="card p-2 mb-2">
       <summary class="fw-bold">${NAMES[k]}</summary>
-      <table class="ed mt-2">${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
-            const isArrItem = KEYS[k][0] === '*';
-            const val = isArrItem ? row : (row[c] || '');
+      <table class="ed mt-2">${arr.map((row, i) => `<tr>${
+        KEYS[k].map(c => {
+          const isArrItem = KEYS[k][0] === '*';
+          const val = isArrItem ? row : (row[c] || '');
 
-            // ← НОВОЕ: для events.now рендерим чекбокс вместо input
-            if (k === 'events' && c === 'now') {
-              return `<td><input type="checkbox"
+          // ← НОВОЕ: для events.now рендерим чекбокс вместо input
+          if (k === 'events' && c === 'now') {
+            return `<td><input type="checkbox"
                         data-sec="${k}" data-i="${i}" data-k="${c}"
                         ${val ? 'checked' : ''}></td>`;
-            }
-            return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}"
-                       value="${String(val).replace(/"/g, '&quot;')}"></td>`;
-          }).join('')
-            }<td><button class="btn btn-sm btn-outline-danger"
+          }
+          return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}"
+                       value="${String(val).replace(/"/g,'&quot;')}"></td>`;
+        }).join('')
+      }<td><button class="btn btn-sm btn-outline-danger"
                    onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}
       </table>
       <button class="btn btn-sm btn-outline-dark mt-1"
               onclick="add('${k}')">+ строка</button>
     </details>`;
-        }).join('');
-      }
+  }).join('');
+}
 
 
-      function collect() {
-        const t = data.teachers[cur];
+     function collect(){
+  const t = data.teachers[cur];
 
-        /* Собираем личные данные — как было */
-        document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+  /* Собираем личные данные — как было */
+  document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
 
-        // ← НОВОЕ: собираем блок «Внешние ссылки»
-        if (!t.external_links) t.external_links = {};
-        document.querySelectorAll('[data-ext]').forEach(i => {
-          t.external_links[i.dataset.ext] = i.value;
-        });
+  // ← НОВОЕ: собираем блок «Внешние ссылки»
+  if (!t.external_links) t.external_links = {};
+  document.querySelectorAll('[data-ext]').forEach(i => {
+    t.external_links[i.dataset.ext] = i.value;
+  });
 
-        /* Сбрасываем все массивы секций — как было */
-        Object.keys(KEYS).forEach(k => { t[k] = []; });
+  /* Сбрасываем все массивы секций — как было */
+  Object.keys(KEYS).forEach(k => { t[k] = []; });
 
-        /* Собираем данные из таблиц секций — почти как было,
-           но с поддержкой чекбоксов */
-        document.querySelectorAll('[data-sec]').forEach(i => {
-          const { sec, i: idx, k } = i.dataset;
-          const row = (t[sec][+idx] = t[sec][+idx] || (KEYS[sec][0] === '*' ? '' : {}));
+  /* Собираем данные из таблиц секций — почти как было,
+     но с поддержкой чекбоксов */
+  document.querySelectorAll('[data-sec]').forEach(i => {
+    const {sec, i: idx, k} = i.dataset;
+    const row = (t[sec][+idx] = t[sec][+idx] || (KEYS[sec][0] === '*' ? '' : {}));
 
-          const isArrItem = KEYS[sec][0] === '*';
-          const isCheckbox = i.type === 'checkbox';
+    const isArrItem = KEYS[sec][0] === '*';
+    const isCheckbox = i.type === 'checkbox';
 
-          // ← НОВОЕ: если это чекбокс — читаем .checked, иначе .value
-          if (isArrItem) {
-            t[sec][+idx] = i.value;
-          } else {
-            row[k] = isCheckbox ? i.checked : i.value;
-          }
-        });
-      }
+    // ← НОВОЕ: если это чекбокс — читаем .checked, иначе .value
+    if (isArrItem) {
+      t[sec][+idx] = i.value;
+    } else {
+      row[k] = isCheckbox ? i.checked : i.value;
+    }
+  });
+}
 
 
       function add(k) { collect(); const t = data.teachers[cur]; t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']))); build(); }

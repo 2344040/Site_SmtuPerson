@@ -1,5 +1,5 @@
 // assets/teacher.js
-const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
 
@@ -18,9 +18,12 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
 });
 
 /* ═══ Заполнение шапки ═══ */
-function fillHeader(){
+function fillHeader() {
   document.getElementById('p-photo').src = T.photo;
-  document.getElementById('p-kicker').textContent = (T.university || '') + ' · ' + (T.faculty || '');
+
+  const kicker = [T.university, T.faculty].filter(Boolean).join(' · ');
+  document.getElementById('p-kicker').textContent = kicker;
+
   document.getElementById('p-name').textContent = T.name;
   document.getElementById('p-post').textContent = T.post;
   document.getElementById('p-chips').innerHTML = (T.chips || []).map(c =>
@@ -28,15 +31,15 @@ function fillHeader(){
 }
 
 /* ═══ Меню ═══ */
-function buildMenu(){
+function buildMenu() {
   const items = [
-    {h: 'main', t: '<i class="fa-regular fa-user"></i>', v: true},
-    {h: 'education', t: 'Образование', v: has('education') || has('upk')},
-    {h: 'career', t: 'Карьера', v: has('career') || has('achievements')},
-    {h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session')},
-    {h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents')},
-    {h: 'social', t: 'Общественная деятельность', v: has('social')},
-    {h: 'news', t: 'Новости', v: has('news')}
+    { h: 'main', t: '<i class="fa-regular fa-user"></i>', v: true },
+    { h: 'education', t: 'Образование', v: has('education') || has('upk') },
+    { h: 'career', t: 'Карьера', v: has('career') || has('achievements') },
+    { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') },
+    { h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents') },
+    { h: 'social', t: 'Общественная деятельность', v: has('social') },
+    { h: 'news', t: 'Новости', v: has('news') }
   ];
   document.getElementById('menu').innerHTML = items.filter(i => i.v).map(i =>
     `<li class="nav-item"><a class="nav-link" href="#${i.h}">${i.t}</a></li>`).join('');
@@ -114,11 +117,10 @@ const pubs = a => a.map(i => `
 </div>`).join('');
 
 /* ═══ Новости карусель ═══ */
-function newsBlock(){
+function newsBlock() {
   if (!has('news')) return '';
   const pages = []; for (let i = 0; i < T.news.length; i += 9) pages.push(T.news.slice(i, i + 9));
-  const slideHTML = (pg, active) => `<div class="carousel-item ${active ? 'active' : ''}"><div class="row g-2">${
-    pg.map(n => `<div class="col-sm-6 col-lg-4">
+  const slideHTML = (pg, active) => `<div class="carousel-item ${active ? 'active' : ''}"><div class="row g-2">${pg.map(n => `<div class="col-sm-6 col-lg-4">
       <div class="news-item">
         ${n.url ? `<a href="${esc(n.url)}">` : ''}
           <div class="news-img"><img src="${esc(n.img)}" alt=""></div>
@@ -127,7 +129,7 @@ function newsBlock(){
         ${n.url ? '</a>' : ''}
       </div>
     </div>`).join('')
-  }</div></div>`;
+    }</div></div>`;
   return `<section class="section" id="news">
     <h2 class="sec-title reveal">Упоминание в новостях</h2><div class="rule"></div>
     <div id="newsCarousel" class="carousel slide news-slider reveal" data-bs-ride="false">
@@ -136,14 +138,14 @@ function newsBlock(){
         <button class="news-nav prev" data-bs-target="#newsCarousel" data-bs-slide="prev"><i class="bi bi-chevron-left"></i></button>
         <button class="news-nav next" data-bs-target="#newsCarousel" data-bs-slide="next"><i class="bi bi-chevron-right"></i></button>
         <div class="carousel-indicators">${pages.map((_, i) =>
-          `<button data-bs-target="#newsCarousel" data-bs-slide-to="${i}" class="${i ? '' : 'active'}"></button>`).join('')}
+    `<button data-bs-target="#newsCarousel" data-bs-slide-to="${i}" class="${i ? '' : 'active'}"></button>`).join('')}
         </div>` : ''}
     </div>
   </section>`;
 }
 
 /* ═══ Основной контент ═══ */
-function renderMain(){
+function renderMain() {
   const o = [];
   /* MAIN: блок должностей */
   if (has('positions')) {
@@ -151,7 +153,7 @@ function renderMain(){
       <div class="positions reveal">
         <div class="positions-icon"><i class="fa-regular fa-user"></i></div>
         <div><ul class="positions-list">${T.positions.map((p, i) =>
-          `<li class="${i === 0 ? 'main' : ''}">${esc(p)}</li>`).join('')}</ul></div>
+      `<li class="${i === 0 ? 'main' : ''}">${esc(p)}</li>`).join('')}</ul></div>
       </div>
     </section>`);
   }
@@ -174,14 +176,14 @@ function renderMain(){
     let body = '';
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
     if (has('courses')) body += sub('courses', 'Читаемые дисциплины', table(
-      [{t:'Дисциплина'},{t:'Уровень'},{t:'Курс'},{t:'Семестр'},{t:'Часы',e:1}],
-      T.courses.map(c => [{v:c.a},{v:c.b},{v:c.c},{v:c.d},{v:c.e,e:1}])));
+      [{ t: 'Дисциплина' }, { t: 'Уровень' }, { t: 'Курс' }, { t: 'Семестр' }, { t: 'Часы', e: 1 }],
+      T.courses.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e, e: 1 }])));
     if (has('schedule')) body += sub('schedule', 'Расписание занятий', table(
-      [{t:'День'},{t:'Время'},{t:'Дисциплина'},{t:'Тип'},{t:'Группа'},{t:'Ауд.'}],
-      T.schedule.map(c => [{v:c.a},{v:c.b},{v:c.c},{v:c.d},{v:c.e},{v:c.f}]), true));
+      [{ t: 'День' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Тип' }, { t: 'Группа' }, { t: 'Ауд.' }],
+      T.schedule.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }]), true));
     if (has('session')) body += sub('session', 'Расписание сессии', table(
-      [{t:'Дата'},{t:'Время'},{t:'Дисциплина'},{t:'Форма'},{t:'Группа'},{t:'Ауд.'}],
-      T.session.map(c => [{v:c.a},{v:c.b},{v:c.c},{v:c.d},{v:c.e},{v:c.f}])));
+      [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],
+      T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
   /* SCIENCE */
@@ -238,7 +240,7 @@ function renderMain(){
 }
 
 /* ═══ Правый сайдбар ═══ */
-function renderRail(){
+function renderRail() {
   const events = (T.events || []).map(e => `
     <div class="box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
       <p class="small mb-${e.now ? '0' : '1'}" ${e.now ? '' : 'style="color:var(--muted)"'}>
@@ -268,26 +270,26 @@ function renderRail(){
 }
 
 /* ═══ Анимация появления ═══ */
-function initReveal(){
+function initReveal() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
     return;
   }
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), {threshold: .12});
+  }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   /* progress bar */
   addEventListener('scroll', () => {
     const h = document.documentElement, p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
     document.getElementById('progress').style.width = p + '%';
-  }, {passive: true});
+  }, { passive: true });
 }
 
 /* ═══ Раскрытие длинного текста ═══ */
-function initToggles(){
+function initToggles() {
   const toggleButtons = document.querySelectorAll('.text-toggle-btn');
-  function checkIfNeedsToggle(btn){
+  function checkIfNeedsToggle(btn) {
     const container = btn.closest('.d-flex');
     if (!container) return;
     const content = container.querySelector('.text-toggle-content');
@@ -296,7 +298,7 @@ function initToggles(){
   }
   toggleButtons.forEach(btn => {
     checkIfNeedsToggle(btn);
-    btn.addEventListener('click', function(){
+    btn.addEventListener('click', function () {
       const container = this.closest('.d-flex');
       const content = container.querySelector('.text-toggle-content');
       const dots = this.querySelector('.dots');
@@ -317,7 +319,7 @@ function initToggles(){
 }
 
 /* ═══ Раскрытие карточек «Показать ещё» ═══ */
-function initCardReveal(){
+function initCardReveal() {
   ['upk-list', 'ach-list'].forEach(id => {
     const row = document.getElementById(id);
     if (!row) return;
@@ -333,15 +335,15 @@ function initCardReveal(){
 }
 
 /* ═══ Share ═══ */
-function initShare(){
-  document.getElementById('shareBtn')?.addEventListener('click', function(){
-    if (navigator.share) { navigator.share({title: document.title, url: location.href}).catch(() => {}); return; }
+function initShare() {
+  document.getElementById('shareBtn')?.addEventListener('click', function () {
+    if (navigator.share) { navigator.share({ title: document.title, url: location.href }).catch(() => { }); return; }
     navigator.clipboard.writeText(location.href).then(() => alert('Ссылка скопирована'));
   });
 }
 
 /* ═══ Форма ═══ */
-function sendForm(f){
+function sendForm(f) {
   f.querySelector('.form-ok').style.display = 'block';
   f.querySelectorAll('input,textarea,select,button').forEach(e => e.disabled = true);
   return false;

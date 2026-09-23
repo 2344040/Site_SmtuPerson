@@ -170,7 +170,12 @@ function renderMain() {
   if (has('career') || has('achievements')) {
     let body = '';
     if (has('career')) body += timeline(T.career);
-    if (has('achievements')) body += sub('pro', 'Профессиональные достижения · Награды', achievementCards(T.achievements, 6));
+    if (has('achievements') || T.ach_text) {
+      const achBody =
+        (T.ach_text ? `<div class="text-block">${T.ach_text}</div>` : '') +
+        (has('achievements') ? achievementCards(T.achievements, 6) : '');
+      body += sub('pro', 'Профессиональные достижения · Награды', achBody);
+    };
     o.push(sec('career', '', 'Карьера', body));
   }
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */

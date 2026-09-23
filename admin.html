@@ -89,6 +89,15 @@
     .ed-rec:last-of-type {
       border-bottom: 0;
     }
+
+    .html-preview {
+      background: #fff;
+      min-height: 42px;
+    }
+
+    .html-preview ul {
+      padding-left: 1.2rem;
+    }
   </style>
 </head>
 
@@ -142,14 +151,17 @@
         share_vk_url: ['URL для VK share', 'col-md-6']
       };
 
+      // * TEXTS
       /* Многострочные скалярные поля: ключ → [подпись, строк] */
       const TEXTS = {
         ped_text: ['Текстовый блок педагогической деятельности (опционально)', 3],
-        science_text: ['Текстовый блок научных интересов', 3]
+        science_text: ['Текстовый блок научных интересов', 3],
+        ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
       };
 
       /* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
          s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
+      //   * GROUPS
       const GROUPS = [
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
@@ -159,7 +171,7 @@
         { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
-        { title: '5. Карьера', items: [['a', 'career'], ['a', 'achievements']] },
+        { title: '5. Карьера', items: [['h', 'ach_text'], ['a', 'career'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
           items: [['t', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
@@ -300,6 +312,24 @@
           `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ строка</button>`;
       }
 
+      function renderHtmlField(t, key) {
+        const [label, rows] = TEXTS[key];
+        const val = t[key] || '';
+        return `<div class="mt-3 mb-1">
+    <label class="small text-secondary">${label}</label>
+    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<ul class='text-block-list'>&#10;<li>|</li>&#10;</ul>" title="Список">• список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p class='ms-4'>|</p>" title="Отступ">⇥ отступ</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
+    </div>
+    <textarea id="f-${key}" class="form-control form-control-sm" rows="${rows}" data-f="${key}">${val.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea>
+    <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
+    <div class="html-preview border rounded p-2 mt-1" id="prev-${key}">${val}</div>
+  </div>`;
+      }
+
       function renderArray(t, k) {
         const head = `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
@@ -334,6 +364,7 @@
   <button class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
       }
 
+      // * build
       function build() {
         const t = data.teachers[cur];
 
@@ -348,121 +379,147 @@
         // if (pf) pf.closest('.card').style.display = 'none';
 
         document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
-          let row = '<div class="row g-2">', tail = '';
+          let inner = '', rowBuf = null;
+          const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
+
           g.items.forEach(([type, key]) => {
             if (type === 's') {
               const [label, w] = SCALAR[key];
-              row += `<div class="${w}"><label class="small text-secondary">${label}</label>
+              rowBuf = (rowBuf || '') + `<div class="${w}"><label class="small text-secondary">${label}</label>
           <input class="form-control form-control-sm" data-f="${key}"
                  value="${(t[key] || '').replace(/"/g, '&quot;')}"></div>`;
             } else if (type === 't') {
               const [label, rows] = TEXTS[key];
-              row += `<div class="col-12"><label class="small text-secondary">${label}</label>
+              rowBuf = (rowBuf || '') + `<div class="col-12"><label class="small text-secondary">${label}</label>
           <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${(t[key] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></div>`;
-            } else if (type === 'x') {
-              tail += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
+            } else {
+              flush();
+              if (type === 'a') inner += renderArray(t, key);
+              else if (type === 'h') inner += renderHtmlField(t, key);
+              else if (type === 'x') inner += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
           <input class="form-control form-control-sm" data-ext="${key}"
                  value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}"></div>`;
-            } else if (type === 'a') {
-              tail += renderArray(t, key);
             }
           });
-          row += '</div>';
+          flush();
+
           const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
           return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
-      <div class="mt-2">${row}${tail}</div>
+      <div class="mt-2">${inner}</div>
     </details>`;
         }).join('');
-      }
 
-      /* ═══ Сбор данных из формы ═══ */
-      function collect() {
-        const t = data.teachers[cur];
-        document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
-        if (!t.external_links) t.external_links = {};
-        document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
-        Object.keys(KEYS).forEach(k => { t[k] = []; });
-        document.querySelectorAll('[data-sec]').forEach(i => {
-          const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
-          const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
-          if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
-          else row[k] = i.type === 'checkbox' ? i.checked : i.value;
-        });
-      }
-
-      /* ═══ Строки и преподаватели ═══ */
-      // function add(k) {
-      //   collect();
-      //   const t = data.teachers[cur];
-      //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-      //   build();
-      // }
-
-      function add(k) {
-        collect();
-        const t = data.teachers[cur];
-        t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-        build();
-
-        /* возвращаем редактора к только что созданной строке */
-        const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
-        if (newRow) {
-          newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          if (newRow.focus) newRow.focus({ preventScroll: true });
-        }
-      }
-      function rm(k, i) {
-        collect();
-        data.teachers[cur][k].splice(i, 1);
-        build();
-      }
-      function addTeacher() {
-        collect();
-        data.teachers.push({
-          id: 'new' + Date.now(), name: 'Новый преподаватель',
-          chips: [], positions: [], education: [], career: [], news: []
-        });
-        cur = data.teachers.length - 1;
-        buildSel(); build();
-      }
-      function delTeacher() {
-        if (!confirm('Удалить преподавателя?')) return;
-        collect();
-        data.teachers.splice(cur, 1);
-        cur = 0;
-        buildSel(); build();
-      }
-
-      /* ═══ Сохранение в GitHub ═══ */
-      async function save() {
-        collect();
-        const st = document.getElementById('status');
-        st.textContent = 'v3: сохраняю…';
-        try {
-          const g = await gh('/contents/' + PATH);
-          if (!g.ok) {
-            const e = await g.json().catch(() => ({}));
-            alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
-            st.textContent = '✗ GET ' + g.status; return;
-          }
-          const curFile = await g.json();
-          const json = JSON.stringify(data, null, 1);
-          const b64 = btoa(unescape(encodeURIComponent(json)));
-          const r = await gh('/contents/' + PATH, {
-            method: 'PUT',
-            body: JSON.stringify({
-              message: 'admin: update ' + new Date().toISOString(),
-              content: b64, sha: curFile.sha
-            })
+        /* ═══ Сбор данных из формы ═══ */
+        function collect() {
+          const t = data.teachers[cur];
+          document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+          if (!t.external_links) t.external_links = {};
+          document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
+          Object.keys(KEYS).forEach(k => { t[k] = []; });
+          document.querySelectorAll('[data-sec]').forEach(i => {
+            const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
+            const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
+            if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
+            else row[k] = i.type === 'checkbox' ? i.checked : i.value;
           });
-          const res = await r.json().catch(() => ({}));
-          if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
-          else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
-        } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
-      }
+        }
 
-      if (TOK) load();
+        /* ═══ Строки и преподаватели ═══ */
+        // function add(k) {
+        //   collect();
+        //   const t = data.teachers[cur];
+        //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+        //   build();
+        // }
+
+        function add(k) {
+          collect();
+          const t = data.teachers[cur];
+          t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+          build();
+
+          /* возвращаем редактора к только что созданной строке */
+          const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
+          if (newRow) {
+            newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (newRow.focus) newRow.focus({ preventScroll: true });
+          }
+        }
+        function rm(k, i) {
+          collect();
+          data.teachers[cur][k].splice(i, 1);
+          build();
+        }
+        function addTeacher() {
+          collect();
+          data.teachers.push({
+            id: 'new' + Date.now(), name: 'Новый преподаватель',
+            chips: [], positions: [], education: [], career: [], news: []
+          });
+          cur = data.teachers.length - 1;
+          buildSel(); build();
+        }
+        function delTeacher() {
+          if (!confirm('Удалить преподавателя?')) return;
+          collect();
+          data.teachers.splice(cur, 1);
+          cur = 0;
+          buildSel(); build();
+        }
+
+        /* ═══ Сохранение в GitHub ═══ */
+        async function save() {
+          collect();
+          const st = document.getElementById('status');
+          st.textContent = 'v3: сохраняю…';
+          try {
+            const g = await gh('/contents/' + PATH);
+            if (!g.ok) {
+              const e = await g.json().catch(() => ({}));
+              alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
+              st.textContent = '✗ GET ' + g.status; return;
+            }
+            const curFile = await g.json();
+            const json = JSON.stringify(data, null, 1);
+            const b64 = btoa(unescape(encodeURIComponent(json)));
+            const r = await gh('/contents/' + PATH, {
+              method: 'PUT',
+              body: JSON.stringify({
+                message: 'admin: update ' + new Date().toISOString(),
+                content: b64, sha: curFile.sha
+              })
+            });
+            const res = await r.json().catch(() => ({}));
+            if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
+            else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
+          } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
+        }
+
+        /* ── HTML-поле: панель кнопок и живой предпросмотр ── */
+        function wrapSel(ta, before, after) {
+          const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+          ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
+          ta.focus();
+          ta.selectionStart = s + before.length;
+          ta.selectionEnd = e + before.length;
+          ta.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        document.addEventListener('click', e => {
+          const b = e.target.closest('.html-tools [data-wrap]');
+          if (!b) return;
+          const ta = document.getElementById(b.closest('.html-tools').dataset.target);
+          if (!ta) return;
+          const [before, after] = b.dataset.wrap.split('|');
+          wrapSel(ta, before, after);
+        });
+        document.addEventListener('input', e => {
+          const f = e.target.dataset ? e.target.dataset.f : '';
+          const prev = f ? document.getElementById('prev-' + f) : null;
+          if (prev) prev.innerHTML = e.target.value;
+        });
+      }
+        if (TOK) load();
     </script>
 </body>
 

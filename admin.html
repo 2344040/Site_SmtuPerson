@@ -135,10 +135,10 @@
       /* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
          s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
       const GROUPS = [
-        { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'short']] },
+        { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'name'], ['s', 'post'], ['a', 'chips']]
+          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'post'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },

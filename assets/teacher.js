@@ -174,6 +174,7 @@ function renderMain() {
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */
   if (has('programs') || has('courses') || has('schedule') || has('session')) {
     let body = '';
+    if (T.ped_text) body += `<div class="text-block reveal">${esc(T.ped_text).replace(/\n/g, '<br>')}</div>`;
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
     if (has('courses')) body += sub('courses', 'Читаемые дисциплины', table(
       [{ t: 'Дисциплина' }, { t: 'Уровень' }, { t: 'Курс' }, { t: 'Семестр' }, { t: 'Часы', e: 1 }],
@@ -241,6 +242,7 @@ function renderMain() {
 
 /* ═══ Правый сайдбар ═══ */
 function renderRail() {
+  /* События — без изменений */
   const events = (T.events || []).map(e => `
     <div class="box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
       <p class="small mb-${e.now ? '0' : '1'}" ${e.now ? '' : 'style="color:var(--muted)"'}>
@@ -249,20 +251,29 @@ function renderRail() {
       <p class="small mb-0" ${e.now ? 'style="color:blue"' : ''}><b>${esc(e.x.split('·')[0])}</b>${e.x.includes('·') ? ' · <i>' + esc(e.x.split('·').slice(1).join('·').trim()) + '</i>' : ''}</p>
     </div>`).join('');
 
+  /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
+  const ext = T.external_links || {};
+  const eduLinks = (T.rail_edu && T.rail_edu.length)
+    ? T.rail_edu.map(p => {
+      const icon = String(p.u || '').startsWith('http')
+        ? 'bi-box-arrow-up-right'   // внешняя ссылка — иконка «наружу»
+        : 'bi-arrow-right';        // якорь на странице — стрелка
+      return `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi ${icon} arr"></i></a>`;
+    }).join('')
+    : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
+       <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
+       <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
+
+  /* Профили — без изменений */
   const profiles = (T.profiles || []).map(p =>
     `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right arr"></i></a>`).join('');
-
-  const ext = T.external_links || {};
 
   document.getElementById('rail').innerHTML = `
     <div class="rail-card">
       <h3 class="mb-3">Ближайшие события</h3>${events}
     </div>
     <div class="rail-card">
-      <h3>Учебный процесс</h3>
-      <a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
-      <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
-      <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>
+      <h3>Учебный процесс</h3>${eduLinks}
     </div>
     <div class="rail-card mb-0">
       <h3><i class="bi bi-link-45deg"></i>Профили</h3>${profiles}

@@ -85,45 +85,20 @@ const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
 const GATE = '';
 
 /* ═══ Личные данные: [ключ, подпись, ширина] ═══ */
-/* Скалярные поля: ключ → [подпись, ширина] */
-const SCALAR = {
-  id:      ['ID (латиницей)', 'col-md-3'],
-  short:   ['ФИО коротко', 'col-md-3'],
-  photo:   ['URL фото', 'col-md-6'],
-  university: ['Университет (кратко)', 'col-md-6'],
-  faculty: ['Факультет', 'col-md-6'],
-  name:    ['ФИО полное', 'col-md-6'],
-  post:    ['Должность под ФИО', 'col-md-12'],
-  email:   ['E-mail', 'col-md-4'],
-  phone:   ['Телефон', 'col-md-4'],
-  address: ['Адрес', 'col-md-8'],
-  hours:   ['Приёмные часы', 'col-md-4'],
-  share_tg_url: ['URL для Telegram share', 'col-md-6'],
-  share_vk_url: ['URL для VK share', 'col-md-6']
-};
-
-/* Многострочные скалярные поля: ключ → [подпись, строк] */
-const TEXTS = {
-  ped_text:     ['Текстовый блок педагогической деятельности (опционально)', 3],
-  science_text: ['Текстовый блок научных интересов', 3]
-};
-
-/* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
-   s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
-const GROUPS = [
-  { title: '0. Служебное', open: true,  items: [ ['s','id'], ['s','short'] ] },
-  { title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-    items: [ ['s','photo'], ['s','university'], ['s','faculty'], ['s','name'], ['s','post'], ['a','chips'] ] },
-  { title: '2. Контакты', items: [ ['s','email'], ['s','phone'], ['s','address'], ['s','hours'], ['s','share_tg_url'], ['s','share_vk_url'] ] },
-  { title: '3. Должности (верхний блок)', items: [ ['a','positions'] ] },
-  { title: '4. Образование', items: [ ['a','education'], ['a','upk'] ] },
-  { title: '5. Карьера', items: [ ['a','career'], ['a','achievements'] ] },
-  { title: '6. Педагогическая деятельность',
-    items: [ ['t','ped_text'], ['a','programs'], ['a','courses'], ['a','schedule'], ['a','session'], ['a','books'], ['x','schedule'] ] },
-  { title: '7. Научная деятельность',
-    items: [ ['a','metrics'], ['t','science_text'], ['a','publications'], ['a','projects'], ['a','patents'] ] },
-  { title: '8. Общественная деятельность', items: [ ['a','social'] ] },
-  { title: '9. Правый сайдбар', items: [ ['a','events'], ['a','rail_edu'], ['a','profiles'] ] }
+const FIELDS = [
+  ['id','ID (латиницей)','col-md-3'],
+  ['name','ФИО полное','col-md-6'],
+  ['short','ФИО коротко','col-md-3'],
+  ['university','Университет (кратко)','col-md-3'],
+  ['faculty','Факультет','col-md-9'],
+  ['post','Должность под ФИО','col-md-12'],
+  ['photo','URL фото','col-md-8'],
+  ['email','E-mail','col-md-4'],
+  ['phone','Телефон','col-md-4'],
+  ['address','Адрес','col-md-8'],
+  ['hours','Приёмные часы','col-md-4'],
+  ['share_tg_url','URL для Telegram share','col-md-6'],
+  ['share_vk_url','URL для VK share','col-md-6']
 ];
 
 /* ═══ Ключи секций ═══ */
@@ -144,8 +119,7 @@ const KEYS = {
   metrics: ['n','l'],
   events: ['t','x','now'],
   profiles: ['t','u'],
-  news: ['date','title','img','url'],
-  rail_edu: ['t','u'],
+  news: ['date','title','img','url']
 };
 
 const NAMES = {
@@ -155,8 +129,7 @@ const NAMES = {
   programs:'Программы', courses:'Дисциплины', schedule:'Расписание', session:'Сессия',
   books:'Пособия', publications:'Публикации', patents:'Патенты', projects:'Проекты',
   social:'Общественная деятельность', metrics:'Метрики науки', events:'События (правый сайдбар)',
-  profiles:'Профили (правый сайдбар)', news:'Новости',
-  rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
+  profiles:'Профили (правый сайдбар)', news:'Новости'
 };
 
 /* ═══ Настройки отображения полей ═══ */
@@ -207,58 +180,47 @@ function buildSel(){
 }
 
 /* ═══ Рендер формы ═══ */
-function renderArray(t, k){
-  const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-  return `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>
-  <table class="ed">
-    <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
-    <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
-      const isArrItem = KEYS[k][0] === '*';
-      const val = isArrItem ? row : (row[c] || '');
-      if (k === 'events' && c === 'now') {
-        return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
-      }
-      if ((MULTILINE[k] || []).includes(c)) {
-        return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></td>`;
-      }
-      return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g,'&quot;')}"></td>`;
-    }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
-  </table>
-  <button class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
-}
-
 function build(){
   const t = data.teachers[cur];
 
-  /* старая карточка «Личные данные» больше не нужна — прячем её */
-  const pf = document.getElementById('pf');
-  if (pf) pf.closest('.card').style.display = 'none';
+  document.getElementById('pf').innerHTML = FIELDS.map(f => {
+    const [k, l, w] = f;
+    return `<div class="${w || 'col-md-4'}"><label class="small text-secondary">${l}</label>
+      <input class="form-control form-control-sm" data-f="${k}"
+             value="${(t[k] || '').replace(/"/g, '&quot;')}"></div>`;
+  }).join('');
 
-  document.getElementById('secs').innerHTML = GROUPS.map(g => {
-    let row = '<div class="row g-2">', tail = '';
-    g.items.forEach(([type, key]) => {
-      if (type === 's') {
-        const [label, w] = SCALAR[key];
-        row += `<div class="${w}"><label class="small text-secondary">${label}</label>
-          <input class="form-control form-control-sm" data-f="${key}"
-                 value="${(t[key] || '').replace(/"/g,'&quot;')}"></div>`;
-      } else if (type === 't') {
-        const [label, rows] = TEXTS[key];
-        row += `<div class="col-12"><label class="small text-secondary">${label}</label>
-          <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${
-            (t[key] || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></div>`;
-      } else if (type === 'x') {
-        tail += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
-          <input class="form-control form-control-sm" data-ext="${key}"
-                 value="${(t.external_links?.[key] || '').replace(/"/g,'&quot;')}"></div>`;
-      } else if (type === 'a') {
-        tail += renderArray(t, key);
-      }
-    });
-    row += '</div>';
-    return `<details class="card p-2 mb-2" ${g.open ? 'open' : ''}>
-      <summary class="fw-bold">${g.title}</summary>
-      <div class="mt-2">${row}${tail}</div>
+  const extBlock = `
+    <details class="card p-2 mb-2" open>
+      <summary class="fw-bold">Внешние ссылки</summary>
+      <div class="row g-2 mt-2">
+        <div class="col-md-8">
+          <label class="small text-secondary">URL расписания (внешняя ссылка)</label>
+          <input class="form-control form-control-sm" data-ext="schedule"
+                 value="${(t.external_links?.schedule || '').replace(/"/g, '&quot;')}">
+        </div>
+      </div>
+    </details>`;
+
+  document.getElementById('secs').innerHTML = extBlock + Object.keys(KEYS).map(k => {
+    const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
+    return `<details class="card p-2 mb-2">
+      <summary class="fw-bold">${NAMES[k]}</summary>
+      <table class="ed mt-2">
+        <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
+        <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
+          const isArrItem = KEYS[k][0] === '*';
+          const val = isArrItem ? row : (row[c] || '');
+          if (k === 'events' && c === 'now') {
+            return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
+          }
+          if ((MULTILINE[k] || []).includes(c)) {
+            return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></td>`;
+          }
+          return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g,'&quot;')}"></td>`;
+        }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
+      </table>
+      <button class="btn btn-sm btn-outline-dark mt-1" onclick="add('${k}')">+ строка</button>
     </details>`;
   }).join('');
 }

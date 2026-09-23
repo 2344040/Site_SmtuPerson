@@ -370,7 +370,7 @@ function eduTimeline(a) {
     const lines = [
       esc(i.profile || ''),
       i.qualification
-        ? '<i class="bi bi-mortarboard me-2 fs-5" style="color:var(--amber)" title="Квалификация" aria-label="Квалификация"></i>' + esc(capFirst(i.qualification))
+        ? '<i class="bi bi-mortarboard me-2 fs-5" style="color:var(--amber)" title="Квалификация" aria-label="Квалификация"></i><em>' + esc(capFirst(i.qualification)) + '</em>'
         : esc(i.text || '')
     ].filter(Boolean).join('<br>');
     return `<li><span class="year">${esc(i.year)}</span>

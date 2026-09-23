@@ -49,6 +49,20 @@
       font-weight: 600;
       white-space: nowrap;
     }
+
+    table.ed select {
+      border: 1px solid #dcd7c9;
+      border-radius: 6px;
+      padding: .25rem .4rem;
+      font-size: .8rem;
+      background: #fff;
+    }
+
+    .icon-prev {
+      font-size: 1rem;
+      vertical-align: middle;
+      color: #d97b29;
+    }
   </style>
 </head>
 
@@ -79,256 +93,293 @@
     </div>
 
 
-  <script>
-/* ═══ НАСТРОЙКИ — ВПИШИТЕ СВОИ OWNER И REPO! ═══ */
-const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
-const GATE = '';
+    <script>
+      /* ═══ НАСТРОЙКИ — ВПИШИТЕ СВОИ OWNER И REPO! ═══ */
+      const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
+      const GATE = '';
 
-/* ═══ Личные данные: [ключ, подпись, ширина] ═══ */
-/* Скалярные поля: ключ → [подпись, ширина] */
-const SCALAR = {
-  id:      ['ID (латиницей)', 'col-md-3'],
-  short:   ['ФИО коротко', 'col-md-3'],
-  photo:   ['URL фото', 'col-md-6'],
-  university: ['Университет (кратко)', 'col-md-6'],
-  faculty: ['Факультет', 'col-md-6'],
-  name:    ['ФИО полное', 'col-md-6'],
-  post:    ['Должность под ФИО', 'col-md-12'],
-  email:   ['E-mail', 'col-md-4'],
-  phone:   ['Телефон', 'col-md-4'],
-  address: ['Адрес', 'col-md-8'],
-  hours:   ['Приёмные часы', 'col-md-4'],
-  share_tg_url: ['URL для Telegram share', 'col-md-6'],
-  share_vk_url: ['URL для VK share', 'col-md-6']
-};
+      /* ═══ Личные данные: [ключ, подпись, ширина] ═══ */
+      /* Скалярные поля: ключ → [подпись, ширина] */
+      const SCALAR = {
+        id: ['ID (латиницей)', 'col-md-3'],
+        short: ['ФИО коротко', 'col-md-3'],
+        photo: ['URL фото', 'col-md-6'],
+        university: ['Университет (кратко)', 'col-md-6'],
+        faculty: ['Факультет', 'col-md-6'],
+        name: ['ФИО полное', 'col-md-6'],
+        post: ['Должность под ФИО', 'col-md-12'],
+        email: ['E-mail', 'col-md-4'],
+        phone: ['Телефон', 'col-md-4'],
+        address: ['Адрес', 'col-md-8'],
+        hours: ['Приёмные часы', 'col-md-4'],
+        share_tg_url: ['URL для Telegram share', 'col-md-6'],
+        share_vk_url: ['URL для VK share', 'col-md-6']
+      };
 
-/* Многострочные скалярные поля: ключ → [подпись, строк] */
-const TEXTS = {
-  ped_text:     ['Текстовый блок педагогической деятельности (опционально)', 3],
-  science_text: ['Текстовый блок научных интересов', 3]
-};
+      /* Многострочные скалярные поля: ключ → [подпись, строк] */
+      const TEXTS = {
+        ped_text: ['Текстовый блок педагогической деятельности (опционально)', 3],
+        science_text: ['Текстовый блок научных интересов', 3]
+      };
 
-/* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
-   s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
-const GROUPS = [
-  { title: '0. Служебное', open: true,  items: [ ['s','id'], ['s','short'] ] },
-  { title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-    items: [ ['s','photo'], ['s','university'], ['s','faculty'], ['s','name'], ['s','post'], ['a','chips'] ] },
-  { title: '2. Контакты', items: [ ['s','email'], ['s','phone'], ['s','address'], ['s','hours'], ['s','share_tg_url'], ['s','share_vk_url'] ] },
-  { title: '3. Должности (верхний блок)', items: [ ['a','positions'] ] },
-  { title: '4. Образование', items: [ ['a','education'], ['a','upk'] ] },
-  { title: '5. Карьера', items: [ ['a','career'], ['a','achievements'] ] },
-  { title: '6. Педагогическая деятельность',
-    items: [ ['t','ped_text'], ['a','programs'], ['a','courses'], ['a','schedule'], ['a','session'], ['a','books'], ['x','schedule'] ] },
-  { title: '7. Научная деятельность',
-    items: [ ['a','metrics'], ['t','science_text'], ['a','publications'], ['a','projects'], ['a','patents'] ] },
-  { title: '8. Общественная деятельность', items: [ ['a','social'] ] },
-  { title: '9. Правый сайдбар', items: [ ['a','events'], ['a','rail_edu'], ['a','profiles'] ] }
-];
+      /* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
+         s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
+      const GROUPS = [
+        { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'short']] },
+        {
+          title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
+          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'name'], ['s', 'post'], ['a', 'chips']]
+        },
+        { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
+        { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
+        { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
+        { title: '5. Карьера', items: [['a', 'career'], ['a', 'achievements']] },
+        {
+          title: '6. Педагогическая деятельность',
+          items: [['t', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
+        },
+        {
+          title: '7. Научная деятельность',
+          items: [['a', 'metrics'], ['t', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
+        },
+        { title: '8. Общественная деятельность', items: [['a', 'social']] },
+        { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] }
+      ];
 
-/* ═══ Ключи секций ═══ */
-const KEYS = {
-  chips: ['*'], positions: ['*'],
-  education: ['year','title','text'], upk: ['year','title','text'],
-  career: ['year','title','text'],
-  achievements: ['year','icon','title','text'],
-  programs: ['tag','title','text'],
-  courses: ['a','b','c','d','e'],
-  schedule: ['a','b','c','d','e','f'],
-  session: ['a','b','c','d','e','f'],
-  books: ['year','title','text','tag'],
-  publications: ['year','title','text','tag','link','doi'],
-  patents: ['year','title','text','tag'],
-  projects: ['year','title','text'],
-  social: ['title','text'],
-  metrics: ['n','l'],
-  events: ['t','x','now'],
-  profiles: ['t','u'],
-  news: ['date','title','img','url'],
-  rail_edu: ['t','u'],
-};
+      /* ═══ Ключи секций ═══ */
+      const KEYS = {
+        chips: ['*'], positions: ['*'],
+        education: ['year', 'title', 'text'], upk: ['year', 'title', 'text'],
+        career: ['year', 'title', 'text'],
+        achievements: ['year', 'icon', 'title', 'text'],
+        programs: ['tag', 'title', 'text'],
+        courses: ['a', 'b', 'c', 'd', 'e'],
+        schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
+        session: ['a', 'b', 'c', 'd', 'e', 'f'],
+        books: ['year', 'title', 'text', 'tag'],
+        publications: ['year', 'title', 'text', 'tag', 'link', 'doi'],
+        patents: ['year', 'title', 'text', 'tag'],
+        projects: ['year', 'title', 'text'],
+        social: ['title', 'text'],
+        metrics: ['n', 'l'],
+        events: ['t', 'x', 'now'],
+        profiles: ['t', 'u'],
+        news: ['date', 'title', 'img', 'url'],
+        rail_edu: ['t', 'u'],
+      };
 
-const NAMES = {
-  chips:'Чипсы', positions:'Должности (верхний блок)',
-  education:'Образование', upk:'Повышение квалификации',
-  career:'Карьера', achievements:'Профессиональные достижения',
-  programs:'Программы', courses:'Дисциплины', schedule:'Расписание', session:'Сессия',
-  books:'Пособия', publications:'Публикации', patents:'Патенты', projects:'Проекты',
-  social:'Общественная деятельность', metrics:'Метрики науки', events:'События (правый сайдбар)',
-  profiles:'Профили (правый сайдбар)', news:'Новости',
-  rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
-};
+      /* Иконки достижений: [значение в JSON, подпись в списке] */
+      const ICONS = [
+        ['award', '🎖 award — медаль / лента'],
+        ['trophy', '🏆 trophy — кубок'],
+        ['medal', '🥇 medal — медаль'],
+        ['star', '⭐ star — звезда'],
+        ['patch-check', '✅ patch-check — знак отличия'],
+        ['mortarboard', '🎓 mortarboard — академическая шапка'],
+        ['gem', '💎 gem — драгоценный камень'],
+        ['bookmark-star', '🔖 bookmark-star — закладка со звездой']
+      ];
 
-/* ═══ Настройки отображения полей ═══ */
-const MULTILINE = {
-  achievements: ['text'], publications: ['text'], patents: ['text'],
-  projects: ['text'], social: ['text'], events: ['x'], news: ['title']
-};
-const AREA_ROWS = { achievements: 4, publications: 3 };
+      const NAMES = {
+        chips: 'Чипсы', positions: 'Должности (верхний блок)',
+        education: 'Образование', upk: 'Повышение квалификации',
+        career: 'Карьера', achievements: 'Профессиональные достижения',
+        programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
+        books: 'Пособия', publications: 'Публикации', patents: 'Патенты', projects: 'Проекты',
+        social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
+        profiles: 'Профили (правый сайдбар)', news: 'Новости',
+        rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
+      };
 
-const COL_NAMES = {
-  '*':'Значение', year:'Год', date:'Дата', title:'Название', text:'Описание',
-  tag:'Тег', icon:'Иконка', link:'Ссылка', doi:'DOI',
-  n:'Число', l:'Подпись', t:'Заголовок', x:'Описание', now:'Сейчас', u:'URL', img:'URL картинки'
-};
-const SEC_COLS = {
-  courses:  { a:'Дисциплина', b:'Уровень', c:'Курс',    d:'Семестр', e:'Часы' },
-  schedule: { a:'День',       b:'Время',   c:'Дисциплина', d:'Тип',  e:'Группа', f:'Ауд.' },
-  session:  { a:'Дата',       b:'Время',   c:'Дисциплина', d:'Форма', e:'Группа', f:'Ауд.' }
-};
-function colName(sec, key){
-  return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
-}
+      /* ═══ Настройки отображения полей ═══ */
+      const MULTILINE = {
+        achievements: ['text'], publications: ['text'], patents: ['text'],
+        projects: ['text'], social: ['text'], events: ['x'], news: ['title']
+      };
+      const AREA_ROWS = { achievements: 4, publications: 3 };
 
-/* ═══ Состояние и GitHub API ═══ */
-let TOK = sessionStorage.tok || '', data = null, cur = 0;
-const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
-  { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
+      const COL_NAMES = {
+        '*': 'Значение', year: 'Год', date: 'Дата', title: 'Название', text: 'Описание',
+        tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
+        n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки'
+      };
+      const SEC_COLS = {
+        courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
+        schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
+        session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' }
+      };
+      function colName(sec, key) {
+        return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
+      }
 
-/* ═══ Вход и загрузка ═══ */
-function login(){
-  if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
-  TOK = document.getElementById('token').value.trim();
-  sessionStorage.tok = TOK;
-  load();
-}
-async function load(){
-  const r = await gh('/contents/' + PATH);
-  if (!r.ok) return alert('Токен не принят: ' + r.status);
-  data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('app').style.display = '';
-  buildSel(); build();
-}
-function buildSel(){
-  const s = document.getElementById('tsel');
-  s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join('');
-  s.value = cur;
-}
+      /* ═══ Состояние и GitHub API ═══ */
+      let TOK = sessionStorage.tok || '', data = null, cur = 0;
+      const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
+        { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
-/* ═══ Рендер формы ═══ */
-function renderArray(t, k){
-  const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-  return `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>
+      /* ═══ Вход и загрузка ═══ */
+      function login() {
+        if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
+        TOK = document.getElementById('token').value.trim();
+        sessionStorage.tok = TOK;
+        load();
+      }
+      async function load() {
+        const r = await gh('/contents/' + PATH);
+        if (!r.ok) return alert('Токен не принят: ' + r.status);
+        data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('app').style.display = '';
+        buildSel(); build();
+      }
+      function buildSel() {
+        const s = document.getElementById('tsel');
+        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join('');
+        s.value = cur;
+      }
+
+      /* ═══ Рендер формы ═══ */
+      function renderArray(t, k) {
+        const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
+        return `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>
   <table class="ed">
     <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
     <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
-      const isArrItem = KEYS[k][0] === '*';
-      const val = isArrItem ? row : (row[c] || '');
-      if (k === 'events' && c === 'now') {
-        return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
-      }
-      if ((MULTILINE[k] || []).includes(c)) {
-        return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></td>`;
-      }
-      return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g,'&quot;')}"></td>`;
-    }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
+          const isArrItem = KEYS[k][0] === '*';
+          const val = isArrItem ? row : (row[c] || '');
+          if (k === 'events' && c === 'now') {
+            return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
+          }
+
+          // ← НОВОЕ: выпадающий список иконок с предпросмотром
+          if (k === 'achievements' && c === 'icon') {
+            return `<td>
+    <span class="icon-prev bi bi-${val || 'award'} me-1"></span>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}"
+      onchange="this.previousElementSibling.className='icon-prev bi bi-'+(this.value||'award')+' me-1'">
+      <option value="" ${!val ? 'selected' : ''}>— авто —</option>
+      ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
+    </select></td>`;
+          }
+
+          if ((MULTILINE[k] || []).includes(c)) {
+            return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
+          }
+          return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
+        }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
   </table>
   <button class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
-}
-
-function build(){
-  const t = data.teachers[cur];
-
-  /* старая карточка «Личные данные» больше не нужна — прячем её */
-  const pf = document.getElementById('pf');
-  if (pf) pf.closest('.card').style.display = 'none';
-
-  document.getElementById('secs').innerHTML = GROUPS.map(g => {
-    let row = '<div class="row g-2">', tail = '';
-    g.items.forEach(([type, key]) => {
-      if (type === 's') {
-        const [label, w] = SCALAR[key];
-        row += `<div class="${w}"><label class="small text-secondary">${label}</label>
-          <input class="form-control form-control-sm" data-f="${key}"
-                 value="${(t[key] || '').replace(/"/g,'&quot;')}"></div>`;
-      } else if (type === 't') {
-        const [label, rows] = TEXTS[key];
-        row += `<div class="col-12"><label class="small text-secondary">${label}</label>
-          <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${
-            (t[key] || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea></div>`;
-      } else if (type === 'x') {
-        tail += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
-          <input class="form-control form-control-sm" data-ext="${key}"
-                 value="${(t.external_links?.[key] || '').replace(/"/g,'&quot;')}"></div>`;
-      } else if (type === 'a') {
-        tail += renderArray(t, key);
       }
-    });
-    row += '</div>';
-    return `<details class="card p-2 mb-2" ${g.open ? 'open' : ''}>
+
+      function build() {
+        const t = data.teachers[cur];
+
+        /* старая карточка «Личные данные» больше не нужна — прячем её */
+        const pf = document.getElementById('pf');
+        if (pf) pf.closest('.card').style.display = 'none';
+
+        document.getElementById('secs').innerHTML = GROUPS.map(g => {
+          let row = '<div class="row g-2">', tail = '';
+          g.items.forEach(([type, key]) => {
+            if (type === 's') {
+              const [label, w] = SCALAR[key];
+              row += `<div class="${w}"><label class="small text-secondary">${label}</label>
+          <input class="form-control form-control-sm" data-f="${key}"
+                 value="${(t[key] || '').replace(/"/g, '&quot;')}"></div>`;
+            } else if (type === 't') {
+              const [label, rows] = TEXTS[key];
+              row += `<div class="col-12"><label class="small text-secondary">${label}</label>
+          <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${(t[key] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></div>`;
+            } else if (type === 'x') {
+              tail += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
+          <input class="form-control form-control-sm" data-ext="${key}"
+                 value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}"></div>`;
+            } else if (type === 'a') {
+              tail += renderArray(t, key);
+            }
+          });
+          row += '</div>';
+          return `<details class="card p-2 mb-2" ${g.open ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
       <div class="mt-2">${row}${tail}</div>
     </details>`;
-  }).join('');
-}
+        }).join('');
+      }
 
-/* ═══ Сбор данных из формы ═══ */
-function collect(){
-  const t = data.teachers[cur];
-  document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
-  if (!t.external_links) t.external_links = {};
-  document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
-  Object.keys(KEYS).forEach(k => { t[k] = []; });
-  document.querySelectorAll('[data-sec]').forEach(i => {
-    const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
-    const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
-    if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
-    else row[k] = i.type === 'checkbox' ? i.checked : i.value;
-  });
-}
+      /* ═══ Сбор данных из формы ═══ */
+      function collect() {
+        const t = data.teachers[cur];
+        document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+        if (!t.external_links) t.external_links = {};
+        document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
+        Object.keys(KEYS).forEach(k => { t[k] = []; });
+        document.querySelectorAll('[data-sec]').forEach(i => {
+          const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
+          const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
+          if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
+          else row[k] = i.type === 'checkbox' ? i.checked : i.value;
+        });
+      }
 
-/* ═══ Строки и преподаватели ═══ */
-function add(k){
-  collect();
-  const t = data.teachers[cur];
-  t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-  build();
-}
-function rm(k, i){
-  collect();
-  data.teachers[cur][k].splice(i, 1);
-  build();
-}
-function addTeacher(){
-  collect();
-  data.teachers.push({ id: 'new' + Date.now(), name: 'Новый преподаватель',
-    chips: [], positions: [], education: [], career: [], news: [] });
-  cur = data.teachers.length - 1;
-  buildSel(); build();
-}
-function delTeacher(){
-  if (!confirm('Удалить преподавателя?')) return;
-  collect();
-  data.teachers.splice(cur, 1);
-  cur = 0;
-  buildSel(); build();
-}
+      /* ═══ Строки и преподаватели ═══ */
+      function add(k) {
+        collect();
+        const t = data.teachers[cur];
+        t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+        build();
+      }
+      function rm(k, i) {
+        collect();
+        data.teachers[cur][k].splice(i, 1);
+        build();
+      }
+      function addTeacher() {
+        collect();
+        data.teachers.push({
+          id: 'new' + Date.now(), name: 'Новый преподаватель',
+          chips: [], positions: [], education: [], career: [], news: []
+        });
+        cur = data.teachers.length - 1;
+        buildSel(); build();
+      }
+      function delTeacher() {
+        if (!confirm('Удалить преподавателя?')) return;
+        collect();
+        data.teachers.splice(cur, 1);
+        cur = 0;
+        buildSel(); build();
+      }
 
-/* ═══ Сохранение в GitHub ═══ */
-async function save(){
-  collect();
-  const st = document.getElementById('status');
-  st.textContent = 'v3: сохраняю…';
-  try {
-    const g = await gh('/contents/' + PATH);
-    if (!g.ok) { const e = await g.json().catch(() => ({}));
-      alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
-      st.textContent = '✗ GET ' + g.status; return; }
-    const curFile = await g.json();
-    const json = JSON.stringify(data, null, 1);
-    const b64 = btoa(unescape(encodeURIComponent(json)));
-    const r = await gh('/contents/' + PATH, { method: 'PUT',
-      body: JSON.stringify({ message: 'admin: update ' + new Date().toISOString(),
-                             content: b64, sha: curFile.sha }) });
-    const res = await r.json().catch(() => ({}));
-    if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
-    else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
-  } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
-}
+      /* ═══ Сохранение в GitHub ═══ */
+      async function save() {
+        collect();
+        const st = document.getElementById('status');
+        st.textContent = 'v3: сохраняю…';
+        try {
+          const g = await gh('/contents/' + PATH);
+          if (!g.ok) {
+            const e = await g.json().catch(() => ({}));
+            alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
+            st.textContent = '✗ GET ' + g.status; return;
+          }
+          const curFile = await g.json();
+          const json = JSON.stringify(data, null, 1);
+          const b64 = btoa(unescape(encodeURIComponent(json)));
+          const r = await gh('/contents/' + PATH, {
+            method: 'PUT',
+            body: JSON.stringify({
+              message: 'admin: update ' + new Date().toISOString(),
+              content: b64, sha: curFile.sha
+            })
+          });
+          const res = await r.json().catch(() => ({}));
+          if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
+          else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
+        } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
+      }
 
-if (TOK) load();
-</script>
+      if (TOK) load();
+    </script>
 </body>
 
 </html>

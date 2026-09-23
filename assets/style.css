@@ -595,7 +595,7 @@ h3,
 
 .card-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 34px -20px rgba(18, 36, 31, .5);
+  box-shadow: 0 6px 12px -20px rgba(18, 36, 31, .5);
 }
 
 .card-lift .bar {

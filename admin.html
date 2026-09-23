@@ -63,6 +63,16 @@
       vertical-align: middle;
       color: #d97b29;
     }
+
+    .ed-rec {
+      padding: .75rem 0 .9rem;
+      border-bottom: 1px dashed #dcd7c9;
+      /* горизонтальная черта между записями */
+    }
+
+    .ed-rec:last-of-type {
+      border-bottom: 0;
+    }
   </style>
 </head>
 
@@ -146,10 +156,12 @@
         { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] }
       ];
 
-      /* ═══ Ключи секций ═══ */
+      // * keys
       const KEYS = {
         chips: ['*'], positions: ['*'],
-        education: ['year', 'title', 'text'], upk: ['year', 'title', 'text'],
+        // education: ['year', 'title', 'text'], 
+        education: ['year', 'institution', 'level', 'profile', 'qualification'],
+        upk: ['year', 'title', 'text'],
         career: ['year', 'title', 'text'],
         achievements: ['year', 'icon', 'title', 'text'],
         programs: ['tag', 'title', 'text'],
@@ -201,8 +213,12 @@
       const COL_NAMES = {
         '*': 'Значение', year: 'Год', date: 'Дата', title: 'Название', text: 'Описание',
         tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
-        n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки'
+        n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки',
+        institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
       };
+
+      const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'аспирантура', 'докторантура'];
+
       const SEC_COLS = {
         courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
@@ -239,10 +255,44 @@
       }
 
       /* ═══ Рендер формы ═══ */
+      function renderEducation(arr) {
+        return arr.map((row, i) => `
+    <div class="ed-rec">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
+      </div>
+      <div class="row g-2 mt-1">
+        <div class="col-md-2"><label class="small text-secondary">Год</label>
+          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
+                 value="${(row.year || '').replace(/"/g, '&quot;')}"></div>
+        <div class="col-md-4"><label class="small text-secondary">Учреждение</label>
+          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="institution"
+                 value="${(row.institution || '').replace(/"/g, '&quot;')}"></div>
+        <div class="col-md-3"><label class="small text-secondary">Уровень</label>
+          <select class="form-select form-select-sm" data-sec="education" data-i="${i}" data-k="level">
+            ${LEVELS.map(v => `<option value="${v}" ${row.level === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+          </select></div>
+        <div class="col-md-6"><label class="small text-secondary">Профиль</label>
+          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="profile"
+                 value="${(row.profile || '').replace(/"/g, '&quot;')}"></div>
+        <div class="col-md-6"><label class="small text-secondary">Квалификация</label>
+          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="qualification"
+                 value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
+      </div>
+    </div>`).join('') +
+          `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ строка</button>`;
+      }
+
       function renderArray(t, k) {
+        const head = `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-        return `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>
-  <table class="ed">
+
+        /* Образование — карточки-записи вместо таблицы */
+        if (k === 'education') return head + renderEducation(arr);
+
+        /* Остальные секции — прежняя таблица */
+        return head + `<table class="ed">
     <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
     <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
           const isArrItem = KEYS[k][0] === '*';
@@ -250,18 +300,15 @@
           if (k === 'events' && c === 'now') {
             return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
           }
-
-          // ← НОВОЕ: выпадающий список иконок с предпросмотром
           if (k === 'achievements' && c === 'icon') {
             return `<td>
-    <span class="icon-prev bi bi-${val || 'award'} me-1"></span>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}"
-      onchange="this.previousElementSibling.className='icon-prev bi bi-'+(this.value||'award')+' me-1'">
-      <option value="" ${!val ? 'selected' : ''}>— авто —</option>
-      ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
-    </select></td>`;
+          <span class="icon-prev bi bi-${val || 'award'} me-1"></span>
+          <select data-sec="${k}" data-i="${i}" data-k="${c}"
+            onchange="this.previousElementSibling.className='icon-prev bi bi-'+(this.value||'award')+' me-1'">
+            <option value="" ${!val ? 'selected' : ''}>— авто —</option>
+            ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
+          </select></td>`;
           }
-
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }

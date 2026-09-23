@@ -160,7 +160,7 @@ function renderMain() {
   /* EDUCATION (alt) */
   if (has('education') || has('upk')) {
     let body = '';
-    if (has('education')) body += timeline(T.education);
+    if (has('education')) body += eduTimeline(T.education);
     if (has('upk')) body += sub('upk', 'Повышение квалификации', upkCards(T.upk, 6));
     o.push(sec('education', 'alt', 'Образование', body));
   }
@@ -359,4 +359,19 @@ function sendForm(f) {
   f.querySelectorAll('input,textarea,select,button').forEach(e => e.disabled = true);
   return false;
 }
+
+/* Образование: учреждение / уровень · профиль / квалификация */
+function eduTimeline(a){
+  return `<ul class="timeline reveal">${a.map(i => {
+    const head = esc(i.institution || i.title || '');
+    const mid  = esc([i.level, i.profile].filter(Boolean).join(' · '));
+    const tail = i.qualification
+      ? 'Квалификация: «' + esc(i.qualification) + '».'
+      : esc(i.text || '');
+    return `<li><span class="year">${esc(i.year)}</span>
+      <h3 class="fs-6 fw-bold mb-1">${head}</h3>
+      ${mid ? mid + '<br>' : ''}${tail}</li>`;
+  }).join('')}</ul>`;
+}
+
 window.sendForm = sendForm;

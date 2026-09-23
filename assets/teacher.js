@@ -70,7 +70,7 @@ const programCards = a => `<div class="row g-3 reveal">${a.map(i => {
   const tagCls = (i.tag || '').toLowerCase().includes('бак') ? 'vak' : (i.tag || '').toLowerCase().includes('маг') ? 'scopus' : 'rinc';
   return `<div class="col-md-${a.length <= 2 ? 6 : 4}">
     <div class="card-lift"><div class="bar"></div><div class="p-3 d-flex flex-column">
-      <span class="tag ${tagCls}">${esc(i.tag)}</span>
+      <span class="tag ${tagCls}" style="text-transform:capitalize">${esc(i.tag)}</span>
       <h3 class="fs-6 fw-bold mt-2">${esc(i.title)}</h3>
       <small class="text-secondary">${esc(i.text)}</small>
     </div></div></div>`;
@@ -189,7 +189,7 @@ function renderMain() {
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */
   if (has('programs') || has('courses') || has('schedule') || has('session')) {
     let body = '';
-   if (T.ped_text) body += `<div class="text-block reveal">${htmlOrText(T.ped_text)}</div>`;
+    if (T.ped_text) body += `<div class="text-block reveal">${htmlOrText(T.ped_text)}</div>`;
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
     if (has('courses')) body += sub('courses', 'Читаемые дисциплины', table(
       [{ t: 'Дисциплина' }, { t: 'Уровень' }, { t: 'Курс' }, { t: 'Семестр' }, { t: 'Часы', e: 1 }],

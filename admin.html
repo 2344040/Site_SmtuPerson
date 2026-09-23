@@ -277,12 +277,13 @@
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
       };
 
-      const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'аспирантура', 'докторантура'];
+      const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО'];
 
       const SEC_COLS = {
         courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
-        session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' }
+        session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
+        programs: { tag: 'Уровень', title: 'Название', text: 'Описание' }
       };
       function colName(sec, key) {
         return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
@@ -391,6 +392,15 @@
             ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
           </select></td>`;
           }
+
+          // ← НОВОЕ: выпадающий список уровней для программ
+          if (k === 'programs' && c === 'tag') {
+            return `<td>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}">
+      ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+    </select></td>`;
+          }
+
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }

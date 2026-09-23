@@ -360,17 +360,20 @@ function sendForm(f) {
   return false;
 }
 
-/* Образование: учреждение / уровень · профиль / квалификация */
-function eduTimeline(a){
+/* Образование: учреждение · уровень (одной строкой, жирным), ниже профиль и квалификация */
+function eduTimeline(a) {
   return `<ul class="timeline reveal">${a.map(i => {
-    const head = esc(i.institution || i.title || '');
-    const mid  = esc([i.level, i.profile].filter(Boolean).join(' · '));
-    const tail = i.qualification
-      ? 'Квалификация: «' + esc(i.qualification) + '».'
-      : esc(i.text || '');
+    const inst = esc(i.institution || i.title || '');
+    const level = i.level ? ' &middot; <b style="text-transform:capitalize">' + esc(i.level) + '</b>' : '';
+    const lines = [
+      esc(i.profile || ''),
+      i.qualification
+        ? 'Квалификация: «' + esc(i.qualification) + '».'
+        : esc(i.text || '')
+    ].filter(Boolean).join('<br>');
     return `<li><span class="year">${esc(i.year)}</span>
-      <h3 class="fs-6 fw-bold mb-1">${head}</h3>
-      ${mid ? mid + '<br>' : ''}${tail}</li>`;
+      <h3 class="fs-6 fw-bold mb-1">${inst}${level}</h3>
+      ${lines}</li>`;
   }).join('')}</ul>`;
 }
 

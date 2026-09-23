@@ -444,117 +444,118 @@
     </details>`;
         }).join('');
       }
-        /* ═══ Сбор данных из формы ═══ */
-        function collect() {
-          const t = data.teachers[cur];
-          document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
-          if (!t.external_links) t.external_links = {};
-          document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
-          Object.keys(KEYS).forEach(k => { t[k] = []; });
-          document.querySelectorAll('[data-sec][data-i][data-k]').forEach(i => {
-            const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
-            const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
-            if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
-            else row[k] = i.type === 'checkbox' ? i.checked : i.value;
-          });
+      /* ═══ Сбор данных из формы ═══ */
+      function collect() {
+        const t = data.teachers[cur];
+        document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+        if (!t.external_links) t.external_links = {};
+        document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
+        Object.keys(KEYS).forEach(k => { t[k] = []; });
+        document.querySelectorAll('[data-sec][data-i][data-k]').forEach(i => {
+          const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
+          const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
+          if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
+          else row[k] = i.type === 'checkbox' ? i.checked : i.value;
+        });
+      }
+
+      /* ═══ Строки и преподаватели ═══ */
+      // function add(k) {
+      //   collect();
+      //   const t = data.teachers[cur];
+      //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+      //   build();
+      // }
+
+      function add(k) {
+        collect();
+        const t = data.teachers[cur];
+        t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+        build();
+
+        /* возвращаем редактора к только что созданной строке */
+        const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
+        if (newRow) {
+          newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (newRow.focus) newRow.focus({ preventScroll: true });
         }
+      }
+      function rm(k, i) {
+        collect();
+        data.teachers[cur][k].splice(i, 1);
+        build();
+      }
+      function addTeacher() {
+        collect();
+        data.teachers.push({
+          id: 'new' + Date.now(), name: 'Новый преподаватель',
+          chips: [], positions: [], education: [], career: [], news: []
+        });
+        cur = data.teachers.length - 1;
+        buildSel(); build();
+      }
+      function delTeacher() {
+        if (!confirm('Удалить преподавателя?')) return;
+        collect();
+        data.teachers.splice(cur, 1);
+        cur = 0;
+        buildSel(); build();
+      }
 
-        /* ═══ Строки и преподаватели ═══ */
-        // function add(k) {
-        //   collect();
-        //   const t = data.teachers[cur];
-        //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-        //   build();
-        // }
-
-        function add(k) {
-          collect();
-          const t = data.teachers[cur];
-          t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-          build();
-
-          /* возвращаем редактора к только что созданной строке */
-          const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
-          if (newRow) {
-            newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            if (newRow.focus) newRow.focus({ preventScroll: true });
+      /* ═══ Сохранение в GitHub ═══ */
+      async function save() {
+        collect();
+        const st = document.getElementById('status');
+        st.textContent = 'v3: сохраняю…';
+        try {
+          const g = await gh('/contents/' + PATH);
+          if (!g.ok) {
+            const e = await g.json().catch(() => ({}));
+            alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
+            st.textContent = '✗ GET ' + g.status; return;
           }
-        }
-        function rm(k, i) {
-          collect();
-          data.teachers[cur][k].splice(i, 1);
-          build();
-        }
-        function addTeacher() {
-          collect();
-          data.teachers.push({
-            id: 'new' + Date.now(), name: 'Новый преподаватель',
-            chips: [], positions: [], education: [], career: [], news: []
+          const curFile = await g.json();
+          const json = JSON.stringify(data, null, 1);
+          const b64 = btoa(unescape(encodeURIComponent(json)));
+          const r = await gh('/contents/' + PATH, {
+            method: 'PUT',
+            body: JSON.stringify({
+              message: 'admin: update ' + new Date().toISOString(),
+              content: b64, sha: curFile.sha
+            })
           });
-          cur = data.teachers.length - 1;
-          buildSel(); build();
-        }
-        function delTeacher() {
-          if (!confirm('Удалить преподавателя?')) return;
-          collect();
-          data.teachers.splice(cur, 1);
-          cur = 0;
-          buildSel(); build();
-        }
+          const res = await r.json().catch(() => ({}));
+          if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
+          else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
+        } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
+      }
 
-        /* ═══ Сохранение в GitHub ═══ */
-        async function save() {
-          collect();
-          const st = document.getElementById('status');
-          st.textContent = 'v3: сохраняю…';
-          try {
-            const g = await gh('/contents/' + PATH);
-            if (!g.ok) {
-              const e = await g.json().catch(() => ({}));
-              alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
-              st.textContent = '✗ GET ' + g.status; return;
-            }
-            const curFile = await g.json();
-            const json = JSON.stringify(data, null, 1);
-            const b64 = btoa(unescape(encodeURIComponent(json)));
-            const r = await gh('/contents/' + PATH, {
-              method: 'PUT',
-              body: JSON.stringify({
-                message: 'admin: update ' + new Date().toISOString(),
-                content: b64, sha: curFile.sha
-              })
-            });
-            const res = await r.json().catch(() => ({}));
-            if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
-            else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
-          } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
-        }
+      /* ── HTML-поле: панель кнопок и живой предпросмотр ── */
+      function wrapSel(ta, before, after) {
+        const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+        ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
+        ta.focus();
+        ta.selectionStart = s + before.length;
+        ta.selectionEnd = e + before.length;
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      document.addEventListener('click', e => {
+        const b = e.target.closest('.html-tools [data-wrap]');
+        if (!b) return;
+        const ta = document.getElementById(b.closest('.html-tools').dataset.target);
+        if (!ta) return;
+        const [before, after] = b.dataset.wrap.split('|');
+        wrapSel(ta, before, after);
+      });
+      document.addEventListener('input', e => {
+        const f = e.target.dataset ? e.target.dataset.f : '';
+        const prev = f ? document.getElementById('prev-' + f) : null;
+        if (prev) prev.innerHTML = e.target.value;
+      });
 
-        /* ── HTML-поле: панель кнопок и живой предпросмотр ── */
-        function wrapSel(ta, before, after) {
-          const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
-          ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
-          ta.focus();
-          ta.selectionStart = s + before.length;
-          ta.selectionEnd = e + before.length;
-          ta.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-        document.addEventListener('click', e => {
-          const b = e.target.closest('.html-tools [data-wrap]');
-          if (!b) return;
-          const ta = document.getElementById(b.closest('.html-tools').dataset.target);
-          if (!ta) return;
-          const [before, after] = b.dataset.wrap.split('|');
-          wrapSel(ta, before, after);
-        });
-        document.addEventListener('input', e => {
-          const f = e.target.dataset ? e.target.dataset.f : '';
-          const prev = f ? document.getElementById('prev-' + f) : null;
-          if (prev) prev.innerHTML = e.target.value;
-        });
-      
       if (TOK) load();
     </script>
+  </div>
 </body>
 
 </html>

@@ -1,6 +1,9 @@
 // assets/teacher.js
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const isFilled = i => typeof i === 'string'
+  ? i.trim() !== ''
+  : Object.entries(i || {}).some(([k, v]) => k !== 'icon' && String(v ?? '').trim() !== '');
 
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
@@ -8,6 +11,7 @@ let T;
 fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
   T = d.teachers.find(t => t.id === new URLSearchParams(location.search).get('id')) || d.teachers[0];
   if (!T) { document.getElementById('main').innerHTML = '<p class="p-4">Нет данных.</p>'; return; }
+  Object.keys(T).forEach(k => { if (Array.isArray(T[k])) T[k] = T[k].filter(isFilled); });
   document.title = (T.short || T.name) + ' — СПбГМТУ';
   fillHeader();
   buildMenu();

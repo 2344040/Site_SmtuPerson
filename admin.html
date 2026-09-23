@@ -98,8 +98,19 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url']
       };
+
+      const MULTILINE = {
+        achievements: ['text'],
+        publications: ['text'],
+        patents: ['text'],
+        projects: ['text'],
+        social: ['text'],
+        events: ['x'],
+        news: ['title']
+      };
+
       const NAMES = {
-        chips: 'Чипсы', positions: 'Должности (верхний блок)',
+        chips: 'Чипы', positions: 'Должности (верхний блок)',
         education: 'Образование', upk: 'Повышение квалификации',
         career: 'Карьера', achievements: 'Профессиональные достижения',
         programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
@@ -166,12 +177,22 @@
             const isArrItem = KEYS[k][0] === '*';
             const val = isArrItem ? row : (row[c] || '');
 
-            // ← НОВОЕ: для events.now рендерим чекбокс вместо input
+            // ветка 1: чекбокс для events.now
             if (k === 'events' && c === 'now') {
               return `<td><input type="checkbox"
                         data-sec="${k}" data-i="${i}" data-k="${c}"
                         ${val ? 'checked' : ''}></td>`;
             }
+
+            // Ветка 2 — textarea для длинных текстов
+         
+            if ((MULTILINE[k] || []).includes(c)) {
+              return `<td><textarea rows="2"
+                data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                }</textarea></td>`;
+            }
+
+            // ветка 3: обычная ячейка input для остальных случаев
             return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}"
                        value="${String(val).replace(/"/g, '&quot;')}"></td>`;
           }).join('')

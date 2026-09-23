@@ -33,7 +33,7 @@
 
     table.ed input[data-k="title"] {
       width: 80%;
-      min-width: 460px;
+
       /* название: основная ширина */
     }
 
@@ -52,7 +52,7 @@
 
     table.ed textarea {
       width: 100%;
-      min-width: 300px;
+
     }
 
     table.ed th {
@@ -97,6 +97,38 @@
 
     .html-preview ul {
       padding-left: 1.2rem;
+    }
+
+    /* ── Достижения: фиксированная сетка, ничего не вылезает ── */
+    table.ed[data-sec="achievements"] {
+      width: 100%;
+      table-layout: fixed;
+      /* колонки берут ширину из th, а не из контента */
+    }
+
+    table.ed[data-sec="achievements"] th:nth-child(1) {
+      width: 64px;
+    }
+
+    /* Год */
+    table.ed[data-sec="achievements"] th:nth-child(2) {
+      width: 150px;
+    }
+
+    /* Иконка (превью + список) */
+    table.ed[data-sec="achievements"] th:nth-child(3) {
+      width: 28%;
+    }
+
+    /* Название */
+    /* Описание (4-я колонка) заберёт весь остаток автоматически */
+
+    table.ed[data-sec="achievements"] input,
+    table.ed[data-sec="achievements"] select,
+    table.ed[data-sec="achievements"] textarea {
+      width: 100%;
+      min-width: 0;
+      /* страховка от старых минимумов */
     }
   </style>
 </head>
@@ -171,7 +203,7 @@
         { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
-        { title: '5. Карьера', items: [['a', 'career'], ['H','achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
+        { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
           items: [['t', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
@@ -330,6 +362,7 @@
   </div>`;
       }
 
+      // * renderArray
       function renderArray(t, k, noHead) {
         const head = noHead ? '' : `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
@@ -338,7 +371,7 @@
         if (k === 'education') return head + renderEducation(arr);
 
         /* Остальные секции — прежняя таблица */
-        return head + `<table class="ed">
+        return head + `<table class="ed" data-sec="${k}">
     <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
     <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
           const isArrItem = KEYS[k][0] === '*';

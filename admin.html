@@ -85,10 +85,10 @@
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
         <span id="status"></span>
       </div>
-      <div class="card p-3 mb-3">
+      <!-- <div class="card p-3 mb-3">
         <h6>Личные данные</h6>
         <div id="pf" class="row g-2"></div>
-      </div>
+      </div> -->
       <div id="secs"></div>
     </div>
 
@@ -274,11 +274,17 @@
       function build() {
         const t = data.teachers[cur];
 
-        /* старая карточка «Личные данные» больше не нужна — прячем её */
-        const pf = document.getElementById('pf');
-        if (pf) pf.closest('.card').style.display = 'none';
+        /* запоминаем, какие блоки были раскрыты до перерисовки */
+        const openState = {};
+        document.querySelectorAll('#secs details[data-g]').forEach(d => {
+          openState[d.dataset.g] = d.open;
+        });
 
-        document.getElementById('secs').innerHTML = GROUPS.map(g => {
+        /* старая карточка «Личные данные» больше не нужна — прячем её */
+        // const pf = document.getElementById('pf');
+        // if (pf) pf.closest('.card').style.display = 'none';
+
+        document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
           let row = '<div class="row g-2">', tail = '';
           g.items.forEach(([type, key]) => {
             if (type === 's') {
@@ -299,7 +305,8 @@
             }
           });
           row += '</div>';
-          return `<details class="card p-2 mb-2" ${g.open ? 'open' : ''}>
+          const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
+          return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
       <div class="mt-2">${row}${tail}</div>
     </details>`;
@@ -322,11 +329,25 @@
       }
 
       /* ═══ Строки и преподаватели ═══ */
+      // function add(k) {
+      //   collect();
+      //   const t = data.teachers[cur];
+      //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+      //   build();
+      // }
+
       function add(k) {
         collect();
         const t = data.teachers[cur];
         t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
         build();
+
+        /* возвращаем редактора к только что созданной строке */
+        const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
+        if (newRow) {
+          newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (newRow.focus) newRow.focus({ preventScroll: true });
+        }
       }
       function rm(k, i) {
         collect();

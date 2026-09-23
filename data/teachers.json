@@ -41,7 +41,7 @@
     {
      "t": "25.01 · 10:00",
      "x": "Экзамен «Проектирование онлайн-сред», 101-М, ауд. 220",
-     "now": false
+     "now": true
     }
    ],
    "education": [
@@ -148,20 +148,15 @@
      "text": ""
     }
    ],
-   "news": [
-    {
-     "date": "12.05.2026",
-     "title": "Победа в конкурсе «Преподаватель года»",
-     "img": "https://picsum.photos/seed/edtech-award/640/360",
-     "url": "#"
-    }
-   ],
+   "news": [],
    "university": "СПбГМТУ",
    "share_tg_url": "",
    "share_vk_url": "",
    "external_links": {
     "schedule": ""
-   }
+   },
+   "rail_edu": [],
+   "ped_text": ""
   }
  ]
 }

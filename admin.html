@@ -443,7 +443,7 @@
       <div class="mt-2">${inner}</div>
     </details>`;
         }).join('');
-
+      }
         /* ═══ Сбор данных из формы ═══ */
         function collect() {
           const t = data.teachers[cur];
@@ -451,7 +451,7 @@
           if (!t.external_links) t.external_links = {};
           document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
           Object.keys(KEYS).forEach(k => { t[k] = []; });
-          document.querySelectorAll('[data-sec]').forEach(i => {
+          document.querySelectorAll('[data-sec][data-i][data-k]').forEach(i => {
             const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
             const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
             if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
@@ -552,7 +552,7 @@
           const prev = f ? document.getElementById('prev-' + f) : null;
           if (prev) prev.innerHTML = e.target.value;
         });
-      }
+      
       if (TOK) load();
     </script>
 </body>

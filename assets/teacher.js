@@ -1,6 +1,6 @@
 // assets/teacher.js
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
-const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;  
+const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
@@ -370,7 +370,7 @@ function eduTimeline(a) {
     const lines = [
       esc(i.profile || ''),
       i.qualification
-             ? '<i class="bi bi-mortarboard me-1" style="color:var(--amber)" title="Квалификация" aria-label="Квалификация"></i>' + esc(capFirst(i.qualification))
+        ? '<i class="bi bi-mortarboard me-1" style="color:var(--teal)" title="Квалификация" aria-label="Квалификация"></i>' + esc(capFirst(i.qualification))
         : esc(i.text || '')
     ].filter(Boolean).join('<br>');
     return `<li><span class="year">${esc(i.year)}</span>

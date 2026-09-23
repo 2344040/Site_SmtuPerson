@@ -227,7 +227,8 @@
     "schedule": ""
    },
    "rail_edu": [],
-   "ped_text": ""
+   "ped_text": "",
+   "ach_text": ""
   }
  ]
 }

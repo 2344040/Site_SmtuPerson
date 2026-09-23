@@ -186,7 +186,7 @@
       // * TEXTS
       /* Многострочные скалярные поля: ключ → [подпись, строк] */
       const TEXTS = {
-        ped_text: ['Текстовый блок педагогической деятельности (опционально)', 3],
+        ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
         science_text: ['Текстовый блок научных интересов', 3],
         ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
       };
@@ -206,11 +206,11 @@
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
-          items: [['t', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
+          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
         },
         {
           title: '7. Научная деятельность',
-          items: [['a', 'metrics'], ['t', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
+          items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
         },
         { title: '8. Общественная деятельность', items: [['a', 'social']] },
         { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] }
@@ -344,15 +344,18 @@
           `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ строка</button>`;
       }
 
+      //  * renderHtmlField()
       function renderHtmlField(t, key) {
         const [label, rows] = TEXTS[key];
         const val = t[key] || '';
         return `<div class="mt-3 mb-1">
     <label class="small text-secondary">${label}</label>
-    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
+   <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<ul class='text-block-list'>&#10;<li>|</li>&#10;</ul>" title="Список">• список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список: разбивает выделение по строкам на li">• список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список: разбивает выделение по строкам на li">1. список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть каждую выделенную строку в <li> без контейнера">li пункт</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p class='ms-4'>|</p>" title="Отступ">⇥ отступ</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
     </div>
@@ -530,6 +533,7 @@
         } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
       }
 
+      // * wrapSel
       /* ── HTML-поле: панель кнопок и живой предпросмотр ── */
       function wrapSel(ta, before, after) {
         const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
@@ -539,14 +543,35 @@
         ta.selectionEnd = e + before.length;
         ta.dispatchEvent(new Event('input', { bubbles: true }));
       }
+
+
+
+      // * listSel
+      /* Умный список: разбивает выделение по строкам на <li>,
+   счищает ведущие дефисы/нумерацию; без выделения — пустой каркас */
+      function listSel(ta, tag) {
+        const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+        const lines = v.slice(s, e).split(/\r?\n/).map(l => l.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
+        const items = (lines.length ? lines : ['']).map(l => '  <li>' + l + '</li>').join('\n');
+        const insert = tag === 'li'
+          ? items
+          : '<' + tag + (tag === 'ul' ? " class='text-block-list'" : '') + '>\n' + items + '\n</' + tag + '>';
+        ta.value = v.slice(0, s) + insert + v.slice(e);
+        ta.focus();
+        ta.selectionStart = ta.selectionEnd = s + insert.length;
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
       document.addEventListener('click', e => {
-        const b = e.target.closest('.html-tools [data-wrap]');
+        const b = e.target.closest('.html-tools button');
         if (!b) return;
         const ta = document.getElementById(b.closest('.html-tools').dataset.target);
         if (!ta) return;
+        if (b.dataset.list) { listSel(ta, b.dataset.list); return; }
         const [before, after] = b.dataset.wrap.split('|');
         wrapSel(ta, before, after);
       });
+
       document.addEventListener('input', e => {
         const f = e.target.dataset ? e.target.dataset.f : '';
         const prev = f ? document.getElementById('prev-' + f) : null;

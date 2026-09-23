@@ -5,6 +5,9 @@ const isFilled = i => typeof i === 'string'
   ? i.trim() !== ''
   : Object.entries(i || {}).some(([k, v]) => k !== 'icon' && String(v ?? '').trim() !== '');
 
+/* Если в строке есть теги — вставляем как HTML, иначе как текст с переносами */
+const htmlOrText = s => /<[a-z!\/]/i.test(s) ? s : esc(s).replace(/\n/g, '<br>');
+
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
 
@@ -150,6 +153,7 @@ function newsBlock() {
   </section>`;
 }
 
+// * renderMain
 /* ═══ Основной контент ═══ */
 function renderMain() {
   const o = [];
@@ -185,7 +189,7 @@ function renderMain() {
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */
   if (has('programs') || has('courses') || has('schedule') || has('session')) {
     let body = '';
-    if (T.ped_text) body += `<div class="text-block reveal">${esc(T.ped_text).replace(/\n/g, '<br>')}</div>`;
+   if (T.ped_text) body += `<div class="text-block reveal">${htmlOrText(T.ped_text)}</div>`;
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
     if (has('courses')) body += sub('courses', 'Читаемые дисциплины', table(
       [{ t: 'Дисциплина' }, { t: 'Уровень' }, { t: 'Курс' }, { t: 'Семестр' }, { t: 'Часы', e: 1 }],

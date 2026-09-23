@@ -171,7 +171,7 @@
         { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
-        { title: '5. Карьера', items: [['a', 'career'], ['h', 'ach_text'],  ['a', 'achievements']] },
+        { title: '5. Карьера', items: [['a', 'career'], ['H','achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
           items: [['t', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['a', 'session'], ['a', 'books'], ['x', 'schedule']]
@@ -330,8 +330,8 @@
   </div>`;
       }
 
-      function renderArray(t, k) {
-        const head = `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
+      function renderArray(t, k, noHead) {
+        const head = noHead ? '' : `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
 
         /* Образование — карточки-записи вместо таблицы */
@@ -382,7 +382,7 @@
           let inner = '', rowBuf = null;
           const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
 
-          g.items.forEach(([type, key]) => {
+          g.items.forEach(([type, key, opt]) => {
             if (type === 's') {
               const [label, w] = SCALAR[key];
               rowBuf = (rowBuf || '') + `<div class="${w}"><label class="small text-secondary">${label}</label>
@@ -394,7 +394,8 @@
           <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${(t[key] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></div>`;
             } else {
               flush();
-              if (type === 'a') inner += renderArray(t, key);
+              if (type === 'H') inner += `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[key]}</div>`;
+              else if (type === 'a') inner += renderArray(t, key, opt);
               else if (type === 'h') inner += renderHtmlField(t, key);
               else if (type === 'x') inner += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
           <input class="form-control form-control-sm" data-ext="${key}"
@@ -519,7 +520,7 @@
           if (prev) prev.innerHTML = e.target.value;
         });
       }
-        if (TOK) load();
+      if (TOK) load();
     </script>
 </body>
 

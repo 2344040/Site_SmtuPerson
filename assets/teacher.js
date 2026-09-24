@@ -126,7 +126,7 @@ ${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-
 /* ═══ Таблица ═══ */
 const table = (head, rows, hover = false) => `
 <div class="table-responsive reveal">
-  <table class="table align-middle ${hover ? 'table-hover' : ''}">
+   <table class="table align-middle">
     <thead><tr>${head.map(h => `<th${h.e ? ' class="text-end"' : ''}>${h.t}</th>`).join('')}</tr></thead>
     <tbody>${rows.map(r => `<tr>${r.map(c => `<td${c.e ? ' class="text-end"' : ''}>${esc(c.v)}</td>`).join('')}</tr>`).join('')}</tbody>
   </table>

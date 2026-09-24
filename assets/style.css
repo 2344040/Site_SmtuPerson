@@ -94,6 +94,11 @@ h3,
 
 }
 
+#p-name {
+  display: block;
+  padding-left: 2px;
+}
+
 .surname {
   font-size: 40px;
   font-weight: 700;

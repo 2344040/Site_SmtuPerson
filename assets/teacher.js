@@ -297,7 +297,7 @@ function renderMain() {
 /* * renderRail */
 function renderRail() {
   /* События */
-const events = (T.events || []).slice(0, 2).map(e => `
+  const events = (T.events || []).slice(0, 2).map(e => `
   <div class="box event-box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
     <div class="event-line-1">
       ${e.now ? '<span class="status-dot me-1"></span><b>Сейчас</b>' : ''}
@@ -313,13 +313,19 @@ const events = (T.events || []).slice(0, 2).map(e => `
 
   /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
   const ext = T.external_links || {};
+  /* ── 3б: Учебный процесс ── */
   const eduLinks = (T.rail_edu && T.rail_edu.length)
     ? T.rail_edu.map(p => {
       const icon = String(p.u || '').startsWith('http')
-        ? 'bi-box-arrow-up-right'   // внешняя ссылка — иконка «наружу»
-        : 'bi-arrow-right';        // якорь на странице — стрелка
+        ? 'bi-box-arrow-up-right'
+        : 'bi-arrow-right';
       return `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi ${icon} arr"></i></a>`;
     }).join('')
+    : [
+      has('schedule') ? `<a class="btn-side" href="#schedule"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>` : '',
+      has('session') ? `<a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>` : '',
+      has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
+    ].filter(Boolean).join('');
     // : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
     //    <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
     //    <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;

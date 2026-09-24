@@ -537,9 +537,11 @@
               if (type === 'H') inner += `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[key]}</div>`;
               else if (type === 'a') inner += renderArray(t, key, opt);
               else if (type === 'h') inner += renderHtmlField(t, key);
-              else if (type === 'x') inner += `<div class="mt-2"><label class="small text-secondary">Внешняя ссылка на расписание (URL)</label>
-          <input class="form-control form-control-sm" data-ext="${key}"
-                 value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}"></div>`;
+              else if (type === 'x') inner += `<div class="mt-4 mb-1">
+  <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
+  <div class="small text-secondary mb-1">Появится стильной кнопкой под таблицей на странице преподавателя</div>
+  <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
+</div>`;
             }
           });
           flush();

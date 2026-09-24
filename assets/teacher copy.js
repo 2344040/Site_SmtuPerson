@@ -212,29 +212,9 @@ function renderMain() {
     if (has('courses')) body += sub('courses', 'Читаемые дисциплины', table(
       [{ t: 'Дисциплина' }, { t: 'Уровень' }, { t: 'Курс' }, { t: 'Семестр' }, { t: 'Часы', e: 1 }],
       T.courses.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e, e: 1 }])));
-    if (has('schedule')) {
-      // 3. Заголовок с прижатым вправо подзаголовком
-      body += sub('schedule',
-        `<div class="d-flex justify-content-between align-items-baseline flex-wrap gap-2">
-       <span>Расписание занятий</span>
-       <span class="small" style="color:var(--amber); font-weight:500;">текущая неделя · верхняя</span>
-     </div>`,
-        table(
-          [{ t: 'День' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Тип' }, { t: 'Группа' }, { t: 'Ауд.' }],
-          T.schedule.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }]), true
-        )
-      );
-
-      // 1. Кнопка "Полное расписание" под таблицей (если ссылка задана)
-      const fullScheduleUrl = T.external_links?.schedule;
-      if (fullScheduleUrl) {
-        body += `<div class="mt-3 reveal">
-      <a href="${esc(fullScheduleUrl)}" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener">
-        Полное расписание <i class="bi bi-box-arrow-up-right ms-1"></i>
-      </a>
-    </div>`;
-      }
-    }
+    if (has('schedule')) body += sub('schedule', 'Расписание занятий', table(
+      [{ t: 'День' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Тип' }, { t: 'Группа' }, { t: 'Ауд.' }],
+      T.schedule.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }]), true));
     if (has('session')) body += sub('session', 'Расписание сессии', table(
       [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
@@ -293,7 +273,7 @@ function renderMain() {
   document.getElementById('main').innerHTML = o.join('');
 }
 
-/* * renderRail */
+/* ═══ Правый сайдбар ═══ */
 function renderRail() {
   /* События — без изменений */
   const events = (T.events || []).map(e => `
@@ -313,13 +293,9 @@ function renderRail() {
         : 'bi-arrow-right';        // якорь на странице — стрелка
       return `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi ${icon} arr"></i></a>`;
     }).join('')
-    // : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
-    //    <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
-    //    <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
-
-    : `<a class="btn-side" href="#schedule"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
-   <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
-   <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
+    : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
+       <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
+       <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
 
   /* Профили — без изменений */
   const profiles = (T.profiles || []).map(p =>

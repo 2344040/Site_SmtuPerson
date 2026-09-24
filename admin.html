@@ -74,6 +74,40 @@
       background: #fff;
     }
 
+    /* ── Дисциплины: широкая дисциплина, компактные числа ── */
+    table.ed[data-sec="courses"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="courses"] th:nth-child(2) {
+      width: 170px;
+    }
+
+    /* Уровень (select) */
+    table.ed[data-sec="courses"] th:nth-child(3) {
+      width: 56px;
+    }
+
+    /* Курс — 3 знака */
+    table.ed[data-sec="courses"] th:nth-child(4) {
+      width: 56px;
+    }
+
+    /* Семестр — 3 знака */
+    table.ed[data-sec="courses"] th:nth-child(5) {
+      width: 56px;
+    }
+
+    /* Часы — 3 знака */
+    /* 1-я колонка (Дисциплина) забирает весь остаток ширины */
+
+    table.ed[data-sec="courses"] input,
+    table.ed[data-sec="courses"] select {
+      width: 100%;
+      min-width: 0;
+    }
+
     .icon-prev {
       font-size: 1rem;
       vertical-align: middle;
@@ -413,7 +447,7 @@
           }
 
           // ← НОВОЕ: выпадающий список уровней для программ
-          if (k === 'programs' && c === 'tag') {
+          if ((k === 'programs' && c === 'tag') || (k === 'courses' && c === 'b')) {
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}

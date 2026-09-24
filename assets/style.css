@@ -801,9 +801,14 @@ h3,
 }
 
 .table.table-hover tr:hover td {
-  background: var(--amber-soft);
+  background: #F9F3E3;
   /* border-radius: 10px; */
   /* padding-left: .9rem; */
+}
+
+/* ── Hover на строках всех таблиц ─ */
+table.ed tbody tr:hover td {
+  background:  #F9F3E3;
 }
 
 .news-img {

@@ -130,6 +130,23 @@
       min-width: 0;
       /* страховка от старых минимумов */
     }
+
+    /* ── Заголовки секций внутри блоков ── */
+    .sec-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2f6f63;
+      background: #f5f7f6;
+      padding: 9px 14px;
+      border-radius: 6px;
+      border-left: 3px solid #2f6f63;
+      margin: 24px 0 12px;
+      display: block;
+    }
+
+    .sec-title:first-child {
+      margin-top: 0;
+    }
   </style>
 </head>
 
@@ -350,7 +367,8 @@
         const [label, rows] = TEXTS[key];
         const val = t[key] || '';
         return `<div class="mt-3 mb-1">
-    <label class="small text-secondary">${label}</label>
+    
+    <label class="sec-title">${label}</label>
    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
@@ -368,7 +386,8 @@
 
       // * renderArray
       function renderArray(t, k, noHead) {
-        const head = noHead ? '' : `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
+        // const head = noHead ? '' : `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
+        const head = noHead ? '' : `<div class="sec-title">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
 
         /* Образование — карточки-записи вместо таблицы */

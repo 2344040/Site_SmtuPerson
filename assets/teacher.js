@@ -65,9 +65,22 @@ const timeline = a => `<ul class="timeline reveal">${a.map(i =>
   `<li><span class="year">${esc(i.year)}</span>
     <h3 class="fs-6 fw-bold mb-1">${esc(i.title)}</h3>${esc(i.text)}</li>`).join('')}</ul>`;
 
+// * programCards
 /* ═══ Карточки программ/дисциплин ═══ */
 const programCards = a => `<div class="row g-3 reveal">${a.map(i => {
-  const tagCls = (i.tag || '').toLowerCase().includes('бак') ? 'vak' : (i.tag || '').toLowerCase().includes('маг') ? 'scopus' : 'rinc';
+  const tagLower = (i.tag || '').toLowerCase().trim();
+  const tagCls = {
+    'бакалавриат': 'lvl-green-1',
+    'специалитет': 'lvl-green-2',
+    'базовое высшее': 'lvl-green-3',
+    'магистратура': 'lvl-yellow-1',
+    'специализированное высшее': 'lvl-yellow-2',
+    'аспирантура': 'lvl-blue-1',
+    'докторантура': 'lvl-blue-2',
+    'спо': 'lvl-purple',
+    'дпо': 'lvl-teal'
+  }[tagLower] || 'lvl-default';
+
   return `<div class="col-md-${a.length <= 2 ? 6 : 4}">
     <div class="card-lift"><div class="bar"></div><div class="p-3 d-flex flex-column">
       <span class="tag ${tagCls}" style="text-transform:capitalize">${esc(i.tag)}</span>

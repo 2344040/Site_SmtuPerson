@@ -585,6 +585,76 @@ h3,
   color: #7a4a8d
 }
 
+/* ── Палитра уровней образовательных программ ── */
+/* Зеленая линейка: от светлого к более темному */
+.tag.lvl-green-1 {
+  background: #D5F5E3;
+  color: #145A32;
+}
+
+/* Бакалавриат */
+.tag.lvl-green-2 {
+  background: #A9DFBF;
+  color: #145A32;
+}
+
+/* Специалитет */
+.tag.lvl-green-3 {
+  background: #7DCEA0;
+  color: #0E4225;
+}
+
+/* Базовое высшее */
+
+/* Желтая линейка */
+.tag.lvl-yellow-1 {
+  background: #FCF3CF;
+  color: #7D6608;
+}
+
+/* Магистратура */
+.tag.lvl-yellow-2 {
+  background: #F9E79F;
+  color: #7D6608;
+}
+
+/* Специализированное высшее */
+
+/* Синяя линейка */
+.tag.lvl-blue-1 {
+  background: #D6EAF8;
+  color: #154360;
+}
+
+/* Аспирантура */
+.tag.lvl-blue-2 {
+  background: #A9CCE3;
+  color: #154360;
+}
+
+/* Докторантура */
+
+/* СПО и ДПО */
+.tag.lvl-purple {
+  background: #E8DAEF;
+  color: #6C3483;
+}
+
+/* СПО - светло-сиреневый */
+.tag.lvl-teal {
+  background: #1FAC95;
+  color: #FFFFFF;
+}
+
+/* ДПО - ваш фирменный цвет */
+
+/* Запасной цвет, если тег не совпадет со списком */
+.tag.lvl-default {
+  background: #EAECEE;
+  color: #2C3E50;
+}
+
+
 .card-lift {
   border: 1px solid var(--line);
   border-radius: 14px;

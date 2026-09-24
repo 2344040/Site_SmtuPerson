@@ -588,7 +588,7 @@ h3,
 /* * Палитра уровней образовательных программ  */
 
 /* * Scandinavian Muted Palette */
-.tag.lvl-green-1 {
+/* .tag.lvl-green-1 {
   background: #EAF2EB;
   color: #2D4A32;
 }
@@ -636,11 +636,12 @@ h3,
 .tag.lvl-default {
   background: #F0F2F5;
   color: #3A4750;
-}
+} */
 
 
 /* * Material Design Light */
-/* .tag.lvl-green-1 {
+
+.tag.lvl-green-1 {
   background: #E8F5E9;
   color: #1B5E20;
 }
@@ -688,7 +689,7 @@ h3,
 .tag.lvl-default {
   background: #ECEFF1;
   color: #263238;
-} */
+}
 
 /* * Tailwind Soft Palette */
 /* .tag.lvl-green-1 {

@@ -228,9 +228,9 @@ function renderMain() {
       // 1. Кнопка "Полное расписание" под таблицей (если ссылка задана)
       const fullScheduleUrl = T.external_links?.schedule;
       if (fullScheduleUrl) {
-        body += `<div class="mt-3 reveal">
-      <a href="${esc(fullScheduleUrl)}" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener">
-        Полное расписание <i class="bi bi-box-arrow-up-right ms-1"></i>
+          body += `<div class="mt-3 reveal">
+      <a href="${esc(fullScheduleUrl)}" class="btn-schedule" target="_blank" rel="noopener">
+        Полное расписание <i class="bi bi-box-arrow-up-right"></i>
       </a>
     </div>`;
       }

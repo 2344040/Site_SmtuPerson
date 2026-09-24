@@ -253,6 +253,37 @@ h3,
       color: #3f9e63;
     } */
 
+/* ── Кнопка "Полное расписание" ── */
+.btn-schedule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 10px; /* В одном стиле с .form-control и .btn-ink */
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-schedule:hover {
+  color: #fff;
+  background: var(--amber);
+  border-color: var(--amber);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(217, 123, 41, 0.25); /* Мягкая янтарная тень */
+}
+
+.btn-schedule:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(217, 123, 41, 0.2);
+}
+
+
+
 .chip b {
   color: var(--teal)
 }

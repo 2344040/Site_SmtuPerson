@@ -228,7 +228,7 @@ function renderMain() {
       // 1. Кнопка "Полное расписание" под таблицей (если ссылка задана)
       const fullScheduleUrl = T.external_links?.schedule;
       if (fullScheduleUrl) {
-          body += `<div class="mt-3 reveal">
+        body += `<div class="mt-3 reveal">
       <a href="${esc(fullScheduleUrl)}" class="btn-schedule" target="_blank" rel="noopener">
         Полное расписание <i class="bi bi-box-arrow-up-right"></i>
       </a>
@@ -240,18 +240,18 @@ function renderMain() {
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
-/* SCIENCE */
-if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
-  let body = '';
-  if (T.science_text) body += `<div class="text-block reveal">${htmlOrText(T.science_text)}</div>`;
-  if (has('metrics')) body += `<div class="row g-3 mb-4 reveal">${T.metrics.map(m =>
-    `<div class="col-6 col-md-3"><div class="metric"><span class="m-num">${esc(m.n)}</span>
+  /* SCIENCE */
+  if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
+    let body = '';
+    if (has('metrics')) body += `<div class="row g-3 mb-4 reveal">${T.metrics.map(m =>
+      `<div class="col-6 col-md-3"><div class="metric"><span class="m-num">${esc(m.n)}</span>
     <small class="text-secondary">${esc(m.l)}</small></div></div>`).join('')}</div>`;
-  if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
-  if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));
-  if (has('publications')) body += sub('publications', 'Избранные публикации', pubs(T.publications));
-  o.push(sec('science', '', 'Научная деятельность', body));
-}
+    if (T.science_text) body += `<div class="text-block reveal">${htmlOrText(T.science_text)}</div>`;
+    if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
+    if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));
+    if (has('publications')) body += sub('publications', 'Избранные публикации', pubs(T.publications));
+    o.push(sec('science', '', 'Научная деятельность', body));
+  }
   /* SOCIAL (alt) */
   if (has('social')) {
     o.push(sec('social', 'alt', 'Общественная деятельность',

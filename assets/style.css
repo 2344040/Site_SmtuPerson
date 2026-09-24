@@ -585,76 +585,164 @@ h3,
   color: #7a4a8d
 }
 
-/* ── Палитра уровней образовательных программ ── */
-/* Зеленая линейка: от светлого к более темному */
+/* * Палитра уровней образовательных программ  */
+
+/* * Scandinavian Muted Palette */
 .tag.lvl-green-1 {
-  /* background: #D5F5E3; */
-  background: #eef7ed;
-  color: #145A32;
+  background: #EAF2EB;
+  color: #2D4A32;
 }
 
-/* Бакалавриат */
 .tag.lvl-green-2 {
-  background: #A9DFBF;
-  color: #145A32;
+  background: #D3E5D6;
+  color: #2D4A32;
 }
 
-/* Специалитет */
 .tag.lvl-green-3 {
-  background: #7DCEA0;
-  color: #0E4225;
+  background: #B4CDB8;
+  color: #1E3322;
 }
 
-/* Базовое высшее */
-
-/* Желтая линейка */
 .tag.lvl-yellow-1 {
-  background: #FCF3CF;
-  color: #7D6608;
+  background: #F9F3E3;
+  color: #6B5B3E;
 }
 
-/* Магистратура */
 .tag.lvl-yellow-2 {
-  background: #F9E79F;
-  color: #7D6608;
+  background: #EFE2C4;
+  color: #5C4D33;
 }
 
-/* Специализированное высшее */
-
-/* Синяя линейка */
 .tag.lvl-blue-1 {
-  background: #D6EAF8;
-  color: #154360;
+  background: #E9F0F5;
+  color: #2C4A63;
 }
 
-/* Аспирантура */
 .tag.lvl-blue-2 {
-  background: #A9CCE3;
-  color: #154360;
+  background: #D2E0EB;
+  color: #233C52;
 }
 
-/* Докторантура */
-
-/* СПО и ДПО */
 .tag.lvl-purple {
-  background: #E8DAEF;
-  color: #6C3483;
+  background: #EFEAF2;
+  color: #4F435C;
 }
 
-/* СПО - светло-сиреневый */
 .tag.lvl-teal {
   background: #1FAC95;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-/* ДПО - ваш фирменный цвет */
-
-/* Запасной цвет, если тег не совпадет со списком */
 .tag.lvl-default {
-  background: #EAECEE;
-  color: #2C3E50;
+  background: #F0F2F5;
+  color: #3A4750;
 }
 
+
+/* * Material Design Light */
+/* .tag.lvl-green-1 {
+  background: #E8F5E9;
+  color: #1B5E20;
+}
+
+.tag.lvl-green-2 {
+  background: #C8E6C9;
+  color: #1B5E20;
+}
+
+.tag.lvl-green-3 {
+  background: #A5D6A7;
+  color: #1B5E20;
+}
+
+.tag.lvl-yellow-1 {
+  background: #FFF9C4;
+  color: #827717;
+}
+
+.tag.lvl-yellow-2 {
+  background: #FFF59D;
+  color: #827717;
+}
+
+.tag.lvl-blue-1 {
+  background: #E3F2FD;
+  color: #0D47A1;
+}
+
+.tag.lvl-blue-2 {
+  background: #BBDEFB;
+  color: #0D47A1;
+}
+
+.tag.lvl-purple {
+  background: #F3E5F5;
+  color: #4A148C;
+}
+
+.tag.lvl-teal {
+  background: #1FAC95;
+  color: #ffffff;
+}
+
+.tag.lvl-default {
+  background: #ECEFF1;
+  color: #263238;
+} */
+
+/* * Tailwind Soft Palette */
+/* .tag.lvl-green-1 {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tag.lvl-green-2 {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.tag.lvl-green-3 {
+  background: #86efac;
+  color: #14532d;
+}
+
+.tag.lvl-yellow-1 {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.tag.lvl-yellow-2 {
+  background: #fde047;
+  color: #713f12;
+}
+
+.tag.lvl-blue-1 {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.tag.lvl-blue-2 {
+  background: #bfdbfe;
+  color: #1e3a8a;
+}
+
+.tag.lvl-purple {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+.tag.lvl-teal {
+  background: #1FAC95;
+  color: #ffffff;
+}
+
+.tag.lvl-default {
+  background: #f1f5f9;
+  color: #334155;
+} */
+
+
+/* --------------------------------------------------------- */
 
 .card-lift {
   border: 1px solid var(--line);

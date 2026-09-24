@@ -641,7 +641,7 @@ h3,
 
 /* * Material Design Light */
 
-.tag.lvl-green-1 {
+/* .tag.lvl-green-1 {
   background: #E8F5E9;
   color: #1B5E20;
 }
@@ -689,10 +689,11 @@ h3,
 .tag.lvl-default {
   background: #ECEFF1;
   color: #263238;
-}
+} */
 
 /* * Tailwind Soft Palette */
-/* .tag.lvl-green-1 {
+
+.tag.lvl-green-1 {
   background: #dcfce7;
   color: #166534;
 }
@@ -740,7 +741,7 @@ h3,
 .tag.lvl-default {
   background: #f1f5f9;
   color: #334155;
-} */
+}
 
 
 /* --------------------------------------------------------- */

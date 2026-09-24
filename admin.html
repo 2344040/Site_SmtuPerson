@@ -297,7 +297,7 @@
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
-          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'],  ['x', 'schedule'], ['a', 'session'], ['a', 'books']]
+          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session'], ['a', 'books']]
         },
         {
           title: '7. Научная деятельность',
@@ -539,8 +539,7 @@
               else if (type === 'h') inner += renderHtmlField(t, key);
               else if (type === 'x') inner += `<div class="mt-4 mb-1">
   <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
- 
-  <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
+   <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
 </div>`;
             }
           });

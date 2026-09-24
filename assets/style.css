@@ -807,7 +807,7 @@ h3,
 
 /* ── Hover на строках всех таблиц ─ */
 table tbody tr:hover td {
-  background:  #F9F3E3;
+  background:  #F9F3E3 !important;
 }
 
 .news-img {

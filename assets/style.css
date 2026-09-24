@@ -800,11 +800,10 @@ h3,
   border-bottom: 2px solid var(--ink);
 }
 
-.table.table-hover tr:hover td {
+/* .table.table-hover tr:hover td {
   background: #F9F3E3;
-  /* border-radius: 10px; */
-  /* padding-left: .9rem; */
-}
+
+} */
 
 /* ── Hover на строках всех таблиц ─ */
 table tbody tr:hover td {

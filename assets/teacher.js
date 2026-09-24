@@ -342,9 +342,9 @@ function renderRail() {
     <div class="rail-card">
       <h3 class="mb-3">Ближайшие события</h3>${events}
     </div>
-    <div class="rail-card">
+   ${eduLinks ? `<div class="rail-card">
       <h3>Учебный процесс</h3>${eduLinks}
-    </div>
+    </div>` : ''}
     <div class="rail-card mb-0">
       <h3><i class="bi bi-link-45deg"></i>Профили</h3>${profiles}
     </div>`;

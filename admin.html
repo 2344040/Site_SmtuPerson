@@ -241,6 +241,39 @@
 
     /* Предмет (2-я колонка) заберёт весь остаток ширины */
 
+    /* ── Материалы: сетка колонок ── */
+    table.ed[data-sec="materials"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="materials"] th:nth-child(1) {
+      width: 140px;
+    }
+
+    /* Рубрика */
+    table.ed[data-sec="materials"] th:nth-child(3) {
+      width: 130px;
+    }
+
+    /* Тип (select) */
+    table.ed[data-sec="materials"] th:nth-child(5) {
+      width: 70px;
+    }
+
+    /* Размер */
+    table.ed[data-sec="materials"] th:last-child {
+      width: 44px;
+    }
+
+    /* Кнопка ✕ */
+    table.ed[data-sec="materials"] input,
+    table.ed[data-sec="materials"] select {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Название (2-я) и Ссылка (4-я) поделят остаток ширины поровну */
 
 
     /* ── Заголовки секций внутри блоков ── */
@@ -335,14 +368,15 @@
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
-          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session'], ['a', 'books']]
+          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session'], ['a', 'books'], ['a', 'materials']]
         },
         {
           title: '7. Научная деятельность',
           items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
         },
         { title: '8. Общественная деятельность', items: [['a', 'social']] },
-        { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] }
+        { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
+        { title: '10. Учебные материалы', items: [['a', 'materials']] }
       ];
 
       // * KEYS
@@ -367,6 +401,7 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
+        materials: ['category', 'title', 'type', 'url', 'size'],
       };
 
       /* Иконки достижений: [значение в JSON, подпись в списке] */
@@ -390,6 +425,7 @@
         social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
         profiles: 'Профили (правый сайдбар)', news: 'Новости',
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
+        materials: 'Учебные материалы',
       };
 
       // * MULTILINE
@@ -411,12 +447,26 @@
 
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
 
+      const MATERIAL_TYPES = [
+        'pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip',
+        'video-youtube', 'video-vimeo', 'video-local',
+        'book-ozon', 'book-wildberries', 'book-litres', 'book-library',
+        'link', 'image'
+      ];
+
       // * SEC_COLS
       const SEC_COLS = {
         courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
+        materials: {
+          category: 'Рубрика',
+          title: 'Название',
+          type: 'Тип',
+          url: 'Ссылка/файл',
+          size: 'Размер'
+        },
       };
       function colName(sec, key) {
         return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
@@ -533,6 +583,13 @@
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+    </select></td>`;
+          }
+
+          if (k === 'materials' && c === 'type') {
+            return `<td>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}">
+      ${MATERIAL_TYPES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
     </select></td>`;
           }
 

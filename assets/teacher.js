@@ -143,6 +143,64 @@ const pubs = a => a.map(i => `
   </div>
 </div>`).join('');
 
+/* ── Вспомогательные функции для материалов ── */
+const isExternal = url => /^https?:\/\//i.test(url);
+
+const pluralize = (n, forms) => {
+  const mod10 = n % 10, mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return forms[0];
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return forms[1];
+  return forms[2];
+};
+
+const iconForType = type => {
+  const icons = {
+    'pdf': 'bi-file-earmark-pdf-fill', 'doc': 'bi-file-earmark-word-fill',
+    'docx': 'bi-file-earmark-word-fill', 'ppt': 'bi-file-earmark-slides-fill',
+    'pptx': 'bi-file-earmark-slides-fill', 'zip': 'bi-file-earmark-zip-fill',
+    'rar': 'bi-file-earmark-zip-fill', 'video-youtube': 'bi-youtube',
+    'video-vimeo': 'bi-camera-video-fill', 'video-local': 'bi-play-circle-fill',
+    'book-ozon': 'bi-cart-fill', 'book-wildberries': 'bi-bag-fill',
+    'book-litres': 'bi-book-fill', 'book-library': 'bi-bank',
+    'link': 'bi-link-45deg', 'image': 'bi-image-fill'
+  };
+  return icons[type] || 'bi-file-earmark-fill';
+};
+
+/* ═══ Блок материалов (аккордеон) ═══ */
+const materialsBlock = a => {
+  if (!a || !a.length) return '';
+  const groups = {};
+  a.forEach(item => {
+    const cat = item.category || 'Без рубрики';
+    (groups[cat] = groups[cat] || []).push(item);
+  });
+
+  return `<div class="materials-accordion reveal">
+    ${Object.entries(groups).map(([cat, items], idx) => `
+      <details class="mat-group" ${idx === 0 ? 'open' : ''}>
+        <summary>
+          <span class="mat-cat-title">${esc(cat)}</span>
+          <span class="mat-count">${items.length} ${pluralize(items.length, ['материал', 'материала', 'материалов'])}</span>
+        </summary>
+        <ul class="mat-list">
+          ${items.map(item => `
+            <li class="mat-item mat-type-${item.type}">
+              <i class="mat-icon bi ${iconForType(item.type)}"></i>
+              <div class="mat-info">
+                <a href="${esc(item.url)}" ${isExternal(item.url) ? 'target="_blank" rel="noopener"' : ''}>
+                  ${esc(item.title)}
+                </a>
+                ${item.size ? `<small class="mat-size">${esc(item.size)}</small>` : ''}
+              </div>
+            </li>
+          `).join('')}
+        </ul>
+      </details>
+    `).join('')}
+  </div>`;
+};
+
 /* ═══ Новости карусель ═══ */
 function newsBlock() {
   if (!has('news')) return '';
@@ -205,7 +263,7 @@ function renderMain() {
     o.push(sec('career', '', 'Карьера', body));
   }
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */
-  if (has('programs') || has('courses') || has('schedule') || has('session')) {
+  if (has('programs') || has('courses') || has('schedule') || has('session') || has('materials')) {
     let body = '';
     if (T.ped_text) body += `<div class="text-block reveal">${htmlOrText(T.ped_text)}</div>`;
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
@@ -238,6 +296,10 @@ function renderMain() {
     if (has('session')) body += sub('session', 'Расписание сессии', table(
       [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
+
+    // Учебные материалы (в самом конце раздела)
+    if (has('materials')) body += sub('materials', 'Учебные материалы', materialsBlock(T.materials));
+
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
   /* SCIENCE */
@@ -326,9 +388,9 @@ function renderRail() {
       has('session') ? `<a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>` : '',
       has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
     ].filter(Boolean).join('');
-    // : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
-    //    <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
-    //    <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
+  // : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
+  //    <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
+  //    <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;
 
 
 

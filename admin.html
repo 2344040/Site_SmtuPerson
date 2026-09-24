@@ -599,7 +599,7 @@
           return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
         }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
   </table>
-  <button class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
+  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
       }
 
       // * build

@@ -94,6 +94,16 @@ h3,
 
 }
 
+.surname {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.given-name {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
 @media (max-width: 767.98px) {
   header.hero {
     height: auto !important;
@@ -807,7 +817,7 @@ h3,
 
 /* ── Hover на строках всех таблиц ─ */
 table tbody tr:hover td {
-  background:  #F9F3E3 !important;
+  background: #F9F3E3 !important;
 }
 
 .news-img {

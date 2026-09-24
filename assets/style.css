@@ -807,7 +807,7 @@ h3,
 }
 
 /* ── Hover на строках всех таблиц ─ */
-table.ed tbody tr:hover td {
+table tbody tr:hover td {
   background:  #F9F3E3;
 }
 

@@ -86,6 +86,7 @@ const programCards = a => `<div class="row g-3 reveal">${a.map(i => {
       <span class="tag ${tagCls}" style="text-transform:capitalize">${esc(i.tag)}</span>
       <h3 class="fs-6 fw-bold mt-2">${esc(i.title)}</h3>
       <small class="text-secondary">${esc(i.text)}</small>
+            ${i.comment ? `<small class="text-secondary fst-italic mt-1 d-block">${esc(i.comment)}</small>` : ''}
     </div></div></div>`;
 }).join('')}</div>`;
 

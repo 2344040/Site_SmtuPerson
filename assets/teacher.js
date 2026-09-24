@@ -33,7 +33,10 @@ function fillHeader() {
   const kicker = [T.university, T.faculty].filter(Boolean).join(' · ');
   document.getElementById('p-kicker').textContent = kicker;
 
-  document.getElementById('p-name').textContent = T.name;
+  const nameParts = (T.name || '').split(' ');
+  const surname = nameParts[0] || '';
+  const rest = nameParts.slice(1).join(' ');
+  document.getElementById('p-name').innerHTML = `${esc(surname)}<br>${esc(rest)}`;
   document.getElementById('p-post').textContent = T.post;
   document.getElementById('p-chips').innerHTML = (T.chips || []).map(c =>
     `<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('');

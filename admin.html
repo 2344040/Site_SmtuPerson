@@ -99,7 +99,11 @@
       width: 56px;
     }
 
-    table.ed[data-sec="courses"] th:last-child{width:44px;}  /* колонка кнопки ✕ */
+    table.ed[data-sec="courses"] th:last-child {
+      width: 44px;
+    }
+
+    /* колонка кнопки ✕ */
 
     /* Часы — 3 знака */
     /* 1-я колонка (Дисциплина) забирает весь остаток ширины */
@@ -166,6 +170,40 @@
       min-width: 0;
       /* страховка от старых минимумов */
     }
+
+    /* ── Программы: сетка колонок ── */
+    table.ed[data-sec="programs"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="programs"] th:nth-child(1) {
+      width: 110px;
+    }
+
+    /* Код ОП */
+    table.ed[data-sec="programs"] th:nth-child(3) {
+      width: 170px;
+    }
+
+    /* Уровень (select) */
+    table.ed[data-sec="programs"] th:nth-child(4) {
+      width: 26%;
+    }
+
+    /* Комментарий */
+    table.ed[data-sec="programs"] th:last-child {
+      width: 44px;
+    }
+
+    /* кнопка ✕ */
+    table.ed[data-sec="programs"] input,
+    table.ed[data-sec="programs"] select {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Название (2-я колонка) забирает весь остаток */
 
     /* ── Заголовки секций внутри блоков ── */
     .sec-title {
@@ -269,7 +307,7 @@
         { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] }
       ];
 
-      // * keys
+      // * KEYS
       const KEYS = {
         chips: ['*'], positions: ['*'],
         // education: ['year', 'title', 'text'], 
@@ -277,7 +315,7 @@
         upk: ['year', 'title', 'text'],
         career: ['year', 'title', 'text'],
         achievements: ['year', 'icon', 'title', 'text'],
-        programs: ['tag', 'title', 'text'],
+        programs: ['text', 'title', 'tag', 'comment'],
         courses: ['a', 'b', 'c', 'd', 'e'],
         schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
@@ -332,11 +370,12 @@
 
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
 
+      // * SEC_COLS
       const SEC_COLS = {
         courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
-        programs: { tag: 'Уровень', title: 'Название', text: 'Описание' }
+        programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
       };
       function colName(sec, key) {
         return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;

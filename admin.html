@@ -203,7 +203,45 @@
       min-width: 0;
     }
 
-    /* Название (2-я колонка) забирает весь остаток */
+    /* ── События: сетка колонок ── */
+    table.ed[data-sec="events"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="events"] th:nth-child(1) {
+      width: 90px;
+    }
+
+    /* Время */
+    table.ed[data-sec="events"] th:nth-child(3) {
+      width: 110px;
+    }
+
+    /* Тип */
+    table.ed[data-sec="events"] th:nth-child(4) {
+      width: 60px;
+    }
+
+    /* Корпус */
+    table.ed[data-sec="events"] th:nth-child(5) {
+      width: 60px;
+    }
+
+    /* Аудитория */
+    table.ed[data-sec="events"] th:last-child {
+      width: 44px;
+    }
+
+    /* Чекбокс "Сейчас" */
+    table.ed[data-sec="events"] input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Предмет (2-я колонка) заберёт весь остаток ширины */
+
+
 
     /* ── Заголовки секций внутри блоков ── */
     .sec-title {
@@ -325,7 +363,7 @@
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
         metrics: ['n', 'l'],
-        events: ['t', 'x', 'now'],
+        events: ['time', 'subject', 'type', 'building', 'room', 'now'],
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
@@ -354,18 +392,21 @@
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
       };
 
-      /* ═══ Настройки отображения полей ═══ */
+      // * MULTILINE
       const MULTILINE = {
         achievements: ['text'], publications: ['text'], patents: ['text'],
-        projects: ['text'], social: ['text'], events: ['x'], news: ['title']
+        projects: ['text'], social: ['text'], news: ['title']
       };
       const AREA_ROWS = { achievements: 4, publications: 3 };
 
+      // * COL_NAMES
       const COL_NAMES = {
         '*': 'Значение', year: 'Год', date: 'Дата', title: 'Название', text: 'Описание',
         tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
         n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки',
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
+        time: 'Время', subject: 'Предмет', type: 'Тип занятия',
+        building: 'Корпус', room: 'Аудитория',
       };
 
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];

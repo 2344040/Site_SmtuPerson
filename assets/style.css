@@ -1275,3 +1275,56 @@ ul.text-block-list {
 .tcard img {
   object-position: center top;
 }
+
+/* ── Новые карточки событий в сайдбаре ── */
+.event-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 16px;
+}
+
+.event-line-1 {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+}
+.event-line-1 b { 
+  color: var(--ink); 
+  margin-right: 4px; 
+  font-weight: 600;
+}
+
+.event-line-2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  /* Обрезание с троеточием */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-line-3 {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Запрет переноса строки */
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.event-type {
+  flex: 1;           /* Забирает всё свободное место */
+  min-width: 0;      /* Разрешаем сжиматься */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Если тип очень длинный — тоже обрежем */
+  margin-right: 8px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.event-loc {
+  flex-shrink: 0;    /* Корпус и аудитория никогда не сжимаются */
+  font-size: 0.7rem;
+}

@@ -296,14 +296,20 @@ function renderMain() {
 
 /* * renderRail */
 function renderRail() {
-  /* События — без изменений */
-  const events = (T.events || []).map(e => `
-    <div class="box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
-      <p class="small mb-${e.now ? '0' : '1'}" ${e.now ? '' : 'style="color:var(--muted)"'}>
-        ${e.now ? '<span class="status-dot me-2"></span><b>Сейчас</b>' : esc(e.t)}
-      </p>
-      <p class="small mb-0" ${e.now ? 'style="color:blue"' : ''}><b>${esc(e.x.split('·')[0])}</b>${e.x.includes('·') ? ' · <i>' + esc(e.x.split('·').slice(1).join('·').trim()) + '</i>' : ''}</p>
-    </div>`).join('');
+  /* События */
+const events = (T.events || []).slice(0, 2).map(e => `
+  <div class="box event-box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
+    <div class="event-line-1">
+      ${e.now ? '<span class="status-dot me-1"></span><b>Сейчас</b>' : ''}
+      <span class="event-time">${esc(e.time)}</span>
+    </div>
+    <div class="event-line-2" title="${esc(e.subject)}">${esc(e.subject)}</div>
+    <div class="event-line-3">
+      <span class="event-type">${esc(e.type)}</span>
+      <span class="event-loc">${esc(e.building)} · ауд. ${esc(e.room)}</span>
+    </div>
+  </div>
+`).join('');
 
   /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
   const ext = T.external_links || {};

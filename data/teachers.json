@@ -217,10 +217,10 @@
    ],
    "books": [
     {
-     "year": "2024",
-     "title": "Базирование АНПА на подводных лодках",
-     "text": "М.: Юрайт, 312 с.",
-     "tag": "Учебное пособие"
+     "year": "",
+     "title": "",
+     "text": "",
+     "tag": ""
     }
    ],
    "schedule": [
@@ -259,12 +259,12 @@
    ],
    "session": [
     {
-     "a": "18.01",
-     "b": "10:00",
-     "c": "ПО мехатронных систем",
-     "d": "Экзамен",
-     "e": "302-Б",
-     "f": "415"
+     "a": "",
+     "b": "",
+     "c": "",
+     "d": "",
+     "e": "",
+     "f": ""
     }
    ],
    "projects": [
@@ -303,7 +303,7 @@
    "share_tg_url": "",
    "share_vk_url": "",
    "external_links": {
-    "schedule": ""
+    "schedule": "https://www.smtu.ru/ru/viewschedule_new/teacher/100607/"
    },
    "rail_edu": [],
    "ped_text": "",

@@ -582,7 +582,12 @@
         author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные',
       };
 
+      // * LEVELS
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
+      /* Списки для расписания занятий */
+      const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+      const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30'];
+      const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
 
 
       // * SEC_COLS
@@ -738,6 +743,17 @@
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+    </select></td>`;
+          }
+
+          if (k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) {
+            const opts = c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES;
+            const inList = opts.includes(val);
+            return `<td>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}">
+      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+      <option value="" ${!val ? 'selected' : ''}>—</option>
+      ${opts.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
 

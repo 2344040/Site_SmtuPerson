@@ -213,38 +213,43 @@ const matItem = (item, sec) => {
   const icon = MAT_ICON[t] || sec.fb;
   const isBooks = sec.key === 'mat_books';
 
+  /* Левая часть: описание */
+  let infoHtml = '';
   if (isBooks) {
     const author = item.author ? `<span class="mat-author">${esc(item.author)}</span>` : '';
     const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
     const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
     const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
-    return `<li class="mat-item">
-      <i class="mat-icon bi ${icon}"></i>
-      <div class="mat-info">
-        <div class="mat-line">${author}${title}${slash}${biblio}</div>
-        <span class="mat-links">
-          ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>` : ''}
-          ${item.url_buy ? `<a href="${esc(item.url_buy)}" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>` : ''}
-        </span>
-      </div>
-    </li>`;
+    infoHtml = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
+  } else {
+    const meta = [item.author, src || (t && MAT_LABEL[t]) || ''].filter(Boolean).join(' · ');
+    infoHtml = `<div class="mat-line"><span class="mat-title">${esc(item.title)}</span></div>
+                ${meta ? `<small class="mat-meta">${esc(meta)}</small>` : ''}`;
   }
 
-  const meta = [item.author, src || (t && MAT_LABEL[t]) || ''].filter(Boolean).join(' · ');
+  /* Правая часть: иконка формата + кнопки действий */
+  const actions = [];
+  actions.push(`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`);
+  if (isBooks) {
+    if (item.url)     actions.push(`<a href="${esc(item.url)}"     class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
+    if (item.url_buy) actions.push(`<a href="${esc(item.url_buy)}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
+  } else if (item.url) {
+    actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
+  }
+
   return `<li class="mat-item">
-    <i class="mat-icon bi ${icon}"></i>
-    <div class="mat-info">
-      <a class="mat-title" href="${esc(item.url)}" ${isExternal(item.url) ? 'target="_blank" rel="noopener"' : ''}>${esc(item.title)}</a>
-      ${meta ? `<small class="mat-meta">${esc(meta)}</small>` : ''}
-    </div>
+    <div class="mat-info">${infoHtml}</div>
+    <div class="mat-actions">${actions.join('')}</div>
   </li>`;
 };
 
 const renderMatNode = (node, depth, sec) => {
   let html = '';
-  if (node.items.length) html += `<ul class="mat-list" style="--d:${depth}">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
+  if (node.items.length) {
+    html += `<ul class="mat-list">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
+  }
   node.children.forEach((child, name) => {
-    html += `<div class="mat-h mat-h-${Math.min(depth + 1, 3)}" style="--d:${depth + 1}">${esc(name)}</div>`;
+    html += `<div class="mat-h mat-h-${Math.min(depth + 1, 3)}">${esc(name)}</div>`;
     html += renderMatNode(child, depth + 1, sec);
   });
   return html;
@@ -265,9 +270,9 @@ const materialsBlock = T => {
   return `<div class="materials-accordion reveal">
     ${secs.map((s, idx) => `
       <details class="mat-group" name="materials" ${idx === 0 ? 'open' : ''}>
-        <summary>
-          <span class="mat-cat-title"><i class="bi ${s.icon} me-2" style="color:var(--amber)"></i>${s.title}</span>
-          <span class="mat-count">${T[s.key].length} ${pluralize(T[s.key].length, ['материал', 'материала', 'материалов'])}</span>
+        <summary class="mat-summary">
+          <span class="mat-cat-title"><i class="bi ${s.icon} me-2"></i>${s.title}</span>
+          <span class="mat-count">${T[s.key].length}</span>
         </summary>
         <div class="mat-body">${renderMatNode(matTree(T[s.key]), 0, s)}</div>
       </details>`).join('')}

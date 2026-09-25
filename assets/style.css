@@ -1336,28 +1336,196 @@ ul.text-block-list {
 }
 
 /* & материалы */
+/* ── Учебные материалы: аккордеон-проводник ── */
+.materials-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.mat-group {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  overflow: visible;
+  box-shadow: 0 1px 3px rgba(18, 36, 31, 0.04);
+}
+
+/* Кнопка-заголовок секции */
+.mat-summary {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  list-style: none;
+  background: #fff;
+  border-radius: 10px;
+  transition: background .2s, box-shadow .2s;
+  position: sticky;
+  top: 320px;          /* ← прилипает под основным меню */
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(18, 36, 31, 0.06);
+}
+.mat-summary::-webkit-details-marker { display: none; }
+.mat-summary:hover { background: var(--paper); }
+.mat-group[open] .mat-summary {
+  border-bottom: 1px dashed var(--line);
+  border-radius: 10px 10px 0 0;
+}
+
+.mat-cat-title {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+}
+.mat-cat-title i { color: var(--amber); font-size: 1.1rem; }
+
+/* Кружок со счётчиком — как непрочитанные в мессенджере */
+.mat-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  border-radius: 13px;
+  background: var(--teal-light);   /* ваш синий #324C68 */
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  box-shadow: 0 1px 3px rgba(50, 76, 104, 0.35);
+}
+
+/* Тело аккордеона */
+.mat-body {
+  padding: 22px 18px 14px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Заголовки уровней (папки) */
+.mat-h {
+  font-weight: 600;
+  color: var(--ink);
+  margin: 18px 0 6px;
+  padding: 6px 0 6px 18px;
+  position: relative;
+  line-height: 1.3;
+}
+.mat-h::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: var(--amber);
+}
+.mat-h:first-child { margin-top: 0; }
+.mat-h-1 {
+  font-size: 1.05rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+.mat-h-2 { font-size: .98rem; color: var(--ink); }
+.mat-h-3 { font-size: .9rem; color: var(--muted); font-weight: 500; }
+
+/* Список материалов — вертикальная линия дерева */
+.mat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 18px;
+  border-left: 1px solid var(--line);
+}
+
+/* Элемент материала */
+.mat-item {
+  position: relative;
+  padding: 10px 8px 10px 16px;
+  border-bottom: 1px dashed var(--line);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.mat-item:last-child { border-bottom: 0; }
+.mat-item::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 18px;
+  width: 16px;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Левая часть: описание */
+.mat-info { flex: 1; min-width: 0; }
 .mat-line {
   line-height: 1.45;
+  word-wrap: break-word;
 }
-
-.mat-author {
-  font-style: italic;
+.mat-author { font-style: italic; color: var(--muted); margin-right: .4em; }
+.mat-title { color: var(--ink); font-weight: 600; }
+.mat-slash { color: var(--muted); padding: 0 .15em; }
+.mat-biblio { font-size: .85em; color: var(--muted); }
+.mat-meta {
+  display: block;
   color: var(--muted);
-  margin-right: .4em;
+  font-size: .78rem;
+  margin-top: 2px;
 }
 
-.mat-title {
-  color: var(--ink);
-  font-weight: 500;
+/* Правая часть: иконка формата + кнопки */
+.mat-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
-
-.mat-slash {
-  color: var(--muted);
-  padding: 0 .1em;
+.mat-icon {
+  color: var(--amber);
+  font-size: 1.15rem;
+  flex-shrink: 0;
 }
+.mat-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--teal);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all .25s cubic-bezier(.25,.8,.25,1);
+}
+.mat-btn:hover {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(217, 123, 41, 0.35);
+}
+.mat-btn i { pointer-events: none; }
 
-.mat-biblio {
-  font-size: .82em;
-  color: var(--muted);
+/* Адаптив: на узких экранах кнопки под текст */
+@media (max-width: 520px) {
+  .mat-item { flex-wrap: wrap; }
+  .mat-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--line);
+  }
 }

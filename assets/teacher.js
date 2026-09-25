@@ -277,8 +277,8 @@ const materialsBlock = T => {
   const secs = MAT_SECTIONS.filter(s => has(s.key));
   if (!secs.length) return '';
   return `<div class="materials-accordion reveal">
-    ${secs.map((s, idx) => `
-      <details class="mat-group" name="materials" ${idx === 0 ? 'open' : ''}>
+    ${secs.map((s) => `
+      <details class="mat-group" name="materials">
         <summary class="mat-summary">
           <span class="mat-cat-title"><i class="bi ${s.icon} me-2"></i>${s.title}</span>
           <span class="mat-count">${T[s.key].length}</span>

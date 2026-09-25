@@ -1340,7 +1340,7 @@ ul.text-block-list {
 .materials-accordion {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 3px;
 }
 
 .mat-group {

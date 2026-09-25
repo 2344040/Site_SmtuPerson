@@ -43,6 +43,7 @@ function fillHeader() {
     `<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('');
 }
 
+// * buildMenu
 /* ═══ Меню ═══ */
 function buildMenu() {
   const items = [
@@ -51,7 +52,7 @@ function buildMenu() {
     { h: 'career', t: 'Карьера', v: has('career') || has('achievements') },
     { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') },
     { h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents') },
-    { h: 'social', t: 'Общественная деятельность', v: has('social') },
+    { h: 'social', t: 'Общественная деятельность', v: has('social') || T.social_text },
     { h: 'news', t: 'Новости', v: has('news') }
   ];
   document.getElementById('menu').innerHTML = items.filter(i => i.v).map(i =>
@@ -418,13 +419,15 @@ function renderMain() {
     if (has('publications')) body += sub('publications', 'Избранные публикации', pubs(T.publications));
     o.push(sec('science', '', 'Научная деятельность', body));
   }
-  /* SOCIAL (alt) */
-  if (has('social')) {
-    o.push(sec('social', 'alt', 'Общественная деятельность',
-      `<div class="text-block"><ul class="text-block-list">${T.social.map(s =>
-        `<li>${esc(s.text || s.title)}</li>`).join('')}</ul></div>`));
+  /* * SOCIAL (alt) */
+  if (has('social') || T.social_text) {
+    let body = '';
+    if (T.social_text) body += `<div class="text-block reveal">${htmlOrText(T.social_text)}</div>`;
+    if (has('social')) body += `<div class="text-block"><ul class="text-block-list">${T.social.map(s =>
+      `<li>${esc(s.text || s.title)}</li>`).join('')}</ul></div>`;
+    o.push(sec('social', 'alt', 'Общественная деятельность', body));
   }
-  /* CONTACTS (blue) */
+  /* * CONTACTS (blue) */
   o.push(`<section class="section blue" id="contact" style="border:0">
     <h2 class="sec-title reveal">Контактная информация</h2><div class="rule"></div>
     <div class="row g-4 reveal">

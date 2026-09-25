@@ -428,6 +428,7 @@
         ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
         science_text: ['Текстовый блок научных интересов', 3],
         ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
+        social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
       };
 
       /* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
@@ -451,7 +452,7 @@
           title: '7. Научная деятельность',
           items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
         },
-        { title: '8. Общественная деятельность', items: [['a', 'social']] },
+        { title: '8. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
         { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
         { title: '10. Учебные материалы', items: [['a', 'mat_posobia'], ['a', 'mat_books'], ['a', 'mat_lectures'], ['a', 'mat_video'], ['a', 'mat_resources']] }
       ];

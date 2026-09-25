@@ -155,14 +155,12 @@ const pubs = a => a.map(i => {
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
   const slash = (i.author || i.title) && i.text ? `<span class="mat-slash"> // </span>` : '';
   const biblio = i.text ? `<span class="mat-biblio">${esc(i.text)}</span>` : '';
+  const tag = i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
+  const doi = i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
   return `
 <div class="pub"><span class="py">${esc(i.year)}</span>
   <div class="pub-body">
-    <div class="mat-line">${author}${title}${slash}${biblio}</div>
-    ${(i.tag || i.doi) ? `<div class="pub-meta">
-      ${i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : ''}
-      ${i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : ''}
-    </div>` : ''}
+    <div class="mat-line">${author}${title}${slash}${biblio}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
   </div>
   ${i.link ? `<a class="mat-btn" href="${esc(i.link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
 </div>`;

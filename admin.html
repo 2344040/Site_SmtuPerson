@@ -242,7 +242,7 @@
 
     /* Предмет (2-я колонка) заберёт весь остаток ширины */
 
-    /* ── Материалы: сетка колонок ── */
+    /* & ── Материалы: сетка колонок ── */
     table.ed[data-sec="materials"] {
       width: 100%;
       table-layout: fixed;
@@ -342,6 +342,14 @@
     table.ed[data-sec^="mat_"] th:last-child {
       width: 108px;
     }
+
+        /* & Карьера: год ≈14 знаков, учреждение и должность поровну ── */
+    table.ed[data-sec="career"] { width: 100%; table-layout: fixed; }
+    table.ed[data-sec="career"] th:nth-child(1) { width: 115px; }   /* Год: ~14 знаков ввода */
+    table.ed[data-sec="career"] th:nth-child(2),
+    table.ed[data-sec="career"] th:nth-child(3) { width: calc((100% - 115px - 44px) / 2); } /* остаток пополам */
+    table.ed[data-sec="career"] th:last-child { width: 44px; }      /* ✕ */
+    table.ed[data-sec="career"] input { width: 100%; min-width: 0; }
 
     .td-act {
       white-space: nowrap;
@@ -549,6 +557,8 @@
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
+        career: { title: 'Организация', text: 'Должность' },
+
 
       };
       function colName(sec, key) {

@@ -1518,6 +1518,43 @@ ul.text-block-list {
   margin-top: 2px;
 }
 
+/* ── Ресурсы: название по содержимому (до 30%), URL забираёт остаток ── */
+.mat-line-res {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.mat-line-res .mat-title {
+  flex: 0 1 auto;
+  max-width: 30%;
+}
+
+.mat-url {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--muted);
+  font-size: .8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .mat-line-res {
+    flex-wrap: wrap;
+    gap: 2px 0;
+  }
+
+  .mat-line-res .mat-title {
+    max-width: 100%;
+  }
+
+  .mat-url {
+    flex-basis: 100%;
+  }
+}
+
 /* Правая часть: иконка формата + кнопки */
 .mat-actions {
   display: flex;

@@ -220,6 +220,12 @@ const matItem = (item, sec) => {
     const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
     const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
     infoHtml = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
+ } else if (sec.key === 'mat_resources') {
+    /* Ресурсы: название + видимый URL-адрес */
+    infoHtml = `<div class="mat-line mat-line-res">
+      <span class="mat-title">${esc(item.title)}</span>
+      <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
+    </div>`;
   } else {
     const authorInline = item.author ? `<span class="mat-author">· ${esc(item.author)}</span>` : '';
     infoHtml = `<div class="mat-line"><span class="mat-title">${esc(item.title)}</span>${authorInline}</div>`;

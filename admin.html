@@ -404,6 +404,7 @@
       const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
       const GATE = '';
 
+      // * SCALAR
       /* ═══ Личные данные: [ключ, подпись, ширина] ═══ */
       /* Скалярные поля: ключ → [подпись, ширина] */
       const SCALAR = {
@@ -420,6 +421,14 @@
         hours: ['Приёмные часы', 'col-md-4'],
         share_tg_url: ['URL для Telegram share', 'col-md-6'],
         share_vk_url: ['URL для VK share', 'col-md-6']
+      };
+
+      /* Короткое ФИО из полного: «Иванов Иван Иванович» → «Иванов И.И.» */
+      const makeShort = name => {
+        const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '';
+        const initials = parts.slice(1).map(w => w[0].toUpperCase() + '.').join('');
+        return initials ? parts[0] + ' ' + initials : parts[0];
       };
 
       // * TEXTS
@@ -568,7 +577,7 @@
       }
       function buildSel() {
         const s = document.getElementById('tsel');
-        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join('');
+        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.short || makeShort(t.name) || t.name || t.id}</option>`).join('');
         s.value = cur;
       }
 
@@ -751,6 +760,7 @@
       function collect() {
         const t = data.teachers[cur];
         document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+        if (!String(t.short || '').trim()) t.short = makeShort(t.name);
         if (!t.external_links) t.external_links = {};
         document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
         Object.keys(KEYS).forEach(k => { t[k] = []; });
@@ -874,6 +884,14 @@
         const prev = f ? document.getElementById('prev-' + f) : null;
         if (prev) prev.innerHTML = e.target.value;
       });
+
+      /* Авто-ФИО коротко: при уходе с поля «ФИО полное», если короткое пустое */
+      document.addEventListener('blur', e => {
+        if (e.target.dataset && e.target.dataset.f === 'name') {
+          const shortInput = document.querySelector('[data-f="short"]');
+          if (shortInput && !shortInput.value.trim()) shortInput.value = makeShort(e.target.value);
+        }
+      }, true);
 
       if (TOK) load();
     </script>

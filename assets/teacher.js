@@ -1,6 +1,12 @@
 // assets/teacher.js
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const makeShort = name => {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return '';
+  const initials = parts.slice(1).map(w => w[0].toUpperCase() + '.').join('');
+  return initials ? parts[0] + ' ' + initials : parts[0];
+};
 const isFilled = i => typeof i === 'string'
   ? i.trim() !== ''
   : Object.entries(i || {}).some(([k, v]) => k !== 'icon' && String(v ?? '').trim() !== '');
@@ -15,7 +21,7 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
   T = d.teachers.find(t => t.id === new URLSearchParams(location.search).get('id')) || d.teachers[0];
   if (!T) { document.getElementById('main').innerHTML = '<p class="p-4">Нет данных.</p>'; return; }
   Object.keys(T).forEach(k => { if (Array.isArray(T[k])) T[k] = T[k].filter(isFilled); });
-  document.title = (T.short || T.name) + ' — СПбГМТУ';
+  document.title = (T.short || makeShort(T.name) || T.name) + ' — СПбГМТУ';
   fillHeader();
   buildMenu();
   renderMain();

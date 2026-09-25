@@ -220,7 +220,7 @@ const matItem = (item, sec) => {
     const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
     const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
     infoHtml = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
- } else if (sec.key === 'mat_resources') {
+  } else if (sec.key === 'mat_resources') {
     /* Ресурсы: название + видимый URL-адрес */
     infoHtml = `<div class="mat-line mat-line-res">
       <span class="mat-title">${esc(item.title)}</span>
@@ -235,7 +235,7 @@ const matItem = (item, sec) => {
   const actions = [];
   actions.push(`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`);
   if (isBooks) {
-    if (item.url)     actions.push(`<a href="${esc(item.url)}"     class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
+    if (item.url) actions.push(`<a href="${esc(item.url)}"     class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
     if (item.url_buy) actions.push(`<a href="${esc(item.url_buy)}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
   } else if (item.url) {
     actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
@@ -251,7 +251,7 @@ const matItem = (item, sec) => {
 const MAT_INDENT = 10; /* шаг отступа в px для каждого нового уровня */
 const matHeadStyle = lvl => {
   const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
-  const c  = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
+  const c = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
   const fw = lvl <= 2 ? 700 : 600;
   return `font-size:${fs};color:${c};font-weight:${fw};margin-left:${(lvl - 1) * MAT_INDENT}px;`;
 };
@@ -393,12 +393,25 @@ function renderMain() {
 
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
-  /* SCIENCE */
+  /* * SCIENCE */
   if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
     let body = '';
-    if (has('metrics')) body += `<div class="row g-3 mb-4 reveal">${T.metrics.map(m =>
-      `<div class="col-6 col-md-3"><div class="metric"><span class="m-num">${esc(m.n)}</span>
-    <small class="text-secondary">${esc(m.l)}</small></div></div>`).join('')}</div>`;
+    if (has('metrics')) {
+      const items = T.metrics.map(m =>
+        `<div class="metric"><span class="m-num">${esc(m.n)}</span>
+         <small class="text-secondary">${esc(m.l)}</small></div>`);
+      const n = items.length;
+      const rows = Math.ceil(n / 4);          /* максимум 4 в строке, как сейчас */
+      const base = Math.floor(n / rows);      /* базовая длина строки */
+      const rem = n % rows;                   /* остаток раздаём первым строкам */
+      let grid = '', i = 0;
+      for (let r = 0; r < rows; r++) {
+        const cnt = base + (r < rem ? 1 : 0);
+        grid += `<div class="metrics-row">${items.slice(i, i + cnt).join('')}</div>`;
+        i += cnt;
+      }
+      body += `<div class="metrics-grid mb-4 reveal">${grid}</div>`;
+    }
     if (T.science_text) body += `<div class="text-block reveal">${htmlOrText(T.science_text)}</div>`;
     if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
     if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));

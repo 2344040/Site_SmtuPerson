@@ -1492,13 +1492,13 @@ ul.text-block-list {
 
 .mat-author {
   font-style: italic;
-  color: var(--muted);
-  margin-right: .4em;
+  color: var(--ink);
+  margin: 0 .35em;
 }
 
 .mat-title {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .mat-slash {

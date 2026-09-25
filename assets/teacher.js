@@ -209,7 +209,6 @@ const matTree = items => {
 
 const matItem = (item, sec) => {
   const t = matType(item.url);
-  const src = matSource(item.url);
   const icon = MAT_ICON[t] || sec.fb;
   const isBooks = sec.key === 'mat_books';
 
@@ -222,9 +221,8 @@ const matItem = (item, sec) => {
     const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
     infoHtml = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
   } else {
-    const meta = [item.author, src || (t && MAT_LABEL[t]) || ''].filter(Boolean).join(' · ');
-    infoHtml = `<div class="mat-line"><span class="mat-title">${esc(item.title)}</span></div>
-                ${meta ? `<small class="mat-meta">${esc(meta)}</small>` : ''}`;
+    const authorInline = item.author ? `<span class="mat-author">· ${esc(item.author)}</span>` : '';
+    infoHtml = `<div class="mat-line"><span class="mat-title">${esc(item.title)}</span>${authorInline}</div>`;
   }
 
   /* Правая часть: иконка формата + кнопки действий */

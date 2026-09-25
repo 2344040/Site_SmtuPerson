@@ -349,7 +349,49 @@
      "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/27/24396.pdf?token_static=ae1675247b600d427bbf2b43f716f14b",
      "size": ""
     }
-   ]
+   ],
+   "mat_posobia": [
+    {
+     "author": "Колесников ",
+     "title": "КИНЕМАТИКА_ПРЕЗЕНТАЦИЯ (7.95M - pdf)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/05/45907.pdf?token_static=168954c644ee456fbdb5dc31f9f08874",
+     "rub": "20Физика/24. Адаптационный курс физики"
+    },
+    {
+     "author": "Колесников",
+     "title": "ДИНАМИКА_ПРЕЗЕНТАЦИЯ (11.34M - pdf)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/06/45940.pdf?token_static=8c49193db9dbe71cc23dba534db20869",
+     "rub": "20Физика/24. Адаптационный курс физики"
+    },
+    {
+     "author": "Колесников",
+     "title": "Приложение П1_1.1_Действия с векторами (514.13K - pdf)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/02/46333.pdf?token_static=ea53efbde681522831cb841685636f01",
+     "rub": "20Физика/2025. Курс общей физики"
+    },
+    {
+     "author": "",
+     "title": "Презентация 1.1. Вводная лекция. Основы кинематики (18.13M - pdf)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/04/46351.pdf?token_static=7d39ae81edcd0d482f3a120968b279ee",
+     "rub": "20Физика/2025. Курс общей физики"
+    },
+    {
+     "author": "",
+     "title": "Мгновения (временная шкала) (4.08M - Картинка JPG)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/10/24/45753.jpg?token_static=e0f3b4f022a12090ffcc4645410189c8",
+     "rub": "Учебные плакаты/2025. Курс общей физики"
+    },
+    {
+     "author": "",
+     "title": "Возможности человека (1.54M - Картинка JPG)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46834.jpg?token_static=7cf5d0895c6ca87c8e554fd93c755b90",
+     "rub": "Учебные плакаты/2025. Курс общей физики"
+    }
+   ],
+   "mat_books": [],
+   "mat_lectures": [],
+   "mat_video": [],
+   "mat_resources": []
   }
  ]
 }

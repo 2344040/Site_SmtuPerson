@@ -343,13 +343,32 @@
       width: 108px;
     }
 
-        /* & Карьера: год ≈14 знаков, учреждение и должность поровну ── */
-    table.ed[data-sec="career"] { width: 100%; table-layout: fixed; }
-    table.ed[data-sec="career"] th:nth-child(1) { width: 115px; }   /* Год: ~14 знаков ввода */
+    /* & Карьера: год ≈14 знаков, учреждение и должность поровну ── */
+    table.ed[data-sec="career"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="career"] th:nth-child(1) {
+      width: 100px;
+    }
+
+    /* Год: ~14 знаков ввода */
     table.ed[data-sec="career"] th:nth-child(2),
-    table.ed[data-sec="career"] th:nth-child(3) { width: calc((100% - 115px - 44px) / 2); } /* остаток пополам */
-    table.ed[data-sec="career"] th:last-child { width: 44px; }      /* ✕ */
-    table.ed[data-sec="career"] input { width: 100%; min-width: 0; }
+    table.ed[data-sec="career"] th:nth-child(3) {
+      width: calc((100% - 100px - 44px) / 2);
+    }
+
+    /* остаток пополам */
+    table.ed[data-sec="career"] th:last-child {
+      width: 44px;
+    }
+
+    /* ✕ */
+    table.ed[data-sec="career"] input {
+      width: 100%;
+      min-width: 0;
+    }
 
     .td-act {
       white-space: nowrap;
@@ -393,11 +412,11 @@
 
     <div id="app" style="display:none">
       <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-        <select id="tsel" class="form-select" style="max-width:320px" onchange="cur=+this.value;build()"></select>
+        <select id="tsel" class="form-select" style="max-width:560px" onchange="cur=+this.value;build()"></select>
         <button class="btn btn-outline-dark btn-sm" onclick="addTeacher()">+ преподаватель</button>
         <button class="btn btn-outline-danger btn-sm" onclick="delTeacher()">Удалить</button>
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
-        <span id="status"></span>
+        <span id="status" class="small" style="min-width:6rem"></span>
       </div>
       <!-- <div class="card p-3 mb-3">
         <h6>Личные данные</h6>
@@ -585,9 +604,11 @@
         document.getElementById('app').style.display = '';
         buildSel(); build();
       }
+
+      // * buildSel
       function buildSel() {
         const s = document.getElementById('tsel');
-        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.short || makeShort(t.name) || t.name || t.id}</option>`).join('');
+        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join('');
         s.value = cur;
       }
 
@@ -834,11 +855,12 @@
         buildSel(); build();
       }
 
+      // * save
       /* ═══ Сохранение в GitHub ═══ */
       async function save() {
         collect();
         const st = document.getElementById('status');
-        st.textContent = 'v3: сохраняю…';
+        st.textContent = 'сохраняю…';
         try {
           const g = await gh('/contents/' + PATH);
           if (!g.ok) {
@@ -857,8 +879,13 @@
             })
           });
           const res = await r.json().catch(() => ({}));
-          if (r.ok) st.textContent = '✔ опубликовано (Pages обновится за ~1 мин)';
-          else { st.textContent = '✗ ' + r.status; alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res))); }
+          if (r.ok) {
+            const stamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            st.innerHTML = `<span class="text-success fw-bold">✔</span> ${stamp}`;
+          } else {
+            st.innerHTML = `<span class="text-danger fw-bold">✗</span> ${r.status}`;
+            alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res)));
+          }
         } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
       }
 

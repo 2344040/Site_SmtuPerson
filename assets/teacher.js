@@ -454,7 +454,12 @@ function renderRail() {
   /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
   const ext = T.external_links || {};
   /* ── 3б: Учебный процесс ── */
-  const eduLinks = (T.rail_edu && T.rail_edu.length)
+  /* Кнопка материалов — последняя, только если есть хотя бы одна запись */
+  const matLink = hasMat()
+    ? `<a class="btn-side" href="#materials"><span>Учебные материалы</span><i class="bi bi-arrow-right arr"></i></a>`
+    : '';
+
+  const eduLinks = ((T.rail_edu && T.rail_edu.length)
     ? T.rail_edu.map(p => {
       const icon = String(p.u || '').startsWith('http')
         ? 'bi-box-arrow-up-right'
@@ -465,7 +470,7 @@ function renderRail() {
       has('schedule') ? `<a class="btn-side" href="#schedule"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>` : '',
       has('session') ? `<a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>` : '',
       has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
-    ].filter(Boolean).join('');
+    ].filter(Boolean).join('')) + matLink;
   // : `<a class="btn-side" href="${esc(ext.schedule || '#schedule')}"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>
   //    <a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>
   //    <a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>`;

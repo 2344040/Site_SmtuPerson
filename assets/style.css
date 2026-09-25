@@ -1366,12 +1366,20 @@ ul.text-block-list {
   border-radius: 10px;
   transition: background .2s, box-shadow .2s;
   position: sticky;
-  top: 320px;          /* ← прилипает под основным меню */
+  top: 300px;
+  /* ← прилипает под основным меню */
   z-index: 50;
   box-shadow: 0 2px 8px rgba(18, 36, 31, 0.06);
 }
-.mat-summary::-webkit-details-marker { display: none; }
-.mat-summary:hover { background: var(--paper); }
+
+.mat-summary::-webkit-details-marker {
+  display: none;
+}
+
+.mat-summary:hover {
+  background: var(--paper);
+}
+
 .mat-group[open] .mat-summary {
   border-bottom: 1px dashed var(--line);
   border-radius: 10px 10px 0 0;
@@ -1382,7 +1390,11 @@ ul.text-block-list {
   align-items: center;
   color: var(--ink);
 }
-.mat-cat-title i { color: var(--amber); font-size: 1.1rem; }
+
+.mat-cat-title i {
+  color: var(--amber);
+  font-size: 1.1rem;
+}
 
 /* Кружок со счётчиком — как непрочитанные в мессенджере */
 .mat-count {
@@ -1393,7 +1405,8 @@ ul.text-block-list {
   height: 26px;
   padding: 0 7px;
   border-radius: 13px;
-  background: var(--teal-light);   /* ваш синий #324C68 */
+  background: var(--teal-light);
+  /* ваш синий #324C68 */
   color: #fff;
   font-size: .78rem;
   font-weight: 700;
@@ -1417,6 +1430,7 @@ ul.text-block-list {
   position: relative;
   line-height: 1.3;
 }
+
 .mat-h::before {
   content: '';
   position: absolute;
@@ -1426,7 +1440,11 @@ ul.text-block-list {
   height: 1px;
   background: var(--amber);
 }
-.mat-h:first-child { margin-top: 0; }
+
+.mat-h:first-child {
+  margin-top: 0;
+}
+
 .mat-h-1 {
   font-size: 1.05rem;
   color: var(--teal);
@@ -1434,8 +1452,17 @@ ul.text-block-list {
   letter-spacing: .06em;
   font-weight: 700;
 }
-.mat-h-2 { font-size: .98rem; color: var(--ink); }
-.mat-h-3 { font-size: .9rem; color: var(--muted); font-weight: 500; }
+
+.mat-h-2 {
+  font-size: .98rem;
+  color: var(--ink);
+}
+
+.mat-h-3 {
+  font-size: .9rem;
+  color: var(--muted);
+  font-weight: 500;
+}
 
 /* Список материалов — вертикальная линия дерева */
 .mat-list {
@@ -1454,7 +1481,11 @@ ul.text-block-list {
   align-items: flex-start;
   gap: 14px;
 }
-.mat-item:last-child { border-bottom: 0; }
+
+.mat-item:last-child {
+  border-bottom: 0;
+}
+
 .mat-item::before {
   content: '';
   position: absolute;
@@ -1466,15 +1497,37 @@ ul.text-block-list {
 }
 
 /* Левая часть: описание */
-.mat-info { flex: 1; min-width: 0; }
+.mat-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .mat-line {
   line-height: 1.45;
   word-wrap: break-word;
 }
-.mat-author { font-style: italic; color: var(--muted); margin-right: .4em; }
-.mat-title { color: var(--ink); font-weight: 600; }
-.mat-slash { color: var(--muted); padding: 0 .15em; }
-.mat-biblio { font-size: .85em; color: var(--muted); }
+
+.mat-author {
+  font-style: italic;
+  color: var(--muted);
+  margin-right: .4em;
+}
+
+.mat-title {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.mat-slash {
+  color: var(--muted);
+  padding: 0 .15em;
+}
+
+.mat-biblio {
+  font-size: .85em;
+  color: var(--muted);
+}
+
 .mat-meta {
   display: block;
   color: var(--muted);
@@ -1490,11 +1543,13 @@ ul.text-block-list {
   flex-shrink: 0;
   margin-left: auto;
 }
+
 .mat-icon {
   color: var(--amber);
   font-size: 1.15rem;
   flex-shrink: 0;
 }
+
 .mat-btn {
   display: inline-flex;
   align-items: center;
@@ -1507,8 +1562,9 @@ ul.text-block-list {
   color: var(--teal);
   font-size: 1rem;
   text-decoration: none;
-  transition: all .25s cubic-bezier(.25,.8,.25,1);
+  transition: all .25s cubic-bezier(.25, .8, .25, 1);
 }
+
 .mat-btn:hover {
   background: var(--amber);
   border-color: var(--amber);
@@ -1516,11 +1572,17 @@ ul.text-block-list {
   transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(217, 123, 41, 0.35);
 }
-.mat-btn i { pointer-events: none; }
+
+.mat-btn i {
+  pointer-events: none;
+}
 
 /* Адаптив: на узких экранах кнопки под текст */
 @media (max-width: 520px) {
-  .mat-item { flex-wrap: wrap; }
+  .mat-item {
+    flex-wrap: wrap;
+  }
+
   .mat-actions {
     width: 100%;
     justify-content: flex-end;

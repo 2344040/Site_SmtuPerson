@@ -143,7 +143,7 @@ const pubs = a => a.map(i => `
   </div>
 </div>`).join('');
 
-/* ── Вспомогательные функции для материалов ── */
+/* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);
 
 const pluralize = (n, forms) => {
@@ -153,51 +153,124 @@ const pluralize = (n, forms) => {
   return forms[2];
 };
 
-const iconForType = type => {
-  const icons = {
-    'pdf': 'bi-file-earmark-pdf-fill', 'doc': 'bi-file-earmark-word-fill',
-    'docx': 'bi-file-earmark-word-fill', 'ppt': 'bi-file-earmark-slides-fill',
-    'pptx': 'bi-file-earmark-slides-fill', 'zip': 'bi-file-earmark-zip-fill',
-    'rar': 'bi-file-earmark-zip-fill', 'video-youtube': 'bi-youtube',
-    'video-vimeo': 'bi-camera-video-fill', 'video-local': 'bi-play-circle-fill',
-    'book-ozon': 'bi-cart-fill', 'book-wildberries': 'bi-bag-fill',
-    'book-litres': 'bi-book-fill', 'book-library': 'bi-bank',
-    'link': 'bi-link-45deg', 'image': 'bi-image-fill'
-  };
-  return icons[type] || 'bi-file-earmark-fill';
+const MAT_ICON = {
+  pdf: 'bi-file-earmark-pdf-fill', doc: 'bi-file-earmark-word-fill',
+  ppt: 'bi-file-earmark-slides-fill', zip: 'bi-file-earmark-zip-fill',
+  audio: 'bi-mic-fill', video: 'bi-camera-video-fill',
+  'video-youtube': 'bi-youtube', image: 'bi-image-fill',
+  shop: 'bi-cart-fill', book: 'bi-book-fill',
+  file: 'bi-file-earmark-fill', link: 'bi-link-45deg',
+};
+const MAT_LABEL = { pdf: 'PDF', doc: 'DOC', ppt: 'PPT', zip: 'архив', audio: 'аудио', video: 'видео', image: 'изображение' };
+const MAT_SRC = [
+  [/youtube\.com|youtu\.be/, 'YouTube', 'video-youtube'],
+  [/rutube\.ru/, 'Rutube', 'video'],
+  [/vimeo\.com/, 'Vimeo', 'video'],
+  [/vk\.com\/video|vkvideo\.ru/, 'VK Видео', 'video'],
+  [/ozon\.ru/, 'Ozon', 'shop'],
+  [/wildberries\.ru/, 'Wildberries', 'shop'],
+  [/litres\.ru/, 'Литрес', 'shop'],
+  [/labirint\.ru/, 'Лабиринт', 'shop'],
+];
+const matType = url => {
+  const u = String(url || '').toLowerCase();
+  const src = MAT_SRC.find(([re]) => re.test(u));
+  if (src) return src[2];
+  const ext = (u.match(/\.(pdf|docx?|pptx?|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
+  if (!ext) return null;
+  if (ext === 'pdf') return 'pdf';
+  if (ext.startsWith('doc')) return 'doc';
+  if (ext.startsWith('ppt')) return 'ppt';
+  if (/^(zip|rar|7z)$/.test(ext)) return 'zip';
+  if (/^(mp3|wav|m4a)$/.test(ext)) return 'audio';
+  if (/^(mp4|avi|mov|mkv|webm)$/.test(ext)) return 'video';
+  return 'image';
+};
+const matSource = url => {
+  const u = String(url || '').toLowerCase();
+  const src = MAT_SRC.find(([re]) => re.test(u));
+  return src ? src[1] : null;
 };
 
-/* ═══ Блок материалов (аккордеон) ═══ */
-const materialsBlock = a => {
-  if (!a || !a.length) return '';
-  const groups = {};
-  a.forEach(item => {
-    const cat = item.category || 'Без рубрики';
-    (groups[cat] = groups[cat] || []).push(item);
+/* Дерево рубрик: путь "A / B" превращаем в вложенность */
+const matTree = items => {
+  const root = { children: new Map(), items: [] };
+  items.forEach(it => {
+    const path = String(it.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
+    let node = root;
+    path.forEach(p => {
+      if (!node.children.has(p)) node.children.set(p, { children: new Map(), items: [] });
+      node = node.children.get(p);
+    });
+    node.items.push(it);
   });
+  return root;
+};
 
+const matItem = (item, sec) => {
+  const t = matType(item.url);
+  const src = matSource(item.url);
+  const icon = MAT_ICON[t] || sec.fb;
+  const isBooks = sec.key === 'mat_books';
+
+  if (isBooks) {
+    const author = item.author ? `<span class="mat-author">${esc(item.author)}</span>` : '';
+    const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
+    const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
+    const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
+    return `<li class="mat-item">
+      <i class="mat-icon bi ${icon}"></i>
+      <div class="mat-info">
+        <div class="mat-line">${author}${title}${slash}${biblio}</div>
+        <span class="mat-links">
+          ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>` : ''}
+          ${item.url_buy ? `<a href="${esc(item.url_buy)}" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>` : ''}
+        </span>
+      </div>
+    </li>`;
+  }
+
+  const meta = [item.author, src || (t && MAT_LABEL[t]) || ''].filter(Boolean).join(' · ');
+  return `<li class="mat-item">
+    <i class="mat-icon bi ${icon}"></i>
+    <div class="mat-info">
+      <a class="mat-title" href="${esc(item.url)}" ${isExternal(item.url) ? 'target="_blank" rel="noopener"' : ''}>${esc(item.title)}</a>
+      ${meta ? `<small class="mat-meta">${esc(meta)}</small>` : ''}
+    </div>
+  </li>`;
+};
+
+const renderMatNode = (node, depth, sec) => {
+  let html = '';
+  if (node.items.length) html += `<ul class="mat-list" style="--d:${depth}">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
+  node.children.forEach((child, name) => {
+    html += `<div class="mat-h mat-h-${Math.min(depth + 1, 3)}" style="--d:${depth + 1}">${esc(name)}</div>`;
+    html += renderMatNode(child, depth + 1, sec);
+  });
+  return html;
+};
+
+const MAT_SECTIONS = [
+  { key: 'mat_posobia', title: 'Учебные пособия', icon: 'bi-journal-text', fb: 'bi-file-earmark-fill' },
+  { key: 'mat_books', title: 'Книги', icon: 'bi-book', fb: 'bi-book-fill' },
+  { key: 'mat_lectures', title: 'Записи лекций', icon: 'bi-mic', fb: 'bi-mic-fill' },
+  { key: 'mat_video', title: 'Видео-материалы', icon: 'bi-camera-video', fb: 'bi-camera-video-fill' },
+  { key: 'mat_resources', title: 'Полезные ресурсы', icon: 'bi-link-45deg', fb: 'bi-link-45deg' },
+];
+const hasMat = () => MAT_SECTIONS.some(s => has(s.key));
+
+const materialsBlock = T => {
+  const secs = MAT_SECTIONS.filter(s => has(s.key));
+  if (!secs.length) return '';
   return `<div class="materials-accordion reveal">
-    ${Object.entries(groups).map(([cat, items], idx) => `
-      <details class="mat-group" ${idx === 0 ? 'open' : ''}>
+    ${secs.map((s, idx) => `
+      <details class="mat-group" name="materials" ${idx === 0 ? 'open' : ''}>
         <summary>
-          <span class="mat-cat-title">${esc(cat)}</span>
-          <span class="mat-count">${items.length} ${pluralize(items.length, ['материал', 'материала', 'материалов'])}</span>
+          <span class="mat-cat-title"><i class="bi ${s.icon} me-2" style="color:var(--amber)"></i>${s.title}</span>
+          <span class="mat-count">${T[s.key].length} ${pluralize(T[s.key].length, ['материал', 'материала', 'материалов'])}</span>
         </summary>
-        <ul class="mat-list">
-          ${items.map(item => `
-            <li class="mat-item mat-type-${item.type}">
-              <i class="mat-icon bi ${iconForType(item.type)}"></i>
-              <div class="mat-info">
-                <a href="${esc(item.url)}" ${isExternal(item.url) ? 'target="_blank" rel="noopener"' : ''}>
-                  ${esc(item.title)}
-                </a>
-                ${item.size ? `<small class="mat-size">${esc(item.size)}</small>` : ''}
-              </div>
-            </li>
-          `).join('')}
-        </ul>
-      </details>
-    `).join('')}
+        <div class="mat-body">${renderMatNode(matTree(T[s.key]), 0, s)}</div>
+      </details>`).join('')}
   </div>`;
 };
 
@@ -263,7 +336,7 @@ function renderMain() {
     o.push(sec('career', '', 'Карьера', body));
   }
   /* PEDAGOGICAL (alt) — программы/дисциплины/расписание/сессия */
-  if (has('programs') || has('courses') || has('schedule') || has('session') || has('materials')) {
+  if (has('programs') || has('courses') || has('schedule') || has('session') || hasMat()) {
     let body = '';
     if (T.ped_text) body += `<div class="text-block reveal">${htmlOrText(T.ped_text)}</div>`;
     if (has('programs')) body += sub('programs', 'Образовательные программы', programCards(T.programs));
@@ -298,7 +371,7 @@ function renderMain() {
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
 
     // Учебные материалы (в самом конце раздела)
-    if (has('materials')) body += sub('materials', 'Учебные материалы', materialsBlock(T.materials));
+    if (hasMat()) body += sub('materials', 'Учебные материалы', materialsBlock(T));
 
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }

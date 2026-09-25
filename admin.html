@@ -301,10 +301,32 @@
     }
 
     /* Ссылка */
-    table.ed[data-sec="mat_books"] th:nth-child(3),
-    table.ed[data-sec="mat_books"] th:nth-child(4) {
-      width: 22%;
+    table.ed[data-sec="mat_books"] th:nth-child(1) {
+      width: 120px;
     }
+
+    /* Автор */
+    table.ed[data-sec="mat_books"] th:nth-child(2) {
+      width: 24%;
+    }
+
+    /* Название */
+    table.ed[data-sec="mat_books"] th:nth-child(3) {
+      width: 20%;
+    }
+
+    /* Выходные данные */
+    table.ed[data-sec="mat_books"] th:nth-child(4),
+    table.ed[data-sec="mat_books"] th:nth-child(5) {
+      width: 70px;
+    }
+
+    /* Скачивание / Покупка */
+    table.ed[data-sec="mat_books"] th:nth-child(6) {
+      width: 16%;
+    }
+
+    /* Рубрика */
 
     /* Скачивание / покупка */
     table.ed[data-sec="mat_posobia"] th:nth-child(4),
@@ -457,7 +479,7 @@
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
         mat_posobia: ['author', 'title', 'url', 'rub'],
-        mat_books: ['author', 'title', 'url', 'url_buy', 'rub'],
+        mat_books: ['author', 'title', 'biblio', 'url', 'url_buy', 'rub'],
         mat_lectures: ['author', 'title', 'url', 'rub'],
         mat_video: ['author', 'title', 'url', 'rub'],
         mat_resources: ['title', 'url', 'rub'],
@@ -505,7 +527,7 @@
         time: 'Время', subject: 'Предмет', type: 'Тип занятия',
         building: 'Корпус', room: 'Аудитория',
         /* Учебные материалы */
-        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)',
+        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные',
       };
 
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];

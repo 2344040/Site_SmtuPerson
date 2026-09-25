@@ -1290,9 +1290,10 @@ ul.text-block-list {
   display: flex;
   align-items: center;
 }
-.event-line-1 b { 
-  color: var(--ink); 
-  margin-right: 4px; 
+
+.event-line-1 b {
+  color: var(--ink);
+  margin-right: 4px;
   font-weight: 600;
 }
 
@@ -1309,22 +1310,54 @@ ul.text-block-list {
 .event-line-3 {
   display: flex;
   align-items: center;
-  white-space: nowrap; /* Запрет переноса строки */
+  white-space: nowrap;
+  /* Запрет переноса строки */
   font-size: 0.75rem;
   color: var(--muted);
 }
 
 .event-type {
-  flex: 1;           /* Забирает всё свободное место */
-  min-width: 0;      /* Разрешаем сжиматься */
+  flex: 1;
+  /* Забирает всё свободное место */
+  min-width: 0;
+  /* Разрешаем сжиматься */
   overflow: hidden;
-  text-overflow: ellipsis; /* Если тип очень длинный — тоже обрежем */
+  text-overflow: ellipsis;
+  /* Если тип очень длинный — тоже обрежем */
   margin-right: 8px;
   color: var(--ink);
   font-weight: 500;
 }
 
 .event-loc {
-  flex-shrink: 0;    /* Корпус и аудитория никогда не сжимаются */
+  flex-shrink: 0;
+  /* Корпус и аудитория никогда не сжимаются */
   font-size: 0.7rem;
+}
+
+/* & материалы */
+
+.mat-line {
+  line-height: 1.45;
+}
+
+.mat-author {
+  font-style: italic;
+  color: var(--muted);
+  margin-right: .4em;
+}
+
+.mat-title {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.mat-slash {
+  color: var(--muted);
+  padding: 0 .1em;
+}
+
+.mat-biblio {
+  font-size: .82em;
+  color: var(--muted);
 }

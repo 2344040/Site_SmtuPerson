@@ -243,13 +243,22 @@ const matItem = (item, sec) => {
   </li>`;
 };
 
+/* Ступени дерева: шрифт, цвет и отступ по уровню */
+const MAT_INDENT = 10; /* шаг отступа в px для каждого нового уровня */
+const matHeadStyle = lvl => {
+  const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
+  const c  = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
+  const fw = lvl <= 2 ? 700 : 600;
+  return `font-size:${fs};color:${c};font-weight:${fw};margin-left:${(lvl - 1) * MAT_INDENT}px;`;
+};
+
 const renderMatNode = (node, depth, sec) => {
   let html = '';
   if (node.items.length) {
-    html += `<ul class="mat-list">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
+    html += `<ul class="mat-list" style="margin-left:${depth * MAT_INDENT}px">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
   }
   node.children.forEach((child, name) => {
-    html += `<div class="mat-h mat-h-${Math.min(depth + 1, 3)}">${esc(name)}</div>`;
+    html += `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(name)}</div>`;
     html += renderMatNode(child, depth + 1, sec);
   });
   return html;

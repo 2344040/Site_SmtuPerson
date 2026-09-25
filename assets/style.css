@@ -1366,7 +1366,7 @@ ul.text-block-list {
   border-radius: 10px;
   transition: background .2s, box-shadow .2s;
   position: sticky;
-  top: 300px;
+  top: 310px;
   /* ← прилипает под основным меню */
   z-index: 50;
   box-shadow: 0 2px 8px rgba(18, 36, 31, 0.06);
@@ -1445,24 +1445,7 @@ ul.text-block-list {
   margin-top: 0;
 }
 
-.mat-h-1 {
-  font-size: 1.05rem;
-  color: var(--teal);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  font-weight: 700;
-}
 
-.mat-h-2 {
-  font-size: .98rem;
-  color: var(--ink);
-}
-
-.mat-h-3 {
-  font-size: .9rem;
-  color: var(--muted);
-  font-weight: 500;
-}
 
 /* Список материалов — вертикальная линия дерева */
 .mat-list {

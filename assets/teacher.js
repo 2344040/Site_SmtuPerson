@@ -141,14 +141,32 @@ const table = (head, rows, hover = false) => `
 </div>`;
 
 /* ═══ Публикации ═══ */
-const pubs = a => a.map(i => `
+/* ═══ Публикации: библиографический формат ═══ */
+const pubTagCls = tag => {
+  const t = String(tag || '').toLowerCase();
+  if (t.includes('scopus')) return 'scopus';
+  if (t.includes('ринц')) return 'rinc';
+  if (t.includes('книг') || t.includes('book')) return 'book';
+  return 'vak';
+};
+
+const pubs = a => a.map(i => {
+  const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
+  const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
+  const slash = (i.author || i.title) && i.text ? `<span class="mat-slash"> // </span>` : '';
+  const biblio = i.text ? `<span class="mat-biblio">${esc(i.text)}</span>` : '';
+  return `
 <div class="pub"><span class="py">${esc(i.year)}</span>
-  <div>${esc(i.title)} <b>${esc(i.text)}</b>
-    ${i.tag ? `<span class="tag vak">${esc(i.tag)}</span>` : ''}
-    ${i.link ? ` <a href="${esc(i.link)}">${esc(i.link)}</a>` : ''}
-    ${i.doi ? ` DOI:${esc(i.doi)}` : ''}
+  <div class="pub-body">
+    <div class="mat-line">${author}${title}${slash}${biblio}</div>
+    ${(i.tag || i.doi) ? `<div class="pub-meta">
+      ${i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : ''}
+      ${i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : ''}
+    </div>` : ''}
   </div>
-</div>`).join('');
+  ${i.link ? `<a class="mat-btn" href="${esc(i.link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
+</div>`;
+}).join('');
 
 /* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);

@@ -605,6 +605,14 @@ h3,
   min-width: 3rem;
 }
 
+/* ── Публикации: библиографический формат ── */
+.pub { align-items: flex-start; }
+.pub-body { flex: 1; min-width: 0; }
+.pub-title { color: var(--ink); font-weight: 400; }
+.pub-meta { display: flex; align-items: center; gap: .6rem; margin-top: 4px; flex-wrap: wrap; }
+.pub-doi { font-size: .75rem; color: var(--muted); }
+.pub .mat-btn { flex-shrink: 0; margin-top: 2px; }
+
 .tag {
   font-size: .6rem;
   letter-spacing: .08em;

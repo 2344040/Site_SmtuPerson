@@ -75,6 +75,7 @@
       background: #fff;
     }
 
+    /* & data-sec="courses" */
     /* ── Дисциплины: широкая дисциплина, компактные числа ── */
     table.ed[data-sec="courses"] {
       width: 100%;
@@ -140,6 +141,7 @@
       padding-left: 1.2rem;
     }
 
+    /* & data-sec="achievements" */
     /* ── Достижения: фиксированная сетка, ничего не вылезает ── */
     table.ed[data-sec="achievements"] {
       width: 100%;
@@ -176,6 +178,8 @@
       /* страховка от старых минимумов */
     }
 
+
+    /* & data-sec="programs" */
     /* ── Программы: сетка колонок ── */
     table.ed[data-sec="programs"] {
       width: 100%;
@@ -208,6 +212,7 @@
       min-width: 0;
     }
 
+    /* & data-sec="events" */
     /* ── События: сетка колонок ── */
     table.ed[data-sec="events"] {
       width: 100%;
@@ -246,7 +251,7 @@
 
     /* Предмет (2-я колонка) заберёт весь остаток ширины */
 
-    /* & ── Материалы: сетка колонок ── */
+    /* & data-sec="materials" */
     table.ed[data-sec="materials"] {
       width: 100%;
       table-layout: fixed;
@@ -278,6 +283,7 @@
       min-width: 0;
     }
 
+    /* & data-sec^="mat_" */
     /* ── Учебные материалы: сетка ── */
     table.ed[data-sec^="mat_"] {
       width: 100%;
@@ -347,7 +353,7 @@
       width: 108px;
     }
 
-    /* & Карьера: год ≈14 знаков, учреждение и должность поровну ── */
+    /* & data-sec="career" */
     table.ed[data-sec="career"] {
       width: 100%;
       table-layout: fixed;
@@ -373,6 +379,56 @@
       width: 100%;
       min-width: 0;
     }
+
+    /* & data-sec="publications" */
+    /* ── Публикации: сетка колонок ── */
+    table.ed[data-sec="publications"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    /* Год */
+    table.ed[data-sec="publications"] th:nth-child(1) {
+      width: 64px;
+    }
+
+    /* Автор */
+    table.ed[data-sec="publications"] th:nth-child(2) {
+      width: 15%;
+    }
+
+    /* Название */
+    table.ed[data-sec="publications"] th:nth-child(3) {
+      width: 24%;
+    }
+
+    /* Выходные данные */
+    table.ed[data-sec="publications"] th:nth-child(4) {
+      width: 24%;
+    }
+
+    /* Тег */
+    table.ed[data-sec="publications"] th:nth-child(5) {
+      width: 8%;
+    }
+
+    /* DOI */
+    table.ed[data-sec="publications"] th:nth-child(7) {
+      width: 10%;
+    }
+
+    /* ✕ */
+    table.ed[data-sec="publications"] th:last-child {
+      width: 44px;
+    }
+
+    table.ed[data-sec="publications"] input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Ссылка (6-я колонка) заберёт весь остаток */
+
 
     .td-act {
       white-space: nowrap;
@@ -521,7 +577,7 @@
         schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
         books: ['year', 'title', 'text', 'tag'],
-        publications: ['year', 'title', 'text', 'tag', 'link', 'doi'],
+        publications: ['year', 'author', 'title', 'text', 'tag', 'link', 'doi'],
         patents: ['year', 'title', 'text', 'tag'],
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
@@ -565,7 +621,7 @@
 
       // * MULTILINE
       const MULTILINE = {
-        achievements: ['text'], publications: ['text'], patents: ['text'],
+        achievements: ['text'], patents: ['text'],
         projects: ['text'], social: ['text'], news: ['title']
       };
       const AREA_ROWS = { achievements: 4, publications: 3 };
@@ -597,6 +653,7 @@
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
         career: { title: 'Организация', text: 'Должность' },
+        publications: { author: 'Автор', text: 'Выходные данные' },
 
 
       };

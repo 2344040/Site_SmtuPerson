@@ -698,8 +698,30 @@
    "projects": [],
    "patents": [],
    "social": [],
-   "events": [],
-   "rail_edu": [],
+   "events": [
+    {
+     "time": "10:10-11:40",
+     "subject": "Теория корабля",
+     "type": "лабораторное занятие",
+     "building": "Б",
+     "room": "330",
+     "now": true
+    },
+    {
+     "time": "11:50-13:20",
+     "subject": "Теория корабля",
+     "type": "Лабораторное занятие",
+     "building": "Б",
+     "room": "330",
+     "now": false
+    }
+   ],
+   "rail_edu": [
+    {
+     "t": "",
+     "u": ""
+    }
+   ],
    "profiles": [],
    "mat_posobia": [],
    "mat_books": [],

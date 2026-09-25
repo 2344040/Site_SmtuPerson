@@ -273,7 +273,61 @@
       min-width: 0;
     }
 
-    /* Название (2-я) и Ссылка (4-я) поделят остаток ширины поровну */
+    /* ── Учебные материалы: сетка ── */
+    table.ed[data-sec^="mat_"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec^="mat_"] input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    table.ed[data-sec^="mat_"] th:nth-child(1) {
+      width: 150px;
+    }
+
+    /* Автор */
+    table.ed[data-sec="mat_resources"] th:nth-child(1) {
+      width: auto;
+    }
+
+    table.ed[data-sec="mat_posobia"] th:nth-child(3),
+    table.ed[data-sec="mat_lectures"] th:nth-child(3),
+    table.ed[data-sec="mat_video"] th:nth-child(3) {
+      width: 28%;
+    }
+
+    /* Ссылка */
+    table.ed[data-sec="mat_books"] th:nth-child(3),
+    table.ed[data-sec="mat_books"] th:nth-child(4) {
+      width: 22%;
+    }
+
+    /* Скачивание / покупка */
+    table.ed[data-sec="mat_posobia"] th:nth-child(4),
+    table.ed[data-sec="mat_lectures"] th:nth-child(4),
+    table.ed[data-sec="mat_video"] th:nth-child(4),
+    table.ed[data-sec="mat_books"] th:nth-child(5),
+    table.ed[data-sec="mat_resources"] th:nth-child(3) {
+      width: 20%;
+    }
+
+    /* Рубрика */
+    table.ed[data-sec^="mat_"] th:last-child {
+      width: 108px;
+    }
+
+    /* ↑ ↓ ✕ */
+    .td-act {
+      white-space: nowrap;
+    }
+
+    .td-act .btn {
+      padding: 0 .35rem;
+      font-size: .72rem;
+    }
 
 
     /* ── Заголовки секций внутри блоков ── */
@@ -376,7 +430,7 @@
         },
         { title: '8. Общественная деятельность', items: [['a', 'social']] },
         { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
-        { title: '10. Учебные материалы', items: [['a', 'materials']] }
+        { title: '10. Учебные материалы', items: [['a', 'mat_posobia'], ['a', 'mat_books'], ['a', 'mat_lectures'], ['a', 'mat_video'], ['a', 'mat_resources']] }
       ];
 
       // * KEYS
@@ -401,7 +455,11 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
-        materials: ['category', 'title', 'type', 'url', 'size'],
+        mat_posobia: ['author', 'title', 'url', 'rub'],
+        mat_books: ['author', 'title', 'url', 'url_buy', 'rub'],
+        mat_lectures: ['author', 'title', 'url', 'rub'],
+        mat_video: ['author', 'title', 'url', 'rub'],
+        mat_resources: ['title', 'url', 'rub'],
       };
 
       /* Иконки достижений: [значение в JSON, подпись в списке] */
@@ -416,6 +474,7 @@
         ['bookmark-star', '🔖 bookmark-star — закладка со звездой']
       ];
 
+      // * NAMES 
       const NAMES = {
         chips: 'Чипсы', positions: 'Должности (верхний блок)',
         education: 'Образование', upk: 'Повышение квалификации',
@@ -425,7 +484,8 @@
         social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
         profiles: 'Профили (правый сайдбар)', news: 'Новости',
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
-        materials: 'Учебные материалы',
+        mat_posobia: 'Учебные пособия', mat_books: 'Книги', mat_lectures: 'Записи лекций',
+        mat_video: 'Видео-материалы', mat_resources: 'Полезные ресурсы',
       };
 
       // * MULTILINE
@@ -443,16 +503,12 @@
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
         time: 'Время', subject: 'Предмет', type: 'Тип занятия',
         building: 'Корпус', room: 'Аудитория',
+        /* Учебные материалы */
+        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)',
       };
 
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
 
-      const MATERIAL_TYPES = [
-        'pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip',
-        'video-youtube', 'video-vimeo', 'video-local',
-        'book-ozon', 'book-wildberries', 'book-litres', 'book-library',
-        'link', 'image'
-      ];
 
       // * SEC_COLS
       const SEC_COLS = {
@@ -460,13 +516,7 @@
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
-        materials: {
-          category: 'Рубрика',
-          title: 'Название',
-          type: 'Тип',
-          url: 'Ссылка/файл',
-          size: 'Размер'
-        },
+
       };
       function colName(sec, key) {
         return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
@@ -552,12 +602,17 @@
 
       // * renderArray
       function renderArray(t, k, noHead) {
-        // const head = noHead ? '' : `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[k]}</div>`;
         const head = noHead ? '' : `<div class="sec-title">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
 
         /* Образование — карточки-записи вместо таблицы */
         if (k === 'education') return head + renderEducation(arr);
+
+        /* Datalist для рубрик материалов */
+        const dl = k.startsWith('mat_')
+          ? `<datalist id="dl-${k}">${[...new Set(arr.map(r => (r && r.rub) || '').filter(Boolean))]
+            .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`
+          : '';
 
         /* Остальные секции — прежняя таблица */
         return head + `<table class="ed" data-sec="${k}">
@@ -578,7 +633,6 @@
           </select></td>`;
           }
 
-          // ← НОВОЕ: выпадающий список уровней для программ
           if ((k === 'programs' && c === 'tag') || (k === 'courses' && c === 'b')) {
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
@@ -586,20 +640,39 @@
     </select></td>`;
           }
 
-          if (k === 'materials' && c === 'type') {
-            return `<td>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}">
-      ${MATERIAL_TYPES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
-    </select></td>`;
+          if (k.startsWith('mat_') && c === 'rub') {
+            return `<td><input list="dl-${k}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
           }
 
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }
           return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
-        }).join('')}<td><button class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td></tr>`).join('')}</tbody>
+        }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
   </table>
-  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>`;
+  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>${dl}`;
+      }
+
+      // * actCell
+      /* Стрелки перемещения + удаление (для материалов — со стрелками) */
+      function actCell(k, i) {
+        return k.startsWith('mat_')
+          ? `<td class="td-act">
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>
+              <button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})" title="Удалить">✕</button>
+            </td>`
+          : `<td><button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td>`;
+      }
+
+      // * move
+      function move(k, i, dir) {
+        collect();
+        const arr = data.teachers[cur][k];
+        const j = i + dir;
+        if (j < 0 || j >= arr.length) return;
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        build();
       }
 
       // * build
@@ -665,18 +738,14 @@
         });
       }
 
-      /* ═══ Строки и преподаватели ═══ */
-      // function add(k) {
-      //   collect();
-      //   const t = data.teachers[cur];
-      //   t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
-      //   build();
-      // }
-
+      // * add(k)
       function add(k) {
         collect();
         const t = data.teachers[cur];
-        t[k].push(KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, ''])));
+        const prevRow = t[k] && t[k].length ? t[k][t[k].length - 1] : null;
+        const fresh = KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']));
+        if (k.startsWith('mat_') && prevRow && prevRow.rub) fresh.rub = prevRow.rub;
+        t[k].push(fresh);
         build();
 
         /* возвращаем редактора к только что созданной строке */
@@ -686,6 +755,7 @@
           if (newRow.focus) newRow.focus({ preventScroll: true });
         }
       }
+
       function rm(k, i) {
         collect();
         data.teachers[cur][k].splice(i, 1);

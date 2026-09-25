@@ -400,6 +400,17 @@
     .sec-title:first-child {
       margin-top: 0;
     }
+
+    /* ── Липкая служебная панель ── */
+    .admin-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+      background: #f5f3ec;
+      padding: .6rem 0;
+      border-bottom: 1px solid #dcd7c9;
+      box-shadow: 0 2px 8px rgba(18, 36, 31, .08);
+    }
   </style>
 </head>
 
@@ -415,12 +426,12 @@
     </div>
 
     <div id="app" style="display:none">
-      <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-        <select id="tsel" class="form-select" style="max-width:560px" onchange="cur=+this.value;build()"></select>
+      <div class="d-flex flex-wrap gap-2 align-items-center mb-3 admin-toolbar">
+        <select id="tsel" class="form-select" style="max-width:560px" onchange="setCur(+this.value)"></select>
         <button class="btn btn-outline-dark btn-sm" onclick="addTeacher()">+ преподаватель</button>
         <button class="btn btn-outline-danger btn-sm" onclick="delTeacher()">Удалить</button>
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
-          <span id="status" class="small"></span>
+        <span id="status" class="small"></span>
       </div>
       <!-- <div class="card p-3 mb-3">
         <h6>Личные данные</h6>
@@ -590,6 +601,15 @@
 
       /* ═══ Состояние и GitHub API ═══ */
       let TOK = sessionStorage.tok || '', data = null, cur = 0;
+      /* ═══ Запоминание текущего преподавателя между перезагрузками ═══ */
+      const rememberCur = () => { try { localStorage.setItem('adminCur', String(cur)); } catch (e) { } };
+      const restoreCur = n => {
+        try {
+          const v = parseInt(localStorage.getItem('adminCur'), 10);
+          return isNaN(v) ? 0 : Math.min(Math.max(v, 0), n - 1);
+        } catch (e) { return 0; }
+      };
+      function setCur(i) { cur = i; rememberCur(); build(); }
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
         { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
@@ -606,6 +626,7 @@
         data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
         document.getElementById('login').style.display = 'none';
         document.getElementById('app').style.display = '';
+        cur = restoreCur(data.teachers.length);
         buildSel(); build();
       }
 
@@ -849,13 +870,15 @@
           chips: [], positions: [], education: [], career: [], news: []
         });
         cur = data.teachers.length - 1;
+        rememberCur();
         buildSel(); build();
       }
       function delTeacher() {
         if (!confirm('Удалить преподавателя?')) return;
         collect();
         data.teachers.splice(cur, 1);
-        cur = 0;
+        cur = Math.max(0, Math.min(cur, data.teachers.length - 1));
+        rememberCur();
         buildSel(); build();
       }
 

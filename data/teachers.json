@@ -698,8 +698,30 @@
    "projects": [],
    "patents": [],
    "social": [],
-   "events": [],
-   "rail_edu": [],
+   "events": [
+    {
+     "time": "10:10-11:40",
+     "subject": "Теория корабля",
+     "type": "лабораторное занятие",
+     "building": "Б",
+     "room": "330",
+     "now": true
+    },
+    {
+     "time": "11:50-13:20",
+     "subject": "Теория корабля",
+     "type": "Лабораторное занятие",
+     "building": "Б",
+     "room": "330",
+     "now": false
+    }
+   ],
+   "rail_edu": [
+    {
+     "t": "важно!!!",
+     "u": "https://www.smtu.ru/ru/viewschedule/teacher/106490/"
+    }
+   ],
    "profiles": [],
    "mat_posobia": [],
    "mat_books": [],
@@ -721,7 +743,7 @@
    "ped_text": "",
    "science_text": "",
    "external_links": {
-    "schedule": ""
+    "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/106490/"
    },
    "social_text": ""
   }

@@ -351,6 +351,79 @@
    "mat_lectures": [],
    "mat_video": [],
    "mat_resources": []
+  },
+  {
+   "id": "106490",
+   "name": "Устинова Забава Сергеевна",
+   "chips": [
+    "Педагогический стаж - 12 лет"
+   ],
+   "positions": [
+    "Ассистент кафедры теории корабля факультета кораблестроения и океанотехники",
+    "Cпециалист отдела профориентации СПбГМТУ"
+   ],
+   "education": [
+    {
+     "year": "2016-2020",
+     "institution": "СПбГМТУ",
+     "level": "аспирантура",
+     "profile": "Техника и технологии кораблестроения и водного транспорта",
+     "qualification": "Исследователь. Преподаватель-исследователь"
+    },
+    {
+     "year": "2014—2016",
+     "institution": "СПбГМТУ",
+     "level": "магистратура",
+     "profile": "Кораблестроение, океанотехника и системотехника объектов морской инфраструктуры",
+     "qualification": "магистр"
+    },
+    {
+     "year": "1997",
+     "institution": "СПбГМТУ",
+     "level": "бакалавриат",
+     "profile": "Кораблестроение и океанотехника",
+     "qualification": "бакалавр"
+    }
+   ],
+   "career": [],
+   "news": [],
+   "upk": [],
+   "achievements": [],
+   "programs": [],
+   "courses": [],
+   "schedule": [],
+   "session": [],
+   "books": [],
+   "metrics": [],
+   "publications": [],
+   "projects": [],
+   "patents": [],
+   "social": [],
+   "events": [],
+   "rail_edu": [],
+   "profiles": [],
+   "mat_posobia": [],
+   "mat_books": [],
+   "mat_lectures": [],
+   "mat_video": [],
+   "mat_resources": [],
+   "short": "Устинова З. С.",
+   "photo": "https://ds1.smtu.ru/files/isu_person/photo/2018/11/24/big/p106490.jpg?token_static=b8726009ffc67e2d6d618b7ca806d6a0",
+   "university": "СПбГМТУ",
+   "faculty": "Факультет кораблестроения и океанотехники",
+   "post": "Ассистент кафедры теории корабля",
+   "email": "zabava.spb@mail.ru",
+   "phone": " +7 905 262 62 49",
+   "address": "Санкт-Петербург, Лоцманская ул, д.10, ауд. 330",
+   "hours": "",
+   "share_tg_url": "",
+   "share_vk_url": "",
+   "ach_text": "",
+   "ped_text": "",
+   "science_text": "",
+   "external_links": {
+    "schedule": ""
+   }
   }
  ]
 }

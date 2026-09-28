@@ -660,3 +660,16 @@ if (menuEl && railEl) {
     bootstrap.Collapse.getInstance(menuEl)?.hide();
   });
 }
+
+/* ═══ Мобильные: оверлей закрывается после тапа по ссылке ═══ */
+document.addEventListener('click', e => {
+  const link = e.target.closest('a');
+  if (!link) return;
+  const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+  if (!isMobile) return;
+  if (link.closest('#menuCollapse') && menuEl) {
+    bootstrap.Collapse.getOrCreateInstance(menuEl, { toggle: false }).hide();
+  } else if (link.closest('#railPanel') && railEl) {
+    bootstrap.Offcanvas.getOrCreateInstance(railEl, { toggle: false }).hide();
+  }
+});

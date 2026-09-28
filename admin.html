@@ -27,21 +27,21 @@
     /* ── Университет + факультет + кафедра в одну строку ── */
     .row .w-univ {
       flex: 0 0 auto;
+      width: auto;
     }
 
-    /* по содержимому (10 знаков) */
+
     .row .w-fac {
       flex: 40 1 0;
       min-width: 0;
     }
 
-    /* 40% остатка */
+
     .row .w-dep {
       flex: 60 1 0;
       min-width: 0;
     }
 
-    /* весь остальной остаток */
     @media (max-width: 767.98px) {
 
       .row .w-univ,
@@ -1003,7 +1003,7 @@
           g.items.forEach(([type, key, opt]) => {
             if (type === 's') {
               const [label, w] = SCALAR[key];
-              const v = t[key] === undefined ? (DEFAULTS[key] || '') : (t[key] || '');
+              const v = t[key] || DEFAULTS[key] || '';
               let ctrl;
               if (key === 'faculty') {
                 const opts = (v && !FACULTIES.includes(v)) ? [v, ...FACULTIES] : FACULTIES;

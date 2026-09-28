@@ -255,12 +255,8 @@ const matItem = (item, sec) => {
   /* Строка 1: автор + название + выходные данные */
   let line1 = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
 
-  /* Строка 2: описание + иконка формата (автоопределение) */
-  let line2 = '';
-  if (description || t) {
-    const iconHtml = t ? `<i class="mat-icon bi ${icon}" title="${t}"></i>` : '';
-    line2 = `<div class="mat-description-line">${description}${iconHtml}</div>`;
-  }
+  /* Строка 2: только описание */
+  const line2 = description ? `<div class="mat-description-line">${description}</div>` : '';
 
   /* Ресурсы: своя раскладка (название + видимый URL) */
   if (isResources) {
@@ -268,11 +264,10 @@ const matItem = (item, sec) => {
       <span class="mat-title">${esc(item.title)}</span>
       <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
     </div>`;
-    line2 = '';
   }
 
-  /* Кнопки действий */
-  const actions = [];
+  /* Правая часть: иконка формата (янтарная) + кнопки действий */
+  const actions = [`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`];
   if (isBooks) {
     if (item.url) actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
     if (item.url_buy) actions.push(`<a href="${esc(item.url_buy)}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);

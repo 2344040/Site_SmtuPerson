@@ -1917,7 +1917,4 @@ ul.text-block-list {
   margin-top: .3rem;
 }
 
-.mat-icon {
-  font-size: .9rem;
-  color: var(--muted);
-}
+.mat-icon { font-size: 1.05rem; color: var(--amber); }

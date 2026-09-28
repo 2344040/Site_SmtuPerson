@@ -901,7 +901,14 @@
      "text": "ведущий инженер"
     }
    ],
-   "news": [],
+   "news": [
+    {
+     "date": "31 Августа 2022 года",
+     "title": "Сотрудники СПбГМТУ удостоены государственных наград",
+     "img": "https://ds1.smtu.ru/files/isu_file/2023/19/04/big/b71b31cebd85486a.jpg?token_static=7d53d4dfe31dc62ca238339acde8940d",
+     "url": "https://www.smtu.ru/ru/viewnews/5643/"
+    }
+   ],
    "upk": [],
    "achievements": [],
    "programs": [

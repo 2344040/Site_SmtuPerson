@@ -1885,7 +1885,7 @@ ul.text-block-list {
 .mat-author {
   font-style: italic;
   color: var(--ink);
-  margin-right: .4em;
+  margin-right: .2em;
 }
 
 .mat-title,

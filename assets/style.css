@@ -1836,15 +1836,18 @@ ul.text-block-list {
   padding: .75rem;
   overflow-y: auto;
 }
+
 #railPanel .offcanvas-header {
   border-bottom: 1px solid var(--line);
   padding: .75rem 1rem;
 }
+
 #railPanel .offcanvas-title {
   font-size: .9rem;
   font-weight: 700;
   color: var(--ink);
 }
+
 #railPanel .rail-card {
   margin-bottom: 0;
 }
@@ -1876,4 +1879,45 @@ ul.text-block-list {
   border-color: var(--amber);
   background: #fff;
   transform: translateY(-2px);
+}
+
+/* * Унифицированный стиль библиографических записей ═══ */
+.mat-author {
+  font-style: italic;
+  color: var(--ink);
+  margin-right: .4em;
+}
+
+.mat-title,
+.pub-title {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.mat-biblio {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.mat-slash {
+  color: var(--muted);
+  margin: 0 .3em;
+}
+
+.mat-description {
+  font-size: .85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.mat-description-line {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .3rem;
+}
+
+.mat-icon {
+  font-size: .9rem;
+  color: var(--muted);
 }

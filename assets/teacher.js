@@ -236,39 +236,52 @@ const matTree = items => {
 const matItem = (item, sec) => {
   const t = matType(item.url);
   const icon = MAT_ICON[t] || sec.fb;
-  const isBooks = sec.key === 'mat_books';
+  const isBooks = sec.key === 'mat_books' || sec.key === 'books';
+  const isResources = sec.key === 'mat_resources';
 
-  /* Левая часть: описание */
-  let infoHtml = '';
-  if (isBooks) {
-    const author = item.author ? `<span class="mat-author">${esc(item.author)}</span>` : '';
-    const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
-    const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
-    const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
-    infoHtml = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
-  } else if (sec.key === 'mat_resources') {
-    /* Ресурсы: название + видимый URL-адрес */
-    infoHtml = `<div class="mat-line mat-line-res">
+  /* Автор — курсивом, первым */
+  const author = item.author ? `<span class="mat-author">${esc(item.author)}</span>` : '';
+
+  /* Название — вес 500 */
+  const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
+
+  /* Выходные данные — мелким серым, через // */
+  const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
+  const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
+
+  /* Описание — малый серый курсив */
+  const description = item.description ? `<span class="mat-description">${esc(item.description)}</span>` : '';
+
+  /* Строка 1: автор + название + выходные данные */
+  let line1 = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
+
+  /* Строка 2: описание + иконка формата (автоопределение) */
+  let line2 = '';
+  if (description || t) {
+    const iconHtml = t ? `<i class="mat-icon bi ${icon}" title="${t}"></i>` : '';
+    line2 = `<div class="mat-description-line">${description}${iconHtml}</div>`;
+  }
+
+  /* Ресурсы: своя раскладка (название + видимый URL) */
+  if (isResources) {
+    line1 = `<div class="mat-line mat-line-res">
       <span class="mat-title">${esc(item.title)}</span>
       <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
     </div>`;
-  } else {
-    const authorInline = item.author ? `<span class="mat-author">· ${esc(item.author)}</span>` : '';
-    infoHtml = `<div class="mat-line"><span class="mat-title">${esc(item.title)}</span>${authorInline}</div>`;
+    line2 = '';
   }
 
-  /* Правая часть: иконка формата + кнопки действий */
+  /* Кнопки действий */
   const actions = [];
-  actions.push(`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`);
   if (isBooks) {
-    if (item.url) actions.push(`<a href="${esc(item.url)}"     class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
+    if (item.url) actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
     if (item.url_buy) actions.push(`<a href="${esc(item.url_buy)}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
   } else if (item.url) {
     actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
   }
 
   return `<li class="mat-item">
-    <div class="mat-info">${infoHtml}</div>
+    <div class="mat-info">${line1}${line2}</div>
     <div class="mat-actions">${actions.join('')}</div>
   </li>`;
 };

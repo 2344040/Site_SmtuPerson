@@ -21,10 +21,17 @@
     <header class="hero" style="min-height:250px;overflow:hidden">
       <div class="container-xxl h-100">
         <div class="row g-0 align-items-stretch h-100">
-          <div class="col-md-2 col-3 d-flex">
-            <div class="hero-photo py-3"><img id="p-photo" src="" alt=""></div>
+          <div class="col-md-2 col-5 d-flex">
+            <div class="hero-photo py-3 flex-column align-items-center">
+              <img id="p-photo" src="" alt="">
+              <a class="chip-link chip-contact-sm d-md-none mt-2" href="#contact" title="Контакты">
+                <i class="bi bi-telephone"></i>
+                <i class="bi bi-envelope"></i>
+                <i class="bi bi-chat"></i>
+              </a>
+            </div>
           </div>
-          <div class="col-md-10 col-9 d-flex flex-column align-items-start justify-content-center p-3">
+          <div class="col-md-10 col-7 d-flex flex-column align-items-start justify-content-center p-3">
             <span class="mask d-inline-flex flex-row gap-2 align-items-center">
               <span class="kicker" id="p-kicker"></span>
             </span>
@@ -32,7 +39,7 @@
               <span class="mask d1"><span id="p-name"></span></span>
             </h1>
             <p class="post" id="p-post"></p>
-            <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <div class="d-none d-md-flex flex-row justify-content-between align-items-center w-100">
               <div class="d-flex flex-wrap gap-2 mb-1" id="p-chips"></div>
               <div class="d-flex flex-no-wrap justify-content-between align-items-center gap-3">
                 <div class="me-0"><a class="chip-link" href="#contact" title="Контакты">
@@ -49,9 +56,15 @@
         </div>
       </div>
     </header>
-    <nav class="sticky-tabs" id="stickyNav">
-      <div class="container-xxl">
-        <ul class="nav nav-fill" id="menu"></ul>
+      <nav class="sticky-tabs" id="stickyNav">
+      <div class="container-xxl position-relative">
+        <button class="nav-burger d-md-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
+          <i class="bi bi-list"></i><span>Меню</span><span class="burger-name" id="burgerName"></span>
+        </button>
+        <div class="collapse d-md-block" id="menuCollapse">
+          <ul class="nav nav-fill" id="menu"></ul>
+        </div>
       </div>
     </nav>
   </div>

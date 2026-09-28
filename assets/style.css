@@ -111,100 +111,36 @@ h3,
 }
 
 @media (max-width: 767.98px) {
-  header.hero {
-    height: auto !important;
-    min-height: auto;
-  }
+  header.hero { height: auto !important; min-height: 0 !important; }
+  .hero { height: auto !important; min-height: 0 !important; }
+  .sticky-top-wrapper { position: static; }
+  .sticky-tabs { position: sticky; top: 0; z-index: 1020; }
+  html { scroll-padding-top: 56px; }
 
-  .sticky-top-wrapper {
-    position: static;
-  }
+  /* Компактная шапка: фото слева, текст справа */
+  .hero .row { padding: .4rem 0; }
+  .hero-photo { padding: .4rem 0 0 !important; margin: 0; }
+  .hero-photo img { height: 110px !important; }
+  .hero .col-md-10 { padding: .4rem .75rem !important; justify-content: center; }
+  .hero .kicker { font-size: .68rem; }
+  .hero h1 { font-size: 1.02rem !important; line-height: 1.15 !important; margin: .1rem 0 .15rem !important; }
+  .hero .surname { font-size: 1.15rem; }
+  .hero .given-name { font-size: 1.02rem; }
+  .hero .post { font-size: .78rem; margin-bottom: .2rem; }
 
-  .hero {
-    height: auto !important;
-    min-height: auto;
+  /* Меню-оверлей: раскрывается поверх контента, хедер не растёт */
+  #menuCollapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1019;
+    background: #fff;
+    border-bottom: 2px solid var(--line);
+    box-shadow: 0 10px 24px rgba(18, 36, 31, .18);
   }
-
-  html {
-    scroll-padding-top: 60px;
-  }
-
-  /* Мобильная шапка: вертикальная раскладка */
-  .hero .row {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 0;
-  }
-
-  .hero .col-md-2,
-  .hero .col-md-10 {
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%;
-    padding: 0 1rem;
-  }
-
-  /* Фото по центру, 180px высотой (пропорция 3:4 сохранится) */
-  .hero-photo {
-    margin: 0 0 1rem;
-  }
-
-  .hero-photo img {
-    height: 180px !important;
-    margin: 0 auto;
-  }
-
-  /* Текст по центру, шрифты мельче */
-  .hero .col-md-10 {
-    text-align: center;
-    align-items: center !important;
-    padding: 0 1rem !important;
-  }
-
-  .hero .kicker {
-    font-size: .85rem;
-  }
-
-  .hero h1 {
-    font-size: 1.5rem !important;
-    line-height: 1.2 !important;
-    text-align: center;
-  }
-
-  .hero .surname {
-    font-size: 1.8rem;
-  }
-
-  .hero .given-name {
-    font-size: 1.5rem;
-  }
-
-  .hero .post {
-    font-size: .95rem;
-    text-align: center;
-    margin-bottom: .8rem;
-  }
-
-  /* Скрываем чипсы и share */
-  #p-chips {
-    display: none !important;
-  }
-
-  .btn-share {
-    display: none !important;
-  }
-
-  /* Кнопка контактов на всю ширину */
-  .hero .chip-link {
-    width: 100%;
-    max-width: 280px;
-    justify-content: center;
-    padding: .6rem 1.5rem;
-  }
-
-  .hero .chip-link i {
-    font-size: 1.3rem !important;
-  }
+  #menuCollapse .nav { flex-direction: column; }
+  #menuCollapse .nav-link { border-top: 1px solid var(--line); border-bottom: 0; }
 }
 
 .mask {
@@ -288,6 +224,25 @@ h3,
           inset 0 2px 4px rgba(250, 249, 245, 0.6); */
   }
 }
+
+/* ── Бургер-бар мобильного меню ── */
+.nav-burger {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: .45rem .9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.nav-burger i { font-size: 1.25rem; }
+.burger-name { margin-left: auto; color: var(--muted); font-size: .8rem; font-weight: 500; }
+
+/* Компактная кнопка контактов под фото (мобильные) */
+.chip-contact-sm { padding: .2rem .9rem; gap: .55rem; }
+.chip-contact-sm i { font-size: .95rem; }
 
 .btn-share {
   display: inline-flex;

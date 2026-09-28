@@ -47,6 +47,9 @@ function fillHeader() {
   document.getElementById('p-post').textContent = T.post;
   document.getElementById('p-chips').innerHTML = (T.chips || []).map(c =>
     `<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('');
+
+  const bn = document.getElementById('burgerName');
+  if (bn) bn.textContent = T.short || makeShort(T.name) || '';
 }
 
 // * buildMenu
@@ -505,7 +508,7 @@ function renderRail() {
   /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
   const ext = T.external_links || {};
   /* ── 3б: Учебный процесс ── */
-   /* Кнопка материалов — последняя, только если есть хотя бы одна запись */
+  /* Кнопка материалов — последняя, только если есть хотя бы одна запись */
   const matLink = hasMat()
     ? `<a class="btn-side" href="#materials"><span>Учебные материалы</span><i class="bi bi-arrow-right arr"></i></a>`
     : '';

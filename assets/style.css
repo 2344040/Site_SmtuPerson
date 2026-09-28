@@ -113,7 +113,7 @@ h3,
 @media (max-width: 767.98px) {
   header.hero {
     height: auto !important;
-    min-height: 250px;
+    min-height: auto;
   }
 
   .sticky-top-wrapper {
@@ -122,16 +122,88 @@ h3,
 
   .hero {
     height: auto !important;
-    min-height: 200px;
+    min-height: auto;
   }
 
   html {
     scroll-padding-top: 60px;
   }
 
-  header.hero img {
-    height: 200px !important;
-    object-fit: cover;
+  /* Мобильная шапка: вертикальная раскладка */
+  .hero .row {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .hero .col-md-2,
+  .hero .col-md-10 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 0 1rem;
+  }
+
+  /* Фото по центру, 180px высотой (пропорция 3:4 сохранится) */
+  .hero-photo {
+    margin: 0 0 1rem;
+  }
+
+  .hero-photo img {
+    height: 180px !important;
+    margin: 0 auto;
+  }
+
+  /* Текст по центру, шрифты мельче */
+  .hero .col-md-10 {
+    text-align: center;
+    align-items: center !important;
+    padding: 0 1rem !important;
+  }
+
+  .hero .kicker {
+    font-size: .85rem;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    text-align: center;
+  }
+
+  .hero .surname {
+    font-size: 1.8rem;
+  }
+
+  .hero .given-name {
+    font-size: 1.5rem;
+  }
+
+  .hero .post {
+    font-size: .95rem;
+    text-align: center;
+    margin-bottom: .8rem;
+  }
+
+  /* Скрываем чипсы и share */
+  #p-chips {
+    display: none !important;
+  }
+
+  .btn-share {
+    display: none !important;
+  }
+
+  /* Кнопка контактов на всю ширину */
+  .hero .chip-link {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+    padding: .6rem 1.5rem;
+  }
+
+  .hero .chip-link i {
+    font-size: 1.3rem !important;
   }
 }
 

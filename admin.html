@@ -24,6 +24,33 @@
       width: 10ch;
     }
 
+    /* ── Университет + факультет + кафедра в одну строку ── */
+    .row .w-univ {
+      flex: 0 0 auto;
+    }
+
+    /* по содержимому (10 знаков) */
+    .row .w-fac {
+      flex: 40 1 0;
+      min-width: 0;
+    }
+
+    /* 40% остатка */
+    .row .w-dep {
+      flex: 60 1 0;
+      min-width: 0;
+    }
+
+    /* весь остальной остаток */
+    @media (max-width: 767.98px) {
+
+      .row .w-univ,
+      .row .w-fac,
+      .row .w-dep {
+        flex: 0 0 100%;
+      }
+    }
+
     table.ed input {
       width: 100%;
       border: 1px solid #dcd7c9;
@@ -514,9 +541,9 @@
         id: ['ID (латиницей)', 'col-md-3'],
         short: ['ФИО коротко', 'col-md-3'],
         photo: ['URL фото', 'col-md-12'],
-        university: ['Университет (кратко)', 'col-md-6'],
-        faculty: ['Факультет', 'col-md-6'],
-        department: ['Кафедра', 'col-md-6'],
+        university: ['Университет (кратко)', 'w-univ'],
+        faculty: ['Факультет', 'w-fac'],
+        department: ['Кафедра', 'w-dep'],
         name: ['ФИО полное', 'col-md-6'],
         post: ['Должность под ФИО', 'col-md-12'],
         email: ['E-mail', 'col-md-4'],
@@ -527,7 +554,7 @@
         share_vk_url: ['URL для VK share', 'col-md-6']
       };
 
-            /* ═══ Факультеты и кафедры СПбГМТУ ═══ */
+      /* ═══ Факультеты и кафедры СПбГМТУ ═══ */
       const FACULTIES = [
         'Факультет кораблестроения и океанотехники',
         'Факультет корабельной энергетики и автоматики',
@@ -974,7 +1001,7 @@
           const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
 
           g.items.forEach(([type, key, opt]) => {
-             if (type === 's') {
+            if (type === 's') {
               const [label, w] = SCALAR[key];
               const v = t[key] === undefined ? (DEFAULTS[key] || '') : (t[key] || '');
               let ctrl;

@@ -85,13 +85,14 @@ h3,
 
 .hero-photo img {
   height: 220px;
-  width: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 18%;
   max-width: 100%;
   display: block;
   margin: 0 auto;
   border-radius: 14px;
   box-shadow: 2px 2px 8px rgba(18, 36, 31, .6);
-
 }
 
 #p-name {

@@ -58,7 +58,7 @@ function buildMenu() {
     { h: 'main', t: '<i class="fa-regular fa-user"></i>', v: true },
     { h: 'education', t: 'Образование', v: has('education') || has('upk') },
     { h: 'career', t: 'Карьера', v: has('career') || has('achievements') },
-    { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') },
+    { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') || has('books') || hasMat() },
     { h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents') },
     { h: 'social', t: 'Общественная деятельность', v: has('social') || T.social_text },
     { h: 'news', t: 'Новости', v: has('news') }
@@ -413,6 +413,12 @@ function renderMain() {
     if (has('session')) body += sub('session', 'Расписание сессии', table(
       [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
+
+    // Авторские учебные пособия (из старой таблицы books)
+    if (has('books')) {
+      body += sub('books', 'Авторские учебные пособия',
+        `<ul class="mat-list">${T.books.map(b => matItem(Object.assign({}, b, { biblio: b.biblio || b.text }), { key: 'mat_books', fb: 'bi-book-fill' })).join('')}</ul>`);
+    }
 
     // Учебные материалы (в самом конце раздела)
     if (hasMat()) body += sub('materials', 'Учебные материалы', materialsBlock(T));

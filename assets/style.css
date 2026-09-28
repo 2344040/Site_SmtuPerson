@@ -197,6 +197,27 @@ h3,
     border-top: 1px solid var(--line);
     border-bottom: 0;
   }
+
+  /* Панель сайдбара: выезжает справа поверх контента */
+  #railCollapse {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: min(340px, 94%);
+    z-index: 1019;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 12px 28px rgba(18, 36, 31, .22);
+  }
+
+  .rail-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: .75rem;
+  }
+
 }
 
 /* ── Планшеты: 768px–1024px ── */
@@ -316,7 +337,7 @@ h3,
   display: flex;
   align-items: center;
   gap: .5rem;
-  width: 100%;
+  width: auto;
   background: transparent;
   border: 0;
   padding: .45rem .9rem;
@@ -326,6 +347,31 @@ h3,
 
 .nav-burger i {
   font-size: 1.25rem;
+}
+
+/* ── Кнопка мобильного сайдбара ── */
+.bar-mobile {
+  padding: .35rem .75rem;
+}
+
+.rail-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--amber);
+  background: #fff;
+  color: var(--amber);
+  font-size: 1rem;
+  box-shadow: 0 1px 4px rgba(18, 36, 31, .15);
+  transition: .25s;
+}
+
+.rail-toggle[aria-expanded="true"] {
+  background: var(--amber);
+  color: #fff;
 }
 
 .burger-name {

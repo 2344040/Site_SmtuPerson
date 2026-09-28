@@ -48,8 +48,7 @@ function fillHeader() {
   document.getElementById('p-chips').innerHTML = (T.chips || []).map(c =>
     `<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('');
 
-  const bn = document.getElementById('burgerName');
-  if (bn) bn.textContent = T.short || makeShort(T.name) || '';
+
 }
 
 // * buildMenu
@@ -536,7 +535,7 @@ function renderRail() {
   const profiles = (T.profiles || []).map(p =>
     `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right arr"></i></a>`).join('');
 
-  document.getElementById('rail').innerHTML = `
+  const railHtml = `
     <div class="rail-card">
       <h3 class="mb-3">Ближайшие события</h3>${events}
     </div>
@@ -546,6 +545,9 @@ function renderRail() {
     <div class="rail-card mb-0">
       <h3><i class="bi bi-link-45deg"></i>Профили</h3>${profiles}
     </div>`;
+  document.getElementById('rail').innerHTML = railHtml;
+  const railMobile = document.getElementById('railMobile');
+  if (railMobile) railMobile.innerHTML = railHtml;
 }
 
 /* ═══ Анимация появления ═══ */
@@ -646,3 +648,13 @@ function eduTimeline(a) {
 }
 
 window.sendForm = sendForm;
+
+/* ═══ Мобильные: меню и панель не мешают друг другу ═══ */
+['menuCollapse', 'railCollapse'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('show.bs.collapse', () => {
+    const other = document.getElementById(id === 'menuCollapse' ? 'railCollapse' : 'menuCollapse');
+    if (other) bootstrap.Collapse.getOrCreateInstance(other, { toggle: false }).hide();
+  });
+});

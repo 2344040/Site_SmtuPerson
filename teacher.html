@@ -56,14 +56,24 @@
         </div>
       </div>
     </header>
-      <nav class="sticky-tabs" id="stickyNav">
+    <nav class="sticky-tabs" id="stickyNav">
       <div class="container-xxl position-relative">
-        <button class="nav-burger d-md-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
-          <i class="bi bi-list"></i><span>Меню</span><span class="burger-name" id="burgerName"></span>
-        </button>
+        <div class="bar-mobile d-md-none d-flex align-items-center justify-content-between">
+          <button class="nav-burger" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
+            <i class="bi bi-list"></i><span>Меню</span>
+          </button>
+          <button class="rail-toggle" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#railCollapse" aria-expanded="false" aria-controls="railCollapse"
+                  aria-label="События, учебный процесс и профили">
+            <i class="bi bi-bell-fill"></i>
+          </button>
+        </div>
         <div class="collapse d-md-block" id="menuCollapse">
           <ul class="nav nav-fill" id="menu"></ul>
+        </div>
+        <div class="collapse d-md-none" id="railCollapse">
+          <div id="railMobile" class="rail-mobile"></div>
         </div>
       </div>
     </nav>

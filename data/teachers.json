@@ -401,7 +401,17 @@
      "text": "Инженер-конструктор"
     }
    ],
-   "news": [],
+   "news": [
+       {"date": "03 Июля 2026", "title": "СПбГМТУ принял участие в фестивале, посвященном Всероссийскому дню молодежи", "img": "https://ds1.smtu.ru/files/sitenews/2026/07/03/big/1969.jpg?token_static=4b5ae547daf008096c265810ac79efc5", "url": "https://www.smtu.ru/ru/viewnews/1969/"},
+        {"date": "01 Апреля 2026", "title": "Форум «Наследие Петра I» прошел в СПбГМТУ в рамках XVI Петербургского международного образовательного форума", "img": "https://ds1.smtu.ru/files/sitenews/2026/04/01/big/1821.jpg?token_static=0419480cf411d142c4854bdcc0d27098", "url": "https://www.smtu.ru/ru/viewnews/1821/"},        {"date": "01 Апреля 2026", "title": "Форум «Наследие Петра I» прошел в СПбГМТУ в рамках XVI Петербургского международного образовательного форума", "img": "https://ds1.smtu.ru/files/sitenews/2026/04/01/big/1821.jpg?token_static=0419480cf411d142c4854bdcc0d27098", "url": "https://www.smtu.ru/ru/viewnews/1821/"},
+        {"date": "26 Января 2026", "title": "В Корабелке завершилась зимняя школа для студентов из Китая", "img": "https://ds1.smtu.ru/files/sitenews/2026/01/26/big/1730.jpg?token_static=ed7f4a7b8abb9f97a2a9e58e70215dc4", "url": "https://www.smtu.ru/ru/viewnews/1730/"},        {"date": "26 Января 2026", "title": "В Корабелке завершилась зимняя школа для студентов из Китая", "img": "https://ds1.smtu.ru/files/sitenews/2026/01/26/big/1730.jpg?token_static=ed7f4a7b8abb9f97a2a9e58e70215dc4", "url": "https://www.smtu.ru/ru/viewnews/1730/"},
+        {"date": "05 Ноября 2025", "title": "Преподаватели ФКиО СПбГМТУ провели занятия в китайских университетах", "img": "https://ds1.smtu.ru/files/sitenews/2025/11/05/big/1596.jpg?token_static=7ccc2608fd7714609cde5ca912ad3acd", "url": "https://www.smtu.ru/ru/viewnews/1596/"},        {"date": "05 Ноября 2025", "title": "Преподаватели ФКиО СПбГМТУ провели занятия в китайских университетах", "img": "https://ds1.smtu.ru/files/sitenews/2025/11/05/big/1596.jpg?token_static=7ccc2608fd7714609cde5ca912ad3acd", "url": "https://www.smtu.ru/ru/viewnews/1596/"},
+        {"date": "10 Октября 2025", "title": "СПбГМТУ выступил организатором секции на форуме по освоению ресурсов нефти и газа Российской Арктики", "img": "https://ds1.smtu.ru/files/sitenews/2025/10/10/big/1569.jpg?token_static=46a6fdd0736ed5295cf8cab360c4f2ae", "url": "https://www.smtu.ru/ru/viewnews/1569/"},        {"date": "10 Октября 2025", "title": "СПбГМТУ выступил организатором секции на форуме по освоению ресурсов нефти и газа Российской Арктики", "img": "https://ds1.smtu.ru/files/sitenews/2025/10/10/big/1569.jpg?token_static=46a6fdd0736ed5295cf8cab360c4f2ae", "url": "https://www.smtu.ru/ru/viewnews/1569/"},
+        {"date": "29 Сентября 2025", "title": "На Молодежном морском форуме назвали имена победителей конкурса «Морской юрист XXI века»", "img": "https://ds1.smtu.ru/files/sitenews/2025/09/29/big/1546.jpg?token_static=471a53d8d66bf2e956e8f23c153bf609", "url": "https://www.smtu.ru/ru/viewnews/1546/"},        {"date": "29 Сентября 2025", "title": "На Молодежном морском форуме назвали имена победителей конкурса «Морской юрист XXI века»", "img": "https://ds1.smtu.ru/files/sitenews/2025/09/29/big/1546.jpg?token_static=471a53d8d66bf2e956e8f23c153bf609", "url": "https://www.smtu.ru/ru/viewnews/1546/"},
+        {"date": "21 Августа 2025", "title": "СПбГМТУ открыл двери для старшеклассников из Мариуполя", "img": "https://ds1.smtu.ru/files/sitenews/2025/08/21/big/1489.jpg?token_static=d40b5fa2dc54cce14296f78c384b14a6", "url": "https://www.smtu.ru/ru/viewnews/1489/"},        {"date": "21 Августа 2025", "title": "СПбГМТУ открыл двери для старшеклассников из Мариуполя", "img": "https://ds1.smtu.ru/files/sitenews/2025/08/21/big/1489.jpg?token_static=d40b5fa2dc54cce14296f78c384b14a6", "url": "https://www.smtu.ru/ru/viewnews/1489/"},
+        {"date": "15 Августа 2025", "title": "Преподаватель ФКиО СПбГМТУ с коллегами построила десятиметровую копию подводной лодки", "img": "https://ds1.smtu.ru/files/sitenews/2025/08/15/big/1484.jpg?token_static=ed5d8897a9c969296531399eeb89e1d8", "url": "https://www.smtu.ru/ru/viewnews/1484/"},        {"date": "15 Августа 2025", "title": "Преподаватель ФКиО СПбГМТУ с коллегами построила десятиметровую копию подводной лодки", "img": "https://ds1.smtu.ru/files/sitenews/2025/08/15/big/1484.jpg?token_static=ed5d8897a9c969296531399eeb89e1d8", "url": "https://www.smtu.ru/ru/viewnews/1484/"},
+        {"date": "10 Февраля 2025", "title": "Представители СПбГМТУ приняли участие в форуме «Инновации молодых»", "img": "https://ds1.smtu.ru/files/sitenews/2025/02/10/big/1220.jpg?token_static=4a0af76ebdf06a8b4086e66b98ed391b", "url": "https://www.smtu.ru/ru/viewnews/1220/"}        {"date": "10 Февраля 2025", "title": "Представители СПбГМТУ приняли участие в форуме «Инновации молодых»", "img": "https://ds1.smtu.ru/files/sitenews/2025/02/10/big/1220.jpg?token_static=4a0af76ebdf06a8b4086e66b98ed391b", "url": "https://www.smtu.ru/ru/viewnews/1220/"}
+   ],
    "upk": [
     {
      "year": "2025",
@@ -747,6 +757,7 @@
    },
    "social_text": ""
   },
+
   {
    "id": "100328",
    "name": "Демешко Геннадий Фёдорович",

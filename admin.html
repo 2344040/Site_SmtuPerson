@@ -284,7 +284,7 @@
     /* Предмет (2-я колонка) заберёт весь остаток ширины */
 
     /* & data-sec="materials" */
-    table.ed[data-sec="materials"] {
+    /* table.ed[data-sec="materials"] {
       width: 100%;
       table-layout: fixed;
     }
@@ -293,42 +293,44 @@
       width: 140px;
     }
 
-    /* Рубрика */
+
     table.ed[data-sec="materials"] th:nth-child(3) {
       width: 130px;
     }
 
-    /* Тип (select) */
+  
     table.ed[data-sec="materials"] th:nth-child(5) {
       width: 70px;
     }
 
-    /* Размер */
+  
     table.ed[data-sec="materials"] th:last-child {
       width: 44px;
     }
 
-    /* Кнопка ✕ */
+  
     table.ed[data-sec="materials"] input,
     table.ed[data-sec="materials"] select {
       width: 100%;
       min-width: 0;
-    }
+    } */
 
     /* & data-sec^="mat_" */
     /* ── Учебные материалы: сетка ── */
-    table.ed[data-sec^="mat_"] {
+      /* & data-sec^="mat_" */
+    /* ── Учебные материалы: сетка (кроме mat_posobia — у него свой блок) ── */
+    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) {
       width: 100%;
       table-layout: fixed;
     }
 
-    table.ed[data-sec^="mat_"] input {
+    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) input {
       width: 100%;
       min-width: 0;
     }
 
     /* Автор */
-    table.ed[data-sec^="mat_"] th:nth-child(1) {
+    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:nth-child(1) {
       width: 150px;
     }
 
@@ -337,7 +339,6 @@
     }
 
     /* Ссылка */
-    table.ed[data-sec="mat_posobia"] th:nth-child(3),
     table.ed[data-sec="mat_lectures"] th:nth-child(3),
     table.ed[data-sec="mat_video"] th:nth-child(3) {
       width: 10%;
@@ -365,14 +366,11 @@
     }
 
     /* Рубрика */
-    /* Скачивание / покупка */
     table.ed[data-sec="mat_books"] th:nth-child(6) {
       width: 16%;
     }
 
-
     /* Рубрика */
-    table.ed[data-sec="mat_posobia"] th:nth-child(4),
     table.ed[data-sec="mat_lectures"] th:nth-child(4),
     table.ed[data-sec="mat_video"] th:nth-child(4),
     table.ed[data-sec="mat_books"] th:nth-child(5),
@@ -381,7 +379,7 @@
     }
 
     /* ↑ ↓ ✕ */
-    table.ed[data-sec^="mat_"] th:last-child {
+    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:last-child {
       width: 108px;
     }
 
@@ -413,48 +411,152 @@
     }
 
     /* & data-sec="publications" */
-    /* ── Публикации: сетка колонок ── */
+    /* ── Публикации: 8 колонок ── */
     table.ed[data-sec="publications"] {
       width: 100%;
       table-layout: fixed;
     }
 
-    /* Год */
     table.ed[data-sec="publications"] th:nth-child(1) {
       width: 64px;
     }
 
-    /* Автор */
+    /* Год */
     table.ed[data-sec="publications"] th:nth-child(2) {
-      width: 15%;
+      width: 12%;
+    }
+
+    /* Автор */
+    table.ed[data-sec="publications"] th:nth-child(3) {
+      width: 18%;
     }
 
     /* Название */
-    table.ed[data-sec="publications"] th:nth-child(3) {
-      width: 24%;
+    table.ed[data-sec="publications"] th:nth-child(4) {
+      width: 18%;
     }
 
     /* Выходные данные */
-    table.ed[data-sec="publications"] th:nth-child(4) {
-      width: 24%;
+    table.ed[data-sec="publications"] th:nth-child(5) {
+      width: 18%;
+    }
+
+    /* Описание */
+    table.ed[data-sec="publications"] th:nth-child(6) {
+      width: 7%;
     }
 
     /* Тег */
-    table.ed[data-sec="publications"] th:nth-child(5) {
-      width: 8%;
-    }
-
-    /* DOI */
     table.ed[data-sec="publications"] th:nth-child(7) {
       width: 10%;
     }
 
-    /* ✕ */
+    /* Ссылка */
+    table.ed[data-sec="publications"] th:nth-child(8) {
+      width: 10%;
+    }
+
+    /* DOI */
     table.ed[data-sec="publications"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
     table.ed[data-sec="publications"] input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* & data-sec="books" */
+    /* ── Авторские учебные пособия: 6 колонок ── */
+    table.ed[data-sec="books"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="books"] th:nth-child(1) {
+      width: 64px;
+    }
+
+    /* Год */
+    table.ed[data-sec="books"] th:nth-child(2) {
+      width: 15%;
+    }
+
+    /* Автор */
+    table.ed[data-sec="books"] th:nth-child(3) {
+      width: 22%;
+    }
+
+    /* Название */
+    table.ed[data-sec="books"] th:nth-child(4) {
+      width: 20%;
+    }
+
+    /* Выходные данные */
+    table.ed[data-sec="books"] th:nth-child(5) {
+      width: 20%;
+    }
+
+    /* Описание */
+    table.ed[data-sec="books"] th:nth-child(6) {
+      width: 12%;
+    }
+
+    /* Ссылка */
+    table.ed[data-sec="books"] th:last-child {
+      width: 44px;
+    }
+
+    /* ✕ */
+    table.ed[data-sec="books"] input {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* & data-sec="mat_posobia" */
+    /* ── Учебные пособия (mat_posobia): 6 колонок + действия ── */
+    table.ed[data-sec="mat_posobia"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="mat_posobia"] th:nth-child(1) {
+      width: 15%;
+    }
+
+    /* Автор */
+    table.ed[data-sec="mat_posobia"] th:nth-child(2) {
+      width: 20%;
+    }
+
+    /* Название */
+    table.ed[data-sec="mat_posobia"] th:nth-child(3) {
+      width: 18%;
+    }
+
+    /* Выходные данные */
+    table.ed[data-sec="mat_posobia"] th:nth-child(4) {
+      width: 18%;
+    }
+
+    /* Описание */
+    table.ed[data-sec="mat_posobia"] th:nth-child(5) {
+      width: 12%;
+    }
+
+    /* Рубрика */
+    table.ed[data-sec="mat_posobia"] th:nth-child(6) {
+      width: 12%;
+    }
+
+    /* Ссылка */
+    table.ed[data-sec="mat_posobia"] th:last-child {
+      width: 108px;
+    }
+
+    /* ↑ ↓ ✕ */
+    table.ed[data-sec="mat_posobia"] input {
       width: 100%;
       min-width: 0;
     }
@@ -462,13 +564,36 @@
     /* Ссылка (6-я колонка) заберёт весь остаток */
 
     /* * data-sec="upk" */
-    table.ed[data-sec="upk"] { width: 100%; table-layout: fixed; }
-    table.ed[data-sec="upk"] th:nth-child(1) { width: 115px; }   /* Год */
-    table.ed[data-sec="upk"] th:nth-child(2) { width: 30%; }     /* Название */
-    table.ed[data-sec="upk"] th:nth-child(3) { width: 18%; }     /* Тип */
-    table.ed[data-sec="upk"] th:last-child { width: 44px; }      /* ✕ */
+    table.ed[data-sec="upk"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="upk"] th:nth-child(1) {
+      width: 115px;
+    }
+
+    /* Год */
+    table.ed[data-sec="upk"] th:nth-child(2) {
+      width: 30%;
+    }
+
+    /* Название */
+    table.ed[data-sec="upk"] th:nth-child(3) {
+      width: 18%;
+    }
+
+    /* Тип */
+    table.ed[data-sec="upk"] th:last-child {
+      width: 44px;
+    }
+
+    /* ✕ */
     /* Организация (4-я колонка) заберёт весь остаток автоматически */
-    table.ed[data-sec="upk"] input { width: 100%; min-width: 0; }
+    table.ed[data-sec="upk"] input {
+      width: 100%;
+      min-width: 0;
+    }
 
 
     .td-act {
@@ -711,15 +836,15 @@
         chips: ['*'], positions: ['*'],
         // education: ['year', 'title', 'text'], 
         education: ['year', 'institution', 'level', 'profile', 'qualification'],
-          upk: ['year', 'title', 'type', 'text'],
+        upk: ['year', 'title', 'type', 'text'],
         career: ['year', 'title', 'text'],
         achievements: ['year', 'icon', 'title', 'text'],
         programs: ['text', 'title', 'tag', 'comment'],
         courses: ['a', 'b', 'c', 'd', 'e'],
         schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
-        books: ['year', 'title', 'text', 'tag'],
-        publications: ['year', 'author', 'title', 'text', 'tag', 'link', 'doi'],
+        books: ['year', 'author', 'title', 'biblio', 'description', 'url'],
+        publications: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
         patents: ['year', 'title', 'text', 'tag'],
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
@@ -728,7 +853,7 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
-        mat_posobia: ['author', 'title', 'url', 'rub'],
+        mat_posobia: ['author', 'title', 'biblio', 'description', 'rub', 'url'],
         mat_books: ['author', 'title', 'biblio', 'url', 'url_buy', 'rub'],
         mat_lectures: ['author', 'title', 'url', 'rub'],
         mat_video: ['author', 'title', 'url', 'rub'],
@@ -777,7 +902,7 @@
         time: 'Время', subject: 'Предмет', type: 'Тип занятия',
         building: 'Корпус', room: 'Аудитория',
         /* Учебные материалы */
-        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные',
+        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание',
       };
 
       // * LEVELS
@@ -795,7 +920,8 @@
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
         career: { title: 'Учреждение', text: 'Должность' },
-        publications: { author: 'Автор', text: 'Выходные данные' },
+        publications: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
+        books: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
         upk: { type: 'Тип', text: 'Организация' },
       };
 
@@ -828,6 +954,17 @@
         const r = await gh('/contents/' + PATH);
         if (!r.ok) return alert('Токен не принят: ' + r.status);
         data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
+
+        /* Миграция: text → biblio, link → url (для books и publications) */
+        (data.teachers || []).forEach(t => {
+          ['books', 'publications'].forEach(k => {
+            (t[k] || []).forEach(row => {
+              if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
+              if (row.link && !row.url) { row.url = row.link; delete row.link; }
+            });
+          });
+        });
+
         document.getElementById('login').style.display = 'none';
         document.getElementById('app').style.display = '';
         cur = restoreCur(data.teachers.length);

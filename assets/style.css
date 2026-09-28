@@ -198,25 +198,7 @@ h3,
     border-bottom: 0;
   }
 
-  /* Панель сайдбара: выезжает справа поверх контента */
-  #railCollapse {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: min(340px, 94%);
-    z-index: 1019;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 12px 28px rgba(18, 36, 31, .22);
-  }
 
-  .rail-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    padding: .75rem;
-  }
 
 }
 
@@ -1844,4 +1826,25 @@ ul.text-block-list {
     padding-top: 6px;
     border-top: 1px dashed var(--line);
   }
+}
+
+/* ── Мобильная панель сайдбара (offcanvas) ── */
+#railPanel .offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: .75rem;
+  overflow-y: auto;
+}
+#railPanel .offcanvas-header {
+  border-bottom: 1px solid var(--line);
+  padding: .75rem 1rem;
+}
+#railPanel .offcanvas-title {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+#railPanel .rail-card {
+  margin-bottom: 0;
 }

@@ -650,11 +650,13 @@ function eduTimeline(a) {
 window.sendForm = sendForm;
 
 /* ═══ Мобильные: меню и панель не мешают друг другу ═══ */
-['menuCollapse', 'railCollapse'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener('show.bs.collapse', () => {
-    const other = document.getElementById(id === 'menuCollapse' ? 'railCollapse' : 'menuCollapse');
-    if (other) bootstrap.Collapse.getOrCreateInstance(other, { toggle: false }).hide();
+const menuEl = document.getElementById('menuCollapse');
+const railEl = document.getElementById('railPanel');
+if (menuEl && railEl) {
+  menuEl.addEventListener('show.bs.collapse', () => {
+    bootstrap.Offcanvas.getInstance(railEl)?.hide();
   });
-});
+  railEl.addEventListener('show.bs.offcanvas', () => {
+    bootstrap.Collapse.getInstance(menuEl)?.hide();
+  });
+}

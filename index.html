@@ -56,6 +56,9 @@
   </div>
   <script>
     fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
+
+      d.teachers.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ru'));
+
       document.getElementById('cards').innerHTML = d.teachers.map(t => `
       <div class="col-lg-3 col-md-4 col-sm-6"><a class="tcard" href="teacher.html?id=${t.id}">
       <img src="${t.photo}" alt=""><h3>${t.name}</h3><p>${t.post}</p>

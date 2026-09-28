@@ -461,6 +461,15 @@
 
     /* Ссылка (6-я колонка) заберёт весь остаток */
 
+    /* * data-sec="upk" */
+    table.ed[data-sec="upk"] { width: 100%; table-layout: fixed; }
+    table.ed[data-sec="upk"] th:nth-child(1) { width: 115px; }   /* Год */
+    table.ed[data-sec="upk"] th:nth-child(2) { width: 30%; }     /* Название */
+    table.ed[data-sec="upk"] th:nth-child(3) { width: 18%; }     /* Тип */
+    table.ed[data-sec="upk"] th:last-child { width: 44px; }      /* ✕ */
+    /* Организация (4-я колонка) заберёт весь остаток автоматически */
+    table.ed[data-sec="upk"] input { width: 100%; min-width: 0; }
+
 
     .td-act {
       white-space: nowrap;
@@ -702,7 +711,7 @@
         chips: ['*'], positions: ['*'],
         // education: ['year', 'title', 'text'], 
         education: ['year', 'institution', 'level', 'profile', 'qualification'],
-        upk: ['year', 'title', 'text'],
+          upk: ['year', 'title', 'type', 'text'],
         career: ['year', 'title', 'text'],
         achievements: ['year', 'icon', 'title', 'text'],
         programs: ['text', 'title', 'tag', 'comment'],
@@ -785,11 +794,11 @@
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
         programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
-        career: { title: 'Организация', text: 'Должность' },
+        career: { title: 'Учреждение', text: 'Должность' },
         publications: { author: 'Автор', text: 'Выходные данные' },
-
-
+        upk: { type: 'Тип', text: 'Организация' },
       };
+
       function colName(sec, key) {
         return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
       }

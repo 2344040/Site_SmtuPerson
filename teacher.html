@@ -62,22 +62,14 @@
           <button class="nav-burger" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
             <i class="bi bi-list"></i><span>Меню</span>
           </button>
-            <button class="rail-toggle" type="button" data-bs-toggle="offcanvas"
-                  data-bs-target="#railPanel" aria-controls="railPanel"
-                  aria-label="События, учебный процесс и профили">
+          <button class="rail-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#railPanel" aria-controls="railPanel" aria-label="События, учебный процесс и профили">
             <i class="bi bi-bell-fill"></i>
           </button>
         </div>
         <div class="collapse d-md-block" id="menuCollapse">
           <ul class="nav nav-fill" id="menu"></ul>
         </div>
-        <div class="offcanvas offcanvas-end d-md-none" tabindex="-1" id="railPanel" aria-labelledby="railPanelLabel" style="background:var(--paper);width:min(340px,94%)">
-          <div class="offcanvas-header pb-2">
-            <h5 class="offcanvas-title" id="railPanelLabel">Информация</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
-          </div>
-          <div class="offcanvas-body rail-mobile" id="railMobile"></div>
-        </div>
+
       </div>
     </nav>
   </div>
@@ -89,6 +81,14 @@
         <div class="rail pt-4 mb-4" id="rail"></div>
       </aside>
     </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end d-md-none" tabindex="-1" id="railPanel" aria-labelledby="railPanelLabel" style="background:var(--paper);width:min(340px,94%)">
+    <div class="offcanvas-header pb-2">
+      <h5 class="offcanvas-title" id="railPanelLabel">Информация</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body rail-mobile" id="railMobile"></div>
   </div>
 
   <footer class="brandbar py-3 mt-0">

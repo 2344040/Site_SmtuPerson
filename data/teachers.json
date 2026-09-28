@@ -1306,9 +1306,9 @@
    "mat_video": [],
    "mat_resources": [],
    "short": "Колесников Ю.Л.",
-   "photo": "",
+   "photo": "https://ds1.smtu.ru/files/isu_person/photo/2024/01/15/big/p122535.jpg?token_static=283dd08b5b4d931c8c4f82aabdcfeb7c",
    "university": "",
-   "faculty": "",
+   "faculty": "Высшая физико-техническая школа",
    "post": "",
    "email": "",
    "phone": "",
@@ -1322,7 +1322,8 @@
    "social_text": "",
    "external_links": {
     "schedule": ""
-   }
+   },
+   "department": "Кафедра физики"
   }
  ]
 }

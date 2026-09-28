@@ -292,7 +292,68 @@
      "text": ""
     }
    ],
-   "news": [],
+   "news": [
+    {
+     "date": "23 Сентября 2026 года",
+     "title": "СПбГМТУ представит разработки Центра технологии приборостроения на выставке «Радэл-2026»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/09/22/big/2036.jpg?token_static=3099c90a670ba5c7ac706a043a9dd77a",
+     "url": "https://www.smtu.ru/ru/viewnews/2036/"
+    },
+    {
+     "date": "01 Сентября 2026 года",
+     "title": "В Корабелке стартовал новый учебный год",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/09/02/big/2014.jpg?token_static=922feece6b8a8c2826eeced448681d8c",
+     "url": "https://www.smtu.ru/ru/viewnews/2014/"
+    },
+    {
+     "date": "26 Августа 2026 года",
+     "title": "Представители СПбГМТУ приняли участие в стратегической сессии «Ростеха» «Морская робототехника»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/08/26/big/2006.jpg?token_static=a12825ba47216ee914e623be48e4bd39",
+     "url": "https://www.smtu.ru/ru/viewnews/2006/"
+    },
+    {
+     "date": "25 Июля 2026 года",
+     "title": "СПбГМТУ получил патент на электрическую машину с двумя роторами",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/07/25/big/1986.jpg?token_static=571260d80300c85b00d809cdd1628525",
+     "url": "https://www.smtu.ru/ru/viewnews/1986/"
+    },
+    {
+     "date": "03 Июня 2026 года",
+     "title": "От судостроения до медицины: индонезийская делегация ознакомилась с разработками Корабелки",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/06/03/big/1924.jpg?token_static=5c0235afc8903170d814db9c26be00ab",
+     "url": "https://www.smtu.ru/ru/viewnews/1924/"
+    },
+    {
+     "date": "29 Мая 2026 года",
+     "title": "Проректор СПбГМТУ Денис Кузнецов выступил на «Морском конгрессе — Дальний Восток 2026»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/05/29/big/1919.jpg?token_static=6ccb62d351f8a2ff9809405d9e89aeb8",
+     "url": "https://www.smtu.ru/ru/viewnews/1919/"
+    },
+    {
+     "date": "28 Мая 2026 года",
+     "title": "Sitronics KT и СПбГМТУ договорились о научно-техническом сотрудничестве",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/05/28/big/1914.jpg?token_static=b5fb2f4d5665581ec16b6a970ff2ba2e",
+     "url": "https://www.smtu.ru/ru/viewnews/1914/"
+    },
+    {
+     "date": "15 Мая 2026 года",
+     "title": "В СПбГМТУ прошло стратегическое совещание с представителями ОСК и концернов морского приборостроения Группы ОСК",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/05/16/big/1894.jpg?token_static=d9a5e4a86354635e4ac7c0b326a2f61b",
+     "url": "https://www.smtu.ru/ru/viewnews/1894/"
+    },
+    {
+     "date": "27 Апреля 2026 года",
+     "title": "В СПбГМТУ прошел день открытых дверей",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/04/27/big/1869.jpg?token_static=475bd0252de050b9400ed3870e61820a",
+     "url": "https://www.smtu.ru/ru/viewnews/1869/"
+    },
+    {
+     "date": "24 Апреля 2026 года",
+     "title": "СПбГМТУ представил передовые разработки на конференции «Судостроение в Арктике»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/04/24/big/1865.jpg?token_static=cb14bd9d11a253adc45c5fb66ef8ba0f",
+     "url": "https://www.smtu.ru/ru/viewnews/1865/"
+    }
+   ],
    "university": "СПбГМТУ",
    "share_tg_url": "",
    "share_vk_url": "",

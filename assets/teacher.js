@@ -527,7 +527,8 @@ function renderRail() {
   const autoLinks = [
     has('schedule') ? `<a class="btn-side" href="#schedule"><span>Расписание занятий</span><i class="bi bi-arrow-right arr"></i></a>` : '',
     has('session') ? `<a class="btn-side" href="#session"><span>Сессия</span><i class="bi bi-arrow-right arr"></i></a>` : '',
-    has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
+    // кнопка на авторские учебные пособия - пока не выводим
+    // has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
   ].filter(Boolean).join('');
 
   const eduLinks = manualLinks + autoLinks + matLink;

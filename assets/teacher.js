@@ -109,6 +109,7 @@ const upkCards = (a, limit = 6) => `
     <div class="card-lift"><div class="bar"></div><div class="p-3">
       <span class="tag rinc">${esc(i.year)}</span>
       <h3 class="fs-6 fw-bold mt-2 mb-1">${esc(i.title)}</h3>
+      ${i.type ? `<div class="small mb-1">${esc(i.type)}</div>` : ''}
       ${i.text ? `<small class="text-secondary fst-italic">${esc(i.text)}</small>` : ''}
     </div></div>
   </div>`).join('')}</div>

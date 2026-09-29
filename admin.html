@@ -560,7 +560,7 @@
       min-width: 0;
     }
 
-  
+
 
     /* * data-sec="upk" */
     table.ed[data-sec="upk"] {
@@ -595,12 +595,34 @@
     }
 
 
-        /* * Метрики науки: компактное число, широкая подпись ── */
-    table.ed[data-sec="metrics"] { width: 100%; table-layout: fixed; }
-    table.ed[data-sec="metrics"] th:nth-child(1) { width: 120px; }   /* Число */
-    table.ed[data-sec="metrics"] th:last-child { width: 108px; }      /* ✕ */
+    /* * data-sec="metrics" */
+    table.ed[data-sec="metrics"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="metrics"] th:nth-child(1) {
+      width: 120px;
+    }
+
+    /* Число */
+    table.ed[data-sec="metrics"] th:last-child {
+      width: 108px;
+    }
+
+    /* ✕ */
     table.ed[data-sec="metrics"] input,
-    table.ed[data-sec="metrics"] select { width: 100%; min-width: 0; }
+    table.ed[data-sec="metrics"] select {
+      width: 100%;
+      min-width: 0;
+    }
+
+/* * data-sec="profiles" */
+    table.ed[data-sec="profiles"] { width: 100%; table-layout: fixed; }
+    table.ed[data-sec="profiles"] th:nth-child(1) { width: 190px; }   /* Заголовок (select) */
+    table.ed[data-sec="profiles"] th:last-child { width: 44px; }      /* ✕ */
+    table.ed[data-sec="profiles"] input,
+    table.ed[data-sec="profiles"] select { width: 100%; min-width: 0; }
 
 
     .td-act {
@@ -923,6 +945,8 @@
       const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
       /* Подписи метрик науки */
       const METRIC_LABELS = ['публикации', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патенты', 'индекс Хирша'];
+      /* Заголовки профилей (правый сайдбар) */
+      const PROFILE_TITLES = ['Scopus', 'ResearcherID-WoS', 'ORCID', 'РИНЦ', 'ВАК'];
 
       // * SEC_COLS
       const SEC_COLS = {
@@ -1096,6 +1120,16 @@
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+    </select></td>`;
+          }
+
+          if (k === 'profiles' && c === 't') {
+            const inList = PROFILE_TITLES.includes(val);
+            return `<td>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}">
+      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+      <option value="" ${!val ? 'selected' : ''}>—</option>
+      ${PROFILE_TITLES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
 

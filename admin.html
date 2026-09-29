@@ -617,12 +617,27 @@
       min-width: 0;
     }
 
-/* * data-sec="profiles" */
-    table.ed[data-sec="profiles"] { width: 100%; table-layout: fixed; }
-    table.ed[data-sec="profiles"] th:nth-child(1) { width: 190px; }   /* Заголовок (select) */
-    table.ed[data-sec="profiles"] th:last-child { width: 44px; }      /* ✕ */
+    /* * data-sec="profiles" */
+    table.ed[data-sec="profiles"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="profiles"] th:nth-child(1) {
+      width: 190px;
+    }
+
+    /* Заголовок (select) */
+    table.ed[data-sec="profiles"] th:last-child {
+      width: 44px;
+    }
+
+    /* ✕ */
     table.ed[data-sec="profiles"] input,
-    table.ed[data-sec="profiles"] select { width: 100%; min-width: 0; }
+    table.ed[data-sec="profiles"] select {
+      width: 100%;
+      min-width: 0;
+    }
 
 
     .td-act {
@@ -845,7 +860,7 @@
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'post'], ['a', 'chips']]
         },
-        { title: '2. Контакты', items: [['s', 'email'], ['s', 'phone'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
+        { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
@@ -866,7 +881,7 @@
       // * KEYS
       const KEYS = {
         chips: ['*'], positions: ['*'],
-        // education: ['year', 'title', 'text'], 
+        email_extra: ['*'], phone_extra: ['*'],
         education: ['year', 'institution', 'level', 'profile', 'qualification'],
         upk: ['year', 'title', 'type', 'text'],
         career: ['year', 'title', 'text'],
@@ -906,7 +921,8 @@
 
       // * NAMES 
       const NAMES = {
-        chips: 'Чипсы', positions: 'Должности (верхний блок)',
+        chips: 'Чипы', positions: 'Должности (верхний блок)',
+        email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
         education: 'Образование', upk: 'Повышение квалификации',
         career: 'Карьера', achievements: 'Профессиональные достижения',
         programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',

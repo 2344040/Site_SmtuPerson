@@ -455,7 +455,7 @@ function renderMain() {
   if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
     let body = '';
     if (has('metrics')) {
-       const items = T.metrics.map(m =>
+      const items = T.metrics.map(m =>
         `<div class="metric"><span class="m-num">${esc(m.n)}</span>
          <small class="text-secondary">${esc(metricLabel(m.n, m.l))}</small></div>`);
       const n = items.length;
@@ -489,10 +489,10 @@ function renderMain() {
     <h2 class="sec-title reveal">Контактная информация</h2><div class="rule"></div>
     <div class="row g-4 reveal">
       <div class="col-md-6">
-        <p><i class="bi bi-envelope me-2" style="color:var(--amber)"></i>
-          <a href="mailto:${esc(T.email)}" style="color:var(--teal)">${esc(T.email)}</a></p>
-        ${T.phone ? `<p><i class="bi bi-telephone me-2" style="color:var(--amber)"></i>
-          <a href="tel:${esc(T.phone)}" style="color:var(--teal)">${esc(T.phone)}</a></p>` : ''}
+                    ${[T.email, ...(T.email_extra || [])].filter(Boolean).map(e => `<p class="mb-2"><i class="bi bi-envelope me-2" style="color:var(--amber)"></i>
+          <a href="mailto:${esc(e)}" style="color:var(--teal)">${esc(e)}</a></p>`).join('')}
+        ${[T.phone, ...(T.phone_extra || [])].filter(Boolean).map(p => `<p class="mb-2"><i class="bi bi-telephone me-2" style="color:var(--amber)"></i>
+          <a href="tel:${esc(String(p).replace(/[^+\d]/g, ''))}" style="color:var(--teal)">${esc(p)}</a></p>`).join('')}
         ${T.address ? `<p><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
         <div style="height:40px">
           ${T.share_tg_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_tg_url)}"><i class="fa-brands fa-telegram fa-2xl"></i></a>` : ''}
@@ -566,8 +566,8 @@ function renderRail() {
   const eduLinks = manualLinks + autoLinks + matLink;
 
   /* Профили — без изменений */
-  
-    const profiles = (T.profiles || []).map(p =>
+
+  const profiles = (T.profiles || []).map(p =>
     `<a class="btn-side" href="${esc(p.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right"></i></a>`).join('');
 
   const railHtml = `

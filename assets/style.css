@@ -678,6 +678,32 @@ h3,
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
 }
 
+/* * Rail: кирпичная кладка — кнопки шириной fit-content, плотно рядами ── */
+.rail-card a.btn-side {
+  display: inline-flex;      /*_inline-элементы перетекают по строкам, как слова_ */
+  align-items: center;
+  gap: .4rem;
+  width: auto;               /* вместо 100% — по содержимому */
+  max-width: 100%;           /* страховка от сверхдлинных названий */
+  padding: .3rem .7rem;
+  margin: 0 .35rem .35rem 0; /* «шов» кладки: справа и снизу */
+  font-size: .78rem;
+  border-radius: 8px;
+}
+
+.rail-card a.btn-side .arr {
+  font-size: .72rem;
+}
+
+/* На мобильных кирпичи чуть крупнее — удобнее тапать */
+@media (max-width: 767.98px) {
+  .rail-mobile a.btn-side {
+    padding: .45rem .9rem;
+    font-size: .85rem;
+  }
+}
+
+
 @keyframes pulse {
   50% {
     opacity: .35

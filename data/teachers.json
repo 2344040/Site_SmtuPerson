@@ -1839,8 +1839,32 @@
      "rub": "Лабораторный практикум"
     }
    ],
-   "mat_video": [],
-   "mat_resources": [],
+   "mat_video": [
+    {
+     "author": "",
+     "title": "Что такое квантовая физика? Объяснение для начинающих.",
+     "url": "https://rutube.ru/video/cc7634d97e535809b7a7a50e17ae62fe/",
+     "rub": "Физика"
+    },
+    {
+     "author": "",
+     "title": "Урок 1 (осн). Физика  - наука о природеУрок 1 (осн). Физика  - наука о природе12+34:59 Урок 1 (осн). Физика - наука о природе",
+     "url": "https://rutube.ru/video/39cd9b308d37feebd85fac0b1b9f7d86/",
+     "rub": "Физика"
+    }
+   ],
+   "mat_resources": [
+    {
+     "title": "Физика: уроки, тесты, задания.",
+     "url": "https://www.yaklass.ru/p/fizika",
+     "rub": ""
+    },
+    {
+     "title": "Физика-наука о природе. ",
+     "url": "https://foxford.ru/wiki/fizika/fizika-nauka-o-prirode?ysclid=mumqfww8og616598558",
+     "rub": ""
+    }
+   ],
    "short": "Колесников Ю.Л.",
    "photo": "https://ds1.smtu.ru/files/isu_person/photo/2024/01/15/big/p122535.jpg?token_static=283dd08b5b4d931c8c4f82aabdcfeb7c",
    "university": "СПбГМТУ",

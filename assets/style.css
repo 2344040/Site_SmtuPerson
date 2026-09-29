@@ -680,7 +680,7 @@ h3,
 
 /* * Rail: кирпичная кладка — кнопки шириной fit-content, плотно рядами ── */
 .rail-card a.btn-side {
-  display: inline-flex;      /*_inline-элементы перетекают по строкам, как слова_ */
+  display: flex;      /*_inline-элементы перетекают по строкам, как слова_ */
   align-items: center;
   gap: .4rem;
   width: fit-content;               /* вместо 100% — по содержимому */

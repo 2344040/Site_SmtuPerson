@@ -566,8 +566,9 @@ function renderRail() {
   const eduLinks = manualLinks + autoLinks + matLink;
 
   /* Профили — без изменений */
-  const profiles = (T.profiles || []).map(p =>
-    `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right arr"></i></a>`).join('');
+  
+    const profiles = (T.profiles || []).map(p =>
+    `<a class="btn-side" href="${esc(p.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(p.t)}</span><i class="bi bi-box-arrow-up-right"></i></a>`).join('');
 
   const railHtml = `
     <div class="rail-card">

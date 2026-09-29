@@ -1795,7 +1795,24 @@
      "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/23/46520.pdf?token_static=6440c3aa1cc065a56df3f867a4165bda"
     }
    ],
-   "mat_books": [],
+   "mat_books": [
+    {
+     "author": "Трофимова Т.И.",
+     "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования",
+     "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
+     "url": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования / Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
+     "url_buy": "https://www.ozon.ru/product/rukovodstvo-k-resheniyu-zadach-po-fizike-185238992/?at=1gmn1V9SbpPoSHppMUJe1KUMmRsojeOY",
+     "rub": ""
+    },
+    {
+     "author": "Трофимова Т.И.",
+     "title": "Сборник задач по курсу физики с решениями",
+     "biblio": "букинистика",
+     "url": "",
+     "url_buy": "https://www.ozon.ru/product/sbornik-zadach-po-kursu-fiziki-s-resheniyami-trofimova-1999-god-izdaniya-4177497208/?at=1gmn1TLJA1eJLl8plTCz03NfANZjp6N7&sh=-x-AaettXg#section-description--offset-140--offset-80",
+     "rub": ""
+    }
+   ],
    "mat_lectures": [],
    "mat_video": [],
    "mat_resources": [],

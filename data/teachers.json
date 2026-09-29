@@ -2212,7 +2212,48 @@
    "events": [],
    "rail_edu": [],
    "profiles": [],
-   "mat_posobia": [],
+   "mat_posobia": [
+    {
+     "author": "",
+     "title": "Теория автоматов КР 2020 (495.19K - pdf)",
+     "biblio": "",
+     "description": "",
+     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4643.pdf?token_static=26ef8c3b4f0fa2e3267d763a1e8eb76a"
+    },
+    {
+     "author": "",
+     "title": "Анализ конечных автоматов (296.09K - pdf)",
+     "biblio": "",
+     "description": "",
+     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4645.pdf?token_static=c7b55ae775d3629e8921c43a1188abb4"
+    },
+    {
+     "author": "",
+     "title": "Синтез конечного автомата (401.46K - pdf)",
+     "biblio": "",
+     "description": "",
+     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/12/8484.pdf?token_static=3b0365a540bf7cec5e3ff1170f6fcae0"
+    },
+    {
+     "author": "",
+     "title": "Синтез конечного автомата (401.46K - pdf)",
+     "biblio": "",
+     "description": "",
+     "rub": "Теория автоматов /Теория автоматов (3290)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/10/8153.pdf?token_static=39954deb555611599ef088c4fd55552e"
+    },
+    {
+     "author": "",
+     "title": "Понятие структурного автомата (228.08K - pdf)",
+     "biblio": "",
+     "description": "",
+     "rub": "Теория автоматов /Теория автоматов (дополнительные главы)",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/27/24396.pdf?token_static=ae1675247b600d427bbf2b43f716f14b"
+    }
+   ],
    "mat_books": [],
    "mat_lectures": [],
    "mat_video": [],

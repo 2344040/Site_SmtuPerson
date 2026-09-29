@@ -577,7 +577,7 @@ function renderRail() {
    ${eduLinks ? `<div class="rail-card">
       <h3>Учебный процесс</h3>${eduLinks}
     </div>` : ''}
-    <div class="rail-card mb-0">
+  <div class="rail-card mb-0 rail-brick">
       <h3><i class="bi bi-link-45deg"></i>Профили</h3>${profiles}
     </div>`;
   document.getElementById('rail').innerHTML = railHtml;

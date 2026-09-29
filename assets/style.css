@@ -679,19 +679,33 @@ h3,
 }
 
 /* * Rail: кирпичная кладка — кнопки шириной fit-content, плотно рядами ── */
-.rail-card a.btn-side {
-  display: flex;      /*_inline-элементы перетекают по строкам, как слова_ */
+/* ── Rail: кирпичная кладка — карточка становится контейнером с переносом ── */
+.rail-card.rail-brick {
+  flex-direction: row;      /* вместо column */
+  flex-wrap: wrap;          /* кирпичи перетекают по строкам */
+  align-items: center;
+  gap: .35rem;              /* «шов» кладки по обеим осям */
+}
+
+/* Заголовки и карточки событий занимают всю строку */
+.rail-brick h3 {
+  flex: 0 0 100%;
+}
+
+/* Кнопки — кирпичи шириной по тексту */
+.rail-brick a.btn-side {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
   align-items: center;
   gap: .4rem;
-  width: fit-content;               /* вместо 100% — по содержимому */
-  max-width: 100%;           /* страховка от сверхдлинных названий */
   padding: .3rem .7rem;
-  margin: 0 .35rem .35rem 0; /* «шов» кладки: справа и снизу */
+  margin: 0;                /* отступы даёт gap контейнера */
   font-size: .78rem;
   border-radius: 8px;
 }
 
-.rail-card a.btn-side .arr {
+.rail-card.rail-brick a.btn-side .arr {
   font-size: .72rem;
 }
 

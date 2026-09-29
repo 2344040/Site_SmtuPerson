@@ -185,6 +185,18 @@ const pluralize = (n, forms) => {
   return forms[2];
 };
 
+/* Формы подписей метрик: [1, 2–4, 5+]. чего нет в словаре — выводится как есть */
+const METRIC_FORMS = {
+  'публикаций': ['публикация', 'публикации', 'публикаций'],
+  'ст. ВАК': ['статья ВАК', 'статьи ВАК', 'статей ВАК'],
+  'ст. Scopus': ['статья Scopus', 'статьи Scopus', 'статей Scopus'],
+  'ст. WoS': ['статья WoS', 'статьи WoS', 'статей WoS'],
+  'ст. РИНЦ': ['статья РИНЦ', 'статьи РИНЦ', 'статей РИНЦ'],
+  'патенты': ['патент', 'патента', 'патентов'],
+};
+const metricLabel = (n, l) =>
+  METRIC_FORMS[l] ? pluralize(parseInt(String(n).replace(/\s.*/, ''), 10) || 0, METRIC_FORMS[l]) : l;
+
 const MAT_ICON = {
   pdf: 'bi-file-earmark-pdf-fill', doc: 'bi-file-earmark-word-fill',
   ppt: 'bi-file-earmark-slides-fill', zip: 'bi-file-earmark-zip-fill',
@@ -443,9 +455,9 @@ function renderMain() {
   if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
     let body = '';
     if (has('metrics')) {
-      const items = T.metrics.map(m =>
+       const items = T.metrics.map(m =>
         `<div class="metric"><span class="m-num">${esc(m.n)}</span>
-         <small class="text-secondary">${esc(m.l)}</small></div>`);
+         <small class="text-secondary">${esc(metricLabel(m.n, m.l))}</small></div>`);
       const n = items.length;
       const rows = Math.ceil(n / 4);          /* максимум 4 в строке, как сейчас */
       const base = Math.floor(n / rows);      /* базовая длина строки */

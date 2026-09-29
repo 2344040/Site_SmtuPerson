@@ -1901,6 +1901,58 @@
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/122535/"
    },
    "department": "Кафедра физики"
+  },
+  {
+   "id": "101074",
+   "name": "Сиек Юрий Леонардович",
+   "chips": [
+    "Доктор технических наук",
+    "Профессор",
+    "Педагогический стаж - 51 год"
+   ],
+   "positions": [],
+   "education": [],
+   "career": [],
+   "news": [],
+   "university": "СПбГМТУ",
+   "upk": [],
+   "achievements": [],
+   "programs": [],
+   "courses": [],
+   "schedule": [],
+   "session": [],
+   "books": [],
+   "metrics": [],
+   "publications": [],
+   "projects": [],
+   "patents": [],
+   "social": [],
+   "events": [],
+   "rail_edu": [],
+   "profiles": [],
+   "mat_posobia": [],
+   "mat_books": [],
+   "mat_lectures": [],
+   "mat_video": [],
+   "mat_resources": [],
+   "short": "Сиек Ю. Л.",
+   "photo": "https://ds1.smtu.ru/files/isu_person/photo/2018/10/15/small/p101074.jpg?token_static=3902692d5a461e131a3dac1bb7d80834",
+   "faculty": "Факультет морского приборостроения",
+   "department": "Кафедра систем автоматического управления и бортовой вычислительной техники",
+   "post": "Заведующий кафедрой систем автоматического управления и бортовой вычислительной техники",
+   "email": "",
+   "phone": "",
+   "address": "",
+   "hours": "",
+   "share_tg_url": "",
+   "share_vk_url": "",
+   "ach_text": "",
+   "ped_text": "",
+   "science_text": "",
+   "social_text": "",
+   "external_links": {
+    "schedule": ""
+   }
   }
  ]
 }

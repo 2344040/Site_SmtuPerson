@@ -1961,7 +1961,32 @@
      "text": "заведующий кафедрой систем автоматического управления и бортовой вычислительной техники"
     }
    ],
-   "news": [],
+   "news": [
+    {
+     "date": "05 Июня 2025 года",
+     "title": "На конференции СПбГМТУ студенты представили разработки в области морских технологий",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/06/05/big/1416.jpg?token_static=6b9638988794c473f7512671dc237cdf",
+     "url": "https://www.smtu.ru/ru/viewnews/1416/"
+    },
+    {
+     "date": "05 Апреля 2025 года",
+     "title": "Кафедра систем автоматического управления и бортовой вычислительной техники СПбГМТУ проводит день открытых дверей",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/04/03/big/1322.jpg?token_static=eb08b33577fa5faec954f59be9d1da9c",
+     "url": "https://www.smtu.ru/ru/viewnews/1322/"
+    },
+    {
+     "date": "13 Марта 2025 года",
+     "title": "В СПбГМТУ прошла конференция «Специальные робототехнические комплексы и морское подводное оружие»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/03/13/big/1275.jpg?token_static=b9922e250f0d91f716c0b681d9cf2e84",
+     "url": "https://www.smtu.ru/ru/viewnews/1275/"
+    },
+    {
+     "date": "25 Декабря 2024 года",
+     "title": "В СПбГМТУ прошла конференция «Морские управляющие и навигационные компьютерные системы»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2024/12/25/big/1161.jpg?token_static=d5080ee35765bb3f764036fa73973017",
+     "url": "https://www.smtu.ru/ru/viewnews/1161/"
+    }
+   ],
    "university": "СПбГМТУ",
    "upk": [
     {

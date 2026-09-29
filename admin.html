@@ -560,7 +560,7 @@
       min-width: 0;
     }
 
-    /* Ссылка (6-я колонка) заберёт весь остаток */
+  
 
     /* * data-sec="upk" */
     table.ed[data-sec="upk"] {
@@ -593,6 +593,14 @@
       width: 100%;
       min-width: 0;
     }
+
+
+        /* ── Метрики науки: компактное число, широкая подпись ── */
+    table.ed[data-sec="metrics"] { width: 100%; table-layout: fixed; }
+    table.ed[data-sec="metrics"] th:nth-child(1) { width: 120px; }   /* Число */
+    table.ed[data-sec="metrics"] th:last-child { width: 44px; }      /* ✕ */
+    table.ed[data-sec="metrics"] input,
+    table.ed[data-sec="metrics"] select { width: 100%; min-width: 0; }
 
 
     .td-act {
@@ -913,7 +921,8 @@
       const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
       const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30'];
       const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
-
+      /* Подписи метрик науки */
+      const METRIC_LABELS = ['публикаций', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патентов', 'индекс Хирша'];
 
       // * SEC_COLS
       const SEC_COLS = {
@@ -1087,6 +1096,16 @@
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+    </select></td>`;
+          }
+
+          if (k === 'metrics' && c === 'l') {
+            const inList = METRIC_LABELS.includes(val);
+            return `<td>
+    <select data-sec="${k}" data-i="${i}" data-k="${c}">
+      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+      <option value="" ${!val ? 'selected' : ''}>—</option>
+      ${METRIC_LABELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
 

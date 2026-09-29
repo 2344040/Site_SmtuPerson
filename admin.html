@@ -315,8 +315,8 @@
       min-width: 0;
     } */
 
- 
-      /* & data-sec^="mat_" */
+
+    /* & data-sec^="mat_" */
     /* ── Учебные материалы: сетка (кроме mat_posobia — у него свой блок) ── */
     table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) {
       width: 100%;
@@ -648,9 +648,12 @@
 
     <div id="app" style="display:none">
       <div class="d-flex flex-wrap gap-2 align-items-center mb-3 admin-toolbar">
-        <select id="tsel" class="form-select" style="max-width:560px" onchange="setCur(+this.value)"></select>
+        <select id="tsel" class="form-select" style="max-width:420px" onchange="setCur(+this.value)"></select>
         <button class="btn btn-outline-dark btn-sm" onclick="addTeacher()">+ преподаватель</button>
         <button class="btn btn-outline-danger btn-sm" onclick="delTeacher()">Удалить</button>
+        <label class="form-check-label small text-secondary d-flex align-items-center gap-1 ms-2 mb-0" title="Карточка исчезнет с главной страницы, личная страница открываться не будет">
+          <input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
+        </label>
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
         <span id="status" class="small"></span>
       </div>
@@ -942,6 +945,12 @@
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
         { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
+      function toggleHidden(v) {
+        collect();
+        data.teachers[cur].hidden = v;
+        buildSel();
+      }
+
       /* ═══ Вход и загрузка ═══ */
       function login() {
         if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
@@ -973,7 +982,7 @@
       // * buildSel
       function buildSel() {
         const s = document.getElementById('tsel');
-        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.name || t.id}</option>`).join('');
+        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.hidden ? '🚫 ' : ''}${t.name || t.id}</option>`).join('');
         s.value = cur;
       }
 
@@ -1190,6 +1199,10 @@
       <div class="mt-2">${inner}</div>
     </details>`;
         }).join('');
+
+        /* Синхронизируем чекбокс «Не выводить» с текущей персоной */
+        const hc = document.getElementById('hideChk');
+        if (hc) hc.checked = !!data.teachers[cur].hidden;
       }
       /* ═══ Сбор данных из формы ═══ */
       function collect() {

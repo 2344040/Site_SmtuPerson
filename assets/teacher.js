@@ -18,8 +18,14 @@ const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
 
 fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
-  T = d.teachers.find(t => t.id === new URLSearchParams(location.search).get('id')) || d.teachers[0];
+  T = d.teachers.find(t => t.id === new URLSearchParams(location.search).get('id'))
+    || d.teachers.find(t => !t.hidden) || d.teachers[0];
   if (!T) { document.getElementById('main').innerHTML = '<p class="p-4">Нет данных.</p>'; return; }
+  if (T.hidden) {
+    document.title = 'Страница не опубликована — СПбГМТУ';
+    document.getElementById('main').innerHTML = '<p class="p-4">Эта страница не опубликована.</p>';
+    return;
+  }
   Object.keys(T).forEach(k => { if (Array.isArray(T[k])) T[k] = T[k].filter(isFilled); });
   document.title = (T.short || makeShort(T.name) || T.name) + ' — СПбГМТУ';
   fillHeader();

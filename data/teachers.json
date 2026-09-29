@@ -1592,7 +1592,24 @@
     }
    ],
    "rail_edu": [],
-   "profiles": [],
+   "profiles": [
+    {
+     "t": "Scopus",
+     "u": "https://www.scopus.com/authid/detail.uri?authorId=57212375284"
+    },
+    {
+     "t": "ResearcherID-WoS",
+     "u": "https://www.webofscience.com/wos/?mode=Nextgen&path=%2Fwos%2Fauthor%2Frecord%2FAAP-8095-2020&IsProductCode=Yes&Init=Yes&DestApp=UA&Func=Frame&action=transfer&SrcApp=CR&SID=EUW1ED0C51zapFZdFqscWxHLf3gho"
+    },
+    {
+     "t": "РИНЦ",
+     "u": "https://elibrary.ru/author_profile.asp?authorid=828871"
+    },
+    {
+     "t": "ORCID",
+     "u": "https://orcid.org/0000-0002-2454-7751"
+    }
+   ],
    "mat_posobia": [
     {
      "author": "Волькенштейн В. С. ",
@@ -1817,25 +1834,25 @@
     {
      "author": "",
      "title": "Методические указания по выполнению самостоятельной работы студента No1 по обработке результатов физического эксперимента (729.89K - pdf)",
-     "url": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46909.pdf?token_static=c767595a5783d753ffc337b8ccb4536f",
      "rub": "Лабораторный практикум"
     },
     {
      "author": "",
      "title": "Методические указания по выполнению лабораторной работы No 2-30 «Исследование температурной зависимости сопротивления металлов» (777.90K - pdf)",
-     "url": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46910.pdf?token_static=1458858f89c4530bd5601c6776e796ea",
      "rub": "Лабораторный практикум"
     },
     {
      "author": "",
      "title": "Графическое оформление результатов физического эксперимента (основные правила построения графиков) (1.12M - pdf)",
-     "url": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46911.pdf?token_static=ca6bb8a0337455e017b824889fb08f4e",
      "rub": "Лабораторный практикум"
     },
     {
      "author": "",
      "title": "Правило округления результата физического эксперимента (699.15K - pdf)",
-     "url": "",
+     "url": "Правило округления результата физического эксперимента (699.15K - pdf)",
      "rub": "Лабораторный практикум"
     }
    ],

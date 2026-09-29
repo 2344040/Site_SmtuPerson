@@ -730,6 +730,7 @@
         email: ['E-mail', 'col-md-4'],
         phone: ['Телефон', 'col-md-4'],
         address: ['Адрес', 'col-md-8'],
+        site: ['Сайт', 'col-md-8'],
         hours: ['Приёмные часы', 'col-md-4'],
         share_tg_url: ['URL для Telegram share', 'col-md-6'],
         share_vk_url: ['URL для VK share', 'col-md-6']
@@ -860,7 +861,7 @@
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'post'], ['a', 'chips']]
         },
-        { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
+             { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
@@ -960,7 +961,7 @@
       const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30'];
       const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
       /* Подписи метрик науки */
-      const METRIC_LABELS = ['публикации', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патенты', 'индекс Хирша'];
+      const METRIC_LABELS = ['публикации', 'монография', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патенты', 'индекс Хирша', ];
       /* Заголовки профилей (правый сайдбар) */
       const PROFILE_TITLES = ['Scopus', 'ResearcherID-WoS', 'ORCID', 'РИНЦ', 'ВАК'];
 

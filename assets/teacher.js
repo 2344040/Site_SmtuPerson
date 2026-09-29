@@ -1,6 +1,8 @@
 // assets/teacher.js
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+/* Ссылка на сайт: добавляем протокол, если его забыли ввести */
+const siteHref = s => /^https?:\/\//i.test(String(s)) ? String(s) : 'https://' + String(s);
 const makeShort = name => {
   const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
   if (!parts.length) return '';
@@ -188,6 +190,7 @@ const pluralize = (n, forms) => {
 /* Формы подписей метрик: [1, 2–4, 5+]. чего нет в словаре — выводится как есть */
 const METRIC_FORMS = {
   'публикаций': ['публикация', 'публикации', 'публикаций'],
+  'монография': ['монография', 'монографии', 'монографий'],
   'ст. ВАК': ['статья ВАК', 'статьи ВАК', 'статей ВАК'],
   'ст. Scopus': ['статья Scopus', 'статьи Scopus', 'статей Scopus'],
   'ст. WoS': ['статья WoS', 'статьи WoS', 'статей WoS'],
@@ -493,7 +496,8 @@ function renderMain() {
           <a href="mailto:${esc(e)}" style="color:var(--teal)">${esc(e)}</a></p>`).join('')}
         ${[T.phone, ...(T.phone_extra || [])].filter(Boolean).map(p => `<p class="mb-2"><i class="bi bi-telephone me-2" style="color:var(--amber)"></i>
           <a href="tel:${esc(String(p).replace(/[^+\d]/g, ''))}" style="color:var(--teal)">${esc(p)}</a></p>`).join('')}
-        ${T.address ? `<p><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
+               ${T.address ? `<p class="mb-2"><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
+        ${T.site ? `<p class="mb-2"><i class="bi bi-globe me-2" style="color:var(--amber)"></i><a href="${esc(siteHref(T.site))}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(T.site)}</a></p>` : ''}
         <div style="height:40px">
           ${T.share_tg_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_tg_url)}"><i class="fa-brands fa-telegram fa-2xl"></i></a>` : ''}
           ${T.share_vk_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_vk_url)}"><i class="fa-brands fa-vk fa-2xl"></i></a>` : ''}

@@ -548,10 +548,10 @@ function renderRail() {
   /* Ручные ссылки из админки (раздел 9) — если заполнены */
   const manualLinks = (T.rail_edu && T.rail_edu.length)
     ? T.rail_edu.map(p => {
-      const icon = String(p.u || '').startsWith('http')
-        ? 'bi-box-arrow-up-right'
-        : 'bi-arrow-right';
-      return `<a class="btn-side" href="${esc(p.u)}"><span>${esc(p.t)}</span><i class="bi ${icon} arr"></i></a>`;
+      const ext = String(p.u || '').startsWith('http');
+      const icon = ext ? 'bi-box-arrow-up-right' : 'bi-arrow-right';
+      const blank = ext ? ' target="_blank" rel="noopener"' : '';
+      return `<a class="btn-side" href="${esc(p.u)}"${blank}><span>${esc(p.t)}</span><i class="bi ${icon}"></i></a>`;
     }).join('')
     : '';
 

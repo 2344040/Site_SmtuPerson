@@ -595,10 +595,10 @@
     }
 
 
-        /* ── Метрики науки: компактное число, широкая подпись ── */
+        /* * Метрики науки: компактное число, широкая подпись ── */
     table.ed[data-sec="metrics"] { width: 100%; table-layout: fixed; }
     table.ed[data-sec="metrics"] th:nth-child(1) { width: 120px; }   /* Число */
-    table.ed[data-sec="metrics"] th:last-child { width: 44px; }      /* ✕ */
+    table.ed[data-sec="metrics"] th:last-child { width: 108px; }      /* ✕ */
     table.ed[data-sec="metrics"] input,
     table.ed[data-sec="metrics"] select { width: 100%; min-width: 0; }
 
@@ -1134,9 +1134,10 @@
       }
 
       // * actCell
-      /* Стрелки перемещения + удаление (для материалов — со стрелками) */
+      /* Стрелки перемещения + удаление (для материалов/метрик — со стрелками) */
       function actCell(k, i) {
-        return k.startsWith('mat_')
+        const withArrows = k.startsWith('mat_') || k === 'metrics';
+        return withArrows
           ? `<td class="td-act">
               <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
               <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>

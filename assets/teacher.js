@@ -125,11 +125,13 @@ ${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-
 
 /* ═══ Достижения с раскрытием ═══ */
 const achievementCards = (a, limit = 6) => `
-<div class="row g-3 reveal" id="ach-list">${a.map((i, idx) => `
+<div class="row g-3 reveal" id="ach-list">${a.map((i, idx) => {
+  const iconKey = (String(i.icon || '').trim().match(/[a-z][a-z0-9-]*/i) || [])[0] || 'award';
+  return `
   <div class="col-md-6 ${idx >= limit ? 'd-none reveal-hidden' : ''}">
     <div class="card-lift"><div class="bar"></div><div class="p-3 d-flex flex-column">
       <div class="d-flex justify-content-between">
-        <i class="bi bi-${i.icon || 'award'} fs-4" style="color:var(--amber)"></i>
+        <i class="bi bi-${iconKey} fs-4" style="color:var(--amber)"></i>
         <small class="text-secondary mt-1">${esc(i.year)}</small>
       </div>
       <h3 class="fs-6 fw-bold mt-2 mb-1">${esc(i.title)}</h3>
@@ -139,7 +141,8 @@ const achievementCards = (a, limit = 6) => `
         <span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span>
       </span>
     </div></div>
-  </div>`).join('')}</div>
+  </div>`;
+}).join('')}</div>
 ${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : ''}`;
 
 /* ═══ Таблица ═══ */

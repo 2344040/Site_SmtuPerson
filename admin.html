@@ -690,7 +690,7 @@
       <input id="gate" type="password" class="form-control mb-2" placeholder="Локальный пароль (если задан)">
       <input id="token" type="password" class="form-control mb-2" placeholder="GitHub Personal Access Token">
       <button class="btn btn-dark" onclick="login()">Войти</button>
-      <small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий.</small>
+          <small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий. Оставьте поле токена пустым, чтобы войти в демо-режим: просмотр и правка без публикации.</small>
     </div>
 
     <div id="app" style="display:none">
@@ -715,8 +715,11 @@
 
     <script>
       /* ═══ НАСТРОЙКИ — ВПИШИТЕ СВОИ OWNER И REPO! ═══ */
-      const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
-      const GATE = '';
+           const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
+      const GATE = '2470';   /* пароль входа; для боевой работы можно вернуть '' */
+      /* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON,
+         правки никуда не отправляются. */
+      let DEMO = false;
 
             /* Файлы, которые кнопка «↻ файлы для LLM» собирает в буфер.
          Поправьте пути, если какой-то лежит не в корне (например, admin.html в папке admin/). */
@@ -1048,32 +1051,56 @@
       function login() {
         if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
         TOK = document.getElementById('token').value.trim();
+        if (!TOK) { DEMO = true; loadDemo(); return; }
         sessionStorage.tok = TOK;
         load();
       }
-      async function load() {
-        const r = await gh('/contents/' + PATH);
-        if (!r.ok) return alert('Токен не принят: ' + r.status);
-        data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
 
-        /* Миграция: text → biblio, link → url (для books и publications) */
-        (data.teachers || []).forEach(t => {
+
+      /* Миграции данных — общие для боевого и демо-режима */
+      function migrate(d) {
+        (d.teachers || []).forEach(t => {
           ['books', 'publications'].forEach(k => {
             (t[k] || []).forEach(row => {
               if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
               if (row.link && !row.url) { row.url = row.link; delete row.link; }
             });
           });
-                  /* Фантомный medal → существующий award-fill */
           (t.achievements || []).forEach(row => {
             if (row.icon === 'medal') row.icon = 'award-fill';
           });
         });
+      }
 
+      /* Вход в админку после загрузки данных */
+      function enterAdmin() {
         document.getElementById('login').style.display = 'none';
         document.getElementById('app').style.display = '';
         cur = restoreCur(data.teachers.length);
         buildSel(); build();
+        if (DEMO) {
+          document.getElementById('status').innerHTML =
+            '<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';
+        }
+      }
+
+            // * async function load()
+      /* Боевой режим: чтение через GitHub API с токеном */
+      async function load() {
+        const r = await gh('/contents/' + PATH);
+        if (!r.ok) return alert('Токен не принят: ' + r.status);
+        data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
+        migrate(data);
+        enterAdmin();
+      }
+
+      /* Демо-режим: чтение опубликованного JSON без токена */
+      async function loadDemo() {
+        const r = await fetch(PATH + '?v=' + Date.now());
+        if (!r.ok) return alert('Не удалось загрузить данные: ' + r.status);
+        data = await r.json();
+        migrate(data);
+        enterAdmin();
       }
 
       // * buildSel
@@ -1383,9 +1410,14 @@
 
       // * save
       /* ═══ Сохранение в GitHub ═══ */
-      async function save() {
+           async function save() {
         collect();
         const st = document.getElementById('status');
+        if (DEMO) {
+          st.innerHTML = '<span class="text-warning fw-bold">ДЕМО: правки не отправлены в GitHub</span>';
+          alert('Демо-режим: изменения остаются только в этой вкладке браузера.');
+          return;
+        }
         st.textContent = 'сохраняю…';
         try {
           const g = await gh('/contents/' + PATH);

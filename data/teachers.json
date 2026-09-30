@@ -2234,7 +2234,24 @@
    "projects": [],
    "patents": [],
    "social": [],
-   "events": [],
+   "events": [
+    {
+     "time": "10:10-11:40",
+     "subject": "Теория управляющих автоматов",
+     "type": "лекция",
+     "building": "Г",
+     "room": "405",
+     "now": true
+    },
+    {
+     "time": "11:50-13:20",
+     "subject": "Теория управляющих автоматов",
+     "type": "практическое занятие",
+     "building": "Г",
+     "room": "405",
+     "now": false
+    }
+   ],
    "rail_edu": [],
    "profiles": [],
    "mat_posobia": [

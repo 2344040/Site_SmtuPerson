@@ -1,4 +1,5 @@
 <!-- admin.html -->
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -20,19 +21,23 @@
       border-radius: 14px
     }
 
+    /* Университет (кратко): компактное поле на 10 знаков */
     input[data-f="university"] {
       width: 12ch;
     }
 
+    /* ── Университет + факультет + кафедра в одну строку ── */
     .row .w-univ {
       flex: 0 0 auto;
       width: auto;
     }
 
+
     .row .w-fac {
       flex: 40 1 0;
       min-width: 0;
     }
+
 
     .row .w-dep {
       flex: 60 1 0;
@@ -58,14 +63,18 @@
 
     table.ed input[data-k="year"] {
       width: 80px;
+      /* год: «2025 · 72 ч» помещается */
     }
 
     table.ed input[data-k="title"] {
       width: 80%;
+
+      /* название: основная ширина */
     }
 
     table.ed input[data-k="text"] {
       width: 300px;
+      /* описание/организация: умеренно */
     }
 
     table.ed td {
@@ -78,10 +87,12 @@
 
     table.ed textarea {
       width: 100%;
+
     }
 
     table.ed th {
       font-size: .65rem;
+      /* text-transform: uppercase; */
       letter-spacing: .05em;
       color: #6f7a72;
       text-align: left;
@@ -98,6 +109,8 @@
       background: #fff;
     }
 
+    /* & data-sec="courses" */
+    /* ── Дисциплины: широкая дисциплина, компактные числа ── */
     table.ed[data-sec="courses"] {
       width: 100%;
       table-layout: fixed;
@@ -107,14 +120,17 @@
       width: 170px;
     }
 
+    /* Уровень (select) */
     table.ed[data-sec="courses"] th:nth-child(3) {
       width: 56px;
     }
 
+    /* Курс — 3 знака */
     table.ed[data-sec="courses"] th:nth-child(4) {
       width: 56px;
     }
 
+    /* Семестр — 3 знака */
     table.ed[data-sec="courses"] th:nth-child(5) {
       width: 56px;
     }
@@ -122,6 +138,11 @@
     table.ed[data-sec="courses"] th:last-child {
       width: 44px;
     }
+
+    /* колонка кнопки ✕ */
+
+    /* Часы — 3 знака */
+    /* 1-я колонка (Дисциплина) забирает весь остаток ширины */
 
     table.ed[data-sec="courses"] input,
     table.ed[data-sec="courses"] select {
@@ -138,6 +159,7 @@
     .ed-rec {
       padding: .75rem 0 .9rem;
       border-bottom: 1px dashed #dcd7c9;
+      /* горизонтальная черта между записями */
     }
 
     .ed-rec:last-of-type {
@@ -153,15 +175,19 @@
       padding-left: 1.2rem;
     }
 
+    /* & data-sec="achievements" */
+    /* ── Достижения: фиксированная сетка, ничего не вылезает ── */
     table.ed[data-sec="achievements"] {
       width: 100%;
       table-layout: fixed;
+      /* колонки берут ширину из th, а не из контента */
     }
 
     table.ed[data-sec="achievements"] th:nth-child(1) {
       width: 64px;
     }
 
+    /* Год */
     table.ed[data-sec="achievements"] th:nth-child(2) {
       width: 150px;
     }
@@ -170,17 +196,25 @@
       width: 30%;
     }
 
+    /* Название */
     table.ed[data-sec="achievements"] th:last-child {
       width: 44px;
     }
+
+    /* Название */
+    /* Описание (4-я колонка) заберёт весь остаток автоматически */
 
     table.ed[data-sec="achievements"] input,
     table.ed[data-sec="achievements"] select,
     table.ed[data-sec="achievements"] textarea {
       width: 100%;
       min-width: 0;
+      /* страховка от старых минимумов */
     }
 
+
+    /* & data-sec="programs" */
+    /* ── Программы: сетка колонок ── */
     table.ed[data-sec="programs"] {
       width: 100%;
       table-layout: fixed;
@@ -190,24 +224,30 @@
       width: 110px;
     }
 
+    /* Код ОП */
     table.ed[data-sec="programs"] th:nth-child(3) {
       width: 170px;
     }
 
+    /* Уровень (select) */
     table.ed[data-sec="programs"] th:nth-child(4) {
       width: 26%;
     }
 
+    /* Комментарий */
     table.ed[data-sec="programs"] th:last-child {
       width: 44px;
     }
 
+    /* кнопка ✕ */
     table.ed[data-sec="programs"] input,
     table.ed[data-sec="programs"] select {
       width: 100%;
       min-width: 0;
     }
 
+    /* & data-sec="events" */
+    /* ── События: сетка колонок ── */
     table.ed[data-sec="events"] {
       width: 100%;
       table-layout: fixed;
@@ -217,27 +257,69 @@
       width: 90px;
     }
 
+    /* Время */
     table.ed[data-sec="events"] th:nth-child(3) {
       width: 110px;
     }
 
+    /* Тип */
     table.ed[data-sec="events"] th:nth-child(4) {
       width: 60px;
     }
 
+    /* Корпус */
     table.ed[data-sec="events"] th:nth-child(5) {
       width: 60px;
     }
 
+    /* Аудитория */
     table.ed[data-sec="events"] th:last-child {
       width: 44px;
     }
 
+    /* Чекбокс "Сейчас" */
     table.ed[data-sec="events"] input {
       width: 100%;
       min-width: 0;
     }
 
+    /* Предмет (2-я колонка) заберёт весь остаток ширины */
+
+    /* & data-sec="materials" */
+    /* table.ed[data-sec="materials"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="materials"] th:nth-child(1) {
+      width: 140px;
+    }
+
+
+    table.ed[data-sec="materials"] th:nth-child(3) {
+      width: 130px;
+    }
+
+  
+    table.ed[data-sec="materials"] th:nth-child(5) {
+      width: 70px;
+    }
+
+  
+    table.ed[data-sec="materials"] th:last-child {
+      width: 44px;
+    }
+
+  
+    table.ed[data-sec="materials"] input,
+    table.ed[data-sec="materials"] select {
+      width: 100%;
+      min-width: 0;
+    } */
+
+
+    /* & data-sec^="mat_" */
+    /* ── Учебные материалы: сетка (кроме mat_posobia — у него свой блок) ── */
     table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) {
       width: 100%;
       table-layout: fixed;
@@ -248,6 +330,7 @@
       min-width: 0;
     }
 
+    /* Автор */
     table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:nth-child(1) {
       width: 150px;
     }
@@ -256,32 +339,39 @@
       width: auto;
     }
 
+    /* Ссылка */
     table.ed[data-sec="mat_lectures"] th:nth-child(3),
     table.ed[data-sec="mat_video"] th:nth-child(3) {
       width: 10%;
     }
 
+    /* Автор */
     table.ed[data-sec="mat_books"] th:nth-child(1) {
       width: 120px;
     }
 
+    /* Название */
     table.ed[data-sec="mat_books"] th:nth-child(2) {
       width: 24%;
     }
 
+    /* Выходные данные */
     table.ed[data-sec="mat_books"] th:nth-child(3) {
       width: 20%;
     }
 
+    /* Скачивание / Покупка */
     table.ed[data-sec="mat_books"] th:nth-child(4),
     table.ed[data-sec="mat_books"] th:nth-child(5) {
       width: 16%;
     }
 
+    /* Рубрика */
     table.ed[data-sec="mat_books"] th:nth-child(6) {
       width: 16%;
     }
 
+    /* Рубрика */
     table.ed[data-sec="mat_lectures"] th:nth-child(4),
     table.ed[data-sec="mat_video"] th:nth-child(4),
     table.ed[data-sec="mat_books"] th:nth-child(5),
@@ -289,10 +379,12 @@
       width: 20%;
     }
 
+    /* ↑ ↓ ✕ */
     table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:last-child {
       width: 108px;
     }
 
+    /* & data-sec="career" */
     table.ed[data-sec="career"] {
       width: 100%;
       table-layout: fixed;
@@ -302,20 +394,25 @@
       width: 100px;
     }
 
+    /* Год: ~14 знаков ввода */
     table.ed[data-sec="career"] th:nth-child(2),
     table.ed[data-sec="career"] th:nth-child(3) {
       width: calc((100% - 100px - 44px) / 2);
     }
 
+    /* остаток пополам */
     table.ed[data-sec="career"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
     table.ed[data-sec="career"] input {
       width: 100%;
       min-width: 0;
     }
 
+    /* & data-sec="publications" */
+    /* ── Публикации: 8 колонок ── */
     table.ed[data-sec="publications"] {
       width: 100%;
       table-layout: fixed;
@@ -325,43 +422,54 @@
       width: 64px;
     }
 
+    /* Год */
     table.ed[data-sec="publications"] th:nth-child(2) {
       width: 12%;
     }
 
+    /* Автор */
     table.ed[data-sec="publications"] th:nth-child(3) {
       width: 18%;
     }
 
+    /* Название */
     table.ed[data-sec="publications"] th:nth-child(4) {
       width: 18%;
     }
 
+    /* Выходные данные */
     table.ed[data-sec="publications"] th:nth-child(5) {
       width: 18%;
     }
 
+    /* Описание */
     table.ed[data-sec="publications"] th:nth-child(6) {
       width: 7%;
     }
 
+    /* Тег */
     table.ed[data-sec="publications"] th:nth-child(7) {
       width: 10%;
     }
 
+    /* Ссылка */
     table.ed[data-sec="publications"] th:nth-child(8) {
       width: 10%;
     }
 
+    /* DOI */
     table.ed[data-sec="publications"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
     table.ed[data-sec="publications"] input {
       width: 100%;
       min-width: 0;
     }
 
+    /* & data-sec="books" */
+    /* ── Авторские учебные пособия: 6 колонок ── */
     table.ed[data-sec="books"] {
       width: 100%;
       table-layout: fixed;
@@ -371,35 +479,44 @@
       width: 64px;
     }
 
+    /* Год */
     table.ed[data-sec="books"] th:nth-child(2) {
       width: 15%;
     }
 
+    /* Автор */
     table.ed[data-sec="books"] th:nth-child(3) {
       width: 22%;
     }
 
+    /* Название */
     table.ed[data-sec="books"] th:nth-child(4) {
       width: 20%;
     }
 
+    /* Выходные данные */
     table.ed[data-sec="books"] th:nth-child(5) {
       width: 20%;
     }
 
+    /* Описание */
     table.ed[data-sec="books"] th:nth-child(6) {
       width: 12%;
     }
 
+    /* Ссылка */
     table.ed[data-sec="books"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
     table.ed[data-sec="books"] input {
       width: 100%;
       min-width: 0;
     }
 
+    /* & data-sec="mat_posobia" */
+    /* ── Учебные пособия (mat_posobia): 6 колонок + действия ── */
     table.ed[data-sec="mat_posobia"] {
       width: 100%;
       table-layout: fixed;
@@ -409,35 +526,45 @@
       width: 15%;
     }
 
+    /* Автор */
     table.ed[data-sec="mat_posobia"] th:nth-child(2) {
       width: 20%;
     }
 
+    /* Название */
     table.ed[data-sec="mat_posobia"] th:nth-child(3) {
       width: 18%;
     }
 
+    /* Выходные данные */
     table.ed[data-sec="mat_posobia"] th:nth-child(4) {
       width: 18%;
     }
 
+    /* Описание */
     table.ed[data-sec="mat_posobia"] th:nth-child(5) {
       width: 12%;
     }
 
+    /* Рубрика */
     table.ed[data-sec="mat_posobia"] th:nth-child(6) {
       width: 12%;
     }
 
+    /* Ссылка */
     table.ed[data-sec="mat_posobia"] th:last-child {
       width: 108px;
     }
 
+    /* ↑ ↓ ✕ */
     table.ed[data-sec="mat_posobia"] input {
       width: 100%;
       min-width: 0;
     }
 
+
+
+    /* & data-sec="upk" */
     table.ed[data-sec="upk"] {
       width: 100%;
       table-layout: fixed;
@@ -447,23 +574,30 @@
       width: 115px;
     }
 
+    /* Год */
     table.ed[data-sec="upk"] th:nth-child(2) {
       width: 30%;
     }
 
+    /* Название */
     table.ed[data-sec="upk"] th:nth-child(3) {
       width: 18%;
     }
 
+    /* Тип */
     table.ed[data-sec="upk"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
+    /* Организация (4-я колонка) заберёт весь остаток автоматически */
     table.ed[data-sec="upk"] input {
       width: 100%;
       min-width: 0;
     }
 
+
+    /* & data-sec="metrics" */
     table.ed[data-sec="metrics"] {
       width: 100%;
       table-layout: fixed;
@@ -473,16 +607,19 @@
       width: 120px;
     }
 
+    /* Число */
     table.ed[data-sec="metrics"] th:last-child {
       width: 108px;
     }
 
+    /* ✕ */
     table.ed[data-sec="metrics"] input,
     table.ed[data-sec="metrics"] select {
       width: 100%;
       min-width: 0;
     }
 
+    /* & data-sec="profiles" */
     table.ed[data-sec="profiles"] {
       width: 100%;
       table-layout: fixed;
@@ -492,15 +629,18 @@
       width: 190px;
     }
 
+    /* Заголовок (select) */
     table.ed[data-sec="profiles"] th:last-child {
       width: 44px;
     }
 
+    /* ✕ */
     table.ed[data-sec="profiles"] input,
     table.ed[data-sec="profiles"] select {
       width: 100%;
       min-width: 0;
     }
+
 
     .td-act {
       white-space: nowrap;
@@ -511,6 +651,8 @@
       font-size: .72rem;
     }
 
+
+    /* ── Заголовки секций внутри блоков ── */
     .sec-title {
       font-size: 0.95rem;
       font-weight: 600;
@@ -527,6 +669,7 @@
       margin-top: 0;
     }
 
+    /* ── Липкая служебная панель ── */
     .admin-toolbar {
       position: sticky;
       top: 0;
@@ -541,13 +684,15 @@
 
 <body>
   <div class="container py-4" style="max-width:1100px">
+
     <div id="login" class="card p-4 mx-auto" style="max-width:420px">
       <h5>Вход в админку</h5>
-      <input id="gate" type="password" class="form-control mb-2" placeholder="Локальный пароль (для демо-режима)">
+      <input id="gate" type="password" class="form-control mb-2" placeholder="Локальный пароль (если задан)">
       <input id="token" type="password" class="form-control mb-2" placeholder="GitHub Personal Access Token">
       <button class="btn btn-dark" onclick="login()">Войти</button>
-      <small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий. Оставьте поле токена пустым, чтобы войти в демо-режим: просмотр и правка без публикации.</small>
+          <small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий. Оставьте поле токена пустым, чтобы войти в демо-режим: просмотр и правка без публикации.</small>
     </div>
+
     <div id="app" style="display:none">
       <div class="d-flex flex-wrap gap-2 align-items-center mb-3 admin-toolbar">
         <select id="tsel" class="form-select" style="max-width:420px" onchange="setCur(+this.value)"></select>
@@ -556,22 +701,31 @@
         <label class="form-check-label small text-secondary d-flex align-items-center gap-1 ms-2 mb-0" title="Карточка исчезнет с главной страницы, личная страница открываться не будет">
           <input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
         </label>
-        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻ файлы для LLM</button>
+        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻ </button>
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
         <span id="status" class="small"></span>
       </div>
+      <!-- <div class="card p-3 mb-3">
+        <h6>Личные данные</h6>
+        <div id="pf" class="row g-2"></div>
+      </div> -->
       <div id="secs"></div>
     </div>
+
+
     <script>
-      /* ═══ НАСТРОЙКИ ═══ */
-      const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
-      const GATE = '2470';
-      /* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON, правки никуда не отправляются. */
+      /* ═══ НАСТРОЙКИ — ВПИШИТЕ СВОИ OWNER И REPO! ═══ */
+           const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
+      const GATE = '2470';   /* пароль входа; для боевой работы можно вернуть '' */
+      /* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON,
+         правки никуда не отправляются. */
       let DEMO = false;
 
-      /* Файлы для кнопки «↻ файлы для LLM» */
+            /* Файлы, которые кнопка «↻ файлы для LLM» собирает в буфер.
+         Поправьте пути, если какой-то лежит не в корне (например, admin.html в папке admin/). */
       const LLM_FILES = ['admin.html', 'teacher.html', 'index.html', 'assets/teacher.js', 'assets/style.css'];
 
+      /* Чтение файла из репозитория в сыром виде (без base64) */
       async function fetchFileRaw(p) {
         const headers = { 'Accept': 'application/vnd.github.raw' };
         if (TOK) headers.Authorization = 'Bearer ' + TOK;
@@ -580,6 +734,7 @@
         return await r.text();
       }
 
+      /* Сборка блока «=== файл: ... ===» и копирование в буфер */
       async function syncForLLM() {
         const st = document.getElementById('status');
         st.textContent = 'читаю файлы…';
@@ -595,6 +750,7 @@
           await navigator.clipboard.writeText(block);
           st.innerHTML = `<span class="text-success fw-bold">✔</span> в буфере: ${block.length.toLocaleString('ru-RU')} симв.`;
         } catch (e) {
+          /* fallback, если clipboard недоступен */
           const ta = document.createElement('textarea');
           ta.value = block;
           document.body.appendChild(ta);
@@ -606,6 +762,8 @@
       }
 
       // * SCALAR
+      /* ═══ Личные данные: [ключ, подпись, ширина] ═══ */
+      /* Скалярные поля: ключ → [подпись, ширина] */
       const SCALAR = {
         id: ['ID (латиницей)', 'col-md-3'],
         short: ['ФИО коротко', 'col-md-3'],
@@ -624,6 +782,7 @@
         share_vk_url: ['URL для VK share', 'col-md-6']
       };
 
+      /* ═══ Факультеты и кафедры СПбГМТУ ═══ */
       const FACULTIES = [
         'Факультет кораблестроения и океанотехники',
         'Факультет корабельной энергетики и автоматики',
@@ -636,33 +795,53 @@
       ];
       const DEPARTMENTS = {
         'Факультет кораблестроения и океанотехники': [
-          'Кафедра теории корабля', 'Кафедра гидроаэромеханики и морской акустики', 'Базовая кафедра «Судовая акустика»',
-          'Кафедра конструкции и технической эксплуатации судов', 'Кафедра океанотехники и морских технологий',
-          'Кафедра проектирования судов', 'Кафедра строительной механики корабля',
-          'Базовая кафедра прочности и конструкции корабля', 'Кафедра технологии судостроения'
+          'Кафедра теории корабля',
+          'Кафедра гидроаэромеханики и морской акустики',
+          'Базовая кафедра «Судовая акустика»',
+          'Кафедра конструкции и технической эксплуатации судов',
+          'Кафедра океанотехники и морских технологий',
+          'Кафедра проектирования судов',
+          'Кафедра строительной механики корабля',
+          'Базовая кафедра прочности и конструкции корабля',
+          'Кафедра технологии судостроения'
         ],
         'Факультет корабельной энергетики и автоматики': [
-          'Кафедра судовой автоматики и измерений', 'Кафедра деталей машин и подъемно-транспортных механизмов',
-          'Кафедра судовых двигателей внутреннего сгорания и дизельных установок', 'Кафедра судовых турбин и турбинных установок',
-          'Базовая кафедра "Инновационное турбостроение"', 'Кафедра электротехники и электрооборудования судов',
+          'Кафедра судовой автоматики и измерений',
+          'Кафедра деталей машин и подъемно-транспортных механизмов',
+          'Кафедра судовых двигателей внутреннего сгорания и дизельных установок',
+          'Кафедра судовых турбин и турбинных установок',
+          'Базовая кафедра "Инновационное турбостроение"',
+          'Кафедра электротехники и электрооборудования судов',
           'Кафедра судовых энергетических установок, систем и оборудования',
           'Базовая кафедра "Информационные технологии в разработке и эксплуатации судовых энергетических установок"',
-          'Кафедра перспективных источников энергии и систем энергообеспечения', 'Кафедра технологии судового машиностроения',
-          'Базовая кафедра "Технологии энергетического машиностроения"', 'Базовая кафедра судового машиностроения'
+          'Кафедра перспективных источников энергии и систем энергообеспечения',
+          'Кафедра технологии судового машиностроения',
+          'Базовая кафедра "Технологии энергетического машиностроения"',
+          'Базовая кафедра судового машиностроения'
         ],
         'Факультет гуманитарного образования': [
-          'Кафедра истории', 'Кафедра философии и социологии', 'Кафедра государственно-правовых дисциплин',
-          'Кафедра уголовно-правовых дисциплин', 'Кафедра гражданско-правовых дисциплин', 'Кафедра международного морского права',
-          'Кафедра физического воспитания', 'Кафедра иностранных языков', 'Кафедра эргономики и инженерной психологии'
+          'Кафедра истории',
+          'Кафедра философии и социологии',
+          'Кафедра государственно-правовых дисциплин',
+          'Кафедра уголовно-правовых дисциплин',
+          'Кафедра гражданско-правовых дисциплин',
+          'Кафедра международного морского права',
+          'Кафедра физического воспитания',
+          'Кафедра иностранных языков',
+          'Кафедра эргономики и инженерной психологии'
         ],
         'Факультет цифровых промышленных технологий': [
-          'Кафедра сварки судовых конструкций', 'Кафедра цифровой безопасности',
-          'Кафедра вычислительной техники и информационных технологий', 'Кафедра прикладной математики и математического моделирования',
-          'Кафедра киберфизических систем', 'Кафедра цифровых лазерных технологий'
+          'Кафедра сварки судовых конструкций',
+          'Кафедра цифровой безопасности',
+          'Кафедра вычислительной техники и информационных технологий',
+          'Кафедра прикладной математики и математического моделирования',
+          'Кафедра киберфизических систем',
+          'Кафедра цифровых лазерных технологий'
         ],
         'Факультет морского приборостроения': [
           'Кафедра корабельных автоматизированных комплексов и информационно-управляющих систем',
-          'Базовая кафедра «Кораблестроение, корабельное вооружение и морская робототехника»', 'Кафедра гидрофизических средств поиска',
+          'Базовая кафедра «Кораблестроение, корабельное вооружение и морская робототехника»',
+          'Кафедра гидрофизических средств поиска',
           'Базовая кафедра физических полей объектов морской техники и океана',
           'Кафедра систем автоматического управления и бортовой вычислительной техники',
           'Базовая кафедра «Управление жизненным циклом морских технических систем»',
@@ -670,26 +849,39 @@
           'Базовая кафедра «Навигационные и управляющие системы морской техники»',
           'Кафедра проектирования и технологии производства морских подводных аппаратов и роботов',
           'Базовая кафедра "Проектирование и технология производства морского подводного оружия"',
-          'Кафедра морских информационных систем и технологий', 'Базовая кафедра «Проектирование морских информационных систем»',
+          'Кафедра морских информационных систем и технологий',
+          'Базовая кафедра «Проектирование морских информационных систем»',
           'Базовая кафедра «Мехатроника и робототехника»'
         ],
         'Инженерно-экономический факультет': [
-          'Кафедра управления судостроительным производством', 'Кафедра экономики судостроительной промышленности',
-          'Кафедра бухгалтерского учета и аудита', 'Кафедра "Инновационная экономика"',
-          'Кафедра "Международные экономические отношения"', 'Кафедра управления бизнес-технологиями'
+          'Кафедра управления судостроительным производством',
+          'Кафедра экономики судостроительной промышленности',
+          'Кафедра бухгалтерского учета и аудита',
+          'Кафедра "Инновационная экономика"',
+          'Кафедра "Международные экономические отношения"',
+          'Кафедра управления бизнес-технологиями'
         ],
         'Высшая физико-техническая школа': [
-          'Кафедра теоретической механики', 'Кафедра материаловедения и технологии материалов',
+          'Кафедра теоретической механики',
+          'Кафедра материаловедения и технологии материалов',
           'Базовая кафедра «Современные материалы и технологии в судостроении»',
-          'Кафедра промышленной, экологической и климатической безопасности', 'Кафедра математики', 'Кафедра физики', 'Кафедра химии',
-          'Кафедра компьютерной графики и геометрического моделирования', 'Кафедра "Медицинской техники и робототехники"',
-          'Кафедра "Ядерная техника и теплофизика"', 'Базовая кафедра «Судовые ядерные энергетические установки»',
+          'Кафедра промышленной, экологической и климатической безопасности',
+          'Кафедра математики',
+          'Кафедра физики',
+          'Кафедра химии',
+          'Кафедра компьютерной графики и геометрического моделирования',
+          'Кафедра "Медицинской техники и робототехники"',
+          'Кафедра "Ядерная техника и теплофизика"',
+          'Базовая кафедра «Судовые ядерные энергетические установки»',
           'Базовая кафедра «Медицинская инженерия»'
         ],
         'Колледж': []
       };
 
+      /* Значения по умолчанию для новых карточек */
       const DEFAULTS = { university: 'СПбГМТУ' };
+
+      /* Короткое ФИО из полного: «Иванов Иван Иванович» → «Иванов И.И.» */
       const makeShort = name => {
         const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
         if (!parts.length) return '';
@@ -698,6 +890,7 @@
       };
 
       // * TEXTS
+      /* Многострочные скалярные поля: ключ → [подпись, строк] */
       const TEXTS = {
         ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
         science_text: ['Текстовый блок научных интересов', 3],
@@ -705,14 +898,16 @@
         social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
       };
 
-      // * GROUPS
+      /* ═══ БЛОКИ АДМИНКИ = СЕКЦИИ ЦЕЛЕВОЙ СТРАНИЦЫ ═══
+         s = скалярное поле, t = textarea, a = таблица-массив, x = внешняя ссылка */
+      //   * GROUPS
       const GROUPS = [
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'post'], ['a', 'chips']]
         },
-        { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
+             { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
@@ -759,6 +954,7 @@
         mat_resources: ['title', 'url', 'rub'],
       };
 
+      /* Иконки достижений: [значение в JSON, подпись в списке] */
       const ICONS = [
         ['award', '🎖 award — медаль / лента'],
         ['trophy', '🏆 trophy — кубок'],
@@ -770,7 +966,7 @@
         ['bookmark-star', '🔖 bookmark-star — закладка со звездой']
       ];
 
-      // * NAMES
+      // * NAMES 
       const NAMES = {
         chips: 'Чипы', positions: 'Должности (верхний блок)',
         email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
@@ -800,15 +996,19 @@
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
         time: 'Время', subject: 'Предмет', type: 'Тип занятия',
         building: 'Корпус', room: 'Аудитория',
+        /* Учебные материалы */
         author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание',
       };
 
       // * LEVELS
       const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
+      /* Списки для расписания занятий */
       const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
       const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30'];
       const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
-      const METRIC_LABELS = ['публикаций', 'монографий', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патентов', 'индекс Хирша'];
+      /* Подписи метрик науки */
+      const METRIC_LABELS = ['публикаций', 'монографий', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патентов', 'индекс Хирша', ];
+      /* Заголовки профилей (правый сайдбар) */
       const PROFILE_TITLES = ['Scopus', 'ResearcherID-WoS', 'ORCID', 'РИНЦ', 'ВАК'];
 
       // * SEC_COLS
@@ -829,6 +1029,7 @@
 
       /* ═══ Состояние и GitHub API ═══ */
       let TOK = sessionStorage.tok || '', data = null, cur = 0;
+      /* ═══ Запоминание текущего преподавателя между перезагрузками ═══ */
       const rememberCur = () => { try { localStorage.setItem('adminCur', String(cur)); } catch (e) { } };
       const restoreCur = n => {
         try {
@@ -846,7 +1047,11 @@
         buildSel();
       }
 
-      /* ═══ Вход и загрузка ═══ */
+          /* ═══ Вход и загрузка ═══ */
+      /* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON,
+         правки никуда не отправляются. */
+      let DEMO = false;
+
       function login() {
         TOK = document.getElementById('token').value.trim();
         if (!TOK) {
@@ -870,12 +1075,14 @@
               if (row.link && !row.url) { row.url = row.link; delete row.link; }
             });
           });
+          /* Фантомный medal → существующий award-fill */
           (t.achievements || []).forEach(row => {
             if (row.icon === 'medal') row.icon = 'award-fill';
           });
         });
       }
 
+      /* Вход в админку после загрузки данных */
       function enterAdmin() {
         document.getElementById('login').style.display = 'none';
         document.getElementById('app').style.display = '';
@@ -887,6 +1094,7 @@
         }
       }
 
+      /* Боевой режим: чтение через GitHub API с токеном */
       async function load() {
         const r = await gh('/contents/' + PATH);
         if (!r.ok) return alert('Токен не принят: ' + r.status);
@@ -895,6 +1103,7 @@
         enterAdmin();
       }
 
+      /* Демо-режим: чтение опубликованного JSON без токена */
       async function loadDemo() {
         const r = await fetch(PATH + '?v=' + Date.now());
         if (!r.ok) return alert('Не удалось загрузить данные: ' + r.status);
@@ -910,6 +1119,7 @@
         s.value = cur;
       }
 
+      /* Список ранее вводившихся учреждений — по всем преподавателям, по алфавиту */
       const institutionOptions = () => {
         const vals = new Set();
         (data.teachers || []).forEach(t => (t.education || []).forEach(r => {
@@ -951,17 +1161,19 @@
           `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ строка</button>` + dl;
       }
 
+      //  * renderHtmlField()
       function renderHtmlField(t, key) {
         const [label, rows] = TEXTS[key];
         const val = t[key] || '';
         return `<div class="mt-3 mb-1">
+    
     <label class="sec-title">${label}</label>
    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список">• список</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список">1. список</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть в li">li пункт</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список: разбивает выделение по строкам на li">• список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список: разбивает выделение по строкам на li">1. список</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть каждую выделенную строку в <li> без контейнера">li пункт</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p class='ms-4'>|</p>" title="Отступ">⇥ отступ</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
     </div>
@@ -975,11 +1187,17 @@
       function renderArray(t, k, noHead) {
         const head = noHead ? '' : `<div class="sec-title">${NAMES[k]}</div>`;
         const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
+
+        /* Образование — карточки-записи вместо таблицы */
         if (k === 'education') return head + renderEducation(arr);
+
+        /* Datalist для рубрик материалов */
         const dl = k.startsWith('mat_')
           ? `<datalist id="dl-${k}">${[...new Set(arr.map(r => (r && r.rub) || '').filter(Boolean))]
             .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`
           : '';
+
+        /* Остальные секции — прежняя таблица */
         return head + `<table class="ed" data-sec="${k}">
     <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
     <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
@@ -997,12 +1215,14 @@
             ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
           </select></td>`;
           }
+
           if ((k === 'programs' && c === 'tag') || (k === 'courses' && c === 'b')) {
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">
       ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
     </select></td>`;
           }
+
           if (k === 'profiles' && c === 't') {
             const inList = PROFILE_TITLES.includes(val);
             return `<td>
@@ -1012,6 +1232,7 @@
       ${PROFILE_TITLES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
+
           if (k === 'metrics' && c === 'l') {
             const inList = METRIC_LABELS.includes(val);
             return `<td>
@@ -1021,6 +1242,7 @@
       ${METRIC_LABELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
+
           if (k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) {
             const opts = c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES;
             const inList = opts.includes(val);
@@ -1031,9 +1253,11 @@
       ${opts.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
+
           if (k.startsWith('mat_') && c === 'rub') {
             return `<td><input list="dl-${k}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
           }
+
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }
@@ -1044,6 +1268,7 @@
       }
 
       // * actCell
+      /* Стрелки перемещения + удаление (для материалов/метрик — со стрелками) */
       function actCell(k, i) {
         const withArrows = k.startsWith('mat_') || k === 'metrics';
         return withArrows
@@ -1068,13 +1293,21 @@
       // * build
       function build() {
         const t = data.teachers[cur];
+
+        /* запоминаем, какие блоки были раскрыты до перерисовки */
         const openState = {};
         document.querySelectorAll('#secs details[data-g]').forEach(d => {
           openState[d.dataset.g] = d.open;
         });
+
+        /* старая карточка «Личные данные» больше не нужна — прячем её */
+        // const pf = document.getElementById('pf');
+        // if (pf) pf.closest('.card').style.display = 'none';
+
         document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
           let inner = '', rowBuf = null;
           const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
+
           g.items.forEach(([type, key, opt]) => {
             if (type === 's') {
               const [label, w] = SCALAR[key];
@@ -1113,16 +1346,18 @@
             }
           });
           flush();
+
           const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
           return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
       <div class="mt-2">${inner}</div>
     </details>`;
         }).join('');
+
+        /* Синхронизируем чекбокс «Не выводить» с текущей персоной */
         const hc = document.getElementById('hideChk');
         if (hc) hc.checked = !!data.teachers[cur].hidden;
       }
-
       /* ═══ Сбор данных из формы ═══ */
       function collect() {
         const t = data.teachers[cur];
@@ -1148,6 +1383,8 @@
         if (k.startsWith('mat_') && prevRow && prevRow.rub) fresh.rub = prevRow.rub;
         t[k].push(fresh);
         build();
+
+        /* возвращаем редактора к только что созданной строке */
         const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
         if (newRow) {
           newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1160,7 +1397,6 @@
         data.teachers[cur][k].splice(i, 1);
         build();
       }
-
       function addTeacher() {
         collect();
         data.teachers.push({
@@ -1172,7 +1408,6 @@
         rememberCur();
         buildSel(); build();
       }
-
       function delTeacher() {
         if (!confirm('Удалить преподавателя?')) return;
         collect();
@@ -1184,7 +1419,7 @@
 
       // * save
       /* ═══ Сохранение в GitHub ═══ */
-      async function save() {
+           async function save() {
         collect();
         const st = document.getElementById('status');
         if (DEMO) {
@@ -1222,6 +1457,7 @@
       }
 
       // * wrapSel
+      /* ── HTML-поле: панель кнопок и живой предпросмотр ── */
       function wrapSel(ta, before, after) {
         const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
         ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
@@ -1231,7 +1467,11 @@
         ta.dispatchEvent(new Event('input', { bubbles: true }));
       }
 
+
+
       // * listSel
+      /* Умный список: разбивает выделение по строкам на <li>,
+   счищает ведущие дефисы/нумерацию; без выделения — пустой каркас */
       function listSel(ta, tag) {
         const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
         const lines = v.slice(s, e).split(/\r?\n/).map(l => l.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
@@ -1261,6 +1501,7 @@
         if (prev) prev.innerHTML = e.target.value;
       });
 
+      /* Авто-ФИО коротко: при уходе с поля «ФИО полное», если короткое пустое */
       document.addEventListener('blur', e => {
         if (e.target.dataset && e.target.dataset.f === 'name') {
           const shortInput = document.querySelector('[data-f="short"]');

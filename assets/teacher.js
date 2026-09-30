@@ -492,12 +492,14 @@ function renderMain() {
     <h2 class="sec-title reveal">Контактная информация</h2><div class="rule"></div>
     <div class="row g-4 reveal">
       <div class="col-md-6">
-                    ${[T.email, ...(T.email_extra || [])].filter(Boolean).map(e => `<p class="mb-2"><i class="bi bi-envelope me-2" style="color:var(--amber)"></i>
+       ${[T.email, ...(T.email_extra || [])].filter(Boolean).map(e => `<p class="mb-2"><i class="bi bi-envelope me-2" style="color:var(--amber)"></i>
           <a href="mailto:${esc(e)}" style="color:var(--teal)">${esc(e)}</a></p>`).join('')}
         ${[T.phone, ...(T.phone_extra || [])].filter(Boolean).map(p => `<p class="mb-2"><i class="bi bi-telephone me-2" style="color:var(--amber)"></i>
           <a href="tel:${esc(String(p).replace(/[^+\d]/g, ''))}" style="color:var(--teal)">${esc(p)}</a></p>`).join('')}
-               ${T.address ? `<p class="mb-2"><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
-        ${T.site ? `<p class="mb-2"><i class="bi bi-globe me-2" style="color:var(--amber)"></i><a href="${esc(siteHref(T.site))}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(T.site)}</a></p>` : ''}
+        ${T.address ? `<p class="mb-2"><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
+        ${T.hours ? `<p class="mb-2"><i class="bi bi-clock-history me-2" style="color:var(--amber)"></i>${esc(T.hours)}</p>` : ''}
+        ${T.website ? `<p class="mb-2"><i class="bi bi-globe me-2" style="color:var(--amber)"></i>
+          <a href="${esc(isExternal(T.website) ? T.website : 'https://' + T.website)}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(String(T.website).replace(/^https?:\/\//i, ''))}</a></p>` : ''}
         <div style="height:40px">
           ${T.share_tg_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_tg_url)}"><i class="fa-brands fa-telegram fa-2xl"></i></a>` : ''}
           ${T.share_vk_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_vk_url)}"><i class="fa-brands fa-vk fa-2xl"></i></a>` : ''}

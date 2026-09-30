@@ -1,4 +1,5 @@
 // assets/teacher.js
+
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 /* Ссылка на сайт: добавляем протокол, если его забыли ввести */
@@ -168,16 +169,21 @@ const pubTagCls = tag => {
 const pubs = a => a.map(i => {
   const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
-  const slash = (i.author || i.title) && i.text ? `<span class="mat-slash"> // </span>` : '';
-  const biblio = i.text ? `<span class="mat-biblio">${esc(i.text)}</span>` : '';
+  const biblio = i.biblio || i.text || '';
+  const description = i.description || '';
+  const slash = (i.author || i.title) && biblio ? `<span class="mat-slash"> // </span>` : '';
+  const biblioHtml = biblio ? `<span class="mat-biblio">${esc(biblio)}</span>` : '';
+  const descriptionHtml = description ? `<span class="mat-description">${esc(description)}</span>` : '';
   const tag = i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
   const doi = i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
+  const link = i.url || i.link || '';
   return `
 <div class="pub"><span class="py">${esc(i.year)}</span>
   <div class="pub-body">
-    <div class="mat-line">${author}${title}${slash}${biblio}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
+    <div class="mat-line">${author}${title}${slash}${biblioHtml}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
+    ${descriptionHtml ? `<div class="mat-description-line">${descriptionHtml}</div>` : ''}
   </div>
-  ${i.link ? `<a class="mat-btn" href="${esc(i.link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
+  ${link ? `<a class="mat-btn" href="${esc(link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
 </div>`;
 }).join('');
 
@@ -454,7 +460,13 @@ function renderMain() {
     // Авторские учебные пособия (из старой таблицы books)
     if (has('books')) {
       body += sub('books', 'Авторские учебные пособия',
-        `<ul class="mat-list">${T.books.map(b => matItem(Object.assign({}, b, { biblio: b.biblio || b.text }), { key: 'mat_books', fb: 'bi-book-fill' })).join('')}</ul>`);
+        `<ul class="mat-list">${T.books.map(b => matItem(
+          Object.assign({}, b, {
+            biblio: b.biblio || b.text,
+            url: b.url || b.link
+          }),
+          { key: 'books', fb: 'bi-book-fill' }
+        )).join('')}</ul>`);
     }
 
     // Учебные материалы (в самом конце раздела)

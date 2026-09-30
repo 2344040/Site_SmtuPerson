@@ -564,7 +564,7 @@
 
 
 
-    /* * data-sec="upk" */
+    /* & data-sec="upk" */
     table.ed[data-sec="upk"] {
       width: 100%;
       table-layout: fixed;
@@ -597,7 +597,7 @@
     }
 
 
-    /* * data-sec="metrics" */
+    /* & data-sec="metrics" */
     table.ed[data-sec="metrics"] {
       width: 100%;
       table-layout: fixed;
@@ -619,7 +619,7 @@
       min-width: 0;
     }
 
-    /* * data-sec="profiles" */
+    /* & data-sec="profiles" */
     table.ed[data-sec="profiles"] {
       width: 100%;
       table-layout: fixed;
@@ -701,7 +701,7 @@
         <label class="form-check-label small text-secondary d-flex align-items-center gap-1 ms-2 mb-0" title="Карточка исчезнет с главной страницы, личная страница открываться не будет">
           <input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
         </label>
-        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻ файлы для LLM</button>
+        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻ </button>
         <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
         <span id="status" class="small"></span>
       </div>

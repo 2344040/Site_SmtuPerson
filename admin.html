@@ -912,7 +912,7 @@
       const ICONS = [
         ['award', '🎖 award — медаль / лента'],
         ['trophy', '🏆 trophy — кубок'],
-        ['medal', '🥇 medal — медаль'],
+        ['award-fill', '🥇 award-fill — медаль с лентой (залитая)'],
         ['star', '⭐ star — звезда'],
         ['patch-check', '✅ patch-check — знак отличия'],
         ['mortarboard', '🎓 mortarboard — академическая шапка'],
@@ -1020,6 +1020,10 @@
               if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
               if (row.link && !row.url) { row.url = row.link; delete row.link; }
             });
+          });
+                  /* Фантомный medal → существующий award-fill */
+          (t.achievements || []).forEach(row => {
+            if (row.icon === 'medal') row.icon = 'award-fill';
           });
         });
 

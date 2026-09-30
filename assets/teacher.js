@@ -126,7 +126,8 @@ ${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-
 /* ═══ Достижения с раскрытием ═══ */
 const achievementCards = (a, limit = 6) => `
 <div class="row g-3 reveal" id="ach-list">${a.map((i, idx) => {
-  const iconKey = (String(i.icon || '').trim().match(/[a-z][a-z0-9-]*/i) || [])[0] || 'award';
+  const rawIcon = (String(i.icon || '').trim().match(/[a-z][a-z0-9-]*/i) || [])[0] || '';
+  const iconKey = ICON_OK.has(rawIcon) ? rawIcon : 'award';
   return `
   <div class="col-md-6 ${idx >= limit ? 'd-none reveal-hidden' : ''}">
     <div class="card-lift"><div class="bar"></div><div class="p-3 d-flex flex-column">
@@ -200,6 +201,10 @@ const METRIC_FORMS = {
   'ст. РИНЦ': ['статья РИНЦ', 'статьи РИНЦ', 'статей РИНЦ'],
   'патенты': ['патент', 'патента', 'патентов'],
 };
+
+/* Белый список иконок достижений: всё, что реально есть в Bootstrap Icons */
+const ICON_OK = new Set(['award', 'award-fill', 'trophy', 'star', 'patch-check', 'mortarboard', 'gem', 'bookmark-star']);
+
 const metricLabel = (n, l) =>
   METRIC_FORMS[l] ? pluralize(parseInt(String(n).replace(/\s.*/, ''), 10) || 0, METRIC_FORMS[l]) : l;
 

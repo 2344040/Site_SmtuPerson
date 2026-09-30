@@ -506,8 +506,8 @@ function renderMain() {
           <a href="tel:${esc(String(p).replace(/[^+\d]/g, ''))}" style="color:var(--teal)">${esc(p)}</a></p>`).join('')}
         ${T.address ? `<p class="mb-2"><i class="bi bi-geo-alt me-2" style="color:var(--amber)"></i>${esc(T.address)}</p>` : ''}
         ${T.hours ? `<p class="mb-2"><i class="bi bi-clock-history me-2" style="color:var(--amber)"></i>${esc(T.hours)}</p>` : ''}
-        ${T.website ? `<p class="mb-2"><i class="bi bi-globe me-2" style="color:var(--amber)"></i>
-          <a href="${esc(isExternal(T.website) ? T.website : 'https://' + T.website)}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(String(T.website).replace(/^https?:\/\//i, ''))}</a></p>` : ''}
+        ${T.site ? `<p class="mb-2"><i class="bi bi-globe me-2" style="color:var(--amber)"></i>
+          <a href="${esc(isExternal(T.site) ? T.site : 'https://' + T.site)}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(String(T.site).replace(/^https?:\/\//i, ''))}</a></p>` : ''}
         <div style="height:40px">
           ${T.share_tg_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_tg_url)}"><i class="fa-brands fa-telegram fa-2xl"></i></a>` : ''}
           ${T.share_vk_url ? `<a class="chip-link h-100 p-2" target="_blank" rel="noopener" href="${esc(T.share_vk_url)}"><i class="fa-brands fa-vk fa-2xl"></i></a>` : ''}

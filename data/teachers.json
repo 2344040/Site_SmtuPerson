@@ -415,7 +415,7 @@
    "mat_resources": [],
    "social_text": "",
    "department": "",
-   "hidden": false,
+   "hidden": true,
    "email_extra": [],
    "phone_extra": [],
    "site": ""

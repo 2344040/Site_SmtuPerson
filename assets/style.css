@@ -72,7 +72,7 @@ html[data-theme="dark"] {
   --surface: #242f3e;
   --bg: #17202b;
   --tabs-bg: rgba(27, 36, 48, .92);
-  --row-hover: #2b394b;
+  --row-hover: #35455a;
   --brand-fg: #b9c6d6;
 }
 
@@ -552,7 +552,7 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
    /* position: sticky;
       top: 0;
       z-index: 1020; */
-   var(--tabs-bg);
+   color: var(--tabs-bg);
    backdrop-filter: blur(8px);
    border-bottom: 2px solid var(--line);
  }
@@ -1197,10 +1197,11 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
    border-bottom: 2px solid var(--ink);
  }
 
- /* .table.table-hover tr:hover td {
-  background: #F9F3E3;
-
-} */
+/* Таблицы следуют теме: Bootstrap 5.3 красит ячейки из своих переменных */
+.table {
+  --bs-table-bg: var(--surface);
+  --bs-table-color: var(--ink);
+}
 
  /* ── Hover на строках всех таблиц ─ */
  table tbody tr:hover td {

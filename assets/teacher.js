@@ -680,6 +680,26 @@ function initCardReveal() {
   });
 }
 
+/* ═══ Цветовая схема: переключение атрибутом корня, без правок HTML ═══ */
+const THEME_KEY = 'site-theme';
+const getTheme = () => { try { return localStorage.getItem(THEME_KEY) || 'default'; } catch (e) { return 'default'; } };
+function applyTheme(name) {
+  const root = document.documentElement;
+  if (name === 'blue') root.setAttribute('data-theme', 'blue');
+  else root.removeAttribute('data-theme');
+  document.querySelectorAll('.theme-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', name === 'blue' ? 'true' : 'false');
+    b.title = name === 'blue' ? 'Цветовая схема: синяя пастель (нажмите для возврата)' : 'Цветовая схема: фирменный оранжевый (нажмите для синей)';
+  });
+}
+function toggleTheme() {
+  const next = getTheme() === 'blue' ? 'default' : 'blue';
+  try { localStorage.setItem(THEME_KEY, next); } catch (e) { }
+  applyTheme(next);
+}
+document.querySelectorAll('.theme-toggle').forEach(b => b.addEventListener('click', toggleTheme));
+applyTheme(getTheme());
+
 /* ═══ Share ═══ */
 function initShare() {
   document.getElementById('shareBtn')?.addEventListener('click', function () {

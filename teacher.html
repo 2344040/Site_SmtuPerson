@@ -15,6 +15,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2312241f'/><stop offset='1' stop-color='%23d97b29'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text x='50' y='68' font-size='56' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>С</text></svg>">
+  <script>
+    /* Сохранённая цветовая схема применяется до первой отрисовки */
+    (function () {
+      try {
+        var t = localStorage.getItem('site-theme');
+        if (t && t !== 'default') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { }
+    })();
+  </script>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#stickyNav" data-bs-offset="120" tabindex="0">
@@ -52,6 +61,9 @@
                     <i class="bi bi-envelope fs-4"></i>
                     <i class="bi bi-chat fs-4"></i>
                   </a></div>
+                <div class="me-0"><a class="btn-share theme-toggle" role="button" aria-pressed="false" title="Цветовая схема">
+                    <i class="bi bi-palette fs-4"></i>
+                  </a></div>
                 <div class="me-0"><a class="btn-share" id="shareBtn" title="Поделиться">
                     <i class="bi bi-share fs-4"></i>
                   </a></div>
@@ -67,9 +79,14 @@
           <button class="nav-burger" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
             <i class="bi bi-list"></i><span>Меню</span>
           </button>
-          <button class="rail-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#railPanel" aria-controls="railPanel" aria-label="События, учебный процесс и профили">
-            <i class="bi bi-bell-fill"></i>
-          </button>
+          <div class="d-flex gap-2">
+            <button class="rail-toggle theme-toggle" type="button" aria-pressed="false" title="Цветовая схема">
+              <i class="bi bi-palette"></i>
+            </button>
+            <button class="rail-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#railPanel" aria-controls="railPanel" aria-label="События, учебный процесс и профили">
+              <i class="bi bi-bell-fill"></i>
+            </button>
+          </div>
         </div>
         <div class="collapse d-md-block" id="menuCollapse">
           <ul class="nav" id="menu"></ul>

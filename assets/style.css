@@ -11,12 +11,30 @@
    --teal: #2f6f63;
    --teal-light: #324C68;
    --muted: #6f7a72;
-   /* --blue-soft: #e2e9ee; */
-   --blue-soft: #EBF0F4;
+  --blue-soft: #EBF0F4;
+  --row-hover: #F9F3E3;
+  --brand-fg: #cfd8d2;
 
-   --year-w: 112px;
+  --year-w: 112px;
 
  }
+
+ 
+/* ── Альтернативная схема: синяя пастель ── */
+html[data-theme="blue"] {
+  --ink: #24344d;
+  --paper: #edf1f7;
+  --paper-light: #f8fafc;
+  --line: #ccd6e2;
+  --amber: #5b84b1;
+  --amber-soft: #dde8f3;
+  --teal: #2e5f8a;
+  --teal-light: #3c5a78;
+  --muted: #6e7d90;
+  --blue-soft: #e3ecf5;
+  --row-hover: #e4edf6;
+  --brand-fg: #cdd8e4;
+}
 
  html {
    scroll-behavior: smooth;
@@ -50,11 +68,11 @@
    transition: width .1s linear;
  }
 
- .brandbar {
-   background: var(--ink);
-   color: #cfd8d2;
-   font-size: .82rem;
- }
+.brandbar {
+  background: var(--ink);
+  color: var(--brand-fg);
+  font-size: .82rem;
+}
 
  .brandbar b {
    color: var(--amber);
@@ -406,6 +424,13 @@
      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2);
    }
  }
+
+ /* Переключатель схемы в нажатом состоянии */
+.theme-toggle[aria-pressed="true"] {
+  background: var(--amber);
+  color: #fff;
+  border-color: var(--amber);
+}
 
  /* .btn-share.copied {
       border-color: #3f9e63;
@@ -1133,9 +1158,9 @@
 } */
 
  /* ── Hover на строках всех таблиц ─ */
- table tbody tr:hover td {
-   background: #F9F3E3 !important;
- }
+table tbody tr:hover td {
+  background: var(--row-hover) !important;
+}
 
  .news-img {
    overflow: hidden;

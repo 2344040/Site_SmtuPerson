@@ -42,44 +42,52 @@
  }
 
  /* ── Микс: тёплые фоны основной схемы + синие чернила и акценты ── */
-html[data-theme="mix"] {
-  --paper: #f5f3ec;
-  --paper-light: #FAF9F5;
-  --blue-soft: #EBF0F4;
-  --ink: #24344d;
-  --line: #ccd6e2;
-  --amber: #5b84b1;
-  --amber-soft: #dde8f3;
-  --teal: #2e5f8a;
-  --teal-light: #3c5a78;
-  --muted: #6e7d90;
-  --row-hover: #e4edf6;
-  --brand-fg: #cdd8e4;
-}
+ html[data-theme="mix"] {
+   --paper: #f5f3ec;
+   --paper-light: #FAF9F5;
+   --blue-soft: #EBF0F4;
+   --ink: #24344d;
+   --line: #ccd6e2;
+   --amber: #5b84b1;
+   --amber-soft: #dde8f3;
+   --teal: #2e5f8a;
+   --teal-light: #3c5a78;
+   --muted: #6e7d90;
+   --row-hover: #e4edf6;
+   --brand-fg: #cdd8e4;
+ }
 
-/* ── Тёмная схема ── */
-html[data-theme="dark"] {
-  --ink: #e8edf4;
-  --paper: #1b2430;
-  --paper-light: #232e3d;
-  --line: #3a4657;
-  --amber: #8ab4dd;
-  --amber-soft: #2c3a4d;
-  --teal: #a9c9e8;
-  --teal-light: #6d8db0;
-  --muted: #93a1b3;
-  --blue-soft: #202b39;
-  --surface: #242f3e;
-  --bg: #17202b;
-  --tabs-bg: rgba(27, 36, 48, .92);
-  --row-hover: #35455a;
-  --brand-fg: #b9c6d6;
-}
+ /* ── Тёмная схема ── */
+ html[data-theme="dark"] {
+   --ink: #e8edf4;
+   --paper: #1b2430;
+   --paper-light: #232e3d;
+   --line: #3a4657;
+   --amber: #8ab4dd;
+   --amber-soft: #2c3a4d;
+   --teal: #a9c9e8;
+   --teal-light: #6d8db0;
+   --muted: #93a1b3;
+   --blue-soft: #202b39;
+   --surface: #242f3e;
+   --bg: #17202b;
+   --tabs-bg: rgba(27, 36, 48, .92);
+   --row-hover: #35455a;
+   --brand-fg: #b9c6d6;
+ }
 
-/* Тёмная: точечные поправки, где переменные не дотягиваются */
-html[data-theme="dark"] .brandbar { background: #10161f; }
-html[data-theme="dark"] .home-btn { background: rgba(36, 47, 62, .8); }
-html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
+ /* Тёмная: точечные поправки, где переменные не дотягиваются */
+ html[data-theme="dark"] .brandbar {
+   background: #10161f;
+ }
+
+ html[data-theme="dark"] .home-btn {
+   background: rgba(36, 47, 62, .8);
+ }
+
+ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] {
+   color: #16202c;
+ }
 
  html {
    scroll-behavior: smooth;
@@ -188,6 +196,7 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
 
    .sticky-top-wrapper {
      position: static;
+     background: var(--bg) !important;
    }
 
    .sticky-tabs {
@@ -249,7 +258,7 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
      left: 0;
      right: 0;
      z-index: 1019;
-     background: var(--bg);
+     background: var(--surface);
      border-bottom: 2px solid var(--line);
      box-shadow: 0 10px 24px rgba(18, 36, 31, .18);
    }
@@ -549,9 +558,6 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
 
  /* липкое меню */
  .sticky-tabs {
-   /* position: sticky;
-      top: 0;
-      z-index: 1020; */
    color: var(--tabs-bg);
    backdrop-filter: blur(8px);
    border-bottom: 2px solid var(--line);
@@ -1197,11 +1203,11 @@ html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
    border-bottom: 2px solid var(--ink);
  }
 
-/* Таблицы следуют теме: Bootstrap 5.3 красит ячейки из своих переменных */
-.table {
-  --bs-table-bg: var(--surface);
-  --bs-table-color: var(--ink);
-}
+ /* Таблицы следуют теме: Bootstrap 5.3 красит ячейки из своих переменных */
+ .table {
+   --bs-table-bg: var(--surface);
+   --bs-table-color: var(--ink);
+ }
 
  /* ── Hover на строках всех таблиц ─ */
  table tbody tr:hover td {

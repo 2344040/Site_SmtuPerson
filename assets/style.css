@@ -1967,6 +1967,21 @@ table tbody tr:hover td {
    transform: translateY(-2px);
  }
 
+ /* ── Служебные кнопки справа вверху: схема + главная ── */
+.top-controls {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+}
+
+.top-controls .home-btn {
+  position: static;
+  /* позиционирование теперь на контейнере */
+}
+
  /* * Унифицированный стиль библиографических записей ═══ */
  .mat-author {
    font-style: italic;

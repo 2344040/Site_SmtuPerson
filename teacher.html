@@ -30,9 +30,14 @@
   <div id="progress"></div>
   <div class="sticky-top-wrapper" style="position:sticky;top:0;z-index:1020;background:#fff">
     <header class="hero" style="min-height:250px;overflow:hidden">
-      <a href="index.html" class="home-btn" title="На главную страницу" aria-label="На главную страницу">
-        <i class="bi bi-house-door"></i>
-      </a>
+  <div class="top-controls">
+        <button class="home-btn theme-toggle" type="button" aria-pressed="false" title="Цветовая схема: переключить">
+          <i class="bi bi-palette"></i>
+        </button>
+        <a href="index.html" class="home-btn" title="На главную страницу" aria-label="На главную страницу">
+          <i class="bi bi-house-door"></i>
+        </a>
+      </div>
       <div class="container-xxl h-100">
         <div class="row g-0 align-items-stretch h-100">
           <div class="col-md-2 col-5 d-flex">
@@ -61,9 +66,7 @@
                     <i class="bi bi-envelope fs-4"></i>
                     <i class="bi bi-chat fs-4"></i>
                   </a></div>
-                <div class="me-0"><a class="btn-share theme-toggle" role="button" aria-pressed="false" title="Цветовая схема">
-                    <i class="bi bi-palette fs-4"></i>
-                  </a></div>
+
                 <div class="me-0"><a class="btn-share" id="shareBtn" title="Поделиться">
                     <i class="bi bi-share fs-4"></i>
                   </a></div>
@@ -79,14 +82,9 @@
           <button class="nav-burger" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse" aria-expanded="false" aria-controls="menuCollapse">
             <i class="bi bi-list"></i><span>Меню</span>
           </button>
-          <div class="d-flex gap-2">
-            <button class="rail-toggle theme-toggle" type="button" aria-pressed="false" title="Цветовая схема">
-              <i class="bi bi-palette"></i>
-            </button>
-            <button class="rail-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#railPanel" aria-controls="railPanel" aria-label="События, учебный процесс и профили">
-              <i class="bi bi-bell-fill"></i>
-            </button>
-          </div>
+          <button class="rail-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#railPanel" aria-controls="railPanel" aria-label="События, учебный процесс и профили">
+            <i class="bi bi-bell-fill"></i>
+          </button>
         </div>
         <div class="collapse d-md-block" id="menuCollapse">
           <ul class="nav" id="menu"></ul>

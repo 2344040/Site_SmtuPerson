@@ -89,6 +89,17 @@
    color: #16202c;
  }
 
+ /* Тёмная: служебный серый текст Bootstrap осветляем */
+ html[data-theme="dark"] .text-secondary {
+   color: var(--muted) !important;
+ }
+
+ /* Тёмная: чекбоксы на тёмной поверхности */
+ html[data-theme="dark"] .form-check-input {
+   background-color: var(--surface);
+   border-color: var(--line);
+ }
+
  html {
    scroll-behavior: smooth;
    scroll-padding-top: 345px;
@@ -558,7 +569,7 @@
 
  /* липкое меню */
  .sticky-tabs {
-   color: var(--tabs-bg);
+   background: var(--tabs-bg);
    backdrop-filter: blur(8px);
    border-bottom: 2px solid var(--line);
  }
@@ -634,7 +645,8 @@
    text-transform: uppercase;
    /* color: var(--amber); */
    /* color: var(--bs-primary-text-emphasis); */
-   color: var(--bs-secondary);
+   color: var(--muted);
+   ;
  }
 
  .post {
@@ -642,7 +654,8 @@
    font-weight: 600;
    margin-bottom: 1rem;
    /* color: var(--bs-primary-text-emphasis); */
-   color: var(--bs-secondary);
+   color: var(--muted);
+   ;
    /* color: var(--amber); */
  }
 
@@ -1236,6 +1249,13 @@
    border-radius: 10px;
    border-color: var(--line);
    background: var(--paper);
+   color: var(--ink);
+ }
+
+ .form-control::placeholder,
+ .form-select::placeholder {
+   color: var(--muted);
+   opacity: 1;
  }
 
  .form-control:focus,
@@ -1595,7 +1615,7 @@
  /* Стили для кнопки-троеточия */
  .text-toggle-btn {
    cursor: pointer;
-   color: var(--bs-secondary);
+   color: var(--muted);
    /* Цвет Bootstrap primary */
    /* font-weight: bold; */
    font-size: 0.9rem;

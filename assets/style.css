@@ -19,6 +19,8 @@
    --surface: #ffffff;
    --bg: #ffffff;
    --tabs-bg: rgba(255, 255, 255, .9);
+   --bs-body-color: var(--ink);
+   --bs-secondary-color: var(--muted);
 
    --year-w: 112px;
 
@@ -593,7 +595,7 @@
    color: var(--ink);
    white-space: nowrap;
    border-radius: 0;
-   padding: .85rem .9rem;
+   padding: .85rem 1.5rem;
    /* font-size: .88rem; */
    font-size: 1rem;
    font-weight: 500;
@@ -1245,25 +1247,34 @@
  }
 
  .form-control,
- .form-select {
-   border-radius: 10px;
-   border-color: var(--line);
-   background: var(--paper);
-   color: var(--ink);
- }
+.form-select {
+  border-radius: 10px;
+  border-color: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  caret-color: var(--ink);
+}
 
- .form-control::placeholder,
- .form-select::placeholder {
-   color: var(--muted);
-   opacity: 1;
- }
+.form-control::placeholder,
+.form-select::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
 
- .form-control:focus,
- .form-select:focus {
-   border-color: var(--teal);
-   box-shadow: 0 0 0 .2rem rgba(47, 111, 99, .15);
-   background: var(--bg);
- }
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 .2rem rgba(47, 111, 99, .15);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: var(--paper);
+  color: var(--muted);
+  opacity: 1;
+}
 
  .btn-ink {
    background: var(--ink);

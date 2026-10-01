@@ -1,5 +1,5 @@
  /* assets/style.css */
- 
+
  /* & цвета */
  :root {
    --ink: #12241f;
@@ -11,30 +11,75 @@
    --teal: #2f6f63;
    --teal-light: #324C68;
    --muted: #6f7a72;
-  --blue-soft: #EBF0F4;
-  --row-hover: #F9F3E3;
-  --brand-fg: #cfd8d2;
+   --blue-soft: #EBF0F4;
+   --row-hover: #F9F3E3;
+   --brand-fg: #cfd8d2;
 
-  --year-w: 112px;
+
+   --surface: #ffffff;
+   --bg: #ffffff;
+   --tabs-bg: rgba(255, 255, 255, .9);
+
+   --year-w: 112px;
 
  }
 
- 
-/* ── Альтернативная схема: синяя пастель ── */
-html[data-theme="blue"] {
+
+ /* ── Альтернативная схема: синяя пастель ── */
+ html[data-theme="blue"] {
+   --ink: #24344d;
+   --paper: #edf1f7;
+   --paper-light: #f8fafc;
+   --line: #ccd6e2;
+   --amber: #5b84b1;
+   --amber-soft: #dde8f3;
+   --teal: #2e5f8a;
+   --teal-light: #3c5a78;
+   --muted: #6e7d90;
+   --blue-soft: #e3ecf5;
+   --row-hover: #e4edf6;
+   --brand-fg: #cdd8e4;
+ }
+
+ /* ── Микс: тёплые фоны основной схемы + синие чернила и акценты ── */
+html[data-theme="mix"] {
+  --paper: #f5f3ec;
+  --paper-light: #FAF9F5;
+  --blue-soft: #EBF0F4;
   --ink: #24344d;
-  --paper: #edf1f7;
-  --paper-light: #f8fafc;
   --line: #ccd6e2;
   --amber: #5b84b1;
   --amber-soft: #dde8f3;
   --teal: #2e5f8a;
   --teal-light: #3c5a78;
   --muted: #6e7d90;
-  --blue-soft: #e3ecf5;
   --row-hover: #e4edf6;
   --brand-fg: #cdd8e4;
 }
+
+/* ── Тёмная схема ── */
+html[data-theme="dark"] {
+  --ink: #e8edf4;
+  --paper: #1b2430;
+  --paper-light: #232e3d;
+  --line: #3a4657;
+  --amber: #8ab4dd;
+  --amber-soft: #2c3a4d;
+  --teal: #a9c9e8;
+  --teal-light: #6d8db0;
+  --muted: #93a1b3;
+  --blue-soft: #202b39;
+  --surface: #242f3e;
+  --bg: #17202b;
+  --tabs-bg: rgba(27, 36, 48, .92);
+  --row-hover: #2b394b;
+  --brand-fg: #b9c6d6;
+}
+
+/* Тёмная: точечные поправки, где переменные не дотягиваются */
+html[data-theme="dark"] .brandbar { background: #10161f; }
+html[data-theme="dark"] .home-btn { background: rgba(36, 47, 62, .8); }
+html[data-theme="dark"] .theme-toggle[aria-pressed="true"] { color: #16202c; }
 
  html {
    scroll-behavior: smooth;
@@ -43,7 +88,7 @@ html[data-theme="blue"] {
 
  body {
    font-family: 'Fira Sans', Arial, sans-serif;
-   background: #fff;
+   background: var(--bg);
    color: var(--ink);
    position: relative;
  }
@@ -68,11 +113,11 @@ html[data-theme="blue"] {
    transition: width .1s linear;
  }
 
-.brandbar {
-  background: var(--ink);
-  color: var(--brand-fg);
-  font-size: .82rem;
-}
+ .brandbar {
+   background: var(--ink);
+   color: var(--brand-fg);
+   font-size: .82rem;
+ }
 
  .brandbar b {
    color: var(--amber);
@@ -204,7 +249,7 @@ html[data-theme="blue"] {
      left: 0;
      right: 0;
      z-index: 1019;
-     background: #fff;
+     background: var(--bg);
      border-bottom: 2px solid var(--line);
      box-shadow: 0 10px 24px rgba(18, 36, 31, .18);
    }
@@ -282,7 +327,7 @@ html[data-theme="blue"] {
    display: inline-flex;
    align-items: center;
    gap: .35rem;
-   background: #fff;
+   background: var(--bg);
    border: 1px solid var(--line);
    border-radius: 999px;
    padding: .3rem .7rem;
@@ -364,7 +409,7 @@ html[data-theme="blue"] {
    height: 34px;
    border-radius: 50%;
    border: 1px solid var(--amber);
-   background: #fff;
+   background: var(--bg);
    color: var(--amber);
    font-size: 1rem;
    box-shadow: 0 1px 4px rgba(18, 36, 31, .15);
@@ -426,11 +471,11 @@ html[data-theme="blue"] {
  }
 
  /* Переключатель схемы в нажатом состоянии */
-.theme-toggle[aria-pressed="true"] {
-  background: var(--amber);
-  color: #fff;
-  border-color: var(--amber);
-}
+ .theme-toggle[aria-pressed="true"] {
+   background: var(--amber);
+   color: #fff;
+   border-color: var(--amber);
+ }
 
  /* .btn-share.copied {
       border-color: #3f9e63;
@@ -507,7 +552,7 @@ html[data-theme="blue"] {
    /* position: sticky;
       top: 0;
       z-index: 1020; */
-   background: rgba(255, 255, 255, .9);
+   var(--tabs-bg);
    backdrop-filter: blur(8px);
    border-bottom: 2px solid var(--line);
  }
@@ -816,7 +861,7 @@ html[data-theme="blue"] {
    width: 14px;
    height: 14px;
    border-radius: 50%;
-   background: #fff;
+   background: var(--bg);
    border: 3px solid var(--teal);
  }
 
@@ -1073,7 +1118,7 @@ html[data-theme="blue"] {
  .card-lift {
    border: 1px solid var(--line);
    border-radius: 14px;
-   background: #fff;
+   background: var(--bg);
    height: 100%;
    transition: .3s;
  }
@@ -1093,7 +1138,7 @@ html[data-theme="blue"] {
    border: 1px solid var(--line);
    border-radius: 14px;
    padding: 0.6rem;
-   background: #fff;
+   background: var(--bg);
    display: flex;
    flex-direction: column;
    gap: 0.3rem;
@@ -1158,9 +1203,9 @@ html[data-theme="blue"] {
 } */
 
  /* ── Hover на строках всех таблиц ─ */
-table tbody tr:hover td {
-  background: var(--row-hover) !important;
-}
+ table tbody tr:hover td {
+   background: var(--row-hover) !important;
+ }
 
  .news-img {
    overflow: hidden;
@@ -1190,7 +1235,7 @@ table tbody tr:hover td {
  .form-select:focus {
    border-color: var(--teal);
    box-shadow: 0 0 0 .2rem rgba(47, 111, 99, .15);
-   background: #fff;
+   background: var(--bg);
  }
 
  .btn-ink {
@@ -1248,7 +1293,7 @@ table tbody tr:hover td {
  }
 
  .news-item {
-   background: #fff;
+   background: var(--bg);
    border: 1px solid var(--line);
    border-radius: 12px;
    padding: .7rem;
@@ -1258,7 +1303,7 @@ table tbody tr:hover td {
 
  .news-item a {
    text-decoration: none;
-   color: #000;
+   color: var(--ink);
  }
 
  .news-item:hover {
@@ -1288,7 +1333,7 @@ table tbody tr:hover td {
    height: 42px;
    border-radius: 50%;
    border: 1px solid var(--line);
-   background: #fff;
+   background: var(--bg);
    color: var(--ink);
    display: flex;
    align-items: center;
@@ -1352,7 +1397,7 @@ table tbody tr:hover td {
    width: 46px;
    height: 46px;
    border-radius: 50%;
-   background: #fff;
+   background: var(--bg);
    border: 1px solid var(--line);
    color: var(--teal);
    font-size: 1.15rem;
@@ -1648,7 +1693,7 @@ table tbody tr:hover td {
  .mat-group {
    border: 1px solid var(--line);
    border-radius: 10px;
-   background: #fff;
+   background: var(--bg);
    overflow: visible;
    box-shadow: 0 1px 3px rgba(18, 36, 31, 0.04);
  }
@@ -1664,7 +1709,7 @@ table tbody tr:hover td {
    font-size: 1rem;
    color: var(--ink);
    list-style: none;
-   background: #fff;
+   background: var(--bg);
    border-radius: 10px;
    transition: background .2s, box-shadow .2s;
    position: sticky;
@@ -1719,7 +1764,7 @@ table tbody tr:hover td {
  /* Тело аккордеона */
  .mat-body {
    padding: 22px 18px 14px;
-   background: #fff;
+   background: var(--bg);
    border-radius: 0 0 10px 10px;
  }
 
@@ -1963,24 +2008,24 @@ table tbody tr:hover td {
  .home-btn:hover {
    color: var(--amber);
    border-color: var(--amber);
-   background: #fff;
+   background: var(--bg);
    transform: translateY(-2px);
  }
 
  /* ── Служебные кнопки справа вверху: схема + главная ── */
-.top-controls {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  z-index: 5;
-  display: flex;
-  gap: 8px;
-}
+ .top-controls {
+   position: absolute;
+   top: 10px;
+   right: 14px;
+   z-index: 5;
+   display: flex;
+   gap: 8px;
+ }
 
-.top-controls .home-btn {
-  position: static;
-  /* позиционирование теперь на контейнере */
-}
+ .top-controls .home-btn {
+   position: static;
+   /* позиционирование теперь на контейнере */
+ }
 
  /* * Унифицированный стиль библиографических записей ═══ */
  .mat-author {

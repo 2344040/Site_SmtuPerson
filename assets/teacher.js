@@ -681,20 +681,35 @@ function initCardReveal() {
 }
 
 /* ═══ Цветовая схема: переключение атрибутом корня, без правок HTML ═══ */
+/* ═══ Цветовая схема: переключение атрибутом корня, без правок HTML ═══ */
 const THEME_KEY = 'site-theme';
-const getTheme = () => { try { return localStorage.getItem(THEME_KEY) || 'default'; } catch (e) { return 'default'; } };
+const THEMES = ['default', 'blue', 'mix', 'dark'];
+const THEME_NAMES = {
+  default: 'фирменный оранжевый',
+  blue: 'синяя пастель',
+  mix: 'микс — тёплый фон, синие акценты',
+  dark: 'тёмная'
+};
+const getTheme = () => {
+  try {
+    const t = localStorage.getItem(THEME_KEY);
+    if (t && THEMES.includes(t)) return t;
+  } catch (e) {}
+  /* Явного выбора нет — следуем за системной тёмной схемой */
+  return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+};
 function applyTheme(name) {
   const root = document.documentElement;
-  if (name === 'blue') root.setAttribute('data-theme', 'blue');
-  else root.removeAttribute('data-theme');
+  if (name === 'default') root.removeAttribute('data-theme');
+  else root.setAttribute('data-theme', name);
   document.querySelectorAll('.theme-toggle').forEach(b => {
-    b.setAttribute('aria-pressed', name === 'blue' ? 'true' : 'false');
-    b.title = name === 'blue' ? 'Цветовая схема: синяя пастель (нажмите для возврата)' : 'Цветовая схема: фирменный оранжевый (нажмите для синей)';
+    b.setAttribute('aria-pressed', name !== 'default' ? 'true' : 'false');
+    b.title = 'Цветовая схема: ' + THEME_NAMES[name] + ' (нажмите для смены)';
   });
 }
 function toggleTheme() {
-  const next = getTheme() === 'blue' ? 'default' : 'blue';
-  try { localStorage.setItem(THEME_KEY, next); } catch (e) { }
+  const next = THEMES[(THEMES.indexOf(getTheme()) + 1) % THEMES.length];
+  try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
   applyTheme(next);
 }
 document.querySelectorAll('.theme-toggle').forEach(b => b.addEventListener('click', toggleTheme));

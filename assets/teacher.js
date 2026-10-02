@@ -393,9 +393,6 @@ function newsBlock() {
   </section>`;
 }
 
-/* Орденская звезда для группы «Звания и награды»: 8 лучей + лучистый подслой */
-const CRED_STAR_PTS = '20,10 14.25,11.76 17.07,17.07 11.76,14.25 10,20 8.24,14.25 2.93,17.07 5.75,11.76 0,10 5.75,8.24 2.93,2.93 8.24,5.75 10,0 11.76,5.75 17.07,2.93 14.25,8.24';
-const CRED_STAR_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="${CRED_STAR_PTS}" style="fill:var(--teal)" opacity=".9" transform="translate(10 10) rotate(22.5) scale(.62) translate(-10 -10)"/><polygon points="${CRED_STAR_PTS}" style="fill:currentColor"/></svg>`;
 
 // * renderMain
 /* ═══ Основной контент ═══ */
@@ -409,10 +406,10 @@ function renderMain() {
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) => {
       const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
-          const ico = cls === 'c3'
+                   const ico = cls === 'c3'
             ? '<i class="bi bi-mortarboard-fill"></i>'
             : cls === 'c4'
-              ? CRED_STAR_SVG
+              ? '<i class="bi bi-award-fill"></i>'
               : '<i class="bi bi-bank2"></i>';
       return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
     }).join('')}</ul>

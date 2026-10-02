@@ -8,6 +8,7 @@
    --line: #dcd7c9;
    --amber: #d97b29;
    --amber-soft: #f4e3cf;
+    --gold: #b08d24;
    --teal: #2f6f63;
    --teal-light: #324C68;
    --muted: #6f7a72;
@@ -67,6 +68,7 @@
    --line: #3a4657;
    --amber: #8ab4dd;
    --amber-soft: #2c3a4d;
+    --gold: #d9b64e;
    --teal: #a9c9e8;
    --teal-light: #6d8db0;
    --muted: #93a1b3;
@@ -1583,7 +1585,7 @@
 
  /* 4 — звания и награды: восьмилучевая звезда */
  .creds-list li.c4 .creds-ico {
-   color: var(--amber);
+   color: var(--gold);
 
  }
 

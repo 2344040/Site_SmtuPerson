@@ -614,7 +614,8 @@
         faculty: ['Факультет', 'w-fac'],
         department: ['Кафедра', 'w-dep'],
         name: ['ФИО полное', 'col-md-6'],
-        post: ['Должность под ФИО', 'col-md-12'],
+        position: ['Должность (справочник)', 'col-md-4'],
+        post: ['Должность под ФИО (авто: должность + кафедра, можно править)', 'col-md-8'],
         email: ['E-mail', 'col-md-4'],
         phone: ['Телефон', 'col-md-4'],
         address: ['Адрес', 'col-md-8'],
@@ -696,6 +697,33 @@
         const initials = parts.slice(1).map(w => w[0].toUpperCase() + '.').join('');
         return initials ? parts[0] + ' ' + initials : parts[0];
       };
+      /* Стартовый справочник должностей; сливается с уже вводившимися */
+      const POSITIONS_PRESET = [
+        'Профессор', 'Доцент', 'Заведующий', 'И.о. заведующего', 'Старший преподаватель',
+        'Преподаватель', 'Ассистент', 'Декан', 'Проректор', 'Начальник отдела', 'Заведующий лабораторией'
+      ];
+      const positionOptions = () => {
+        const vals = new Set(POSITIONS_PRESET);
+        (data.teachers || []).forEach(t => {
+          const v = String(t.position || '').trim();
+          if (v) vals.add(v);
+        });
+        return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
+      };
+      /* Склоняем слово «кафедра» в начале названия кафедры */
+      const declineKafedra = (dep, instr) => String(dep || '').trim()
+        .replace(/^базовая\s+кафедра/i, instr ? 'базовой кафедрой' : 'базовой кафедры')
+        .replace(/^кафедра/i, instr ? 'кафедрой' : 'кафедры');
+      /* Должность под ФИО: должность + кафедра (заведующий — творительный, остальные — родительный) */
+      const composePost = (pos, dep) => {
+        let p = String(pos || '').trim();
+        if (!p) return '';
+        /* Убираем хвост «кафедрой/кафедры» из должности, чтобы не удваивался */
+        p = p.replace(/\s+(?:базовой\s+)?кафедр(?:ой|ы)\.?$/i, '').trim();
+        const instr = /заведующ|зав\./i.test(p) && !/лаборатор|отдел|центр|сектор|часть|кабинет|музей/i.test(p);
+        const d = declineKafedra(dep, instr);
+        return d ? p + ' ' + d : p;
+      };
 
       // * TEXTS
       const TEXTS = {
@@ -710,10 +738,10 @@
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'post'], ['a', 'chips']]
+          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
-       { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
+        { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
@@ -865,6 +893,11 @@
       /* Миграции данных — общие для боевого и демо-режима */
       function migrate(d) {
         (d.teachers || []).forEach(t => {
+          /* Из старого post извлекаем должность для справочника (post не трогаем) */
+          if (!t.position && t.post) {
+            const m = String(t.post).match(/^(.+?)\s+(?:базовой\s+кафедры|базовой\s+кафедрой|кафедры|кафедрой)\b/i);
+            if (m) t.position = m[1].trim();
+          }
           ['books', 'publications'].forEach(k => {
             (t[k] || []).forEach(row => {
               if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
@@ -1094,6 +1127,9 @@
                   <option value="" ${!v ? 'selected' : ''}>—</option>
                   ${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
                 </select>`;
+              } else if (key === 'position') {
+                ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
+                <datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
               } else {
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" value="${String(v).replace(/"/g, '&quot;')}">`;
               }
@@ -1120,6 +1156,14 @@
       <div class="mt-2">${inner}</div>
     </details>`;
         }).join('');
+
+        /* Автогенерация: должность есть, post пуст — заполняем */
+        const pi = document.querySelector('[data-f="position"]');
+        const po = document.querySelector('[data-f="post"]');
+        if (pi && po && pi.value.trim() && !po.value.trim()) {
+          po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
+        }
+
         const hc = document.getElementById('hideChk');
         if (hc) hc.checked = !!data.teachers[cur].hidden;
       }
@@ -1260,6 +1304,16 @@
         const f = e.target.dataset ? e.target.dataset.f : '';
         const prev = f ? document.getElementById('prev-' + f) : null;
         if (prev) prev.innerHTML = e.target.value;
+      });
+
+      /* Регенерация «Должность под ФИО» при правке должности или кафедры */
+      document.addEventListener('input', e => {
+        const f = e.target.dataset ? e.target.dataset.f : '';
+        if (f !== 'position' && f !== 'department') return;
+        const pos = document.querySelector('[data-f="position"]');
+        const dep = document.querySelector('[data-f="department"]');
+        const post = document.querySelector('[data-f="post"]');
+        if (pos && post) post.value = composePost(pos.value, dep ? dep.value : '');
       });
 
       document.addEventListener('blur', e => {

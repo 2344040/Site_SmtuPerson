@@ -1546,7 +1546,7 @@
 /* 1 — основная должность: залитый ромб, жирный, крупнее */
 .creds-list li.c1 {
   font-weight: 700;
-  font-size: 1.12rem;
+  /* font-size: 1.12rem; */
 }
 
 .creds-list li.c1::before {

@@ -713,7 +713,7 @@
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'post'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
-        { title: '3. Должности (верхний блок)', items: [['a', 'positions']] },
+       { title: '3. Должности, членство, звания', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
@@ -732,7 +732,7 @@
 
       // * KEYS
       const KEYS = {
-        chips: ['*'], positions: ['*'],
+        chips: ['*'], positions: ['*'], memberships: ['*'], honors: ['*'],
         email_extra: ['*'], phone_extra: ['*'],
         education: ['year', 'institution', 'level', 'profile', 'qualification'],
         upk: ['year', 'title', 'type', 'text'],
@@ -772,7 +772,8 @@
 
       // * NAMES
       const NAMES = {
-        chips: 'Чипы', positions: 'Должности (верхний блок)',
+        chips: 'Чипы', positions: 'Должность основная (верхний блок)',
+        memberships: 'Членство в организациях', honors: 'Звания, награды, почётные статусы',
         email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
         education: 'Образование', upk: 'Повышение квалификации',
         career: 'Карьера', achievements: 'Профессиональные достижения',

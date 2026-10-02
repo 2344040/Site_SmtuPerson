@@ -398,12 +398,19 @@ function newsBlock() {
 function renderMain() {
   const o = [];
   /* MAIN: блок должностей */
-  if (has('positions')) {
+  /* MAIN: карточка регалий — должности, членство, звания */
+  if (has('positions') || has('memberships') || has('honors')) {
+    const credsGroup = (cap, items, mode) => items.length ? `
+      <div class="creds-group">
+        <div class="creds-cap">${cap}</div>
+        <ul class="creds-list">${items.map((p, i) =>
+          `<li class="${mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode}">${esc(p)}</li>`).join('')}</ul>
+      </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
-      <div class="positions reveal">
-        <div class="positions-icon"><i class="fa-regular fa-user"></i></div>
-        <div><ul class="positions-list">${T.positions.map((p, i) =>
-      `<li class="${i === 0 ? 'main' : ''}">${esc(p)}</li>`).join('')}</ul></div>
+      <div class="creds reveal">
+        ${credsGroup('Должности', T.positions || [], 'pos')}
+        ${credsGroup('Членство в организациях', T.memberships || [], 'c3')}
+        ${credsGroup('Звания и награды', T.honors || [], 'c4')}
       </div>
     </section>`);
   }

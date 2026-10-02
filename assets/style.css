@@ -1536,13 +1536,13 @@
 
 /* Иконка-маркер: бокс сам центрирует глиф и SVG по оптической линии текста */
 .creds-ico {
-flex: 0 0 auto;
-width: 1.2em;
-height: 1.2em;
-margin-top: .05em;
-display: inline-flex;
-align-items: center;
-justify-content: center;
+  flex: 0 0 auto;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: .05em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .creds-ico i {
 display: flex;

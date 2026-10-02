@@ -1247,34 +1247,34 @@
  }
 
  .form-control,
-.form-select {
-  border-radius: 10px;
-  border-color: var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  caret-color: var(--ink);
-}
+ .form-select {
+   border-radius: 10px;
+   border-color: var(--line);
+   background: var(--paper);
+   color: var(--ink);
+   caret-color: var(--ink);
+ }
 
-.form-control::placeholder,
-.form-select::placeholder {
-  color: var(--muted);
-  opacity: 1;
-}
+ .form-control::placeholder,
+ .form-select::placeholder {
+   color: var(--muted);
+   opacity: 1;
+ }
 
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 .2rem rgba(47, 111, 99, .15);
-  background: var(--bg);
-  color: var(--ink);
-}
+ .form-control:focus,
+ .form-select:focus {
+   border-color: var(--teal);
+   box-shadow: 0 0 0 .2rem rgba(47, 111, 99, .15);
+   background: var(--bg);
+   color: var(--ink);
+ }
 
-.form-control:disabled,
-.form-select:disabled {
-  background-color: var(--paper);
-  color: var(--muted);
-  opacity: 1;
-}
+ .form-control:disabled,
+ .form-select:disabled {
+   background-color: var(--paper);
+   color: var(--muted);
+   opacity: 1;
+ }
 
  .btn-ink {
    background: var(--ink);
@@ -1492,103 +1492,110 @@
  }
 
  /* ── Карточка регалий: группы должностей, членства, званий ── */
-.creds {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--amber);
-  border-radius: 14px;
-  padding: 1.4rem 1.6rem;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
-}
+ .creds {
+   background: var(--surface);
+   border: 1px solid var(--line);
+   border-left: 4px solid var(--amber);
+   border-radius: 14px;
+   padding: 1.4rem 1.6rem;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
+ }
 
-.creds-group + .creds-group {
-  margin-top: 1.1rem;
-  padding-top: 1.1rem;
-  /* border-top: 1px dashed var(--line); */
-}
+ .creds-group+.creds-group {
+   margin-top: 1.1rem;
+   padding-top: 1.1rem;
+   border-top: 1px dashed var(--amber-soft);
+ }
 
-.creds-cap {
-  font-size: .68rem;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 700;
-  margin-bottom: .6rem;
-}
+ .creds-cap {
+   font-size: .68rem;
+   letter-spacing: .22em;
+   text-transform: uppercase;
+   color: var(--muted);
+   font-weight: 700;
+   margin-bottom: .6rem;
+ }
 
-.creds-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+ .creds-list {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
 
-.creds-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: .6rem;
-  margin-bottom: .45rem;
-  font-size: 1rem;
-}
+ .creds-list li {
+   display: flex;
+   align-items: flex-start;
+   gap: .6rem;
+   margin-bottom: .45rem;
+   font-size: 1rem;
+ }
 
-.creds-list li:last-child {
-  margin-bottom: 0;
-}
+ .creds-list li:last-child {
+   margin-bottom: 0;
+ }
 
-/* Иконка-маркер: бокс сам центрирует глиф и SVG по оптической линии текста */
-.creds-ico {
-  flex: 0 0 auto;
-  width: 1.35rem;
-  height: 1.35rem;
-  margin-top: .05em;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.creds-ico i {
-display: flex;
-align-items: center;
-justify-content: center;
-width: 100%;
-height: 100%;
-font-size: 1.15em;
-line-height: 1;
-}
-.creds-ico svg {
-display: block;
-width: 100%;
-height: 100%;
-}
+ /* Иконка-маркер: бокс сам центрирует глиф и SVG по оптической линии текста */
+ .creds-ico {
+   flex: 0 0 auto;
+   width: 1.35rem;
+   height: 1.35rem;
+   margin-top: .05em;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+ }
 
-/* 1 — основная должность: античный фасад, янтарный */
-.creds-list li.c1 {
-  font-weight: 700;
-  font-size: 1.12rem;
-}
+ .creds-ico i {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   font-size: 1.15em;
+   line-height: 1;
+ }
 
-.creds-list li.c1 .creds-ico {
-  color: var(--amber);
-}
+ .creds-ico svg {
+   display: block;
+   width: 100%;
+   height: 100%;
+ }
 
-/* 2 — вторичные должности: тот же фасад, приглушённый */
-.creds-list li.c2 .creds-ico {
-  color: var(--muted);
-}
+ /* 1 — основная должность: античный фасад, янтарный */
+ .creds-list li.c1 {
+   font-weight: 700;
+   font-size: 1.12rem;
+ }
 
-/* 3 — членство в организациях: сообщество, бирюзовый */
-.creds-list li.c3 .creds-ico {
-  color: var(--teal);
-}
+ .creds-list li.c1 .creds-ico {
+   color: var(--amber);
+ }
 
-/* 4 — звания и награды: восьмилучевая звезда */
-.creds-list li.c4 .creds-ico {
-  color: var(--amber);
+ /* 2 — вторичные должности: тот же фасад, приглушённый */
+ .creds-list li.c2 .creds-ico {
+   color: var(--muted);
+ }
 
-}
+ /* 3 — членство в организациях: сообщество, бирюзовый */
+ .creds-list li.c3 .creds-ico {
+   color: var(--teal);
+ }
 
-@media (max-width: 767.98px) {
-  .creds { padding: 1rem 1.1rem; }
-  .creds-list li.c1 { font-size: 1rem; }
-}
+ /* 4 — звания и награды: восьмилучевая звезда */
+ .creds-list li.c4 .creds-ico {
+   color: var(--amber);
+
+ }
+
+ @media (max-width: 767.98px) {
+   .creds {
+     padding: 1rem 1.1rem;
+   }
+
+   .creds-list li.c1 {
+     font-size: 1rem;
+   }
+ }
 
  @media (max-width:767.98px) {
    .positions {

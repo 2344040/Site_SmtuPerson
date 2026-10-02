@@ -402,7 +402,7 @@ function renderMain() {
   if (has('positions') || has('memberships') || has('honors')) {
     const credsGroup = (cap, items, mode) => items.length ? `
       <div class="creds-group">
-        <div class="creds-cap">${cap}</div>
+        ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) =>
           `<li class="${mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode}">${esc(p)}</li>`).join('')}</ul>
       </div>` : '';

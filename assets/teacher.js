@@ -393,6 +393,10 @@ function newsBlock() {
   </section>`;
 }
 
+/* Орденская звезда для группы «Звания и награды»: 8 лучей + лучистый подслой */
+const CRED_STAR_PTS = '20,10 12.8,11.2 17.1,17.1 11.2,12.8 10,20 8.8,12.8 2.9,17.1 7.2,11.2 0,10 7.2,8.8 2.9,2.9 8.8,7.2 10,0 11.2,7.2 17.1,2.9 12.8,8.8';
+const CRED_STAR_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="${CRED_STAR_PTS}" fill="currentColor" opacity=".45" transform="translate(10 10) rotate(22.5) scale(.78) translate(-10 -10)"/><polygon points="${CRED_STAR_PTS}" fill="currentColor"/></svg>`;
+
 // * renderMain
 /* ═══ Основной контент ═══ */
 function renderMain() {
@@ -404,14 +408,14 @@ function renderMain() {
       <div class="creds-group">
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) => {
-          const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
+      const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
           const ico = cls === 'c3'
             ? '<i class="bi bi-mortarboard-fill"></i>'
             : cls === 'c4'
-              ? '<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="20,10 12.8,11.2 17.1,17.1 11.2,12.8 10,20 8.8,12.8 2.9,17.1 7.2,11.2 0,10 7.2,8.8 2.9,2.9 8.8,7.2 10,0 11.2,7.2 17.1,2.9 12.8,8.8" fill="currentColor"/></svg>'
+              ? CRED_STAR_SVG
               : '<i class="bi bi-bank2"></i>';
-          return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
-        }).join('')}</ul>
+      return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
+    }).join('')}</ul>
       </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
       <div class="creds reveal alt">
@@ -708,7 +712,7 @@ const getTheme = () => {
   try {
     const t = localStorage.getItem(THEME_KEY);
     if (t && THEMES.includes(t)) return t;
-  } catch (e) {}
+  } catch (e) { }
   /* Явного выбора нет — следуем за системной тёмной схемой */
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
 };
@@ -723,7 +727,7 @@ function applyTheme(name) {
 }
 function toggleTheme() {
   const next = THEMES[(THEMES.indexOf(getTheme()) + 1) % THEMES.length];
-  try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+  try { localStorage.setItem(THEME_KEY, next); } catch (e) { }
   applyTheme(next);
 }
 document.querySelectorAll('.theme-toggle').forEach(b => b.addEventListener('click', toggleTheme));

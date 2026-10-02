@@ -408,9 +408,9 @@ function renderMain() {
       </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
       <div class="creds reveal">
-        ${credsGroup('Должности', T.positions || [], 'pos')}
-        ${credsGroup('Членство в организациях', T.memberships || [], 'c3')}
-        ${credsGroup('Звания и награды', T.honors || [], 'c4')}
+        ${credsGroup('', T.positions || [], 'pos')}
+        ${credsGroup('', T.memberships || [], 'c3')}
+        ${credsGroup('', T.honors || [], 'c4')}
       </div>
     </section>`);
   }

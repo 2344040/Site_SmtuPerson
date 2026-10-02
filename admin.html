@@ -1170,9 +1170,9 @@
         if (pi && po && pi.value.trim() && !po.value.trim()) {
           po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
         }
-        /* 1-я строка должностей всегда равна текущему post */
+        /* 1-я строка должностей равна текущему post (если post заполнен) */
         const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
-        if (po && pos0) pos0.value = po.value;
+        if (po && pos0 && po.value.trim()) pos0.value = po.value;
 
         const hc = document.getElementById('hideChk');
         if (hc) hc.checked = !!data.teachers[cur].hidden;
@@ -1332,7 +1332,7 @@
         if (!post) return;
         if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '');
         const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
-        if (pos0) pos0.value = post.value;
+        if (pos0 && post.value.trim()) pos0.value = post.value;
       });
       /* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
          или разблокируем строку, если post очищен */

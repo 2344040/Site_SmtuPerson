@@ -800,7 +800,7 @@
 
       // * NAMES
       const NAMES = {
-        chips: 'Чипы', positions: 'Должности 1. основная, 2. прочие (верхний блок)',
+        chips: 'Чипы', positions: 'Должности (1-я строка — авто из должности, далее вручную)',
         memberships: 'Членство в организациях', honors: 'Звания, награды, почётные статусы',
         email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
         education: 'Образование', upk: 'Повышение квалификации',
@@ -1071,6 +1071,10 @@
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }
+          /* 1-я строка должностей — автоподстановка из «Должность под ФИО» */
+          if (k === 'positions' && i === 0 && String(t.post || '').trim()) {
+            return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}" disabled title="Авто: равно полю «Должность под ФИО»"></td>`;
+          }
           return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
         }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
   </table>
@@ -1079,6 +1083,9 @@
 
       // * actCell
       function actCell(k, i) {
+        if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
+          return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
+        }
         const withArrows = k.startsWith('mat_') || k === 'metrics';
         return withArrows
           ? `<td class="td-act">
@@ -1163,6 +1170,9 @@
         if (pi && po && pi.value.trim() && !po.value.trim()) {
           po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
         }
+        /* 1-я строка должностей всегда равна текущему post */
+        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+        if (po && pos0) pos0.value = po.value;
 
         const hc = document.getElementById('hideChk');
         if (hc) hc.checked = !!data.teachers[cur].hidden;
@@ -1172,6 +1182,12 @@
       function collect() {
         const t = data.teachers[cur];
         document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+        /* Основная должность зеркалит поле «Должность под ФИО» (если оно заполнено) */
+        const postVal = String(t.post || '').trim();
+        if (postVal) {
+          if (!Array.isArray(t.positions)) t.positions = [];
+          t.positions[0] = postVal;
+        }
         if (!String(t.short || '').trim()) t.short = makeShort(t.name);
         if (!t.external_links) t.external_links = {};
         document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
@@ -1306,14 +1322,33 @@
         if (prev) prev.innerHTML = e.target.value;
       });
 
-      /* Регенерация «Должность под ФИО» при правке должности или кафедры */
+      /* Регенерация «Должность под ФИО» + зеркало в 1-ю строку должностей */
       document.addEventListener('input', e => {
         const f = e.target.dataset ? e.target.dataset.f : '';
-        if (f !== 'position' && f !== 'department') return;
+        if (f !== 'position' && f !== 'department' && f !== 'post') return;
         const pos = document.querySelector('[data-f="position"]');
         const dep = document.querySelector('[data-f="department"]');
         const post = document.querySelector('[data-f="post"]');
-        if (pos && post) post.value = composePost(pos.value, dep ? dep.value : '');
+        if (!post) return;
+        if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '');
+        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+        if (pos0) pos0.value = post.value;
+      });
+      /* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
+         или разблокируем строку, если post очищен */
+      document.addEventListener('change', e => {
+        const f = e.target.dataset ? e.target.dataset.f : '';
+        if (f !== 'position' && f !== 'department' && f !== 'post') return;
+        const post = document.querySelector('[data-f="post"]');
+        if (!post) return;
+        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+        if (!String(post.value).trim()) { if (pos0) pos0.disabled = false; return; }
+        if (!pos0) {
+          const t = data.teachers[cur];
+          if (!Array.isArray(t.positions)) t.positions = [];
+          t.positions[0] = String(post.value).trim();
+          build();
+        }
       });
 
       document.addEventListener('blur', e => {

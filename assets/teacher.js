@@ -407,7 +407,7 @@ function renderMain() {
           `<li class="${mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode}">${esc(p)}</li>`).join('')}</ul>
       </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
-      <div class="creds reveal">
+      <div class="creds reveal alt">
         ${credsGroup('', T.positions || [], 'pos')}
         ${credsGroup('', T.memberships || [], 'c3')}
         ${credsGroup('', T.honors || [], 'c4')}

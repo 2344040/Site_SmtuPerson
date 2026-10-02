@@ -403,8 +403,15 @@ function renderMain() {
     const credsGroup = (cap, items, mode) => items.length ? `
       <div class="creds-group">
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
-        <ul class="creds-list">${items.map((p, i) =>
-          `<li class="${mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode}">${esc(p)}</li>`).join('')}</ul>
+        <ul class="creds-list">${items.map((p, i) => {
+          const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
+          const ico = cls === 'c3'
+            ? '<i class="bi bi-mortarboard-fill"></i>'
+            : cls === 'c4'
+              ? '<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="20,10 12.8,11.2 17.1,17.1 11.2,12.8 10,20 8.8,12.8 2.9,17.1 7.2,11.2 0,10 7.2,8.8 2.9,2.9 8.8,7.2 10,0 11.2,7.2 17.1,2.9 12.8,8.8" fill="currentColor"/></svg>'
+              : '<i class="bi bi-bank2"></i>';
+          return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
+        }).join('')}</ul>
       </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
       <div class="creds reveal alt">

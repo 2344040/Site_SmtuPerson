@@ -1523,64 +1523,56 @@
 }
 
 .creds-list li {
-  position: relative;
-  padding-left: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
   margin-bottom: .45rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .creds-list li:last-child {
   margin-bottom: 0;
 }
 
-.creds-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: .5em;
-  width: 8px;
-  height: 8px;
-  transform: rotate(45deg);
+/* Иконка-маркер: держит размер и сидит на верхней строке текста */
+.creds-ico {
+  flex: 0 0 auto;
+  width: 1.15em;
+  height: 1.15em;
+  margin-top: .16em;
+  display: inline-flex;
 }
 
-/* 1 — основная должность: залитый ромб, жирный, крупнее */
+.creds-ico i,
+.creds-ico svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 1 — основная должность: античный фасад, янтарный */
 .creds-list li.c1 {
   font-weight: 700;
-  /* font-size: 1.12rem; */
+  font-size: 1.12rem;
 }
 
-.creds-list li.c1::before {
-  background: var(--amber);
-  width: 10px;
-  height: 10px;
-  top: .45em;
-}
-
-/* 2 — вторичные должности: контурный ромб */
-.creds-list li.c2::before {
-  background: transparent;
-  border: 2px solid var(--amber);
-}
-
-/* 3 — членство в организациях: бирюзовый кружок */
-.creds-list li.c3::before {
-  background: var(--teal);
-  border-radius: 50%;
-  transform: none;
-  top: .45em;
-}
-
-/* 4 — звания и награды: янтарная звезда */
-.creds-list li.c4::before {
-  content: "\2605";
-  background: none;
-  transform: none;
+.creds-list li.c1 .creds-ico {
   color: var(--amber);
-  font-size: .9rem;
-  line-height: 1;
-  top: .18em;
-  width: auto;
-  height: auto;
+}
+
+/* 2 — вторичные должности: тот же фасад, приглушённый */
+.creds-list li.c2 .creds-ico {
+  color: var(--muted);
+}
+
+/* 3 — членство в организациях: сообщество, бирюзовый */
+.creds-list li.c3 .creds-ico {
+  color: var(--teal);
+}
+
+/* 4 — звания и награды: восьмилучевая звезда */
+.creds-list li.c4 .creds-ico {
+  color: var(--amber);
+  margin-top: .22em;
 }
 
 @media (max-width: 767.98px) {

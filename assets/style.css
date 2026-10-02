@@ -8,7 +8,7 @@
    --line: #dcd7c9;
    --amber: #d97b29;
    --amber-soft: #f4e3cf;
-   --gold: #b08d24;
+    --gold: #b08d24;
    --teal: #2f6f63;
    --teal-light: #324C68;
    --muted: #6f7a72;
@@ -68,7 +68,7 @@
    --line: #3a4657;
    --amber: #8ab4dd;
    --amber-soft: #2c3a4d;
-   --gold: #d9b64e;
+    --gold: #d9b64e;
    --teal: #a9c9e8;
    --teal-light: #6d8db0;
    --muted: #93a1b3;
@@ -106,8 +106,7 @@
 
  html {
    scroll-behavior: smooth;
-   /* scroll-padding-top: 345px; */
-   scroll-padding-top: 363px;
+   scroll-padding-top: 345px;
  }
 
  body {
@@ -248,11 +247,6 @@
      font-size: .68rem;
    }
 
-     .hero .kicker-sub {
-    font-size: .62rem;
-    margin-top: 1px;
-  }
-
    .hero h1 {
      font-size: 1.02rem !important;
      line-height: 1.15 !important;
@@ -320,10 +314,6 @@
    .hero .kicker {
      font-size: .95rem;
    }
-
-     .hero .kicker-sub {
-    font-size: .8rem;
-  }
 
    .hero .post {
      font-size: 1.05rem;
@@ -652,7 +642,6 @@
  }
 
  .kicker {
-   display: block;
    font-family: 'Fira Sans', sans-serif;
    font-size: 1.1rem;
    font-weight: 600;
@@ -662,15 +651,6 @@
    /* color: var(--bs-primary-text-emphasis); */
    color: var(--muted);
    ;
- }
-
- /* Кафедра — вторая строка шапки: тот же шрифт, меньший кегль */
- .kicker-sub {
-   font-size: .9rem;
-   font-weight: 500;
-   line-height: 1.15;
-   margin-top: 2px;
-   opacity: .85;
  }
 
  .post {
@@ -738,13 +718,11 @@
 
  .rail {
    position: sticky;
-   /* top: 320px; */
-   top: 338px;
+   top: 320px;
    display: flex;
    flex-direction: column;
    gap: 0.5rem;
-   /* max-height: calc(100vh - 320px - 24px); */
-   max-height: calc(100vh - 338px - 24px);
+   max-height: calc(100vh - 320px - 24px);
    overflow-y: auto;
    scrollbar-width: none;
    -ms-overflow-style: none;
@@ -1881,8 +1859,7 @@
    border-radius: 10px;
    transition: background .2s, box-shadow .2s;
    position: sticky;
-   /* top: 310px; */
-   top: 328px;
+   top: 310px;
    /* ← прилипает под основным меню */
    z-index: 50;
    box-shadow: 0 2px 8px rgba(18, 36, 31, 0.06);

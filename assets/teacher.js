@@ -44,15 +44,9 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
 /* ═══ Заполнение шапки ═══ */
 function fillHeader() {
   document.getElementById('p-photo').src = T.photo;
+
   const kicker = [T.university, T.faculty].filter(Boolean).join(' · ');
   document.getElementById('p-kicker').textContent = kicker;
-  /* Кафедра — вторая строка шапки; при пустых данных строка скрыта */
-  const depEl = document.getElementById('p-dep');
-  if (depEl) {
-    const dep = String(T.department || '').trim();
-    depEl.textContent = dep;
-    depEl.style.display = dep ? '' : 'none';
-  }
 
   const nameParts = (T.name || '').split(' ');
   const surname = nameParts[0] || '';
@@ -412,11 +406,11 @@ function renderMain() {
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) => {
       const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
-      const ico = cls === 'c3'
-        ? '<i class="bi bi-mortarboard-fill"></i>'
-        : cls === 'c4'
-          ? '<i class="bi bi-award-fill"></i>'
-          : '<i class="bi bi-bank2"></i>';
+                   const ico = cls === 'c3'
+            ? '<i class="bi bi-mortarboard-fill"></i>'
+            : cls === 'c4'
+              ? '<i class="bi bi-award-fill"></i>'
+              : '<i class="bi bi-bank2"></i>';
       return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
     }).join('')}</ul>
       </div>` : '';

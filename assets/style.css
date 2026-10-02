@@ -1534,19 +1534,29 @@
   margin-bottom: 0;
 }
 
-/* Иконка-маркер: держит размер и сидит на верхней строке текста */
+/* Иконка-маркер: бокс сам центрирует глиф и SVG по оптической линии текста */
 .creds-ico {
-  flex: 0 0 auto;
-  width: 1.15em;
-  height: 1.15em;
-  margin-top: .16em;
-  display: inline-flex;
+flex: 0 0 auto;
+width: 1.2em;
+height: 1.2em;
+margin-top: .05em;
+display: inline-flex;
+align-items: center;
+justify-content: center;
 }
-
-.creds-ico i,
+.creds-ico i {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+font-size: 1.15em;
+line-height: 1;
+}
 .creds-ico svg {
-  width: 100%;
-  height: 100%;
+display: block;
+width: 100%;
+height: 100%;
 }
 
 /* 1 — основная должность: античный фасад, янтарный */
@@ -1567,13 +1577,12 @@
 /* 3 — членство в организациях: сообщество, бирюзовый */
 .creds-list li.c3 .creds-ico {
   color: var(--teal);
-  margin-top: 0.2em;
 }
 
 /* 4 — звания и награды: восьмилучевая звезда */
 .creds-list li.c4 .creds-ico {
   color: var(--amber);
-  margin-top: .22em;
+
 }
 
 @media (max-width: 767.98px) {

@@ -394,8 +394,8 @@ function newsBlock() {
 }
 
 /* Орденская звезда для группы «Звания и награды»: 8 лучей + лучистый подслой */
-const CRED_STAR_PTS = '20,10 12.8,11.2 17.1,17.1 11.2,12.8 10,20 8.8,12.8 2.9,17.1 7.2,11.2 0,10 7.2,8.8 2.9,2.9 8.8,7.2 10,0 11.2,7.2 17.1,2.9 12.8,8.8';
-const CRED_STAR_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="${CRED_STAR_PTS}" fill="currentColor" opacity=".45" transform="translate(10 10) rotate(22.5) scale(.78) translate(-10 -10)"/><polygon points="${CRED_STAR_PTS}" fill="currentColor"/></svg>`;
+const CRED_STAR_PTS = '20,10 14.25,11.76 17.07,17.07 11.76,14.25 10,20 8.24,14.25 2.93,17.07 5.75,11.76 0,10 5.75,8.24 2.93,2.93 8.24,5.75 10,0 11.76,5.75 17.07,2.93 14.25,8.24';
+const CRED_STAR_SVG = `<svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="${CRED_STAR_PTS}" fill="currentColor" opacity=".5" transform="translate(10 10) rotate(22.5) scale(.62) translate(-10 -10)"/><polygon points="${CRED_STAR_PTS}" fill="currentColor"/></svg>`;
 
 // * renderMain
 /* ═══ Основной контент ═══ */

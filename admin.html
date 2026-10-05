@@ -1205,6 +1205,14 @@
         mat_video: ['author', 'title', 'url'],
         mat_resources: ['title', 'url'],
       };
+
+      /* Служебный id узла (не перечислимый → не попадает в JSON и не виден фронту)
+      и память свёрнутости, переживающая любые перерисовки */
+      let MAT_UID_SEQ = 1;
+      const matSetUid = (node, uid) => Object.defineProperty(node, '__uid', { value: uid, enumerable: false, configurable: true });
+      const matUid = node => node.__uid || (matSetUid(node, 'u' + (MAT_UID_SEQ++)), node.__uid);
+      const MAT_COLLAPSED = new Set();
+
       /* Плоские строки с rub → дерево + схлопывание «книга, разбитая на главы» */
       function migrateMatTree(t, sec) {
         const arr = t[sec];
@@ -1266,8 +1274,10 @@
       };
       function matToggle(btn) {
         const card = btn.closest('.mat-node');
-        card.classList.toggle('collapsed');
-        btn.textContent = card.classList.contains('collapsed') ? '▸' : '▾';
+        const collapsed = card.classList.toggle('collapsed');
+        const key = card.dataset.sec + '|' + card.dataset.uid;
+        if (collapsed) MAT_COLLAPSED.add(key); else MAT_COLLAPSED.delete(key);
+        btn.textContent = collapsed ? '▸' : '▾';
       }
       function matAdd(sec, path, kind) {
         collect();
@@ -1277,6 +1287,16 @@
         node.children = [];
         matArr(t, sec, path).push(node);
         build();
+        /* Родителя, в которого добавляем, раскрываем — иначе новичка не видно */
+        if (path) {
+          const pcard = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
+          if (pcard && pcard.classList.contains('collapsed')) {
+            pcard.classList.remove('collapsed');
+            MAT_COLLAPSED.delete(sec + '|' + pcard.dataset.uid);
+            const pbtn = pcard.querySelector(':scope > .mat-node-bar > button');
+            if (pbtn) pbtn.textContent = '▾';
+          }
+        }
         const box = path
           ? document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"] > .mat-node-body > .mat-children`)
           : document.querySelector(`.mat-root[data-sec="${sec}"]`);
@@ -1304,9 +1324,12 @@
       }
       const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
       const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
       function matNodeCard(sec, node, path, depth) {
         const isHead = node.kind === 'head';
         const fields = MAT_FIELDS[sec] || [];
+        const uid = matUid(node);
+        const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
         const inputs = isHead
           ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
           : `<div class="row g-2">${fields.map(c => {
@@ -1317,9 +1340,9 @@
             return `<div class="${col}"><label class="small text-secondary">${colName(sec, c)}</label>${ctrl}</div>`;
           }).join('')}</div>`;
         const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
-        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}">
+        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
 <div class="mat-node-bar">
-<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">▾</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">${isCol ? '▸' : '▾'}</button>
 <span class="me-1">${isHead ? '📁' : '📄'}</span>
 <span class="small text-secondary me-auto mat-node-label" data-base="${kindLabel}">${kindLabel}${(node.title || '').trim() ? ': ' + escTa(node.title) : ''}</span>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',-1)" title="Выше">↑</button>
@@ -1347,6 +1370,7 @@ ${inputs}
         const out = [];
         box.querySelectorAll(':scope > .mat-node').forEach(card => {
           const node = { kind: card.dataset.kind };
+          if (card.dataset.uid) matSetUid(node, card.dataset.uid);
           card.querySelectorAll(':scope > .mat-node-body > .row [data-k]').forEach(inp => { node[inp.dataset.k] = inp.value; });
           const kids = card.querySelector(':scope > .mat-node-body > .mat-children');
           const cn = kids ? collectMatNodes(kids) : [];

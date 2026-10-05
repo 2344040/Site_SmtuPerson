@@ -215,10 +215,12 @@ const pubRow = (i, r, hidden) => {
 ${desc}
 </div>${actions.join('')}</div>`;
 };
-/* * Рубрика: строки + «Показать ещё» при более чем 5 записях (п.11) */
+/* * Рубрика: строки + «Показать ещё» при более чем N записях (п.11) */
+
+const PUB_LIMIT = 5; /* сколько записей видно в рубрике без раскрытия */
 const pubRubric = (arr, r) =>
-  `<div id="publist-${r.key}">${arr.map((i, idx) => pubRow(i, r, idx >= 10)).join('')}</div>` +
-  (arr.length > 5 ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary  reveal-btn">Показать ещё</button></div>` : '');
+  `<div id="publist-${r.key}">${arr.map((i, idx) => pubRow(i, r, idx >= PUB_LIMIT)).join('')}</div>` +
+  (arr.length > PUB_LIMIT ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : '');
 
 /* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);

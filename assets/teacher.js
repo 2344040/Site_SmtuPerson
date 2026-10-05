@@ -123,7 +123,7 @@ const upkCards = (a, limit = 6) => `
       ${i.text ? `<small class="text-secondary fst-italic">${esc(i.text)}</small>` : ''}
     </div></div>
   </div>`).join('')}</div>
-${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : ''}`;
+${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-sm reveal-btn">Показать ещё</button></div>` : ''}`;
 
 /* ═══ Достижения с раскрытием ═══ */
 const achievementCards = (a, limit = 6) => `
@@ -146,7 +146,7 @@ const achievementCards = (a, limit = 6) => `
     </div></div>
   </div>`;
 }).join('')}</div>
-${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : ''}`;
+${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-sm reveal-btn">Показать ещё</button></div>` : ''}`;
 
 /* ═══ Таблица ═══ */
 const table = (head, rows, hover = false) => `
@@ -220,7 +220,7 @@ ${desc}
 const PUB_LIMIT = 5; /* сколько записей видно в рубрике без раскрытия */
 const pubRubric = (arr, r) =>
   `<div id="publist-${r.key}">${arr.map((i, idx) => pubRow(i, r, idx >= PUB_LIMIT)).join('')}</div>` +
-  (arr.length > PUB_LIMIT ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : '');
+  (arr.length > PUB_LIMIT ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary btn-sm reveal-btn">Показать ещё</button></div>` : '');
 
 /* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);

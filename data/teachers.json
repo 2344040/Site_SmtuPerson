@@ -2394,7 +2394,16 @@
    "schedule": [],
    "session": [],
    "books": [],
-   "metrics": [],
+   "metrics": [
+    {
+     "n": "120",
+     "l": "публикаций"
+    },
+    {
+     "n": "2",
+     "l": "учебников"
+    }
+   ],
    "publications": [],
    "projects": [],
    "patents": [],

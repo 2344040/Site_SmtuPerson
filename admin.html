@@ -556,43 +556,59 @@
     }
 
     /* ── Учебные материалы: редактор-дерево ── */
-.mat-root {
-margin: 4px 0 6px;
-}
-.mat-node {
-border: 1px solid #dcd7c9;
-border-radius: 8px;
-background: #fff;
-margin: 6px 0;
-}
-.mat-node-head > .mat-node-bar {
-background: #f5f7f6;
-}
-.mat-node-bar {
-display: flex;
-align-items: center;
-gap: 4px;
-padding: 4px 6px;
-}
-.mat-node-bar .btn {
-padding: 0 .4rem;
-font-size: .72rem;
-}
-.mat-node-body {
-padding: 6px 8px 8px;
-border-top: 1px dashed #dcd7c9;
-}
-.mat-node.collapsed > .mat-node-body {
-display: none;
-}
-.mat-children {
-margin-left: 12px;
-padding-left: 10px;
-border-left: 2px solid #e8e2d4;
-}
-.mat-children:empty {
-display: none;
-}
+    .mat-root {
+      margin: 4px 0 6px;
+    }
+
+    .mat-node {
+      border: 1px solid #dcd7c9;
+      border-radius: 8px;
+      background: #fff;
+      margin: 6px 0;
+    }
+
+    .mat-node-head>.mat-node-bar {
+      background: #f5f7f6;
+    }
+
+    .mat-node-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+    }
+
+    .mat-node-bar .btn {
+      padding: 0 .4rem;
+      font-size: .72rem;
+    }
+
+    .mat-node-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+      max-width: 46%;
+    }
+
+    .mat-node-body {
+      padding: 6px 8px 8px;
+      border-top: 1px dashed #dcd7c9;
+    }
+
+    .mat-node.collapsed>.mat-node-body {
+      display: none;
+    }
+
+    .mat-children {
+      margin-left: 12px;
+      padding-left: 10px;
+      border-left: 2px solid #e8e2d4;
+    }
+
+    .mat-children:empty {
+      display: none;
+    }
   </style>
 </head>
 
@@ -1305,7 +1321,7 @@ display: none;
 <div class="mat-node-bar">
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">▾</button>
 <span class="me-1">${isHead ? '📁' : '📄'}</span>
-<span class="small text-secondary me-auto">${kindLabel}</span>
+<span class="small text-secondary me-auto mat-node-label" data-base="${kindLabel}">${kindLabel}${(node.title || '').trim() ? ': ' + escTa(node.title) : ''}</span>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',-1)" title="Выше">↑</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',1)" title="Ниже">↓</button>
 <button type="button" class="btn btn-sm btn-outline-danger" onclick="matRm('${sec}','${path}')" title="Удалить">✕</button>
@@ -1574,6 +1590,18 @@ ${inputs}
         const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
         if (pos0 && post.value.trim()) pos0.value = post.value;
       });
+
+      /* Синхронизация метки узла дерева с его полем title (видна в свёрнутом виде) */
+      document.addEventListener('input', e => {
+        if (!e.target.matches || !e.target.matches('.mat-node [data-k="title"]')) return;
+        const card = e.target.closest('.mat-node');
+        if (!card) return;
+        const label = card.querySelector(':scope > .mat-node-bar > .mat-node-label');
+        if (!label) return;
+        const v = e.target.value.trim();
+        label.textContent = label.dataset.base + (v ? ': ' + v : '');
+      });
+
       /* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
          или разблокируем строку, если post очищен */
       document.addEventListener('change', e => {

@@ -69,6 +69,7 @@ function buildMenu() {
     { h: 'career', t: 'Карьера', v: has('career') || has('achievements') },
     { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') || has('books') || hasMat() },
     { h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents') },
+    { h: 'publications', t: 'Публикации', v: PUB_RUBRICS.some(r => has(r.key)) },
     { h: 'social', t: 'Общественная деятельность', v: has('social') || T.social_text },
     { h: 'news', t: 'Новости', v: has('news') }
   ];
@@ -186,6 +187,38 @@ const pubs = a => a.map(i => {
   ${link ? `<a class="mat-btn" href="${esc(link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
 </div>`;
 }).join('');
+
+/* ═══ Единый раздел «Публикации»: рубрики произведений героя ═══ */
+const PUB_RUBRICS = [
+  { key: 'pub_articles', title: 'Статьи', tag: true, doi: true, buy: false },
+  { key: 'pub_theses', title: 'Тезисы', tag: false, doi: false, buy: false },
+  { key: 'pub_textbooks', title: 'Учебники', tag: false, doi: false, buy: true },
+  { key: 'pub_posobia', title: 'Учебные пособия', tag: false, doi: false, buy: false },
+  { key: 'pub_mono', title: 'Монографии', tag: false, doi: false, buy: true },
+  { key: 'pub_other', title: 'Прочее', tag: false, doi: false, buy: true },
+];
+/* Год не выносим влево: он дописывается после выходных данных (часто его там и пишут) */
+const pubRow = (i, r, hidden) => {
+  const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
+  const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
+  const biblio = [i.biblio, i.year].filter(v => String(v || '').trim()).join(', ');
+  const slash = (i.author || i.title) && biblio ? `<span class="mat-slash"> // </span>` : '';
+  const biblioHtml = biblio ? `<span class="mat-biblio">${esc(biblio)}</span>` : '';
+  const tag = r.tag && i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
+  const doi = r.doi && i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
+  const desc = i.description ? `<div class="mat-description-line"><span class="mat-description">${esc(i.description)}</span></div>` : '';
+  const actions = [];
+  if (i.url) actions.push(`<a class="mat-btn" href="${esc(i.url)}" target="_blank" rel="noopener" title="Открыть или скачать"><i class="bi bi-box-arrow-up-right"></i></a>`);
+  if (r.buy && i.url_buy) actions.push(`<a class="mat-btn" href="${esc(i.url_buy)}" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
+  return `<div class="pub${hidden ? ' d-none reveal-hidden' : ''}"><div class="pub-body">
+<div class="mat-line">${author}${title}${slash}${biblioHtml}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
+${desc}
+</div>${actions.join('')}</div>`;
+};
+/* Рубрика: строки + «Показать ещё» при более чем 10 записях (п.11) */
+const pubRubric = (arr, r) =>
+  `<div id="publist-${r.key}">${arr.map((i, idx) => pubRow(i, r, idx >= 10)).join('')}</div>` +
+  (arr.length > 10 ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : '');
 
 /* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);
@@ -407,11 +440,11 @@ function renderMain() {
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) => {
       const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
-                   const ico = cls === 'c3'
-            ? '<i class="bi bi-mortarboard-fill"></i>'
-            : cls === 'c4'
-              ? '<i class="bi bi-award-fill"></i>'
-              : '<i class="bi bi-bank2"></i>';
+      const ico = cls === 'c3'
+        ? '<i class="bi bi-mortarboard-fill"></i>'
+        : cls === 'c4'
+          ? '<i class="bi bi-award-fill"></i>'
+          : '<i class="bi bi-bank2"></i>';
       return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
     }).join('')}</ul>
       </div>` : '';
@@ -477,17 +510,6 @@ function renderMain() {
       [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],
       T.session.map(c => [{ v: c.a }, { v: c.b }, { v: c.c }, { v: c.d }, { v: c.e }, { v: c.f }])));
 
-    // Авторские учебные пособия (из старой таблицы books)
-    if (has('books')) {
-      body += sub('books', 'Авторские учебные пособия',
-        `<ul class="mat-list">${T.books.map(b => matItem(
-          Object.assign({}, b, {
-            biblio: b.biblio || b.text,
-            url: b.url || b.link
-          }),
-          { key: 'books', fb: 'bi-book-fill' }
-        )).join('')}</ul>`);
-    }
 
     // Учебные материалы (в самом конце раздела)
     if (hasMat()) body += sub('materials', 'Учебные материалы', materialsBlock(T));
@@ -495,7 +517,7 @@ function renderMain() {
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
   /* * SCIENCE */
-  if (has('metrics') || has('publications') || has('projects') || has('patents') || T.science_text) {
+  if (has('metrics') || has('projects') || has('patents') || T.science_text) {
     let body = '';
     if (has('metrics')) {
       const items = T.metrics.map(m =>
@@ -516,9 +538,17 @@ function renderMain() {
     if (T.science_text) body += `<div class="text-block reveal">${htmlOrText(T.science_text)}</div>`;
     if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
     if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));
-    if (has('publications')) body += sub('publications', 'Избранные публикации', pubs(T.publications));
+
     o.push(sec('science', '', 'Научная деятельность', body));
   }
+
+  /* * PUBLICATIONS — единый раздел произведений героя; пустые рубрики не выводятся (п.12) */
+  if (PUB_RUBRICS.some(r => has(r.key))) {
+    let body = '';
+    PUB_RUBRICS.forEach(r => { if (has(r.key)) body += sub(r.key, r.title, pubRubric(T[r.key], r)); });
+    o.push(sec('publications', 'alt', 'Публикации', body));
+  }
+
   /* * SOCIAL (alt) */
   if (has('social') || T.social_text) {
     let body = '';
@@ -682,18 +712,16 @@ function initToggles() {
 
 /* ═══ Раскрытие карточек «Показать ещё» ═══ */
 function initCardReveal() {
-  ['upk-list', 'ach-list'].forEach(id => {
-    const row = document.getElementById(id);
-    if (!row) return;
-    const btn = row.parentElement.querySelector('.reveal-btn');
-    if (!btn) return;
-    let isOpen = false;
-    btn.addEventListener('click', () => {
-      isOpen = !isOpen;
-      row.querySelectorAll('.reveal-hidden').forEach(c => c.classList.toggle('d-none', !isOpen));
-      btn.textContent = isOpen ? 'Свернуть' : 'Показать ещё';
-    });
-  });
+document.querySelectorAll('#upk-list, #ach-list, [id^="publist-"]').forEach(row => {
+const btn = row.parentElement ? row.parentElement.querySelector('.reveal-btn') : null;
+if (!btn) return;
+let isOpen = false;
+btn.addEventListener('click', () => {
+isOpen = !isOpen;
+row.querySelectorAll('.reveal-hidden').forEach(c => c.classList.toggle('d-none', !isOpen));
+btn.textContent = isOpen ? 'Свернуть' : 'Показать ещё';
+});
+});
 }
 
 

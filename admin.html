@@ -362,6 +362,25 @@
       min-width: 0;
     }
 
+    table.ed[data-sec^="pub_"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec^="pub_"] input,
+    table.ed[data-sec^="pub_"] textarea {
+      width: 100%;
+      min-width: 0;
+    }
+
+    table.ed[data-sec^="pub_"] th:nth-child(1) {
+      width: 64px;
+    }
+
+    table.ed[data-sec^="pub_"] th:last-child {
+      width: 108px;
+    }
+
     table.ed[data-sec="books"] {
       width: 100%;
       table-layout: fixed;
@@ -752,10 +771,14 @@
           title: '7. Научная деятельность',
           items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'publications'], ['a', 'projects'], ['a', 'patents']]
         },
-        { title: '8. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
-        { title: '9. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
-        { title: '10. Учебные материалы', items: [['a', 'mat_posobia'], ['a', 'mat_books'], ['a', 'mat_lectures'], ['a', 'mat_video'], ['a', 'mat_resources']] },
-        { title: '11. Новости', items: [['a', 'news']] }
+        {
+          title: '8. Публикации (произведения героя)',
+          items: [['a', 'pub_articles'], ['a', 'pub_theses'], ['a', 'pub_textbooks'], ['a', 'pub_posobia'], ['a', 'pub_mono'], ['a', 'pub_other']]
+        },
+        { title: '9. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
+        { title: '10. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
+        { title: '11. Учебные материалы', items: [['a', 'mat_posobia'], ['a', 'mat_books'], ['a', 'mat_lectures'], ['a', 'mat_video'], ['a', 'mat_resources']] },
+        { title: '12. Новости', items: [['a', 'news']] }
       ];
 
       // * KEYS
@@ -770,8 +793,12 @@
         courses: ['a', 'b', 'c', 'd', 'e'],
         schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
-        books: ['year', 'author', 'title', 'biblio', 'description', 'url'],
-        publications: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
+        pub_articles: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
+        pub_theses: ['year', 'author', 'title', 'biblio', 'description', 'url'],
+        pub_textbooks: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+        pub_posobia: ['year', 'author', 'title', 'biblio', 'description', 'url'],
+        pub_mono: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+        pub_other: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
         patents: ['year', 'title', 'text', 'tag'],
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
@@ -806,7 +833,9 @@
         education: 'Образование', upk: 'Повышение квалификации',
         career: 'Карьера', achievements: 'Профессиональные достижения',
         programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
-        books: 'Пособия', publications: 'Публикации', patents: 'Патенты', projects: 'Проекты',
+        patents: 'Патенты', projects: 'Проекты', pub_articles: 'Статьи', pub_theses: 'Тезисы',
+        pub_textbooks: 'Тексты', pub_posobia: 'Учебные пособия', pub_mono: 'Монографии',
+        pub_other: 'Другое',
         social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
         profiles: 'Профили (правый сайдбар)', news: 'Новости',
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
@@ -817,9 +846,10 @@
       // * MULTILINE
       const MULTILINE = {
         achievements: ['text'], patents: ['text'],
-        projects: ['text'], social: ['text'], news: ['title']
+        projects: ['text'], social: ['text'], news: ['title'],
+        pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description']
       };
-      const AREA_ROWS = { achievements: 4, publications: 3 };
+      const AREA_ROWS = { achievements: 4, pub_articles: 2, pub_theses: 2, pub_posobia: 2 };
 
       // * COL_NAMES
       const COL_NAMES = {
@@ -891,6 +921,7 @@
       }
 
       /* Миграции данных — общие для боевого и демо-режима */
+      /* Миграции данных — общие для боевого и демо-режима */
       function migrate(d) {
         (d.teachers || []).forEach(t => {
           /* Из старого post извлекаем должность для справочника (post не трогаем) */
@@ -898,12 +929,19 @@
             const m = String(t.post).match(/^(.+?)\s+(?:базовой\s+кафедры|базовой\s+кафедрой|кафедры|кафедрой)\b/i);
             if (m) t.position = m[1].trim();
           }
+          /* Легаси-нормализация полей внутри строк books/publications */
           ['books', 'publications'].forEach(k => {
             (t[k] || []).forEach(row => {
               if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
               if (row.link && !row.url) { row.url = row.link; delete row.link; }
             });
           });
+          /* Сборка единого раздела «Публикации»: целые массивы уходят в новые рубрики.
+          Стоит ПОСЛЕ нормализации полей, чтобы переехали уже исправленные строки */
+          t.pub_articles = (t.pub_articles || []).concat(t.publications || []);
+          delete t.publications;
+          if ((t.books || []).length) t.pub_posobia = (t.pub_posobia || []).concat(t.books);
+          delete t.books;
           (t.achievements || []).forEach(row => {
             if (row.icon === 'medal') row.icon = 'award-fill';
           });
@@ -1086,7 +1124,7 @@
         if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
           return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
         }
-        const withArrows = k.startsWith('mat_') || k === 'metrics';
+        const withArrows = k.startsWith('mat_') || k.startsWith('pub_') || k === 'metrics';
         return withArrows
           ? `<td class="td-act">
               <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>

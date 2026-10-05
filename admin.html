@@ -181,21 +181,20 @@
       min-width: 0;
     }
 
-    table.ed[data-sec="programs"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
     table.ed[data-sec="programs"] th:nth-child(1) {
-      width: 110px;
+      width: 100px;
     }
 
     table.ed[data-sec="programs"] th:nth-child(3) {
-      width: 170px;
+      width: 150px;
     }
 
     table.ed[data-sec="programs"] th:nth-child(4) {
-      width: 26%;
+      width: 20%;
+    }
+
+    table.ed[data-sec="programs"] th:nth-child(5) {
+      width: 16%;
     }
 
     table.ed[data-sec="programs"] th:last-child {
@@ -789,7 +788,7 @@
         upk: ['year', 'title', 'type', 'text'],
         career: ['year', 'title', 'text'],
         achievements: ['year', 'icon', 'title', 'text'],
-        programs: ['text', 'title', 'tag', 'comment'],
+        programs: ['text', 'title', 'tag', 'comment', 'url'],
         courses: ['a', 'b', 'c', 'd', 'e'],
         schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
@@ -875,7 +874,7 @@
         courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
         schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
         session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
-        programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий' },
+        programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий', url: 'Страница программы' },
         career: { title: 'Учреждение', text: 'Должность' },
         publications: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
         books: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },

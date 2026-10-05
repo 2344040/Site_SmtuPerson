@@ -299,22 +299,37 @@ const matSource = url => {
   return src ? src[1] : null;
 };
 
-/* Дерево рубрик: путь "A / B" превращаем в вложенность */
-const matTree = items => {
-  const root = { children: new Map(), items: [] };
-  items.forEach(it => {
-    const path = String(it.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
-    let node = root;
-    path.forEach(p => {
-      if (!node.children.has(p)) node.children.set(p, { children: new Map(), items: [] });
-      node = node.children.get(p);
-    });
-    node.items.push(it);
+/* Легаси: плоские строки с rub → дерево (пока данные не сохранены в новом формате) */
+const matFromFlat = arr => {
+  const root = [];
+  const findHead = (siblings, title) => {
+    let h = siblings.find(n => n.kind === 'head' && n.title === title);
+    if (!h) { h = { kind: 'head', title, children: [] }; siblings.push(h); }
+    return h;
+  };
+  arr.forEach(row => {
+    const path = String(row.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
+    let siblings = root;
+    path.forEach(p => { const h = findHead(siblings, p); siblings = h.children; });
+    const node = Object.assign({ kind: 'rec' }, row);
+    delete node.rub;
+    siblings.push(node);
   });
   return root;
 };
+/* Пустые узлы не выводим */
+const matPrune = nodes => nodes
+  .map(n => Object.assign({}, n, n.children ? { children: matPrune(n.children) } : {}))
+  .filter(n => n.kind === 'head'
+    ? (String(n.title || '').trim() || (n.children || []).length)
+    : Object.entries(n).some(([k, v]) => k !== 'kind' && k !== 'children' && String(v ?? '').trim()));
+const matNorm = arr => {
+  if (!Array.isArray(arr) || !arr.length) return [];
+  return matPrune(arr[0] && arr[0].kind ? arr : matFromFlat(arr));
+};
+const matCount = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCount(x.children || []), 0);
 
-const matItem = (item, sec) => {
+const matItem = (item, sec, isContainer) => {
   const t = matType(item.url);
   const icon = MAT_ICON[t] || sec.fb;
   const isBooks = sec.key === 'mat_books' || sec.key === 'books';
@@ -356,7 +371,7 @@ const matItem = (item, sec) => {
     actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
   }
 
-  return `<li class="mat-item">
+  return `<li class="mat-item${isContainer ? ' mat-container' : ''}">
     <div class="mat-info">${line1}${line2}</div>
     <div class="mat-actions">${actions.join('')}</div>
   </li>`;
@@ -372,15 +387,13 @@ const matHeadStyle = lvl => {
 };
 
 const renderMatNode = (node, depth, sec) => {
-  let html = '';
-  if (node.items.length) {
-    html += `<ul class="mat-list" style="margin-left:${depth * MAT_INDENT}px">${node.items.map(it => matItem(it, sec)).join('')}</ul>`;
+  const kids = node.children || [];
+  if (node.kind === 'head') {
+    return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
+      kids.map(c => renderMatNode(c, depth + 1, sec)).join('');
   }
-  node.children.forEach((child, name) => {
-    html += `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(name)}</div>`;
-    html += renderMatNode(child, depth + 1, sec);
-  });
-  return html;
+  const row = `<ul class="mat-list" style="margin-left:${depth * MAT_INDENT}px">${matItem(node, sec, kids.length > 0)}</ul>`;
+  return row + kids.map(c => renderMatNode(c, depth + 1, sec)).join('');
 };
 
 const MAT_SECTIONS = [
@@ -393,18 +406,21 @@ const MAT_SECTIONS = [
 const hasMat = () => MAT_SECTIONS.some(s => has(s.key));
 
 const materialsBlock = T => {
-  const secs = MAT_SECTIONS.filter(s => has(s.key));
-  if (!secs.length) return '';
-  return `<div class="materials-accordion reveal">
-    ${secs.map((s) => `
-      <details class="mat-group" name="materials">
-        <summary class="mat-summary">
-          <span class="mat-cat-title"><i class="bi ${s.icon} me-2"></i>${s.title}</span>
-          <span class="mat-count">${T[s.key].length}</span>
-        </summary>
-        <div class="mat-body">${renderMatNode(matTree(T[s.key]), 0, s)}</div>
-      </details>`).join('')}
-  </div>`;
+const secs = MAT_SECTIONS.filter(s => has(s.key));
+if (!secs.length) return '';
+return `<div class="materials-accordion reveal">
+${secs.map((s) => {
+const tree = matNorm(T[s.key]);
+return `
+<details class="mat-group" name="materials">
+<summary class="mat-summary">
+<span class="mat-cat-title"><i class="bi ${s.icon} me-2"></i>${s.title}</span>
+<span class="mat-count">${matCount(tree)}</span>
+</summary>
+<div class="mat-body">${tree.map(n => renderMatNode(n, 0, s)).join('')}</div>
+</details>`;
+}).join('')}
+</div>`;
 };
 
 /* ═══ Новости карусель ═══ */

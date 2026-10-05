@@ -8,7 +8,7 @@
    --line: #dcd7c9;
    --amber: #d97b29;
    --amber-soft: #f4e3cf;
-    --gold: #b08d24;
+   --gold: #b08d24;
    --teal: #2f6f63;
    --teal-light: #324C68;
    --muted: #6f7a72;
@@ -68,7 +68,7 @@
    --line: #3a4657;
    --amber: #8ab4dd;
    --amber-soft: #2c3a4d;
-    --gold: #d9b64e;
+   --gold: #d9b64e;
    --teal: #a9c9e8;
    --teal-light: #6d8db0;
    --muted: #93a1b3;
@@ -1152,29 +1152,31 @@
  }
 
  /* Карточка-ссылка (программы): наследует вид карточки, без подчёркивания */
-a.card-lift {
-display: block;
-color: inherit;
-text-decoration: none;
-}
+ a.card-lift {
+   display: block;
+   color: inherit;
+   text-decoration: none;
+ }
 
-a.card-lift:hover {
-color: inherit;
-}
-/* Подсказка о кликабельности внизу карточки программы */
-/* Иконка ссылки: сидит в строке кода программы, проявляется при наведении */
-a.card-lift .prog-link {
-font-size: 1rem;
-color: var(--teal);
-opacity: 0;
-margin-left: .4rem;
-flex-shrink: 0;
-transition: opacity .25s ease;
-}
-a.card-lift:hover .prog-link,
-a.card-lift:focus-visible .prog-link {
-opacity: 1;
-}
+ a.card-lift:hover {
+   color: inherit;
+ }
+
+ /* Подсказка о кликабельности внизу карточки программы */
+ /* Иконка ссылки: сидит в строке кода программы, проявляется при наведении */
+ a.card-lift .prog-link {
+   font-size: 1rem;
+   color: var(--teal);
+   opacity: 0;
+   margin-left: .4rem;
+   flex-shrink: 0;
+   transition: opacity .25s ease;
+ }
+
+ a.card-lift:hover .prog-link,
+ a.card-lift:focus-visible .prog-link {
+   opacity: 1;
+ }
 
  .card-lift .bar {
    height: 5px;
@@ -1995,6 +1997,17 @@ opacity: 1;
    width: 16px;
    height: 1px;
    background: var(--line);
+ }
+
+ /* Книга-контейнер: строка-шапка с главами внутри */
+ .mat-item.mat-container {
+   background: var(--paper-light);
+   border-left: 3px solid var(--amber);
+   border-radius: 6px;
+ }
+
+ .mat-item.mat-container .mat-title {
+   font-weight: 600;
  }
 
  /* Левая часть: описание */

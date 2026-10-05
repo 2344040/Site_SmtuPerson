@@ -554,6 +554,45 @@
       border-bottom: 1px solid #dcd7c9;
       box-shadow: 0 2px 8px rgba(18, 36, 31, .08);
     }
+
+    /* ── Учебные материалы: редактор-дерево ── */
+.mat-root {
+margin: 4px 0 6px;
+}
+.mat-node {
+border: 1px solid #dcd7c9;
+border-radius: 8px;
+background: #fff;
+margin: 6px 0;
+}
+.mat-node-head > .mat-node-bar {
+background: #f5f7f6;
+}
+.mat-node-bar {
+display: flex;
+align-items: center;
+gap: 4px;
+padding: 4px 6px;
+}
+.mat-node-bar .btn {
+padding: 0 .4rem;
+font-size: .72rem;
+}
+.mat-node-body {
+padding: 6px 8px 8px;
+border-top: 1px dashed #dcd7c9;
+}
+.mat-node.collapsed > .mat-node-body {
+display: none;
+}
+.mat-children {
+margin-left: 12px;
+padding-left: 10px;
+border-left: 2px solid #e8e2d4;
+}
+.mat-children:empty {
+display: none;
+}
   </style>
 </head>
 
@@ -776,7 +815,7 @@
         },
         { title: '9. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
         { title: '10. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
-        { title: '11. Учебные материалы', items: [['a', 'mat_posobia'], ['a', 'mat_books'], ['a', 'mat_lectures'], ['a', 'mat_video'], ['a', 'mat_resources']] },
+        { title: '11. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
         { title: '12. Новости', items: [['a', 'news']] }
       ];
 
@@ -806,11 +845,7 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
-        mat_posobia: ['author', 'title', 'biblio', 'description', 'rub', 'url'],
-        mat_books: ['author', 'title', 'biblio', 'url', 'url_buy', 'rub'],
-        mat_lectures: ['author', 'title', 'url', 'rub'],
-        mat_video: ['author', 'title', 'url', 'rub'],
-        mat_resources: ['title', 'url', 'rub'],
+
       };
 
       const ICONS = [
@@ -944,6 +979,8 @@
           (t.achievements || []).forEach(row => {
             if (row.icon === 'medal') row.icon = 'award-fill';
           });
+
+          MAT_SECS_LIST.forEach(sec => migrateMatTree(t, sec));
         });
       }
 
@@ -1143,6 +1180,166 @@
         build();
       }
 
+      // * MAT TREE — редактор учебных материалов (дерево разделов и записей)
+      const MAT_SECS_LIST = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video', 'mat_resources'];
+      const MAT_FIELDS = {
+        mat_posobia: ['author', 'title', 'biblio', 'description', 'url'],
+        mat_books: ['author', 'title', 'biblio', 'url', 'url_buy'],
+        mat_lectures: ['author', 'title', 'url'],
+        mat_video: ['author', 'title', 'url'],
+        mat_resources: ['title', 'url'],
+      };
+      /* Плоские строки с rub → дерево + схлопывание «книга, разбитая на главы» */
+      function migrateMatTree(t, sec) {
+        const arr = t[sec];
+        if (!Array.isArray(arr) || !arr.length || arr[0].kind) return;
+        const root = [];
+        const findHead = (siblings, title) => {
+          let h = siblings.find(n => n.kind === 'head' && n.title === title);
+          if (!h) { h = { kind: 'head', title, children: [] }; siblings.push(h); }
+          return h;
+        };
+        arr.forEach(row => {
+          const path = String(row.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
+          let siblings = root;
+          path.forEach(p => { const h = findHead(siblings, p); siblings = h.children; });
+          const node = { kind: 'rec' };
+          (MAT_FIELDS[sec] || []).forEach(c => { if (row[c] !== undefined) node[c] = row[c]; });
+          siblings.push(node);
+        });
+        const collapse = siblings => {
+          const out = [];
+          siblings.forEach(n => {
+            if (n.children) collapse(n.children);
+            if (n.kind === 'head' && (n.children || []).length &&
+              n.children.every(c => c.kind === 'head' && (c.children || []).length === 1 && c.children[0].kind === 'rec')) {
+              const recs = n.children.map(c => c.children[0]);
+              const sig = r => [r.author || '', r.title || '', r.biblio || ''].join('|');
+              if (recs.every(r => sig(r) === sig(recs[0]))) {
+                const container = Object.assign({}, recs[0]);
+                delete container.url; delete container.url_buy;
+                container.children = n.children.map(c => {
+                  const r = c.children[0];
+                  const child = { kind: 'rec', title: c.title };
+                  if (r.url) child.url = r.url;
+                  if (r.url_buy) child.url_buy = r.url_buy;
+                  return child;
+                });
+                out.push(container);
+                return;
+              }
+            }
+            out.push(n);
+          });
+          siblings.length = 0;
+          out.forEach(n => siblings.push(n));
+        };
+        collapse(root);
+        t[sec] = root;
+      }
+      const matArr = (t, sec, path) => {
+        if (!Array.isArray(t[sec])) t[sec] = [];
+        if (!path) return t[sec];
+        let arr = t[sec];
+        path.split('.').map(Number).forEach(i => {
+          const node = arr[i];
+          if (!node.children) node.children = [];
+          arr = node.children;
+        });
+        return arr;
+      };
+      function matToggle(btn) {
+        const card = btn.closest('.mat-node');
+        card.classList.toggle('collapsed');
+        btn.textContent = card.classList.contains('collapsed') ? '▸' : '▾';
+      }
+      function matAdd(sec, path, kind) {
+        collect();
+        const t = data.teachers[cur];
+        const node = { kind };
+        if (kind === 'rec') (MAT_FIELDS[sec] || []).forEach(c => node[c] = '');
+        node.children = [];
+        matArr(t, sec, path).push(node);
+        build();
+        const box = path
+          ? document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"] > .mat-node-body > .mat-children`)
+          : document.querySelector(`.mat-root[data-sec="${sec}"]`);
+        if (box && box.lastElementChild) box.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      function matMove(sec, path, dir) {
+        collect();
+        const t = data.teachers[cur];
+        const p = path.split('.').map(Number);
+        const i = p.pop();
+        const arr = matArr(t, sec, p.join('.'));
+        const j = i + dir;
+        if (j < 0 || j >= arr.length) return;
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        build();
+      }
+      function matRm(sec, path) {
+        if (!confirm('Удалить узел вместе со всем вложением?')) return;
+        collect();
+        const t = data.teachers[cur];
+        const p = path.split('.').map(Number);
+        const i = p.pop();
+        matArr(t, sec, p.join('.')).splice(i, 1);
+        build();
+      }
+      const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
+      const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      function matNodeCard(sec, node, path, depth) {
+        const isHead = node.kind === 'head';
+        const fields = MAT_FIELDS[sec] || [];
+        const inputs = isHead
+          ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
+          : `<div class="row g-2">${fields.map(c => {
+            const col = c === 'title' ? 'col-md-4' : c === 'description' ? 'col-12' : 'col-md-3';
+            const ctrl = c === 'description'
+              ? `<textarea rows="2" class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}">${escTa(node[c])}</textarea>`
+              : `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
+            return `<div class="${col}"><label class="small text-secondary">${colName(sec, c)}</label>${ctrl}</div>`;
+          }).join('')}</div>`;
+        const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
+        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}">
+<div class="mat-node-bar">
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">▾</button>
+<span class="me-1">${isHead ? '📁' : '📄'}</span>
+<span class="small text-secondary me-auto">${kindLabel}</span>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',-1)" title="Выше">↑</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',1)" title="Ниже">↓</button>
+<button type="button" class="btn btn-sm btn-outline-danger" onclick="matRm('${sec}','${path}')" title="Удалить">✕</button>
+<button type="button" class="btn btn-sm btn-outline-dark ms-2" onclick="matAdd('${sec}','${path}','head')" title="Заголовок внутри">+ ${depth === 0 ? 'раздел' : 'подраздел'}</button>
+<button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','${path}','rec')" title="Запись внутри">+ запись</button>
+</div>
+<div class="mat-node-body">
+${inputs}
+<div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1)).join('')}</div>
+</div>
+</div>`;
+      }
+      function renderMatEditor(t, sec) {
+        const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+        return `<div class="sec-title">${NAMES[sec]}</div>
+<div class="mat-root" data-sec="${sec}">${arr.map((n, i) => matNodeCard(sec, n, String(i), 0)).join('')}</div>
+<div class="d-flex gap-2 mt-1 mb-2">
+<button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','','head')">+ раздел</button>
+<button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','','rec')">+ запись</button>
+</div>`;
+      }
+      const collectMatNodes = box => {
+        const out = [];
+        box.querySelectorAll(':scope > .mat-node').forEach(card => {
+          const node = { kind: card.dataset.kind };
+          card.querySelectorAll(':scope > .mat-node-body > .row [data-k]').forEach(inp => { node[inp.dataset.k] = inp.value; });
+          const kids = card.querySelector(':scope > .mat-node-body > .mat-children');
+          const cn = kids ? collectMatNodes(kids) : [];
+          if (cn.length) node.children = cn;
+          out.push(node);
+        });
+        return out;
+      };
+
       // * build
       function build() {
         const t = data.teachers[cur];
@@ -1186,6 +1383,7 @@
               flush();
               if (type === 'H') inner += `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[key]}</div>`;
               else if (type === 'a') inner += renderArray(t, key, opt);
+              else if (type === 'm') inner += renderMatEditor(t, key);
               else if (type === 'h') inner += renderHtmlField(t, key);
               else if (type === 'x') inner += `<div class="mt-4 mb-1">
   <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
@@ -1234,6 +1432,11 @@
           const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
           if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
           else row[k] = i.type === 'checkbox' ? i.checked : i.value;
+        });
+
+        MAT_SECS_LIST.forEach(sec => {
+          const rootEl = document.querySelector(`.mat-root[data-sec="${sec}"]`);
+          if (rootEl) t[sec] = collectMatNodes(rootEl);
         });
       }
 

@@ -2732,7 +2732,13 @@
     }
    ],
    "mat_video": [],
-   "mat_resources": [],
+   "mat_resources": [
+    {
+     "title": "ЭЛЕМКОМ",
+     "url": "http://www.elemcom.ru/",
+     "rub": ""
+    }
+   ],
    "short": "Воршевский А.А.",
    "photo": "https://ds1.smtu.ru/files/isu_person/photo/2023/04/26/small/p100239.jpg?token_static=5881e52d972f8086d2ccf4994a8ccaef",
    "faculty": "Факультет корабельной энергетики и автоматики",

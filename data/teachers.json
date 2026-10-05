@@ -1584,274 +1584,358 @@
    ],
    "mat_posobia": [
     {
-     "author": "Волькенштейн В. С. ",
-     "title": "Сборник задач по общему курсу физики (10.33M - pdf) ",
-     "biblio": "Волькенштейн В. С. Сборник задач по общему курсу физики. Изд. 3-ье, испр. и доп. — СПб.: Книжный мир, 2006. — 328 с.",
-     "description": "",
-     "rub": "Задачники",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/11/05/24970.pdf?token_static=84eb7dc3620e30f87a0f1318545f8e11"
+     "kind": "head",
+     "title": "Задачники",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Волькенштейн В. С. ",
+       "title": "Сборник задач по общему курсу физики (10.33M - pdf) ",
+       "biblio": "Волькенштейн В. С. Сборник задач по общему курсу физики. Изд. 3-ье, испр. и доп. — СПб.: Книжный мир, 2006. — 328 с.",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/11/05/24970.pdf?token_static=84eb7dc3620e30f87a0f1318545f8e11"
+      },
+      {
+       "kind": "rec",
+       "author": "Трофимова Т.И. ",
+       "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования ",
+       "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/01/30/42836.pdf?token_static=a295e09e5c4acef162516249624996f2"
+      }
+     ]
     },
     {
-     "author": "Трофимова Т.И. ",
-     "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования ",
-     "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
-     "description": "",
-     "rub": "Задачники",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/01/30/42836.pdf?token_static=a295e09e5c4acef162516249624996f2"
+     "kind": "head",
+     "title": "Учебники. Справочники. Учебные материалы",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Трофимова Т.И. ",
+       "title": "Справочник по физике для студентов и абитуриентов (11.06M - pdf)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/14/23265.pdf?token_static=fb7ce35c4be9c54974c8c6211eaee2b2"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Система СИ (1.79M - pdf) ",
+       "biblio": "",
+       "description": "Учебный плакат по системе СИ",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/09/03/43640.pdf?token_static=9942e5656f41dec74dd77e52ed9f4d37"
+      },
+      {
+       "kind": "rec",
+       "author": "Дмитриева В.Ф. ",
+       "title": "Физика для профессий и специальностей технического профиля: учебник для образовательных учреждений начального и среднего профессионального образования ",
+       "biblio": "6 изд., стереотип. - М.: Издат.центр \"Академия\", 2013 - 448 с. (16.10M - pdf)",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/12/17/46266.pdf?token_static=83fd08b643a197c12a0693a22ff395ae"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Вектора в физике (381.26K - pdf)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/12/24/46286.pdf?token_static=4a04cc52dce01ff2f144bcb0bfc61e5a"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "ФОРМУЛЬНЫЙ СПРАВОЧНИК ДЛЯ АДАПТАЦИОННОГО КУРСА ФИЗИКИ (2.35M - Презентация) ",
+       "biblio": "",
+       "description": "Формульный справочник для адаптационного курса физики предназначен для студентов 1-го курса СПбГМТУ, изучающих факультативный курс по наращиванию знаний по физике (адаптационный курс физики). Этот курс посвящен устранению «пробелов» в программном материале курса физики школьного уровня. Адаптационный курс предназначен прежде всего студентам-первокурсникам, начинающим изучение курса общей физики в вузе, а также всем желающим вспомнить базовые знания по физике. Формульный справочник - эта база для освоения как адаптационного курса, так и следующей ступени - курса общей физики.",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/10/46407.pdf?token_static=c2d7043fde1dec682060f837ced09074"
+      },
+      {
+       "kind": "rec",
+       "author": "Трофимова Т.И. ",
+       "title": "Физика: учебник для студ. учреждений высш. проф. образования ",
+       "biblio": "Т.И.Трофимова. — 2-е изд., перераб. и доп. — М. : Издательский центр «Академия», 2013. — 352 с. — (Сер. Бакалавриат). (4.33M - pdf)",
+       "description": "Учебник создан в соответствии с Федеральным государственным образовательным стандартом по техническим направлениям подготовки (квалификация «бакалавр»).",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/14/46939.pdf?token_static=c62a25ac63db55c9848c7987631bc29a"
+      }
+     ]
     },
     {
-     "author": "Трофимова Т.И. ",
-     "title": "Справочник по физике для студентов и абитуриентов (11.06M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/14/23265.pdf?token_static=fb7ce35c4be9c54974c8c6211eaee2b2"
+     "kind": "head",
+     "title": "Учебные плакаты",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Мгновения (временная шкала) (4.08M - Картинка JPG)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/10/24/45753.jpg?token_static=e0f3b4f022a12090ffcc4645410189c8"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Возможности человека (1.54M - Картинка JPG)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46834.jpg?token_static=7cf5d0895c6ca87c8e554fd93c755b90"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Покорение воздуха (2.40M - Картинка JPG)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46835.jpg?token_static=e528efe7084f2715bcc4d68c548950fd"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Корабль в разрезе (544.22K - Картинка JPG)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46837.jpg?token_static=459afea1427a70e7e51b8bd6200694f7"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Электромагнитное излучение (1.55M - Картинка JPG)",
+       "biblio": "",
+       "description": "",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46838.jpg?token_static=9d0cac10f94995d8d9ca29fe7907e741"
+      }
+     ]
     },
     {
-     "author": "",
-     "title": "Система СИ (1.79M - pdf) ",
-     "biblio": "",
-     "description": "Учебный плакат по системе СИ",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/09/03/43640.pdf?token_static=9942e5656f41dec74dd77e52ed9f4d37"
+     "kind": "head",
+     "title": "2-ОЙ КУРС",
+     "children": [
+      {
+       "kind": "head",
+       "title": "(2250, 20220, 20280).",
+       "children": [
+        {
+         "kind": "head",
+         "title": "2024-2025 УЧЕБНЫЙ ГОД. ОСЕННИЙ СЕМЕСТР",
+         "children": [
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "30 основных законов физики (для подготовки к решению задач на экзамене). ВАЖНО! (5.70M - pdf)",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/01/12/46302.pdf?token_static=95a8e05106ad6949dc37c1aeaa0e9812"
+          },
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "30 основных законов физики (для подготовки к решению задач на экзамене). ВАЖНО! (5.70M - pdf)",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/01/12/46302.pdf?token_static=95a8e05106ad6949dc37c1aeaa0e9812"
+          }
+         ]
+        }
+       ]
+      }
+     ]
     },
     {
-     "author": "Дмитриева В.Ф. ",
-     "title": "Физика для профессий и специальностей технического профиля: учебник для образовательных учреждений начального и среднего профессионального образования ",
-     "biblio": "6 изд., стереотип. - М.: Издат.центр \"Академия\", 2013 - 448 с. (16.10M - pdf)",
-     "description": "",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/12/17/46266.pdf?token_static=83fd08b643a197c12a0693a22ff395ae"
+     "kind": "head",
+     "title": "2024",
+     "children": [
+      {
+       "kind": "head",
+       "title": "Адаптационный курс физики",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "КИНЕМАТИКА",
+         "biblio": "",
+         "description": "ПРЕЗЕНТАЦИЯ (7.95M - pdf)",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/05/45907.pdf?token_static=168954c644ee456fbdb5dc31f9f08874"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "ДИНАМИКА",
+         "biblio": "",
+         "description": "_ПРЕЗЕНТАЦИЯ (11.34M - pdf)",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/06/45940.pdf?token_static=8c49193db9dbe71cc23dba534db20869"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "ЗАКОНЫ СОХРАНЕНИЯ В МЕХАНИКЕ",
+         "biblio": "",
+         "description": "_ПРЕЗЕНТАЦИЯ (7.45M - pdf)",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/13/45988.pdf?token_static=5462d79fbfd3ed6d2f1af3253e321df2"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "СТАТИКА и ГИДРОСТАТИКА",
+         "biblio": "",
+         "description": "_ПРЕЗЕНТАЦИЯ (8.12M - pdf)",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/18/46022.pdf?token_static=62935601007f8078fb00d8d2fc02ed3d"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "МОЛЕКУЛЯРНО-КИНЕТИЧЕСКАЯ ТЕОРИЯ",
+         "biblio": "",
+         "description": "_ПРЕЗЕНТАЦИЯ (8.11M - pdf)",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/20/46047.pdf?token_static=0bd307049aa1033a32dd91ee7b6269e3"
+        }
+       ]
+      }
+     ]
     },
     {
-     "author": "",
-     "title": "Вектора в физике (381.26K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/12/24/46286.pdf?token_static=4a04cc52dce01ff2f144bcb0bfc61e5a"
-    },
-    {
-     "author": "",
-     "title": "ФОРМУЛЬНЫЙ СПРАВОЧНИК ДЛЯ АДАПТАЦИОННОГО КУРСА ФИЗИКИ (2.35M - Презентация) ",
-     "biblio": "",
-     "description": "Формульный справочник для адаптационного курса физики предназначен для студентов 1-го курса СПбГМТУ, изучающих факультативный курс по наращиванию знаний по физике (адаптационный курс физики). Этот курс посвящен устранению «пробелов» в программном материале курса физики школьного уровня. Адаптационный курс предназначен прежде всего студентам-первокурсникам, начинающим изучение курса общей физики в вузе, а также всем желающим вспомнить базовые знания по физике. Формульный справочник - эта база для освоения как адаптационного курса, так и следующей ступени - курса общей физики.",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/10/46407.pdf?token_static=c2d7043fde1dec682060f837ced09074"
-    },
-    {
-     "author": "Трофимова Т.И. ",
-     "title": "Физика: учебник для студ. учреждений высш. проф. образования ",
-     "biblio": "Т.И.Трофимова. — 2-е изд., перераб. и доп. — М. : Издательский центр «Академия», 2013. — 352 с. — (Сер. Бакалавриат). (4.33M - pdf)",
-     "description": "Учебник создан в соответствии с Федеральным государственным образовательным стандартом по техническим направлениям подготовки (квалификация «бакалавр»).",
-     "rub": "Учебники. Справочники. Учебные материалы",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/14/46939.pdf?token_static=c62a25ac63db55c9848c7987631bc29a"
-    },
-    {
-     "author": "",
-     "title": "Мгновения (временная шкала) (4.08M - Картинка JPG)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебные плакаты",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/10/24/45753.jpg?token_static=e0f3b4f022a12090ffcc4645410189c8"
-    },
-    {
-     "author": "",
-     "title": "Возможности человека (1.54M - Картинка JPG)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебные плакаты",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46834.jpg?token_static=7cf5d0895c6ca87c8e554fd93c755b90"
-    },
-    {
-     "author": "",
-     "title": "Покорение воздуха (2.40M - Картинка JPG)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебные плакаты",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46835.jpg?token_static=e528efe7084f2715bcc4d68c548950fd"
-    },
-    {
-     "author": "",
-     "title": "Корабль в разрезе (544.22K - Картинка JPG)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебные плакаты",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46837.jpg?token_static=459afea1427a70e7e51b8bd6200694f7"
-    },
-    {
-     "author": "",
-     "title": "Электромагнитное излучение (1.55M - Картинка JPG)",
-     "biblio": "",
-     "description": "",
-     "rub": "Учебные плакаты",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/02/46838.jpg?token_static=9d0cac10f94995d8d9ca29fe7907e741"
-    },
-    {
-     "author": "",
-     "title": "30 основных законов физики (для подготовки к решению задач на экзамене). ВАЖНО! (5.70M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2-ОЙ КУРС / (2250, 20220, 20280). / 2024-2025 УЧЕБНЫЙ ГОД. ОСЕННИЙ СЕМЕСТР",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/01/12/46302.pdf?token_static=95a8e05106ad6949dc37c1aeaa0e9812"
-    },
-    {
-     "author": "",
-     "title": "30 основных законов физики (для подготовки к решению задач на экзамене). ВАЖНО! (5.70M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2-ОЙ КУРС / (2250, 20220, 20280). / 2024-2025 УЧЕБНЫЙ ГОД. ОСЕННИЙ СЕМЕСТР",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/01/12/46302.pdf?token_static=95a8e05106ad6949dc37c1aeaa0e9812"
-    },
-    {
-     "author": "",
-     "title": "КИНЕМАТИКА",
-     "biblio": "",
-     "description": "ПРЕЗЕНТАЦИЯ (7.95M - pdf)",
-     "rub": "2024 / Адаптационный курс физики",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/05/45907.pdf?token_static=168954c644ee456fbdb5dc31f9f08874"
-    },
-    {
-     "author": "",
-     "title": "ДИНАМИКА",
-     "biblio": "",
-     "description": "_ПРЕЗЕНТАЦИЯ (11.34M - pdf)",
-     "rub": "2024 / Адаптационный курс физики",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/06/45940.pdf?token_static=8c49193db9dbe71cc23dba534db20869"
-    },
-    {
-     "author": "",
-     "title": "ЗАКОНЫ СОХРАНЕНИЯ В МЕХАНИКЕ",
-     "biblio": "",
-     "description": "_ПРЕЗЕНТАЦИЯ (7.45M - pdf)",
-     "rub": "2024 / Адаптационный курс физики",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/13/45988.pdf?token_static=5462d79fbfd3ed6d2f1af3253e321df2"
-    },
-    {
-     "author": "",
-     "title": "СТАТИКА и ГИДРОСТАТИКА",
-     "biblio": "",
-     "description": "_ПРЕЗЕНТАЦИЯ (8.12M - pdf)",
-     "rub": "2024 / Адаптационный курс физики",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/18/46022.pdf?token_static=62935601007f8078fb00d8d2fc02ed3d"
-    },
-    {
-     "author": "",
-     "title": "МОЛЕКУЛЯРНО-КИНЕТИЧЕСКАЯ ТЕОРИЯ",
-     "biblio": "",
-     "description": "_ПРЕЗЕНТАЦИЯ (8.11M - pdf)",
-     "rub": "2024 / Адаптационный курс физики",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2024/11/20/46047.pdf?token_static=0bd307049aa1033a32dd91ee7b6269e3"
-    },
-    {
-     "author": "",
-     "title": "Приложение П1_1.1_Действия с векторами (514.13K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2025 / КУРС ОБЩЕЙ ФИЗИКИ / Группы 2110, 2140, 2150, 20180",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/02/46333.pdf?token_static=ea53efbde681522831cb841685636f01"
-    },
-    {
-     "author": "",
-     "title": "Презентация 1.1. Вводная лекция. Основы кинематики (18.13M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2025 / КУРС ОБЩЕЙ ФИЗИКИ / Группы 2110, 2140, 2150, 20180 / ПРЕЗЕНТАЦИЯ",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/04/46351.pdf?token_static=7d39ae81edcd0d482f3a120968b279ee"
-    },
-    {
-     "author": "",
-     "title": "Презентация 1.2. Основы кинематики (10.06M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2025 / КУРС ОБЩЕЙ ФИЗИКИ / Группы 2110, 2140, 2150, 20180 / ПРЕЗЕНТАЦИЯ",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/17/46461.docx?token_static=aa6262ede1cebdeeba38c2c99e1f312f"
-    },
-    {
-     "author": "",
-     "title": "Презентация 1.3. Основы динамики поступательного движения (18.75M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2025 / КУРС ОБЩЕЙ ФИЗИКИ / Группы 2110, 2140, 2150, 20180 / ПРЕЗЕНТАЦИЯ",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/22/46518.pdf?token_static=52ecd78d4b4f0ce10c08c0790c6a6d2b"
-    },
-    {
-     "author": "",
-     "title": "Презентация 1.4. Работа и механическая энергия (9.57M - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "2025 / КУРС ОБЩЕЙ ФИЗИКИ / Группы 2110, 2140, 2150, 20180 / ПРЕЗЕНТАЦИЯ",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/23/46520.pdf?token_static=6440c3aa1cc065a56df3f867a4165bda"
+     "kind": "head",
+     "title": "2025",
+     "children": [
+      {
+       "kind": "head",
+       "title": "КУРС ОБЩЕЙ ФИЗИКИ",
+       "children": [
+        {
+         "kind": "head",
+         "title": "Группы 2110, 2140, 2150, 20180",
+         "children": [
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Приложение П1_1.1_Действия с векторами (514.13K - pdf)",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/02/46333.pdf?token_static=ea53efbde681522831cb841685636f01"
+          },
+          {
+           "kind": "head",
+           "title": "ПРЕЗЕНТАЦИЯ",
+           "children": [
+            {
+             "kind": "rec",
+             "author": "",
+             "title": "Презентация 1.1. Вводная лекция. Основы кинематики (18.13M - pdf)",
+             "biblio": "",
+             "description": "",
+             "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/04/46351.pdf?token_static=7d39ae81edcd0d482f3a120968b279ee"
+            },
+            {
+             "kind": "rec",
+             "author": "",
+             "title": "Презентация 1.2. Основы кинематики (10.06M - pdf)",
+             "biblio": "",
+             "description": "",
+             "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/17/46461.docx?token_static=aa6262ede1cebdeeba38c2c99e1f312f"
+            },
+            {
+             "kind": "rec",
+             "author": "",
+             "title": "Презентация 1.3. Основы динамики поступательного движения (18.75M - pdf)",
+             "biblio": "",
+             "description": "",
+             "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/22/46518.pdf?token_static=52ecd78d4b4f0ce10c08c0790c6a6d2b"
+            },
+            {
+             "kind": "rec",
+             "author": "",
+             "title": "Презентация 1.4. Работа и механическая энергия (9.57M - pdf)",
+             "biblio": "",
+             "description": "",
+             "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/02/23/46520.pdf?token_static=6440c3aa1cc065a56df3f867a4165bda"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
     }
    ],
    "mat_books": [
     {
+     "kind": "rec",
      "author": "Трофимова Т.И.",
      "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования",
      "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
      "url": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования / Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
-     "url_buy": "https://www.ozon.ru/product/rukovodstvo-k-resheniyu-zadach-po-fizike-185238992/?at=1gmn1V9SbpPoSHppMUJe1KUMmRsojeOY",
-     "rub": ""
+     "url_buy": "https://www.ozon.ru/product/rukovodstvo-k-resheniyu-zadach-po-fizike-185238992/?at=1gmn1V9SbpPoSHppMUJe1KUMmRsojeOY"
     },
     {
+     "kind": "rec",
      "author": "Трофимова Т.И.",
      "title": "Сборник задач по курсу физики с решениями",
      "biblio": "букинистика",
      "url": "",
-     "url_buy": "https://www.ozon.ru/product/sbornik-zadach-po-kursu-fiziki-s-resheniyami-trofimova-1999-god-izdaniya-4177497208/?at=1gmn1TLJA1eJLl8plTCz03NfANZjp6N7&sh=-x-AaettXg#section-description--offset-140--offset-80",
-     "rub": ""
+     "url_buy": "https://www.ozon.ru/product/sbornik-zadach-po-kursu-fiziki-s-resheniyami-trofimova-1999-god-izdaniya-4177497208/?at=1gmn1TLJA1eJLl8plTCz03NfANZjp6N7&sh=-x-AaettXg#section-description--offset-140--offset-80"
     }
    ],
    "mat_lectures": [
     {
-     "author": "",
-     "title": "Методические указания по выполнению самостоятельной работы студента No1 по обработке результатов физического эксперимента (729.89K - pdf)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46909.pdf?token_static=c767595a5783d753ffc337b8ccb4536f",
-     "rub": "Лабораторный практикум"
-    },
-    {
-     "author": "",
-     "title": "Методические указания по выполнению лабораторной работы No 2-30 «Исследование температурной зависимости сопротивления металлов» (777.90K - pdf)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46910.pdf?token_static=1458858f89c4530bd5601c6776e796ea",
-     "rub": "Лабораторный практикум"
-    },
-    {
-     "author": "",
-     "title": "Графическое оформление результатов физического эксперимента (основные правила построения графиков) (1.12M - pdf)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46911.pdf?token_static=ca6bb8a0337455e017b824889fb08f4e",
-     "rub": "Лабораторный практикум"
-    },
-    {
-     "author": "",
-     "title": "Правило округления результата физического эксперимента (699.15K - pdf)",
-     "url": "Правило округления результата физического эксперимента (699.15K - pdf)",
-     "rub": "Лабораторный практикум"
+     "kind": "head",
+     "title": "Лабораторный практикум",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Методические указания по выполнению самостоятельной работы студента No1 по обработке результатов физического эксперимента (729.89K - pdf)",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46909.pdf?token_static=c767595a5783d753ffc337b8ccb4536f"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Методические указания по выполнению лабораторной работы No 2-30 «Исследование температурной зависимости сопротивления металлов» (777.90K - pdf)",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46910.pdf?token_static=1458858f89c4530bd5601c6776e796ea"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Графическое оформление результатов физического эксперимента (основные правила построения графиков) (1.12M - pdf)",
+       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46911.pdf?token_static=ca6bb8a0337455e017b824889fb08f4e"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Правило округления результата физического эксперимента (699.15K - pdf)",
+       "url": "Правило округления результата физического эксперимента (699.15K - pdf)"
+      }
+     ]
     }
    ],
    "mat_video": [
     {
-     "author": "",
-     "title": "Что такое квантовая физика? Объяснение для начинающих.",
-     "url": "https://rutube.ru/video/cc7634d97e535809b7a7a50e17ae62fe/",
-     "rub": "Физика"
-    },
-    {
-     "author": "",
-     "title": "Урок 1 (осн). Физика  - наука о природеУрок 1 (осн). Физика  - наука о природе12+34:59 Урок 1 (осн). Физика - наука о природе",
-     "url": "https://rutube.ru/video/39cd9b308d37feebd85fac0b1b9f7d86/",
-     "rub": "Физика"
+     "kind": "head",
+     "title": "Физика",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Что такое квантовая физика? Объяснение для начинающих.",
+       "url": "https://rutube.ru/video/cc7634d97e535809b7a7a50e17ae62fe/"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Урок 1 (осн). Физика  - наука о природеУрок 1 (осн). Физика  - наука о природе12+34:59 Урок 1 (осн). Физика - наука о природе",
+       "url": "https://rutube.ru/video/39cd9b308d37feebd85fac0b1b9f7d86/"
+      }
+     ]
     }
    ],
    "mat_resources": [
     {
+     "kind": "rec",
      "title": "Физика: уроки, тесты, задания.",
-     "url": "https://www.yaklass.ru/p/fizika",
-     "rub": ""
+     "url": "https://www.yaklass.ru/p/fizika"
     },
     {
+     "kind": "rec",
      "title": "Физика-наука о природе. ",
-     "url": "https://foxford.ru/wiki/fizika/fizika-nauka-o-prirode?ysclid=mumqfww8og616598558",
-     "rub": ""
+     "url": "https://foxford.ru/wiki/fizika/fizika-nauka-o-prirode?ysclid=mumqfww8og616598558"
     }
    ],
    "short": "Колесников Ю.Л.",
@@ -2216,44 +2300,68 @@
    "profiles": [],
    "mat_posobia": [
     {
-     "author": "",
-     "title": "Теория автоматов КР 2020 (495.19K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4643.pdf?token_static=26ef8c3b4f0fa2e3267d763a1e8eb76a"
-    },
-    {
-     "author": "",
-     "title": "Анализ конечных автоматов (296.09K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4645.pdf?token_static=c7b55ae775d3629e8921c43a1188abb4"
-    },
-    {
-     "author": "",
-     "title": "Синтез конечного автомата (401.46K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Теория автоматов /Теория автоматов (3270, 3272)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/12/8484.pdf?token_static=3b0365a540bf7cec5e3ff1170f6fcae0"
-    },
-    {
-     "author": "",
-     "title": "Синтез конечного автомата (401.46K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Теория автоматов /Теория автоматов (3290)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/10/8153.pdf?token_static=39954deb555611599ef088c4fd55552e"
-    },
-    {
-     "author": "",
-     "title": "Понятие структурного автомата (228.08K - pdf)",
-     "biblio": "",
-     "description": "",
-     "rub": "Теория автоматов /Теория автоматов (дополнительные главы)",
-     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/27/24396.pdf?token_static=ae1675247b600d427bbf2b43f716f14b"
+     "kind": "head",
+     "title": "Теория автоматов",
+     "children": [
+      {
+       "kind": "head",
+       "title": "Теория автоматов (3270, 3272)",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Теория автоматов КР 2020 (495.19K - pdf)",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4643.pdf?token_static=26ef8c3b4f0fa2e3267d763a1e8eb76a"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Анализ конечных автоматов (296.09K - pdf)",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/02/4645.pdf?token_static=c7b55ae775d3629e8921c43a1188abb4"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Синтез конечного автомата (401.46K - pdf)",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/12/8484.pdf?token_static=3b0365a540bf7cec5e3ff1170f6fcae0"
+        }
+       ]
+      },
+      {
+       "kind": "head",
+       "title": "Теория автоматов (3290)",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Синтез конечного автомата (401.46K - pdf)",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/10/8153.pdf?token_static=39954deb555611599ef088c4fd55552e"
+        }
+       ]
+      },
+      {
+       "kind": "head",
+       "title": "Теория автоматов (дополнительные главы)",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Понятие структурного автомата (228.08K - pdf)",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/10/27/24396.pdf?token_static=ae1675247b600d427bbf2b43f716f14b"
+        }
+       ]
+      }
+     ]
     }
    ],
    "mat_books": [],
@@ -2589,154 +2697,202 @@
    "profiles": [],
    "mat_posobia": [
     {
+     "kind": "rec",
      "author": "",
      "title": "ВОПРОСЫ ДЛЯ ПОДГОТОВКИ К ЭКЗАМЕНУ ПО ЭМС",
      "biblio": "",
      "description": "",
-     "rub": "",
      "url": "http://www.elemcom.ru/Books/EMCBIL2.DOC"
     },
     {
+     "kind": "rec",
      "author": "",
      "title": "ВОПРОСЫ ДЛЯ ПРОВЕРКИ ЗНАНИЙ ПО ЭМС",
      "biblio": "",
      "description": "",
-     "rub": "",
      "url": "http://www.elemcom.ru/Books/EMC_Test.doc"
     },
     {
+     "kind": "rec",
      "author": "",
      "title": "ПОВЫШЕНИЕ КВАЛИФИКАЦИИ ПО ЭМС",
      "biblio": "",
      "description": "Курсы для широкого круга инженерно-технических работников и специалистов, деятельность которых связана с проблемами электромагнитной совместимости.",
-     "rub": "",
      "url": "http://www.elemcom.ru/Books/seminar05.doc"
     },
     {
-     "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
-     "title": "1. Возникновение и распространение импульсных помех в судовых электроэнергетических системах",
-     "biblio": " 1987 год, 90 с. (3,36 MB)",
-     "description": "Электронные копии пособий",
-     "rub": "УЧЕБНЫЕ ПОСОБИЯ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/book1.zip"
+     "kind": "head",
+     "title": "УЧЕБНЫЕ ПОСОБИЯ СПб ГМТУ",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
+       "title": "1. Возникновение и распространение импульсных помех в судовых электроэнергетических системах",
+       "biblio": " 1987 год, 90 с. (3,36 MB)",
+       "description": "Электронные копии пособий",
+       "url": "http://www.elemcom.ru/Books/book1.zip"
+      },
+      {
+       "kind": "rec",
+       "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
+       "title": "2. Обеспечение электромагнитной совместимости в судовых электроэнергетических системах",
+       "biblio": "1988 год, 64 с. (1,27 MB)",
+       "description": "Электронные копии пособий",
+       "url": "http://www.elemcom.ru/Books/book2.zip"
+      },
+      {
+       "kind": "rec",
+       "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
+       "title": "3. Измерения и испытания в области электромагнитной совместимости",
+       "biblio": " 1989 год, 65 с. (954 kВ)",
+       "description": "Электронные копии пособий",
+       "url": "http://www.elemcom.ru/Books/book3.zip"
+      }
+     ]
     },
     {
-     "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
-     "title": "2. Обеспечение электромагнитной совместимости в судовых электроэнергетических системах",
-     "biblio": "1988 год, 64 с. (1,27 MB)",
-     "description": "Электронные копии пособий",
-     "rub": "УЧЕБНЫЕ ПОСОБИЯ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/book2.zip"
-    },
-    {
-     "author": "Вилесов Д.В., Воршевский А.А, Гальперин В.Е., Сухоруков С.А.",
-     "title": "3. Измерения и испытания в области электромагнитной совместимости",
-     "biblio": " 1989 год, 65 с. (954 kВ)",
-     "description": "Электронные копии пособий",
-     "rub": "УЧЕБНЫЕ ПОСОБИЯ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/book3.zip"
-    },
-    {
-     "author": "Воршевский А.А, Саввин В.И.",
-     "title": "Электромагнитная совместимость в судовых электроэнергетических системах",
-     "biblio": "2013 год, 68 с. (1 MВ)",
-     "description": "",
-     "rub": "МЕТОДИЧЕСКИЕ УКАЗАНИЯ К ЛАБОРАТОРНЫМ РАБОТАМ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/Labmetod.zip"
-    },
-    {
-     "author": "",
-     "title": "Лабораторная работа 1 ",
-     "biblio": "",
-     "description": "Осциллограммы",
-     "rub": "МЕТОДИЧЕСКИЕ УКАЗАНИЯ К ЛАБОРАТОРНЫМ РАБОТАМ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/Lab_1.doc"
-    },
-    {
-     "author": "",
-     "title": "Лабораторная работа 2",
-     "biblio": "",
-     "description": "Осциллограммы",
-     "rub": "МЕТОДИЧЕСКИЕ УКАЗАНИЯ К ЛАБОРАТОРНЫМ РАБОТАМ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/Lab_2.doc"
-    },
-    {
-     "author": "",
-     "title": "Лабораторная работа 3",
-     "biblio": "",
-     "description": "Осциллограммы",
-     "rub": "МЕТОДИЧЕСКИЕ УКАЗАНИЯ К ЛАБОРАТОРНЫМ РАБОТАМ СПб ГМТУ",
-     "url": "http://www.elemcom.ru/Books/Lab_4.doc"
+     "kind": "head",
+     "title": "МЕТОДИЧЕСКИЕ УКАЗАНИЯ К ЛАБОРАТОРНЫМ РАБОТАМ СПб ГМТУ",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Воршевский А.А, Саввин В.И.",
+       "title": "Электромагнитная совместимость в судовых электроэнергетических системах",
+       "biblio": "2013 год, 68 с. (1 MВ)",
+       "description": "",
+       "url": "http://www.elemcom.ru/Books/Labmetod.zip"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Лабораторная работа 1 ",
+       "biblio": "",
+       "description": "Осциллограммы",
+       "url": "http://www.elemcom.ru/Books/Lab_1.doc"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Лабораторная работа 2",
+       "biblio": "",
+       "description": "Осциллограммы",
+       "url": "http://www.elemcom.ru/Books/Lab_2.doc"
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Лабораторная работа 3",
+       "biblio": "",
+       "description": "Осциллограммы",
+       "url": "http://www.elemcom.ru/Books/Lab_4.doc"
+      }
+     ]
     }
    ],
    "mat_books": [
     {
-     "author": "Воршевский А.А., Гальперин В.Е.",
-     "title": "Электромагнитная совместимость судовых технических средств",
-     "biblio": "Учебник, СПбГМТУ.-СПб., 2010.",
-     "url": "http://www.elemcom.ru/Books/1.doc",
-     "url_buy": "",
-     "rub": "Электромагнитная совместимость судовых технических средств/Глава 1. Проблема электромагнитной совместимости судового электротехнического и электронного оборудования"
-    },
-    {
-     "author": "Воршевский А.А., Гальперин В.Е.",
-     "title": "Электромагнитная совместимость судовых технических средств",
-     "biblio": "Учебник, СПбГМТУ.-СПб., 2010.",
-     "url": "http://www.elemcom.ru/Books/2.doc",
-     "url_buy": "",
-     "rub": "Электромагнитная совместимость судовых технических средств/Глава 2. Возникновение помех в судовых электроэнергетических системах"
-    },
-    {
-     "author": "Воршевский А.А., Гальперин В.Е.",
-     "title": "Электромагнитная совместимость судовых технических средств",
-     "biblio": "Учебник, СПбГМТУ.-СПб., 2010.",
-     "url": "http://www.elemcom.ru/Books/3.doc",
-     "url_buy": "",
-     "rub": "Электромагнитная совместимость судовых технических средств/Глава 3. Распространение помех в судовой электроэнергетической системе"
-    },
-    {
-     "author": "Воршевский А.А., Гальперин В.Е.",
-     "title": "Электромагнитная совместимость судовых технических средств",
-     "biblio": "Учебник, СПбГМТУ.-СПб., 2010.",
-     "url": "http://www.elemcom.ru/Books/4.doc",
-     "url_buy": "",
-     "rub": "Электромагнитная совместимость судовых технических средств/Глава 4. Влияние помех на судовое электронное и электротехническое оборудование"
-    },
-    {
-     "author": "",
-     "title": "",
-     "biblio": "",
-     "url": "",
-     "url_buy": "",
-     "rub": "Электромагнитная совместимость судовых технических средств/Глава 4. Влияние помех на судовое электронное и электротехническое оборудование"
+     "kind": "head",
+     "title": "Воршевский А.А., Гальперин В.Е. Электромагнитная совместимость судовых технических средств. Учебник, СПбГМТУ.-СПб., 2010.",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 1. Проблема электромагнитной совместимости судового электротехнического и электронного оборудования ",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/1.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 2. Возникновение помех в судовых электроэнергетических системах",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/2.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 3. Распространение помех в судовой электроэнергетической системе",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/3.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 4. Влияние помех на судовое электронное и электротехническое оборудование",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/4.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 5. Снижение уровней помех в электроэнергетической системе",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/5.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 6. Защита оборудования от помех и повышение помехоустойчивости",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/6.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 7. Сертификация и стандартизация в области электромагнитной совместимости электронного и электротехнического оборудования",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/7.doc",
+       "url_buy": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Глава 8. Испытание технических средств на устойчивость",
+       "biblio": "",
+       "url": "http://www.elemcom.ru/Books/8.doc",
+       "url_buy": ""
+      }
+     ]
     }
    ],
    "mat_lectures": [
     {
-     "author": "Elya Joffe (Израиль)",
-     "title": "Принцип минимизации индуктивности заземления и его применение",
-     "url": "http://www.elemcom.ru/Books/JoffeGround.zip",
-     "rub": "CЛАЙДЫ К ЛЕКЦИЯМ ПРИЗНАННЫХ ЛЕКТОРОВ ЭМС ОБЩЕСТВА IEEE"
-    },
-    {
-     "author": "Michel Ianoz (Швейцария)",
-     "title": "ЭМС проблемы при переходных процессах на силовых подстанциях",
-     "url": "http://www.elemcom.ru/Books/IanozEMC.zip",
-     "rub": "CЛАЙДЫ К ЛЕКЦИЯМ ПРИЗНАННЫХ ЛЕКТОРОВ ЭМС ОБЩЕСТВА IEEE"
-    },
-    {
-     "author": "Michel Ianoz (Швейцария)",
-     "title": "Концепции помехозащиты линий, кабелей и цепей",
-     "url": "http://www.elemcom.ru/Books/IanozProt.zip",
-     "rub": "CЛАЙДЫ К ЛЕКЦИЯМ ПРИЗНАННЫХ ЛЕКТОРОВ ЭМС ОБЩЕСТВА IEEE"
+     "kind": "head",
+     "title": "CЛАЙДЫ К ЛЕКЦИЯМ ПРИЗНАННЫХ ЛЕКТОРОВ ЭМС ОБЩЕСТВА IEEE",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Elya Joffe (Израиль)",
+       "title": "Принцип минимизации индуктивности заземления и его применение",
+       "url": "http://www.elemcom.ru/Books/JoffeGround.zip"
+      },
+      {
+       "kind": "rec",
+       "author": "Michel Ianoz (Швейцария)",
+       "title": "ЭМС проблемы при переходных процессах на силовых подстанциях",
+       "url": "http://www.elemcom.ru/Books/IanozEMC.zip"
+      },
+      {
+       "kind": "rec",
+       "author": "Michel Ianoz (Швейцария)",
+       "title": "Концепции помехозащиты линий, кабелей и цепей",
+       "url": "http://www.elemcom.ru/Books/IanozProt.zip"
+      }
+     ]
     }
    ],
    "mat_video": [],
    "mat_resources": [
     {
+     "kind": "rec",
      "title": "ЭЛЕМКОМ",
-     "url": "http://www.elemcom.ru/",
-     "rub": ""
+     "url": "http://www.elemcom.ru/"
     }
    ],
    "short": "Воршевский А.А.",

@@ -215,10 +215,10 @@ const pubRow = (i, r, hidden) => {
 ${desc}
 </div>${actions.join('')}</div>`;
 };
-/* Рубрика: строки + «Показать ещё» при более чем 10 записях (п.11) */
+/* * Рубрика: строки + «Показать ещё» при более чем 5 записях (п.11) */
 const pubRubric = (arr, r) =>
   `<div id="publist-${r.key}">${arr.map((i, idx) => pubRow(i, r, idx >= 10)).join('')}</div>` +
-  (arr.length > 10 ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary btn-lg reveal-btn">Показать ещё</button></div>` : '');
+  (arr.length > 5 ? `<div class="text-center mt-3 mb-4"><button class="btn btn-outline-secondary  reveal-btn">Показать ещё</button></div>` : '');
 
 /* ═══ Учебные материалы: автоопределение и дерево рубрик ═══ */
 const isExternal = url => /^https?:\/\//i.test(url);
@@ -712,16 +712,16 @@ function initToggles() {
 
 /* ═══ Раскрытие карточек «Показать ещё» ═══ */
 function initCardReveal() {
-document.querySelectorAll('#upk-list, #ach-list, [id^="publist-"]').forEach(row => {
-const btn = row.parentElement ? row.parentElement.querySelector('.reveal-btn') : null;
-if (!btn) return;
-let isOpen = false;
-btn.addEventListener('click', () => {
-isOpen = !isOpen;
-row.querySelectorAll('.reveal-hidden').forEach(c => c.classList.toggle('d-none', !isOpen));
-btn.textContent = isOpen ? 'Свернуть' : 'Показать ещё';
-});
-});
+  document.querySelectorAll('#upk-list, #ach-list, [id^="publist-"]').forEach(row => {
+    const btn = row.parentElement ? row.parentElement.querySelector('.reveal-btn') : null;
+    if (!btn) return;
+    let isOpen = false;
+    btn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      row.querySelectorAll('.reveal-hidden').forEach(c => c.classList.toggle('d-none', !isOpen));
+      btn.textContent = isOpen ? 'Свернуть' : 'Показать ещё';
+    });
+  });
 }
 
 

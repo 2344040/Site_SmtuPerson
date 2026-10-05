@@ -113,7 +113,7 @@ ${open}<div class="bar"></div><div class="p-3 d-flex flex-column">
 <h3 class="fs-6 fw-bold mt-2">${esc(i.title)}</h3>
 <small class="text-secondary">${esc(i.text)}</small>
 ${i.comment ? `<small class="text-secondary fst-italic mt-1 d-block">${esc(i.comment)}</small>` : ''}
-${href ? `<span class="prog-link mt-2"><i class="bi bi-box-arrow-up-right me-1"></i>Страница образовательной программы</span>` : ''}
+${href ? '<i class="bi bi-box-arrow-up-right prog-link" aria-hidden="true"></i>' : ''}
 </div>${close}</div>`;
 }).join('')}</div>`;
 

@@ -1153,18 +1153,32 @@
 
  /* Карточка-ссылка (программы): наследует вид карточки, без подчёркивания */
 a.card-lift {
+position: relative;
 display: block;
 color: inherit;
 text-decoration: none;
 }
+
 a.card-lift:hover {
 color: inherit;
 }
 /* Подсказка о кликабельности внизу карточки программы */
-.prog-link {
+/* Иконка ссылки: невидима, проявляется при наведении на карточку */
+a.card-lift .prog-link {
+position: absolute;
+top: .7rem;
+right: .8rem;
+font-size: 1rem;
 color: var(--teal);
-font-size: .8rem;
-font-weight: 500;
+opacity: 0;
+transform: translateY(3px);
+transition: opacity .25s ease, transform .25s ease;
+pointer-events: none;
+}
+a.card-lift:hover .prog-link,
+a.card-lift:focus-visible .prog-link {
+opacity: 1;
+transform: none;
 }
 
  .card-lift .bar {

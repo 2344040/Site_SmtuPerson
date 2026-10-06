@@ -281,13 +281,17 @@ const metricLabel = (n, l) =>
 
 const MAT_ICON = {
   pdf: 'bi-file-earmark-pdf-fill', doc: 'bi-file-earmark-word-fill',
+  excel: 'bi-file-earmark-excel-fill',
   ppt: 'bi-file-earmark-slides-fill', zip: 'bi-file-earmark-zip-fill',
   audio: 'bi-mic-fill', video: 'bi-camera-video-fill',
   'video-youtube': 'bi-youtube', image: 'bi-image-fill',
   shop: 'bi-cart-fill', book: 'bi-book-fill',
   file: 'bi-file-earmark-fill', link: 'bi-link-45deg',
 };
-const MAT_LABEL = { pdf: 'PDF', doc: 'DOC', ppt: 'PPT', zip: 'архив', audio: 'аудио', video: 'видео', image: 'изображение' };
+const MAT_LABEL = { pdf: 'PDF', doc: 'DOC', excel: 'XLS', ppt: 'PPT', zip: 'архив', audio: 'аудио', video: 'видео', image: 'изображение', 'video-youtube': 'YouTube', shop: 'магазин' };
+/* Типы, которые браузер реально скачивает: им кнопка скачивания, остальным — переход */
+const DL_TYPES = new Set(['pdf', 'doc', 'excel', 'ppt', 'zip', 'audio']);
+
 const MAT_SRC = [
   [/youtube\.com|youtu\.be/, 'YouTube', 'video-youtube'],
   [/rutube\.ru/, 'Rutube', 'video'],
@@ -362,7 +366,6 @@ const matCount = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) 
 const matItem = (item, sec, isContainer, isSub) => {
   const t = matType(item.url);
   const icon = MAT_ICON[t] || sec.fb;
-  const isBooks = sec.key === 'mat_books' || sec.key === 'books';
   const isResources = sec.key === 'mat_resources';
 
   /* Автор — курсивом, первым */
@@ -391,16 +394,19 @@ const matItem = (item, sec, isContainer, isSub) => {
     </div>`;
   }
 
-  /* Правая часть: иконка формата (янтарная) + кнопки действий */
-  const actions = [`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`];
-  if (isBooks) {
-    if (item.url) actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
-    if (item.url_buy) actions.push(`<a href="${esc(matHref(item.url_buy))}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
-  } else if (item.url) {
-    actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
+  /* Правая часть: иконка формата (янтарная) + кнопка по типу ссылки:
+  файл (pdf/doc/xls/…) → скачать, страница/стрим/магазин → перейти */
+  const actions = [`<i class="mat-icon bi ${icon}" title="${MAT_LABEL[t] || t || 'файл'}"></i>`];
+  if (item.url) {
+    const dl = DL_TYPES.has(t);
+    actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="${dl ? 'Скачать' : 'Открыть'}"><i class="bi ${dl ? 'bi-download' : 'bi-box-arrow-up-right'}"></i></a>`);
   }
+  if (item.url_buy) actions.push(`<a href="${esc(matHref(item.url_buy))}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
+} else if (item.url) {
+  actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
+}
 
-  return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">
+return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">
     <div class="mat-info">${line1}${line2}</div>
     <div class="mat-actions">${actions.join('')}</div>
   </li>`;

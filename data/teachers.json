@@ -3441,7 +3441,29 @@
     }
    ],
    "achievements": [],
-   "programs": [],
+   "programs": [
+    {
+     "text": "",
+     "title": "Математический аппарат физики ядерных реакторов",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/1364/"
+    },
+    {
+     "text": "",
+     "title": "Основы теплотехнических расчетов",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/647/"
+    },
+    {
+     "text": "",
+     "title": "Проектирование ядерных реакторов",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/579/"
+    }
+   ],
    "courses": [
     {
      "a": "Газодинамические процессы в энергоустановках объектов морской техники",

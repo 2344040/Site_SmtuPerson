@@ -214,19 +214,31 @@
     }
 
     table.ed[data-sec="events"] th:nth-child(1) {
+      width: 56px;
+    }
+
+    table.ed[data-sec="events"] th:nth-child(2) {
       width: 90px;
     }
 
-    table.ed[data-sec="events"] th:nth-child(3) {
+    table.ed[data-sec="events"] th:nth-child(4) {
       width: 110px;
     }
 
-    table.ed[data-sec="events"] th:nth-child(4) {
-      width: 60px;
+    table.ed[data-sec="events"] th:nth-child(5) {
+      width: 64px;
     }
 
-    table.ed[data-sec="events"] th:nth-child(5) {
-      width: 60px;
+    table.ed[data-sec="events"] th:nth-child(6) {
+      width: 84px;
+    }
+
+    table.ed[data-sec="events"] th:nth-child(7) {
+      width: 64px;
+    }
+
+    table.ed[data-sec="events"] th:last-child {
+      width: 44px;
     }
 
     table.ed[data-sec="events"] th:last-child {
@@ -959,7 +971,7 @@
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
         metrics: ['n', 'l'],
-        events: ['time', 'subject', 'type', 'building', 'room', 'now'],
+        events: ['day', 'time', 'subject', 'type', 'building', 'room', 'now'],
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
@@ -1005,7 +1017,7 @@
 
       // * COL_NAMES
       const COL_NAMES = {
-        '*': 'Значение', year: 'Год', date: 'Дата', title: 'Название', text: 'Описание',
+        '*': 'Значение', year: 'Год', date: 'Дата', day: 'День', title: 'Название', text: 'Описание',
         tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
         n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки',
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
@@ -1247,8 +1259,8 @@
       ${METRIC_LABELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
     </select></td>`;
           }
-          if (k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) {
-            const opts = c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES;
+          if ((k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) || (k === 'events' && c === 'day')) {
+            const opts = k === 'events' ? DAYS : (c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES);
             const inList = opts.includes(val);
             return `<td>
     <select data-sec="${k}" data-i="${i}" data-k="${c}">

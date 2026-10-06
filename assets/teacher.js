@@ -665,7 +665,7 @@ function renderRail() {
   <div class="box event-box" ${e.now ? 'style="background-color:var(--paper-light)"' : ''}>
     <div class="event-line-1">
       ${e.now ? '<span class="status-dot me-1"></span><b>Сейчас</b>' : ''}
-      <span class="event-time">${esc(e.time)}</span>
+      <span class="event-time">${esc([e.day, e.time].filter(Boolean).join(', '))}</span>
     </div>
     <div class="event-line-2" title="${esc(e.subject)}">${esc(e.subject)}</div>
     <div class="event-line-3">

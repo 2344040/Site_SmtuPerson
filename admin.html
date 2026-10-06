@@ -1496,7 +1496,7 @@
             const urlCtrl = c => {
               const plain = inp(c);
               return (c === 'url' && sec !== 'mat_video' && !DEMO)
-                ? `<div class="d-flex gap-1">${plain}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> загрузить</button></div>`
+                ? `<div class="d-flex gap-1">${plain}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button></div>`
                 : plain;
             };
             const hasDesc = has('description'), hasBuy = has('url_buy');

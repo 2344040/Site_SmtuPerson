@@ -366,6 +366,7 @@ const matCount = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) 
 
 const matItem = (item, sec, isContainer, isSub) => {
   const t = matType(item.url);
+  const fmt = t || (item.url ? 'link' : '');
   const icon = t ? MAT_ICON[t] : (item.url ? 'bi-link-45deg' : sec.fb);
   const isResources = sec.key === 'mat_resources';
 
@@ -398,7 +399,7 @@ const matItem = (item, sec, isContainer, isSub) => {
   /* Правая часть: иконка формата (янтарная) + кнопка по типу ссылки:
   файл (pdf/doc/xls/…) → скачать, страница/стрим/магазин → перейти */
   const tip = MAT_LABEL[t] || (t ? t : (item.url ? 'ссылка' : 'файл'));
-  const actions = [`<i class="mat-icon bi ${icon}" title="${tip}"></i>`];
+  const actions = [`<i class="mat-icon bi ${icon}${fmt ? ' fmt-' + fmt : ''}" title="${tip}"></i>`];
   if (item.url) {
     const dl = DL_TYPES.has(t);
     actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="${dl ? 'Скачать' : 'Открыть'}"><i class="bi ${dl ? 'bi-download' : 'bi-box-arrow-up-right'}"></i></a>`);

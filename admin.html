@@ -1802,12 +1802,17 @@ ${inputs}
             collect();
             const t = data.teachers[cur];
             const p = path.split('.').map(Number);
+            const i = p.pop();
             let arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-            p.forEach(i => { const n = arr[i]; if (!n.children) n.children = []; arr = n.children; });
-            /* «arr» теперь = массив братьев; последний индекс в path — наш узел */
-            const i = p[p.length - 1];
+            p.forEach(j => {
+              const n = arr[j];
+              if (!n.children) n.children = [];
+              arr = n.children;
+            });
             if (arr[i]) arr[i][field] = url;
             build();
+            const card = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }, btn);
         };
         inp.click();

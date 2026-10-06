@@ -306,11 +306,12 @@ const matType = url => {
   const u = String(url || '').toLowerCase();
   const src = MAT_SRC.find(([re]) => re.test(u));
   if (src) return src[2];
-  const ext = (u.match(/\.(pdf|docx?|pptx?|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
+  const ext = (u.match(/\.(pdf|docx?|pptx?|xlsx?|xlsm|csv|ods|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
   if (!ext) return null;
   if (ext === 'pdf') return 'pdf';
   if (ext.startsWith('doc')) return 'doc';
   if (ext.startsWith('ppt')) return 'ppt';
+  if (/^(xlsx?|xlsm|csv|ods)$/.test(ext)) return 'excel';
   if (/^(zip|rar|7z)$/.test(ext)) return 'zip';
   if (/^(mp3|wav|m4a)$/.test(ext)) return 'audio';
   if (/^(mp4|avi|mov|mkv|webm)$/.test(ext)) return 'video';
@@ -402,11 +403,8 @@ const matItem = (item, sec, isContainer, isSub) => {
     actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="${dl ? 'Скачать' : 'Открыть'}"><i class="bi ${dl ? 'bi-download' : 'bi-box-arrow-up-right'}"></i></a>`);
   }
   if (item.url_buy) actions.push(`<a href="${esc(matHref(item.url_buy))}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
-} else if (item.url) {
-  actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
-}
 
-return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">
+  return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">
     <div class="mat-info">${line1}${line2}</div>
     <div class="mat-actions">${actions.join('')}</div>
   </li>`;

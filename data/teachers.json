@@ -2873,6 +2873,22 @@
      "kind": "rec",
      "title": "ЭЛЕМКОМ",
      "url": "http://www.elemcom.ru/"
+    },
+    {
+     "kind": "head",
+     "title": "IEEE",
+     "children": [
+      {
+       "kind": "rec",
+       "title": "IEEE Home page",
+       "url": "http://www.ieee.org/"
+      },
+      {
+       "kind": "rec",
+       "title": "EMC Society",
+       "url": "http://www.emcs.org/"
+      }
+     ]
     }
    ],
    "short": "Воршевский А.А.",

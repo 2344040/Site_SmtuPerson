@@ -1275,7 +1275,7 @@
           const upBtn = canUpload
             ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button>`
             : '';
-          return `<td class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</td>`;
+          return `<td><div class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</div></td>`;
         }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
   </table>
   <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ запись</button>${dl}`;

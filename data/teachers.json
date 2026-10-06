@@ -2500,84 +2500,84 @@
      "title": "Системы электроэнергетики и автоматизации судов",
      "tag": "бакалавриат",
      "comment": "",
-     "url": "https://www.smtu.ru/ru/vieweduprog/34/"
+     "url": ""
     },
     {
      "text": "26.04.02.24",
      "title": "Системы электроэнергетики судов",
      "tag": "магистратура",
      "comment": "",
-     "url": "https://www.smtu.ru/ru/vieweduprog/344/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Обеспечение электромагнитной совместимости на судах",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/1210/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Основы электромагнитной безопасности",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/1047/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Основы электротехники и электроники",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/1000/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Производственная (НИР)(рассредоточенная)",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/769/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Учебная практика",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/699/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Электромагнитная совместимость",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/305/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Электроника",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/73/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Электроника и электротехника",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/915/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Электротехника",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/302/"
+     "url": ""
     },
     {
      "text": "",
      "title": "Элементная база современной электроэнергетики и электроники",
      "tag": "ДПО",
      "comment": "",
-     "url": "https://isu.smtu.ru/view_course_view/1209/"
+     "url": ""
     }
    ],
    "courses": [
@@ -2698,7 +2698,7 @@
      "title": "ВОПРОСЫ ДЛЯ ПОДГОТОВКИ К ЭКЗАМЕНУ ПО ЭМС",
      "biblio": "",
      "description": "",
-     "url": "http://www.elemcom.ru/Books/EMCBIL2.DOC"
+     "url": ""
     },
     {
      "kind": "rec",
@@ -2706,7 +2706,7 @@
      "title": "ВОПРОСЫ ДЛЯ ПРОВЕРКИ ЗНАНИЙ ПО ЭМС",
      "biblio": "",
      "description": "",
-     "url": "http://www.elemcom.ru/Books/EMC_Test.doc"
+     "url": ""
     },
     {
      "kind": "rec",
@@ -2714,7 +2714,7 @@
      "title": "ПОВЫШЕНИЕ КВАЛИФИКАЦИИ ПО ЭМС",
      "biblio": "",
      "description": "Курсы для широкого круга инженерно-технических работников и специалистов, деятельность которых связана с проблемами электромагнитной совместимости.",
-     "url": "http://www.elemcom.ru/Books/seminar05.doc"
+     "url": ""
     },
     {
      "kind": "head",
@@ -2726,7 +2726,7 @@
        "title": "1. Возникновение и распространение импульсных помех в судовых электроэнергетических системах",
        "biblio": " 1987 год, 90 с. (3,36 MB)",
        "description": "Электронные копии пособий",
-       "url": "http://www.elemcom.ru/Books/book1.zip"
+       "url": ""
       },
       {
        "kind": "rec",
@@ -2734,7 +2734,7 @@
        "title": "2. Обеспечение электромагнитной совместимости в судовых электроэнергетических системах",
        "biblio": "1988 год, 64 с. (1,27 MB)",
        "description": "Электронные копии пособий",
-       "url": "http://www.elemcom.ru/Books/book2.zip"
+       "url": ""
       },
       {
        "kind": "rec",
@@ -2742,7 +2742,7 @@
        "title": "3. Измерения и испытания в области электромагнитной совместимости",
        "biblio": " 1989 год, 65 с. (954 kВ)",
        "description": "Электронные копии пособий",
-       "url": "http://www.elemcom.ru/Books/book3.zip"
+       "url": ""
       }
      ]
     },
@@ -2756,7 +2756,7 @@
        "title": "Электромагнитная совместимость в судовых электроэнергетических системах",
        "biblio": "2013 год, 68 с. (1 MВ)",
        "description": "",
-       "url": "http://www.elemcom.ru/Books/Labmetod.zip"
+       "url": ""
       },
       {
        "kind": "rec",
@@ -2764,7 +2764,7 @@
        "title": "Лабораторная работа 1 ",
        "biblio": "",
        "description": "Осциллограммы",
-       "url": "http://www.elemcom.ru/Books/Lab_1.doc"
+       "url": ""
       },
       {
        "kind": "rec",
@@ -2772,7 +2772,7 @@
        "title": "Лабораторная работа 2",
        "biblio": "",
        "description": "Осциллограммы",
-       "url": "http://www.elemcom.ru/Books/Lab_2.doc"
+       "url": ""
       },
       {
        "kind": "rec",
@@ -2780,7 +2780,7 @@
        "title": "Лабораторная работа 3",
        "biblio": "",
        "description": "Осциллограммы",
-       "url": "http://www.elemcom.ru/Books/Lab_4.doc"
+       "url": ""
       }
      ]
     }
@@ -2803,7 +2803,7 @@
        "author": "",
        "title": "Глава 1. Проблема электромагнитной совместимости судового электротехнического и электронного оборудования ",
        "biblio": "",
-       "url": "http://www.elemcom.ru/Books/1.doc",
+       "url": "",
        "url_buy": ""
       },
       {
@@ -2811,7 +2811,7 @@
        "author": "",
        "title": " Глава 2. Возникновение помех в судовых электроэнергетических системах",
        "biblio": "",
-       "url": "http://www.elemcom.ru/Books/2.doc",
+       "url": "",
        "url_buy": ""
       },
       {
@@ -2819,7 +2819,7 @@
        "author": "",
        "title": " Глава 3. Распространение помех в судовой электроэнергетической системе",
        "biblio": "",
-       "url": "http://www.elemcom.ru/Books/3.doc",
+       "url": "",
        "url_buy": ""
       },
       {
@@ -2827,7 +2827,7 @@
        "author": "",
        "title": "Глава 4. Влияние помех на судовое электронное и электротехническое оборудование",
        "biblio": "",
-       "url": "http://www.elemcom.ru/Books/4.doc",
+       "url": "",
        "url_buy": ""
       },
       {
@@ -2835,7 +2835,7 @@
        "author": "",
        "title": "Глава 5. Снижение уровней помех в электроэнергетической системе",
        "biblio": "",
-       "url": "http://www.elemcom.ru/Books/5.doc",
+       "url": "",
        "url_buy": ""
       }
      ]
@@ -2850,19 +2850,19 @@
        "kind": "rec",
        "author": "Elya Joffe (Израиль)",
        "title": "Принцип минимизации индуктивности заземления и его применение",
-       "url": "http://www.elemcom.ru/Books/JoffeGround.zip"
+       "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "ЭМС проблемы при переходных процессах на силовых подстанциях",
-       "url": "http://www.elemcom.ru/Books/IanozEMC.zip"
+       "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "Концепции помехозащиты линий, кабелей и цепей",
-       "url": "http://www.elemcom.ru/Books/IanozProt.zip"
+       "url": ""
       }
      ]
     }
@@ -2872,7 +2872,7 @@
     {
      "kind": "rec",
      "title": "ЭЛЕМКОМ",
-     "url": "http://www.elemcom.ru/"
+     "url": ""
     },
     {
      "kind": "head",
@@ -2881,12 +2881,12 @@
       {
        "kind": "rec",
        "title": "IEEE Home page",
-       "url": "http://www.ieee.org/"
+       "url": ""
       },
       {
        "kind": "rec",
        "title": "EMC Society",
-       "url": "http://www.emcs.org/"
+       "url": ""
       }
      ]
     },
@@ -2897,12 +2897,12 @@
       {
        "kind": "rec",
        "title": "Compliance Engineering",
-       "url": "http://www.complianceengineers.com/"
+       "url": ""
       },
       {
        "kind": "rec",
        "title": "Conformity Newsletter",
-       "url": "http://www.conformity.com/"
+       "url": ""
       }
      ]
     },
@@ -2913,12 +2913,12 @@
       {
        "kind": "rec",
        "title": "ANSI",
-       "url": "http://www.ansi.org/"
+       "url": ""
       },
       {
        "kind": "rec",
        "title": "Canadian SA",
-       "url": "http://www.csa.ca/"
+       "url": ""
       }
      ]
     }

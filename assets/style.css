@@ -2010,6 +2010,26 @@
    font-weight: 600;
  }
 
+ /* Главы и вложения под книгой-контейнером: мельче и легче обычных строк */
+ .mat-item.mat-sub {
+   padding: 8px 8px 8px 14px;
+ }
+
+ .mat-item.mat-sub .mat-title {
+   font-weight: 400;
+   font-size: .92rem;
+ }
+
+ .mat-item.mat-sub .mat-actions .mat-icon {
+   font-size: 1rem;
+ }
+
+ .mat-item.mat-sub .mat-actions .mat-btn {
+   width: 30px;
+   height: 30px;
+   font-size: .9rem;
+ }
+
  /* Левая часть: описание */
  .mat-info {
    flex: 1;
@@ -2032,11 +2052,11 @@
    font-weight: 400;
  }
 
-.mat-slash {
-color: var(--muted);
-margin: 0;
-padding: 0;
-}
+ .mat-slash {
+   color: var(--muted);
+   margin: 0;
+   padding: 0;
+ }
 
  .mat-biblio {
    font-size: .85em;

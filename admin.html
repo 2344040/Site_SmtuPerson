@@ -567,6 +567,22 @@
       margin: 6px 0;
     }
 
+    .mat-node.mat-depth-0 {
+      background: #fff;
+    }
+
+    .mat-node.mat-depth-1 {
+      background: #fbfaf6;
+    }
+
+    .mat-node.mat-depth-2 {
+      background: #f6f3ec;
+    }
+
+    .mat-node.mat-depth-3 {
+      background: #f0ede4;
+    }
+
     .mat-node-head>.mat-node-bar {
       background: #f5f7f6;
     }
@@ -601,8 +617,8 @@
     }
 
     .mat-children {
-      margin-left: 12px;
-      padding-left: 10px;
+      margin-left: 22px;
+      padding-left: 12px;
       border-left: 2px solid #e8e2d4;
     }
 
@@ -1359,7 +1375,7 @@
         const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
         const pp = path.split('.');
         const idx = +pp[pp.length - 1];
-      
+
         const inputs = isHead
           ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
           : `<div class="row g-2">${fields.map(c => {
@@ -1370,7 +1386,7 @@
             return `<div class="${col}"><label class="small text-secondary">${colName(sec, c)}</label>${ctrl}</div>`;
           }).join('')}</div>`;
         const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
-        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
+        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'} mat-depth-${Math.min(depth, 3)}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
 <div class="mat-node-bar">
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">${isCol ? '▸' : '▾'}</button>
 <span class="me-1">${isHead ? '📁' : '📄'}</span>

@@ -331,7 +331,7 @@ const matNorm = arr => {
 };
 const matCount = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCount(x.children || []), 0);
 
-const matItem = (item, sec, isContainer) => {
+const matItem = (item, sec, isContainer, isSub) => {
   const t = matType(item.url);
   const icon = MAT_ICON[t] || sec.fb;
   const isBooks = sec.key === 'mat_books' || sec.key === 'books';
@@ -374,14 +374,14 @@ const matItem = (item, sec, isContainer) => {
     actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
   }
 
-  return `<li class="mat-item${isContainer ? ' mat-container' : ''}">
+  return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">
     <div class="mat-info">${line1}${line2}</div>
     <div class="mat-actions">${actions.join('')}</div>
   </li>`;
 };
 
 /* Ступени дерева: шрифт, цвет и отступ по уровню */
-const MAT_INDENT = 10; /* шаг отступа в px для каждого нового уровня */
+const MAT_INDENT = 24; /* шаг отступа в px для каждого нового уровня */
 const matHeadStyle = lvl => {
   const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
   const c = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
@@ -389,14 +389,17 @@ const matHeadStyle = lvl => {
   return `font-size:${fs};color:${c};font-weight:${fw};margin-left:${(lvl - 1) * MAT_INDENT}px;`;
 };
 
-const renderMatNode = (node, depth, sec) => {
-  const kids = node.children || [];
-  if (node.kind === 'head') {
-    return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
-      kids.map(c => renderMatNode(c, depth + 1, sec)).join('');
-  }
-  const row = `<ul class="mat-list" style="margin-left:${depth * MAT_INDENT}px">${matItem(node, sec, kids.length > 0)}</ul>`;
-  return row + kids.map(c => renderMatNode(c, depth + 1, sec)).join('');
+const renderMatNode = (node, depth, sec, sub) => {
+const kids = node.children || [];
+if (node.kind === 'head') {
+return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
+kids.map(c => renderMatNode(c, depth + 1, sec, sub)).join('');
+}
+const isContainer = kids.length > 0;
+const listStyle = `margin-left:${depth * MAT_INDENT}px;` +
+(depth > 0 ? 'background:var(--paper-light);border-radius:8px;' : '');
+const row = `<ul class="mat-list" style="${listStyle}">${matItem(node, sec, isContainer, sub)}</ul>`;
+return row + kids.map(c => renderMatNode(c, depth + 1, sec, isContainer ? true : sub)).join('');
 };
 
 const MAT_SECTIONS = [

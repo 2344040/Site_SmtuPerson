@@ -529,6 +529,22 @@
       font-size: .72rem;
     }
 
+    .btn-upload {
+      padding: 0 .35rem;
+      font-size: .72rem;
+    }
+
+    .btn-upload.uploading {
+      pointer-events: none;
+      opacity: .6;
+    }
+
+    .btn-upload .spinner-border {
+      width: .75rem;
+      height: .75rem;
+      border-width: .15em;
+    }
+
     .sec-title {
       font-size: 0.95rem;
       font-weight: 600;
@@ -1195,7 +1211,15 @@
           if (k === 'positions' && i === 0 && String(t.post || '').trim()) {
             return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}" disabled title="Авто: равно полю «Должность под ФИО»"></td>`;
           }
-          return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
+          const canUpload = !DEMO && (
+            k.startsWith('pub_') ||
+            (k.startsWith('mat_') && k !== 'mat_video') ||
+            k === 'patents' || k === 'programs'
+          ) && c === 'url';
+          const upBtn = canUpload
+            ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий"><i class="bi bi-upload"></i></button>`
+            : '';
+          return `<td class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</td>`;
         }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
   </table>
   <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>${dl}`;
@@ -1394,9 +1418,17 @@
           ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
           : `<div class="row g-2">${fields.map(c => {
             const col = c === 'title' ? 'col-md-4' : c === 'description' ? 'col-12' : 'col-md-3';
-            const ctrl = c === 'description'
-              ? `<textarea rows="2" class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}">${escTa(node[c])}</textarea>`
-              : `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
+            let ctrl;
+            if (c === 'description') {
+              ctrl = `<textarea rows="2" class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}">${escTa(node[c])}</textarea>`;
+            } else {
+              const inp = `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
+              if (c === 'url' && sec !== 'mat_video' && !DEMO) {
+                ctrl = `<div class="d-flex gap-1">${inp}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл"><i class="bi bi-upload"></i></button></div>`;
+              } else {
+                ctrl = inp;
+              }
+            }
             return `<div class="${col}"><label class="small text-secondary">${colName(sec, c)}</label>${ctrl}</div>`;
           }).join('')}</div>`;
         const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
@@ -1590,6 +1622,104 @@ ${inputs}
         cur = Math.max(0, Math.min(cur, data.teachers.length - 1));
         rememberCur();
         buildSel(); build();
+      }
+
+      /* ═══ Загрузка файла в репозиторий (папка files/) ═══ */
+      const FILES_DIR = 'files';
+      const sanitizeName = name => String(name || 'file').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '_').trim() || 'file';
+      async function uploadFileToRepo(file, onSuccess, btn) {
+        if (DEMO) { alert('В демо-режиме загрузка недоступна: нужен токен GitHub для записи в репозиторий.'); return; }
+        if (!file) return;
+        if (file.size > 100 * 1024 * 1024) { alert('Файл больше 100 МБ — ограничение GitHub API. Загрузите через веб-интерфейс репозитория.'); return; }
+        const name = sanitizeName(file.name);
+        const path = FILES_DIR + '/' + name;
+        const st = document.getElementById('status');
+        const prevIcon = btn ? btn.innerHTML : '';
+        if (btn) { btn.classList.add('uploading'); btn.innerHTML = '<span class="spinner-border"></span>'; }
+        st.textContent = 'загружаю ' + name + '…';
+        try {
+          /* 1. Читаем sha существующего файла (если есть) — нужен для перезаписи */
+          let sha = null;
+          try {
+            const probe = await gh('/contents/' + path);
+            if (probe.ok) { const j = await probe.json(); sha = j.sha; }
+          } catch (e) { /* файла ещё нет — это нормально */ }
+          /* Если файл существует — спрашиваем */
+          if (sha && !confirm('Файл «' + name + '» уже существует в репозитории. Перезаписать?')) {
+            if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
+            st.textContent = '';
+            return;
+          }
+          /* 2. Читаем содержимое как base64 */
+          const b64 = await new Promise((res, rej) => {
+            const r = new FileReader();
+            r.onload = () => res(r.result.split(',')[1]);
+            r.onerror = () => rej(r.error);
+            r.readAsDataURL(file);
+          });
+          /* 3. PUT — создаём или обновляем */
+          const body = {
+            message: 'admin: upload ' + name + ' (' + new Date().toISOString().slice(0, 10) + ')',
+            content: b64,
+            path: path
+          };
+          if (sha) body.sha = sha;
+          const r = await gh('/contents/' + path, { method: 'PUT', body: JSON.stringify(body) });
+          if (!r.ok) {
+            const e = await r.json().catch(() => ({}));
+            throw new Error('HTTP ' + r.status + ': ' + (e.message || JSON.stringify(e)));
+          }
+          /* 4. Успех — относительный путь для GitHub Pages */
+          const relUrl = path;
+          st.innerHTML = '<span class="text-success fw-bold">✔</span> ' + name + ' загружен';
+          onSuccess(relUrl);
+        } catch (err) {
+          st.innerHTML = '<span class="text-danger fw-bold">✗</span> загрузка не удалась';
+          alert('Ошибка загрузки:\n' + err.message);
+        } finally {
+          if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
+          setTimeout(() => { if (st.textContent.startsWith('загружаю')) st.textContent = ''; }, 3000);
+        }
+      }
+      /* Триггер скрытого input[type=file] */
+      function pickAndUpload(sec, idx, field) {
+        const inp = document.createElement('input');
+        inp.type = 'file';
+        inp.onchange = async () => {
+          const f = inp.files && inp.files[0];
+          if (!f) return;
+          const btn = document.querySelector(`.btn-upload[data-sec="${sec}"][data-i="${idx}"][data-k="${field}"]`);
+          await uploadFileToRepo(f, url => {
+            collect();
+            const t = data.teachers[cur];
+            if (!Array.isArray(t[sec])) t[sec] = [];
+            const row = t[sec][idx] = t[sec][idx] || {};
+            row[field] = url;
+            build();
+          }, btn);
+        };
+        inp.click();
+      }
+      function pickAndUploadMat(sec, path, field) {
+        const inp = document.createElement('input');
+        inp.type = 'file';
+        inp.onchange = async () => {
+          const f = inp.files && inp.files[0];
+          if (!f) return;
+          const btn = document.querySelector(`.mat-upload[data-sec="${sec}"][data-path="${path}"][data-k="${field}"]`);
+          await uploadFileToRepo(f, url => {
+            collect();
+            const t = data.teachers[cur];
+            const p = path.split('.').map(Number);
+            let arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+            p.forEach(i => { const n = arr[i]; if (!n.children) n.children = []; arr = n.children; });
+            /* «arr» теперь = массив братьев; последний индекс в path — наш узел */
+            const i = p[p.length - 1];
+            if (arr[i]) arr[i][field] = url;
+            build();
+          }, btn);
+        };
+        inp.click();
       }
 
       // * save

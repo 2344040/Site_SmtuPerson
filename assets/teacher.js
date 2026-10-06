@@ -54,7 +54,15 @@ function fillHeader() {
   document.getElementById('p-name').innerHTML =
     `<span class="surname">${esc(surname)}</span><br><span class="given-name">${esc(rest)}</span>`;
   document.getElementById('p-post').textContent = T.post;
-  document.getElementById('p-chips').innerHTML = (T.chips || []).map(c =>
+  /* Структурированные чипы: степень → звание → стаж, затем произвольные чипы */
+  const structured = [];
+  if (T.degree_level || T.degree_branch) {
+    structured.push([capFirst(T.degree_level || ''), T.degree_branch || ''].filter(Boolean).join(' '));
+  }
+  if (T.academic_title) structured.push(T.academic_title);
+  const yrs = parseInt(String(T.experience_years ?? '').trim(), 10);
+  if (!isNaN(yrs)) structured.push('Педагогический стаж ' + yrs + ' ' + pluralize(yrs, ['год', 'года', 'лет']));
+  document.getElementById('p-chips').innerHTML = [...structured, ...(T.chips || [])].map(c =>
     `<span class="chip" title="${esc(c)}"><b class="chip-text">${esc(c)}</b></span>`).join('');
 
 
@@ -390,16 +398,16 @@ const matHeadStyle = lvl => {
 };
 
 const renderMatNode = (node, depth, sec, sub) => {
-const kids = node.children || [];
-if (node.kind === 'head') {
-return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
-kids.map(c => renderMatNode(c, depth + 1, sec, sub)).join('');
-}
-const isContainer = kids.length > 0;
-const listStyle = `margin-left:${depth * MAT_INDENT}px;` +
-(depth > 0 ? 'background:var(--paper-light);border-radius:8px;' : '');
-const row = `<ul class="mat-list" style="${listStyle}">${matItem(node, sec, isContainer, sub)}</ul>`;
-return row + kids.map(c => renderMatNode(c, depth + 1, sec, isContainer ? true : sub)).join('');
+  const kids = node.children || [];
+  if (node.kind === 'head') {
+    return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
+      kids.map(c => renderMatNode(c, depth + 1, sec, sub)).join('');
+  }
+  const isContainer = kids.length > 0;
+  const listStyle = `margin-left:${depth * MAT_INDENT}px;` +
+    (depth > 0 ? 'background:var(--paper-light);border-radius:8px;' : '');
+  const row = `<ul class="mat-list" style="${listStyle}">${matItem(node, sec, isContainer, sub)}</ul>`;
+  return row + kids.map(c => renderMatNode(c, depth + 1, sec, isContainer ? true : sub)).join('');
 };
 
 const MAT_SECTIONS = [

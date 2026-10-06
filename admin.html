@@ -705,6 +705,10 @@
         name: ['ФИО полное', 'col-md-6'],
         position: ['Должность (справочник)', 'col-md-4'],
         post: ['Должность под ФИО (авто: должность + кафедра, можно править)', 'col-md-8'],
+        degree_level: ['Степень: ступень', 'col-md-3'],
+        degree_branch: ['Степень: отрасль наук', 'col-md-5'],
+        academic_title: ['Учёное звание', 'col-md-2'],
+        experience_years: ['Педагогический стаж, лет', 'col-md-2'],
         email: ['E-mail', 'col-md-4'],
         phone: ['Телефон', 'col-md-4'],
         address: ['Адрес', 'col-md-8'],
@@ -780,6 +784,16 @@
       };
 
       const DEFAULTS = { university: 'СПбГМТУ' };
+      /* Ступени и отрасли наук для чипа «учёная степень»; отрась храним сразу с хвостом фразы */
+      const DEGREE_LEVELS = ['кандидат', 'доктор'];
+      const DEGREE_BRANCHES = [
+        'технических наук', 'физико-математических наук', 'химических наук', 'биологических наук',
+        'геолого-минералогических наук', 'медицинских наук', 'ветеринарных наук', 'сельскохозяйственных наук',
+        'экономических наук', 'юридических наук', 'педагогических наук', 'психологических наук',
+        'социологических наук', 'политических наук', 'философских наук', 'исторических наук',
+        'филологических наук', 'искусствоведения', 'архитектуры', 'военных наук', 'теологических наук'
+      ];
+      const ACADEMIC_TITLES = ['Профессор', 'Доцент'];
       const makeShort = name => {
         const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
         if (!parts.length) return '';
@@ -827,7 +841,7 @@
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['a', 'chips']]
+          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
@@ -1459,6 +1473,13 @@ ${inputs}
               } else if (key === 'position') {
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
                 <datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
+              } else if (key === 'degree_level' || key === 'degree_branch' || key === 'academic_title') {
+                const opts = key === 'degree_level' ? DEGREE_LEVELS : key === 'degree_branch' ? DEGREE_BRANCHES : ACADEMIC_TITLES;
+                const list = (v && !opts.includes(v)) ? [v, ...opts] : opts;
+                ctrl = `<select class="form-select form-select-sm" data-f="${key}">
+                  <option value="" ${!v ? 'selected' : ''}>—</option>
+                  ${list.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
+                </select>`;
               } else {
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" value="${String(v).replace(/"/g, '&quot;')}">`;
               }

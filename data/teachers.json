@@ -2889,6 +2889,38 @@
        "url": "http://www.emcs.org/"
       }
      ]
+    },
+    {
+     "kind": "head",
+     "title": "MAGAZINES",
+     "children": [
+      {
+       "kind": "rec",
+       "title": "Compliance Engineering",
+       "url": "http://www.complianceengineers.com/"
+      },
+      {
+       "kind": "rec",
+       "title": "Conformity Newsletter",
+       "url": "http://www.conformity.com/"
+      }
+     ]
+    },
+    {
+     "kind": "head",
+     "title": "STANDARDS",
+     "children": [
+      {
+       "kind": "rec",
+       "title": "ANSI",
+       "url": "http://www.ansi.org/"
+      },
+      {
+       "kind": "rec",
+       "title": "Canadian SA",
+       "url": "http://www.csa.ca/"
+      }
+     ]
     }
    ],
    "short": "Воршевский А.А.",

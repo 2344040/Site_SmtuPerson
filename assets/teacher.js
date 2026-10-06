@@ -181,6 +181,17 @@ const pubTagCls = tag => {
   return 'vak';
 };
 
+/* Библиоспан: слэш склеен с первым словом выходных в nowrap-кусочек,
+внутри которого перенос невозможен даже аварийный */
+const biblioSpan = b => {
+  const s = String(b || '').trim();
+  if (!s) return '';
+  const sp = s.indexOf(' ');
+  const head = sp === -1 ? s : s.slice(0, sp);
+  const tail = sp === -1 ? '' : s.slice(sp + 1);
+  return `<span class="mat-biblio"><span class="mat-nows"><span class="mat-slash">//</span> ${esc(head)}</span>${tail ? ' ' + esc(tail) : ''}</span>`;
+};
+
 const pubs = a => a.map(i => {
   const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
@@ -217,9 +228,7 @@ const pubRow = (i, r, hidden) => {
   const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
   const biblio = [i.biblio, i.year].filter(v => String(v || '').trim()).join(', ');
-  const biblioHtml = biblio
-    ? `<span class="mat-biblio">${(i.author || i.title) ? '<span class="mat-slash">//</span>&nbsp;' : ''}${esc(biblio)}</span>`
-    : '';
+  const biblioHtml = (i.author || i.title) ? biblioSpan(biblio) : '';
   const tag = r.tag && i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
   const doi = r.doi && i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
   const desc = i.description ? `<div class="mat-description-line"><span class="mat-description">${esc(i.description)}</span></div>` : '';
@@ -362,10 +371,8 @@ const matItem = (item, sec, isContainer, isSub) => {
   /* Название — вес 500 */
   const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
 
-  /* Выходные данные — мелким серым; слэш внутри спана и приклеен nbsp, чтобы не отрывался при переносе */
-  const biblio = item.biblio
-    ? `<span class="mat-biblio">${(item.author || item.title) ? '<span class="mat-slash">//</span>&nbsp;' : ''}${esc(item.biblio)}</span>`
-    : '';
+  /* Выходные данные — мелким серым; слэш неотрываем от первого слова */
+  const biblio = (item.author || item.title) && item.biblio ? biblioSpan(item.biblio) : '';
 
   /* Описание — малый серый курсив */
   const description = item.description ? `<span class="mat-description">${esc(item.description)}</span>` : '';

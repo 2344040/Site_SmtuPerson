@@ -2235,6 +2235,11 @@
    padding: 0;
  }
 
+ /* Кусочек «// первое слово» не рвётся изнутри даже при word-wrap: break-word */
+ .mat-nows {
+   white-space: nowrap;
+ }
+
  .mat-description {
    font-size: .85rem;
    color: var(--muted);

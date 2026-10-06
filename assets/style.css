@@ -2041,27 +2041,6 @@
    word-wrap: break-word;
  }
 
- .mat-author {
-   font-style: italic;
-   color: var(--ink);
-   margin-right: 0.6em;
- }
-
- .mat-title {
-   color: var(--ink);
-   font-weight: 400;
- }
-
- .mat-slash {
-   color: var(--muted);
-   margin: 0;
-   padding: 0;
- }
-
- .mat-biblio {
-   font-size: .85em;
-   color: var(--muted);
- }
 
  .mat-meta {
    display: block;
@@ -2118,7 +2097,7 @@
 
  .mat-icon {
    color: var(--amber);
-   font-size: 1.15rem;
+   font-size: 1.05rem;
    flex-shrink: 0;
  }
 
@@ -2252,7 +2231,8 @@
 
  .mat-slash {
    color: var(--muted);
-   margin: 0 .3em;
+   margin: 0;
+   padding: 0;
  }
 
  .mat-description {
@@ -2266,9 +2246,4 @@
    align-items: center;
    gap: .5rem;
    margin-top: .3rem;
- }
-
- .mat-icon {
-   font-size: 1.05rem;
-   color: var(--amber);
  }

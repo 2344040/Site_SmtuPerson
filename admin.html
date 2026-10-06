@@ -1174,7 +1174,7 @@
                  value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
       </div>
     </div>`).join('') +
-          `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ строка</button>` + dl;
+          `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ запись</button>` + dl;
       }
 
       function renderHtmlField(t, key) {
@@ -1278,7 +1278,7 @@
           return `<td class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</td>`;
         }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
   </table>
-  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ строка</button>${dl}`;
+  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ запись</button>${dl}`;
       }
 
       // * actCell

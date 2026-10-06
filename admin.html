@@ -1359,7 +1359,7 @@
         const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
         const pp = path.split('.');
         const idx = +pp[pp.length - 1];
-        const depth = pp.length;
+      
         const inputs = isHead
           ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
           : `<div class="row g-2">${fields.map(c => {
@@ -1378,7 +1378,7 @@
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',-1)" title="Выше среди соседей">↑</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',1)" title="Ниже среди соседей">↓</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',1)" title="Вложить в узел выше (сделать его последним подразделом/вложением)" ${idx === 0 ? 'disabled' : ''}>⇥</button>
-<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',-1)" title="Поднять на уровень выше, сразу после родителя" ${depth === 1 ? 'disabled' : ''}>⇤</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',-1)" title="Поднять на уровень выше, сразу после родителя" ${depth === 0 ? 'disabled' : ''}>⇤</button>
 <button type="button" class="btn btn-sm btn-outline-danger" onclick="matRm('${sec}','${path}')" title="Удалить">✕</button>
 <button type="button" class="btn btn-sm btn-outline-dark ms-2" onclick="matAdd('${sec}','${path}','head')" title="Заголовок внутри">+ ${depth === 0 ? 'раздел' : 'подраздел'}</button>
 <button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','${path}','rec')" title="Запись внутри">+ запись</button>

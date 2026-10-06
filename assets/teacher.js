@@ -178,8 +178,9 @@ const pubs = a => a.map(i => {
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
   const biblio = i.biblio || i.text || '';
   const description = i.description || '';
-  const slash = (i.author || i.title) && biblio ? `<span class="mat-slash"> // </span>` : '';
-  const biblioHtml = biblio ? `<span class="mat-biblio">${esc(biblio)}</span>` : '';
+  const biblioHtml = biblio
+    ? `<span class="mat-biblio">${(i.author || i.title) ? '<span class="mat-slash">//</span>&nbsp;' : ''}${esc(biblio)}</span>`
+    : '';
   const descriptionHtml = description ? `<span class="mat-description">${esc(description)}</span>` : '';
   const tag = i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
   const doi = i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
@@ -187,7 +188,7 @@ const pubs = a => a.map(i => {
   return `
 <div class="pub"><span class="py">${esc(i.year)}</span>
   <div class="pub-body">
-    <div class="mat-line">${author}${title}${slash}${biblioHtml}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
+   <div class="mat-line">${author}${title}${biblioHtml ? ' ' + biblioHtml : ''}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
     ${descriptionHtml ? `<div class="mat-description-line">${descriptionHtml}</div>` : ''}
   </div>
   ${link ? `<a class="mat-btn" href="${esc(link)}" target="_blank" rel="noopener" title="Открыть публикацию"><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
@@ -208,8 +209,9 @@ const pubRow = (i, r, hidden) => {
   const author = i.author ? `<span class="mat-author">${esc(i.author)}</span>` : '';
   const title = i.title ? `<span class="pub-title">${esc(i.title)}</span>` : '';
   const biblio = [i.biblio, i.year].filter(v => String(v || '').trim()).join(', ');
-  const slash = (i.author || i.title) && biblio ? `<span class="mat-slash"> // </span>` : '';
-  const biblioHtml = biblio ? `<span class="mat-biblio">${esc(biblio)}</span>` : '';
+  const biblioHtml = biblio
+    ? `<span class="mat-biblio">${(i.author || i.title) ? '<span class="mat-slash">//</span>&nbsp;' : ''}${esc(biblio)}</span>`
+    : '';
   const tag = r.tag && i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
   const doi = r.doi && i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
   const desc = i.description ? `<div class="mat-description-line"><span class="mat-description">${esc(i.description)}</span></div>` : '';
@@ -217,7 +219,7 @@ const pubRow = (i, r, hidden) => {
   if (i.url) actions.push(`<a class="mat-btn" href="${esc(i.url)}" target="_blank" rel="noopener" title="Открыть или скачать"><i class="bi bi-box-arrow-up-right"></i></a>`);
   if (r.buy && i.url_buy) actions.push(`<a class="mat-btn" href="${esc(i.url_buy)}" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
   return `<div class="pub${hidden ? ' d-none reveal-hidden' : ''}"><div class="pub-body">
-<div class="mat-line">${author}${title}${slash}${biblioHtml}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
+<div class="mat-line">${author}${title}${biblioHtml ? ' ' + biblioHtml : ''}${tag ? ' ' + tag : ''}${doi ? ' ' + doi : ''}</div>
 ${desc}
 </div>${actions.join('')}</div>`;
 };
@@ -341,15 +343,16 @@ const matItem = (item, sec, isContainer) => {
   /* Название — вес 500 */
   const title = item.title ? `<span class="mat-title">${esc(item.title)}</span>` : '';
 
-  /* Выходные данные — мелким серым, через // */
-  const slash = (item.author || item.title) && item.biblio ? `<span class="mat-slash"> // </span>` : '';
-  const biblio = item.biblio ? `<span class="mat-biblio">${esc(item.biblio)}</span>` : '';
+  /* Выходные данные — мелким серым; слэш внутри спана и приклеен nbsp, чтобы не отрывался при переносе */
+  const biblio = item.biblio
+    ? `<span class="mat-biblio">${(item.author || item.title) ? '<span class="mat-slash">//</span>&nbsp;' : ''}${esc(item.biblio)}</span>`
+    : '';
 
   /* Описание — малый серый курсив */
   const description = item.description ? `<span class="mat-description">${esc(item.description)}</span>` : '';
 
   /* Строка 1: автор + название + выходные данные */
-  let line1 = `<div class="mat-line">${author}${title}${slash}${biblio}</div>`;
+  let line1 = `<div class="mat-line">${author}${title}${biblio ? ' ' + biblio : ''}</div>`;
 
   /* Строка 2: только описание */
   const line2 = description ? `<div class="mat-description-line">${description}</div>` : '';
@@ -406,12 +409,12 @@ const MAT_SECTIONS = [
 const hasMat = () => MAT_SECTIONS.some(s => has(s.key));
 
 const materialsBlock = T => {
-const secs = MAT_SECTIONS.filter(s => has(s.key));
-if (!secs.length) return '';
-return `<div class="materials-accordion reveal">
+  const secs = MAT_SECTIONS.filter(s => has(s.key));
+  if (!secs.length) return '';
+  return `<div class="materials-accordion reveal">
 ${secs.map((s) => {
-const tree = matNorm(T[s.key]);
-return `
+    const tree = matNorm(T[s.key]);
+    return `
 <details class="mat-group" name="materials">
 <summary class="mat-summary">
 <span class="mat-cat-title"><i class="bi ${s.icon} me-2"></i>${s.title}</span>
@@ -419,7 +422,7 @@ return `
 </summary>
 <div class="mat-body">${tree.map(n => renderMatNode(n, 0, s)).join('')}</div>
 </details>`;
-}).join('')}
+  }).join('')}
 </div>`;
 };
 

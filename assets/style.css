@@ -2024,7 +2024,7 @@
  .mat-author {
    font-style: italic;
    color: var(--ink);
-   margin-right: 1rem;
+   margin-right: 0.6em;
  }
 
  .mat-title {
@@ -2032,10 +2032,11 @@
    font-weight: 400;
  }
 
- .mat-slash {
-   color: var(--muted);
-   padding: 0 .15em;
- }
+.mat-slash {
+color: var(--muted);
+margin: 0;
+padding: 0;
+}
 
  .mat-biblio {
    font-size: .85em;
@@ -2215,7 +2216,7 @@
  .mat-author {
    font-style: italic;
    color: var(--ink);
-   margin-right: .2em;
+   margin-right: .6em;
  }
 
  .mat-title,

@@ -1273,7 +1273,7 @@
             k === 'patents' || k === 'programs'
           ) && c === 'url';
           const upBtn = canUpload
-            ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> загрузить</button>`
+            ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button>`
             : '';
           return `<td class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</td>`;
         }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>

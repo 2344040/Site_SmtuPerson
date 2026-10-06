@@ -303,6 +303,17 @@ const matType = url => {
   if (/^(mp4|avi|mov|mkv|webm)$/.test(ext)) return 'video';
   return 'image';
 };
+
+/* Ссылка материала: протокол оставляем как есть; голый домен получает https://;
+относительный путь внутри репозитория не трогаем */
+const matHref = s => {
+  const u = String(s || '').trim();
+  if (!u) return '';
+  if (/^(https?:|mailto:|tel:|ftp:)/i.test(u)) return u;
+  if (/^[a-z0-9а-яё-]+(\.[a-z0-9а-яё-]+)+([\/?#]|$)/i.test(u)) return 'https://' + u;
+  return u;
+};
+
 const matSource = url => {
   const u = String(url || '').toLowerCase();
   const src = MAT_SRC.find(([re]) => re.test(u));
@@ -376,10 +387,10 @@ const matItem = (item, sec, isContainer, isSub) => {
   /* Правая часть: иконка формата (янтарная) + кнопки действий */
   const actions = [`<i class="mat-icon bi ${icon}" title="${t || 'файл'}"></i>`];
   if (isBooks) {
-    if (item.url) actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
-    if (item.url_buy) actions.push(`<a href="${esc(item.url_buy)}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
+    if (item.url) actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Скачать"><i class="bi bi-download"></i></a>`);
+    if (item.url_buy) actions.push(`<a href="${esc(matHref(item.url_buy))}" class="mat-btn" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
   } else if (item.url) {
-    actions.push(`<a href="${esc(item.url)}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
+    actions.push(`<a href="${esc(matHref(item.url))}" class="mat-btn" target="_blank" rel="noopener" title="Открыть"><i class="bi bi-box-arrow-up-right"></i></a>`);
   }
 
   return `<li class="mat-item${isContainer ? ' mat-container' : ''}${isSub ? ' mat-sub' : ''}">

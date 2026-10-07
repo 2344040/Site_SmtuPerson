@@ -2009,41 +2009,57 @@
    gap: 14px;
  }
 
- /* ── Коннекторы: ствол от родителя к группе потомков ── */
- .mat-kids {
+ /* ── Коннекторы: каждый ребёнок рисует свой сегмент ствола и тик ── */
+ .mat-list.mat-kid {
    position: relative;
-   margin-left: 12px;
-   margin-bottom: 8px;
  }
 
- .mat-kids .mat-kids {
-   margin-left: 24px;
- }
-
- /* Ствол: начинается у нижней кромки карточки-родителя и идёт до последнего ребёнка */
- .mat-kids::before {
+ /* Сегмент ствола: вдоль карточки и через зазор до следующей */
+ .mat-list.mat-kid::before {
    content: '';
    position: absolute;
-   left: 0;
-   top: -8px;
+   left: -12px;
+   top: 0;
    height: calc(100% + 8px);
    width: 1px;
    background: var(--line);
  }
 
- /* На третьем уровне зазор между родителем и группой меньше — мост короче */
- .mat-kids .mat-kids::before {
-   top: -4px;
+ .mat-list.mat-kid.mat-lvl-2::before,
+ .mat-list.mat-kid.mat-lvl-3::before {
    height: calc(100% + 4px);
  }
 
- /* Тик от ствола к каждой дочерней карточке */
- .mat-kids>.mat-list {
-   margin-left: 12px !important;
-   position: relative;
+ /* Первый ребёнок: мост вверх до нижней кромки родителя */
+ .mat-list.mat-kid-first::before {
+   top: -8px;
+   height: calc(100% + 16px);
  }
 
- .mat-kids>.mat-list::before {
+ .mat-list.mat-kid-first.mat-lvl-2::before,
+ .mat-list.mat-kid-first.mat-lvl-3::before {
+   top: -4px;
+   height: calc(100% + 8px);
+ }
+
+ /* Последний ребёнок: ствол обрывается на тике */
+ .mat-list.mat-kid-last::before {
+   height: 26px;
+ }
+
+ .mat-list.mat-kid-first.mat-kid-last::before {
+   top: -8px;
+   height: 34px;
+ }
+
+ .mat-list.mat-kid-first.mat-kid-last.mat-lvl-2::before,
+ .mat-list.mat-kid-first.mat-kid-last.mat-lvl-3::before {
+   top: -4px;
+   height: 30px;
+ }
+
+ /* Тик от ствола к карточке */
+ .mat-list.mat-kid::after {
    content: '';
    position: absolute;
    left: -12px;
@@ -2053,13 +2069,9 @@
    background: var(--line);
  }
 
- .mat-kids>.mat-list.mat-lvl-2::before {
+ .mat-list.mat-kid.mat-lvl-2::after,
+ .mat-list.mat-kid.mat-lvl-3::after {
    top: 18px;
- }
-
- /* Заголовки внутри группы детей выравниваем по карточкам */
- .mat-kids .mat-h {
-   margin-left: 12px !important;
  }
 
  /* Книга-контейнер: строка-шапка с главами внутри */

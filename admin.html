@@ -3,1585 +3,1436 @@
 <html lang="ru">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Админка — портфолио</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2312241f'/><stop offset='1' stop-color='%23d97b29'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text x='50' y='68' font-size='56' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>А</text></svg>">
-  <!-- * style -->
-  <style>
-    body {
-      background: #f5f3ec;
-      font-family: Arial, sans-serif;
-      font-size: .85rem
-    }
-
-    .card {
-      border-radius: 14px
-    }
-
-    input[data-f="university"] {
-      width: 12ch;
-    }
-
-    .row .w-univ {
-      flex: 0 0 auto;
-      width: auto;
-    }
-
-    .row .w-fac {
-      flex: 40 1 0;
-      min-width: 0;
-    }
-
-    .row .w-dep {
-      flex: 60 1 0;
-      min-width: 0;
-    }
-
-    @media (max-width: 767.98px) {
-
-      .row .w-univ,
-      .row .w-fac,
-      .row .w-dep {
-        flex: 0 0 100%;
-      }
-    }
-
-    table.ed input {
-      width: 100%;
-      border: 1px solid #dcd7c9;
-      border-radius: 6px;
-      padding: .25rem .4rem;
-      font-size: .8rem
-    }
-
-    table.ed input[data-k="year"] {
-      width: 80px;
-    }
-
-    table.ed input[data-k="title"] {
-      width: 80%;
-    }
-
-    table.ed input[data-k="text"] {
-      width: 300px;
-    }
-
-    table.ed td {
-      padding: 2px
-    }
-
-    table.ed {
-      width: 100%;
-    }
-
-    table.ed textarea {
-      width: 100%;
-    }
-
-    table.ed th {
-      font-size: .65rem;
-      letter-spacing: .05em;
-      color: #6f7a72;
-      text-align: left;
-      padding: 0 2px 3px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    table.ed select {
-      border: 1px solid #dcd7c9;
-      border-radius: 6px;
-      padding: .25rem .4rem;
-      font-size: .8rem;
-      background: #fff;
-    }
-
-    table.ed[data-sec="courses"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="courses"] th:nth-child(2) {
-      width: 170px;
-    }
-
-    table.ed[data-sec="courses"] th:nth-child(3) {
-      width: 56px;
-    }
-
-    table.ed[data-sec="courses"] th:nth-child(4) {
-      width: 56px;
-    }
-
-    table.ed[data-sec="courses"] th:nth-child(5) {
-      width: 56px;
-    }
-
-    table.ed[data-sec="courses"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="courses"] input,
-    table.ed[data-sec="courses"] select {
-      width: 100%;
-      min-width: 0;
-    }
-
-    .icon-prev {
-      font-size: 1rem;
-      vertical-align: middle;
-      color: #d97b29;
-    }
-
-    .ed-rec {
-      padding: .75rem 0 .9rem;
-      border-bottom: 1px dashed #dcd7c9;
-    }
-
-    .ed-rec:last-of-type {
-      border-bottom: 0;
-    }
-
-    .html-preview {
-      background: #fff;
-      min-height: 42px;
-    }
-
-    .html-preview ul {
-      padding-left: 1.2rem;
-    }
-
-    table.ed[data-sec="achievements"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="achievements"] th:nth-child(1) {
-      width: 64px;
-    }
-
-    table.ed[data-sec="achievements"] th:nth-child(2) {
-      width: 150px;
-    }
-
-    table.ed[data-sec="achievements"] th:nth-child(3) {
-      width: 30%;
-    }
-
-    table.ed[data-sec="achievements"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="achievements"] input,
-    table.ed[data-sec="achievements"] select,
-    table.ed[data-sec="achievements"] textarea {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="programs"] th:nth-child(1) {
-      width: 100px;
-    }
-
-    table.ed[data-sec="programs"] th:nth-child(3) {
-      width: 150px;
-    }
-
-    table.ed[data-sec="programs"] th:nth-child(4) {
-      width: 20%;
-    }
-
-    table.ed[data-sec="programs"] th:nth-child(5) {
-      width: 16%;
-    }
-
-    table.ed[data-sec="programs"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="programs"] input,
-    table.ed[data-sec="programs"] select {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="events"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(1) {
-      width: 56px;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(2) {
-      width: 90px;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(4) {
-      width: 110px;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(5) {
-      width: 64px;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(6) {
-      width: 84px;
-    }
-
-    table.ed[data-sec="events"] th:nth-child(7) {
-      width: 64px;
-    }
-
-    table.ed[data-sec="events"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="events"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="events"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:nth-child(1) {
-      width: 150px;
-    }
-
-    table.ed[data-sec="mat_resources"] th:nth-child(1) {
-      width: auto;
-    }
-
-    table.ed[data-sec="mat_lectures"] th:nth-child(3),
-    table.ed[data-sec="mat_video"] th:nth-child(3) {
-      width: 10%;
-    }
-
-    table.ed[data-sec="mat_books"] th:nth-child(1) {
-      width: 120px;
-    }
-
-    table.ed[data-sec="mat_books"] th:nth-child(2) {
-      width: 24%;
-    }
-
-    table.ed[data-sec="mat_books"] th:nth-child(3) {
-      width: 20%;
-    }
-
-    table.ed[data-sec="mat_books"] th:nth-child(4),
-    table.ed[data-sec="mat_books"] th:nth-child(5) {
-      width: 16%;
-    }
-
-    table.ed[data-sec="mat_books"] th:nth-child(6) {
-      width: 16%;
-    }
-
-    table.ed[data-sec="mat_lectures"] th:nth-child(4),
-    table.ed[data-sec="mat_video"] th:nth-child(4),
-    table.ed[data-sec="mat_books"] th:nth-child(5),
-    table.ed[data-sec="mat_resources"] th:nth-child(3) {
-      width: 20%;
-    }
-
-    table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:last-child {
-      width: 108px;
-    }
-
-    table.ed[data-sec="career"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="career"] th:nth-child(1) {
-      width: 100px;
-    }
-
-    table.ed[data-sec="career"] th:nth-child(2),
-    table.ed[data-sec="career"] th:nth-child(3) {
-      width: calc((100% - 100px - 44px) / 2);
-    }
-
-    table.ed[data-sec="career"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="career"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="publications"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(1) {
-      width: 64px;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(2) {
-      width: 12%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(3) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(4) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(5) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(6) {
-      width: 7%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(7) {
-      width: 10%;
-    }
-
-    table.ed[data-sec="publications"] th:nth-child(8) {
-      width: 10%;
-    }
-
-    table.ed[data-sec="publications"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="publications"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec^="pub_"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec^="pub_"] input,
-    table.ed[data-sec^="pub_"] textarea {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec^="pub_"] th:nth-child(1) {
-      width: 64px;
-    }
-
-    table.ed[data-sec^="pub_"] th:last-child {
-      width: 108px;
-    }
-
-    table.ed[data-sec="books"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(1) {
-      width: 64px;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(2) {
-      width: 15%;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(3) {
-      width: 22%;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(4) {
-      width: 20%;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(5) {
-      width: 20%;
-    }
-
-    table.ed[data-sec="books"] th:nth-child(6) {
-      width: 12%;
-    }
-
-    table.ed[data-sec="books"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="books"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="mat_posobia"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(1) {
-      width: 15%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(2) {
-      width: 20%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(3) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(4) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(5) {
-      width: 12%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:nth-child(6) {
-      width: 12%;
-    }
-
-    table.ed[data-sec="mat_posobia"] th:last-child {
-      width: 108px;
-    }
-
-    table.ed[data-sec="mat_posobia"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="upk"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="upk"] th:nth-child(1) {
-      width: 115px;
-    }
-
-    table.ed[data-sec="upk"] th:nth-child(2) {
-      width: 30%;
-    }
-
-    table.ed[data-sec="upk"] th:nth-child(3) {
-      width: 18%;
-    }
-
-    table.ed[data-sec="upk"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="upk"] input {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="metrics"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="metrics"] th:nth-child(1) {
-      width: 120px;
-    }
-
-    table.ed[data-sec="metrics"] th:last-child {
-      width: 108px;
-    }
-
-    table.ed[data-sec="metrics"] input,
-    table.ed[data-sec="metrics"] select {
-      width: 100%;
-      min-width: 0;
-    }
-
-    table.ed[data-sec="profiles"] {
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    table.ed[data-sec="profiles"] th:nth-child(1) {
-      width: 190px;
-    }
-
-    table.ed[data-sec="profiles"] th:last-child {
-      width: 44px;
-    }
-
-    table.ed[data-sec="profiles"] input,
-    table.ed[data-sec="profiles"] select {
-      width: 100%;
-      min-width: 0;
-    }
-
-    .td-act {
-      white-space: nowrap;
-    }
-
-    .td-act .btn {
-      padding: 0 .35rem;
-      font-size: .72rem;
-    }
-
-    .btn-upload {
-      padding: 0 .35rem;
-      font-size: .72rem;
-    }
-
-    .btn-upload.uploading {
-      pointer-events: none;
-      opacity: .6;
-    }
-
-    .btn-upload .spinner-border {
-      width: .75rem;
-      height: .75rem;
-      border-width: .15em;
-    }
-
-    .ver-badge {
-      font-size: .72rem;
-      font-weight: 600;
-      color: #6f7a72;
-      /* background: #fff;
-      border: 1px solid #dcd7c9; */
-      border-radius: 999px;
-      padding: .2rem .55rem;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .sec-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #2f6f63;
-      background: #f5f7f6;
-      padding: 9px 14px;
-      border-radius: 2px;
-      border-left: 3px solid #2f6f63;
-      margin: 36px 0 12px;
-      display: block;
-    }
-
-    .sec-title:first-child {
-      margin-top: 0;
-    }
-
-    .admin-toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 1050;
-      background: #f5f3ec;
-      padding: .6rem 0;
-      border-bottom: 1px solid #dcd7c9;
-      box-shadow: 0 2px 8px rgba(18, 36, 31, .08);
-    }
-
-    /* ── Учебные материалы: редактор-дерево ── */
-    .mat-root {
-      margin: 4px 0 6px;
-    }
-
-    .mat-node {
-      border: 1px solid #dcd7c9;
-      border-radius: 8px;
-      background: #fff;
-      margin: 6px 0;
-    }
-
-    .mat-node.mat-depth-0 {
-      background: #fff;
-    }
-
-    .mat-node.mat-depth-1 {
-      background: #fbfaf6;
-    }
-
-    .mat-node.mat-depth-2 {
-      background: #f6f3ec;
-    }
-
-    .mat-node.mat-depth-3 {
-      background: #f0ede4;
-    }
-
-    .mat-node-head>.mat-node-bar {
-      background: #f5f7f6;
-    }
-
-    .mat-node-bar {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 6px;
-    }
-
-    .mat-node-bar .btn {
-      padding: 0 .4rem;
-      font-size: .72rem;
-    }
-
-    .mat-node-label {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      min-width: 0;
-      max-width: 46%;
-    }
-
-    .mat-node-body {
-      padding: 6px 8px 8px;
-      border-top: 1px dashed #dcd7c9;
-    }
-
-    .mat-node.collapsed>.mat-node-body {
-      display: none;
-    }
-
-    .mat-children {
-      margin-left: 22px;
-      padding-left: 12px;
-      border-left: 2px solid #e8e2d4;
-    }
-
-    .mat-children:empty {
-      display: none;
-    }
-
-    /* ── Учебные материалы: секция-аккордеон с липким заголовком ── */
-    .mat-sec {
-      border: 1px solid #dcd7c9;
-      border-radius: 8px;
-      background: #fff;
-      margin: 10px 0;
-    }
-
-    .mat-sec>summary {
-      position: sticky;
-      top: 52px;
-      z-index: 1040;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 10px;
-      font-weight: 600;
-      color: #2f6f63;
-      background: #eef3f1;
-      border-radius: 8px;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .mat-sec>summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .mat-sec[open]>summary {
-      border-bottom: 1px dashed #dcd7c9;
-      border-radius: 8px 8px 0 0;
-    }
-
-    .mat-sec-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 6px;
-      border-radius: 11px;
-      background: #2f6f63;
-      color: #fff;
-      font-size: .72rem;
-      font-weight: 700;
-    }
-
-    .mat-sec-body {
-      padding: 4px 8px 8px;
-    }
-
-    .mat-node-body textarea {
-      resize: vertical;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Админка — портфолио</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2312241f'/><stop offset='1' stop-color='%23d97b29'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text x='50' y='68' font-size='56' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>А</text></svg>">
+<!-- * style -->
+<style>
+body {
+background: #f5f3ec;
+font-family: Arial, sans-serif;
+font-size: .85rem
+}
+.card {
+border-radius: 14px
+}
+input[data-f="university"] {
+width: 12ch;
+}
+.row .w-univ {
+flex: 0 0 auto;
+width: auto;
+}
+.row .w-fac {
+flex: 40 1 0;
+min-width: 0;
+}
+.row .w-dep {
+flex: 60 1 0;
+min-width: 0;
+}
+@media (max-width: 767.98px) {
+.row .w-univ,
+.row .w-fac,
+.row .w-dep {
+flex: 0 0 100%;
+}
+}
+table.ed input {
+width: 100%;
+border: 1px solid #dcd7c9;
+border-radius: 6px;
+padding: .25rem .4rem;
+font-size: .8rem
+}
+table.ed input[data-k="year"] {
+width: 80px;
+}
+table.ed input[data-k="title"] {
+width: 80%;
+}
+table.ed input[data-k="text"] {
+width: 300px;
+}
+table.ed td {
+padding: 2px
+}
+table.ed {
+width: 100%;
+}
+table.ed textarea {
+width: 100%;
+}
+table.ed th {
+font-size: .65rem;
+letter-spacing: .05em;
+color: #6f7a72;
+text-align: left;
+padding: 0 2px 3px;
+font-weight: 600;
+white-space: nowrap;
+}
+table.ed select {
+border: 1px solid #dcd7c9;
+border-radius: 6px;
+padding: .25rem .4rem;
+font-size: .8rem;
+background: #fff;
+}
+table.ed[data-sec="courses"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="courses"] th:nth-child(2) {
+width: 170px;
+}
+table.ed[data-sec="courses"] th:nth-child(3) {
+width: 56px;
+}
+table.ed[data-sec="courses"] th:nth-child(4) {
+width: 56px;
+}
+table.ed[data-sec="courses"] th:nth-child(5) {
+width: 56px;
+}
+table.ed[data-sec="courses"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="courses"] input,
+table.ed[data-sec="courses"] select {
+width: 100%;
+min-width: 0;
+}
+.icon-prev {
+font-size: 1rem;
+vertical-align: middle;
+color: #d97b29;
+}
+.ed-rec {
+padding: .75rem 0 .9rem;
+border-bottom: 1px dashed #dcd7c9;
+}
+.ed-rec:last-of-type {
+border-bottom: 0;
+}
+.html-preview {
+background: #fff;
+min-height: 42px;
+}
+.html-preview ul {
+padding-left: 1.2rem;
+}
+table.ed[data-sec="achievements"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="achievements"] th:nth-child(1) {
+width: 64px;
+}
+table.ed[data-sec="achievements"] th:nth-child(2) {
+width: 150px;
+}
+table.ed[data-sec="achievements"] th:nth-child(3) {
+width: 30%;
+}
+table.ed[data-sec="achievements"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="achievements"] input,
+table.ed[data-sec="achievements"] select,
+table.ed[data-sec="achievements"] textarea {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="programs"] th:nth-child(1) {
+width: 100px;
+}
+table.ed[data-sec="programs"] th:nth-child(3) {
+width: 150px;
+}
+table.ed[data-sec="programs"] th:nth-child(4) {
+width: 20%;
+}
+table.ed[data-sec="programs"] th:nth-child(5) {
+width: 16%;
+}
+table.ed[data-sec="programs"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="programs"] input,
+table.ed[data-sec="programs"] select {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="events"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="events"] th:nth-child(1) {
+width: 56px;
+}
+table.ed[data-sec="events"] th:nth-child(2) {
+width: 90px;
+}
+table.ed[data-sec="events"] th:nth-child(4) {
+width: 110px;
+}
+table.ed[data-sec="events"] th:nth-child(5) {
+width: 64px;
+}
+table.ed[data-sec="events"] th:nth-child(6) {
+width: 84px;
+}
+table.ed[data-sec="events"] th:nth-child(7) {
+width: 64px;
+}
+table.ed[data-sec="events"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="events"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:nth-child(1) {
+width: 150px;
+}
+table.ed[data-sec="mat_resources"] th:nth-child(1) {
+width: auto;
+}
+table.ed[data-sec="mat_lectures"] th:nth-child(3),
+table.ed[data-sec="mat_video"] th:nth-child(3) {
+width: 10%;
+}
+table.ed[data-sec="mat_books"] th:nth-child(1) {
+width: 120px;
+}
+table.ed[data-sec="mat_books"] th:nth-child(2) {
+width: 24%;
+}
+table.ed[data-sec="mat_books"] th:nth-child(3) {
+width: 20%;
+}
+table.ed[data-sec="mat_books"] th:nth-child(4),
+table.ed[data-sec="mat_books"] th:nth-child(5) {
+width: 16%;
+}
+table.ed[data-sec="mat_books"] th:nth-child(6) {
+width: 16%;
+}
+table.ed[data-sec="mat_lectures"] th:nth-child(4),
+table.ed[data-sec="mat_video"] th:nth-child(4),
+table.ed[data-sec="mat_books"] th:nth-child(5),
+table.ed[data-sec="mat_resources"] th:nth-child(3) {
+width: 20%;
+}
+table.ed[data-sec^="mat_"]:not([data-sec="mat_posobia"]) th:last-child {
+width: 108px;
+}
+table.ed[data-sec="career"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="career"] th:nth-child(1) {
+width: 100px;
+}
+table.ed[data-sec="career"] th:nth-child(2),
+table.ed[data-sec="career"] th:nth-child(3) {
+width: calc((100% - 100px - 44px) / 2);
+}
+table.ed[data-sec="career"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="career"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="publications"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="publications"] th:nth-child(1) {
+width: 64px;
+}
+table.ed[data-sec="publications"] th:nth-child(2) {
+width: 12%;
+}
+table.ed[data-sec="publications"] th:nth-child(3) {
+width: 18%;
+}
+table.ed[data-sec="publications"] th:nth-child(4) {
+width: 18%;
+}
+table.ed[data-sec="publications"] th:nth-child(5) {
+width: 18%;
+}
+table.ed[data-sec="publications"] th:nth-child(6) {
+width: 7%;
+}
+table.ed[data-sec="publications"] th:nth-child(7) {
+width: 10%;
+}
+table.ed[data-sec="publications"] th:nth-child(8) {
+width: 10%;
+}
+table.ed[data-sec="publications"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="publications"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec^="pub_"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec^="pub_"] input,
+table.ed[data-sec^="pub_"] textarea {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec^="pub_"] th:nth-child(1) {
+width: 64px;
+}
+table.ed[data-sec^="pub_"] th:last-child {
+width: 108px;
+}
+table.ed[data-sec="books"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="books"] th:nth-child(1) {
+width: 64px;
+}
+table.ed[data-sec="books"] th:nth-child(2) {
+width: 15%;
+}
+table.ed[data-sec="books"] th:nth-child(3) {
+width: 22%;
+}
+table.ed[data-sec="books"] th:nth-child(4) {
+width: 20%;
+}
+table.ed[data-sec="books"] th:nth-child(5) {
+width: 20%;
+}
+table.ed[data-sec="books"] th:nth-child(6) {
+width: 12%;
+}
+table.ed[data-sec="books"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="books"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="mat_posobia"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(1) {
+width: 15%;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(2) {
+width: 20%;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(3) {
+width: 18%;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(4) {
+width: 18%;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(5) {
+width: 12%;
+}
+table.ed[data-sec="mat_posobia"] th:nth-child(6) {
+width: 12%;
+}
+table.ed[data-sec="mat_posobia"] th:last-child {
+width: 108px;
+}
+table.ed[data-sec="mat_posobia"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="upk"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="upk"] th:nth-child(1) {
+width: 115px;
+}
+table.ed[data-sec="upk"] th:nth-child(2) {
+width: 30%;
+}
+table.ed[data-sec="upk"] th:nth-child(3) {
+width: 18%;
+}
+table.ed[data-sec="upk"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="upk"] input {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="metrics"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="metrics"] th:nth-child(1) {
+width: 120px;
+}
+table.ed[data-sec="metrics"] th:last-child {
+width: 108px;
+}
+table.ed[data-sec="metrics"] input,
+table.ed[data-sec="metrics"] select {
+width: 100%;
+min-width: 0;
+}
+table.ed[data-sec="profiles"] {
+width: 100%;
+table-layout: fixed;
+}
+table.ed[data-sec="profiles"] th:nth-child(1) {
+width: 190px;
+}
+table.ed[data-sec="profiles"] th:last-child {
+width: 44px;
+}
+table.ed[data-sec="profiles"] input,
+table.ed[data-sec="profiles"] select {
+width: 100%;
+min-width: 0;
+}
+.td-act {
+white-space: nowrap;
+}
+.td-act .btn {
+padding: 0 .35rem;
+font-size: .72rem;
+}
+.btn-upload {
+padding: 0 .35rem;
+font-size: .72rem;
+}
+.btn-upload.uploading {
+pointer-events: none;
+opacity: .6;
+}
+.btn-upload .spinner-border {
+width: .75rem;
+height: .75rem;
+border-width: .15em;
+}
+.ver-badge {
+font-size: .72rem;
+font-weight: 600;
+color: #6f7a72;
+border-radius: 999px;
+padding: .2rem .55rem;
+cursor: pointer;
+user-select: none;
+}
+.sec-title {
+font-size: 0.95rem;
+font-weight: 600;
+color: #2f6f63;
+background: #f5f7f6;
+padding: 9px 14px;
+border-radius: 2px;
+border-left: 3px solid #2f6f63;
+margin: 36px 0 12px;
+display: block;
+}
+.sec-title:first-child {
+margin-top: 0;
+}
+.admin-toolbar {
+position: sticky;
+top: 0;
+z-index: 1050;
+background: #f5f3ec;
+padding: .6rem 0;
+border-bottom: 1px solid #dcd7c9;
+box-shadow: 0 2px 8px rgba(18, 36, 31, .08);
+}
+/* ── Учебные материалы: редактор-дерево ── */
+.mat-root {
+margin: 4px 0 6px;
+}
+.mat-node {
+border: 1px solid #dcd7c9;
+border-radius: 8px;
+background: #fff;
+margin: 6px 0;
+}
+.mat-node.mat-depth-0 {
+background: #fff;
+}
+.mat-node.mat-depth-1 {
+background: #fbfaf6;
+}
+.mat-node.mat-depth-2 {
+background: #f6f3ec;
+}
+.mat-node.mat-depth-3 {
+background: #f0ede4;
+}
+.mat-node-head>.mat-node-bar {
+background: #f5f7f6;
+}
+.mat-node-bar {
+display: flex;
+align-items: center;
+gap: 4px;
+padding: 4px 6px;
+}
+.mat-node-bar .btn {
+padding: 0 .4rem;
+font-size: .72rem;
+}
+.mat-node-label {
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+min-width: 0;
+max-width: 46%;
+}
+.mat-node-body {
+padding: 6px 8px 8px;
+border-top: 1px dashed #dcd7c9;
+}
+.mat-node.collapsed>.mat-node-body {
+display: none;
+}
+.mat-children {
+margin-left: 22px;
+padding-left: 12px;
+border-left: 2px solid #e8e2d4;
+}
+.mat-children:empty {
+display: none;
+}
+/* ── Учебные материалы: секция-аккордеон с липким заголовком ── */
+.mat-sec {
+border: 1px solid #dcd7c9;
+border-radius: 8px;
+background: #fff;
+margin: 10px 0;
+}
+.mat-sec>summary {
+position: sticky;
+top: 52px;
+z-index: 1040;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 6px 10px;
+font-weight: 600;
+color: #2f6f63;
+background: #eef3f1;
+border-radius: 8px;
+cursor: pointer;
+list-style: none;
+}
+.mat-sec>summary::-webkit-details-marker {
+display: none;
+}
+.mat-sec[open]>summary {
+border-bottom: 1px dashed #dcd7c9;
+border-radius: 8px 8px 0 0;
+}
+.mat-sec-count {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 22px;
+height: 22px;
+padding: 0 6px;
+border-radius: 11px;
+background: #2f6f63;
+color: #fff;
+font-size: .72rem;
+font-weight: 700;
+}
+.mat-sec-body {
+padding: 4px 8px 8px;
+}
+.mat-node-body textarea {
+resize: vertical;
+}
+</style>
 </head>
 
 <body>
-  <div class="container py-4" style="max-width:1100px">
-    <div id="login" class="card p-4 mx-auto" style="max-width:420px">
-      <h5>Вход в админку</h5>
-      <input id="gate" type="password" class="form-control mb-2" placeholder="Локальный пароль (для демо-режима)">
-      <input id="token" type="password" class="form-control mb-2" placeholder="GitHub Personal Access Token">
-      <button class="btn btn-dark" onclick="login()">Войти</button>
-      <small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий. Оставьте поле токена пустым, чтобы войти в демо-режим: просмотр и правка без публикации.</small>
-    </div>
-    <div id="app" style="display:none">
-      <div class="d-flex flex-wrap gap-2 align-items-center mb-3 admin-toolbar">
-        <select id="tsel" class="form-select" style="max-width:420px" onchange="setCur(+this.value)"></select>
-        <button class="btn btn-outline-dark btn-sm" onclick="addTeacher()">+ преподаватель</button>
-        <button class="btn btn-outline-danger btn-sm" onclick="delTeacher()">Удалить</button>
-        <label class="form-check-label small text-secondary d-flex align-items-center gap-1 ms-2 mb-0" title="Карточка исчезнет с главной страницы, личная страница открываться не будет">
-          <input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
-        </label>
-        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻</button>
-        <div class="d-flex gap-2 align-items-center ms-auto" style="flex-shrink: 0;">
-          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="bumpVersion()" title="Поднять версию ассетов на +1 в teacher.html и index.html и закоммитить в репозиторий">v+1</button>
-          <span class="ver-badge" id="verBadge" onclick="refreshVerBadge()" title="Версия teacher.js в teacher.html репозитория — кликните для обновления"></span>
-          <button class="btn btn-success btn-sm" onclick="save()">Сохранить</button>
-        </div>
-      </div>
-      <div id="secs"></div>
-    </div>
-    <script>
-      /* ═══ НАСТРОЙКИ ═══ */
-      const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
-      const GATE = '2470';
-      /* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON, правки никуда не отправляются. */
-      let DEMO = false;
+<div class="container py-4" style="max-width:1100px">
+<div id="login" class="card p-4 mx-auto" style="max-width:420px">
+<h5>Вход в админку</h5>
+<input id="gate" type="password" class="form-control mb-2" placeholder="Локальный пароль (для демо-режима)">
+<input id="token" type="password" class="form-control mb-2" placeholder="GitHub Personal Access Token">
+<button class="btn btn-dark" onclick="login()">Войти</button>
+<small class="text-secondary mt-2">Токен хранится только в вашей вкладке браузера и нужен для записи в репозиторий. Оставьте поле токена пустым, чтобы войти в демо-режим: просмотр и правка без публикации.</small>
+</div>
+<div id="app" style="display:none">
+<div class="d-flex flex-wrap gap-2 align-items-center mb-3 admin-toolbar">
+<select id="tsel" class="form-select" style="max-width:420px" onchange="setCur(+this.value)"></select>
+<button class="btn btn-outline-dark btn-sm" onclick="addTeacher()">+ преподаватель</button>
+<button class="btn btn-outline-danger btn-sm" onclick="delTeacher()">Удалить</button>
+<label class="form-check-label small text-secondary d-flex align-items-center gap-1 ms-2 mb-0" title="Карточка исчезнет с главной страницы, личная страница открываться не будет">
+<input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
+</label>
+<button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻</button>
+<div class="d-flex gap-2 align-items-center ms-auto" style="flex-wrap:nowrap">
+<button type="button" class="btn btn-outline-secondary btn-sm" onclick="bumpVersion()" title="Поднять версию ассетов на +1 в teacher.html и index.html и закоммитить в репозиторий">v+1</button>
+<span class="ver-badge" id="verBadge" onclick="refreshVerBadge()" title="Версия teacher.js в teacher.html репозитория — кликните для обновления"></span>
+<button class="btn btn-success btn-sm" onclick="save()">Сохранить и опубликовать</button>
+</div>
+<span id="status" class="small"></span>
+</div>
+<div id="secs"></div>
+</div>
+<script>
+/* ═══ НАСТРОЙКИ ═══ */
+const OWNER = '2344040', REPO = 'Site_SmtuPerson', PATH = 'data/teachers.json';
+const GATE = '2470';
+/* Демо-режим: вход с пустым полем токена. Данные читаются из опубликованного JSON, правки никуда не отправляются. */
+let DEMO = false;
 
-      /* Файлы для кнопки «↻ файлы для LLM» */
-      const LLM_FILES = ['admin.html', 'teacher.html', 'index.html', 'assets/teacher.js', 'assets/style.css'];
+/* Файлы для кнопки «↻ файлы для LLM» */
+const LLM_FILES = ['admin.html', 'teacher.html', 'index.html', 'assets/teacher.js', 'assets/style.css'];
 
-      async function fetchFileRaw(p) {
-        const headers = { 'Accept': 'application/vnd.github.raw' };
-        if (TOK) headers.Authorization = 'Bearer ' + TOK;
-        const r = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + p, { headers });
-        if (!r.ok) return null;
-        return await r.text();
-      }
+async function fetchFileRaw(p) {
+const headers = { 'Accept': 'application/vnd.github.raw' };
+if (TOK) headers.Authorization = 'Bearer ' + TOK;
+const r = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + p, { headers });
+if (!r.ok) return null;
+return await r.text();
+}
 
-      async function syncForLLM() {
-        const st = document.getElementById('status');
-        st.textContent = 'читаю файлы…';
-        const parts = [];
-        for (const p of LLM_FILES) {
-          const txt = await fetchFileRaw(p);
-          parts.push(txt === null
-            ? `=== файл: ${p} ===\n[НЕ УДАЛОСЬ ПРОЧИТАТЬ — проверьте путь в LLM_FILES]`
-            : `=== файл: ${p} ===\n${txt}`);
-        }
-        const block = parts.join('\n\n');
-        try {
-          await navigator.clipboard.writeText(block);
-          st.innerHTML = `<span class="text-success fw-bold">✔</span> в буфере: ${block.length.toLocaleString('ru-RU')} симв.`;
-        } catch (e) {
-          const ta = document.createElement('textarea');
-          ta.value = block;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-          st.innerHTML = `<span class="text-success fw-bold">✔</span> скопировано (fallback)`;
-        }
-      }
+async function syncForLLM() {
+const st = document.getElementById('status');
+st.textContent = 'читаю файлы…';
+const parts = [];
+for (const p of LLM_FILES) {
+const txt = await fetchFileRaw(p);
+parts.push(txt === null
+? `=== файл: ${p} ===\n[НЕ УДАЛОСЬ ПРОЧИТАТЬ — проверьте путь в LLM_FILES]`
+: `=== файл: ${p} ===\n${txt}`);
+}
+const block = parts.join('\n\n');
+try {
+await navigator.clipboard.writeText(block);
+st.innerHTML = `<span class="text-success fw-bold">✔</span> в буфере: ${block.length.toLocaleString('ru-RU')} симв.`;
+} catch (e) {
+const ta = document.createElement('textarea');
+ta.value = block;
+document.body.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+document.body.removeChild(ta);
+st.innerHTML = `<span class="text-success fw-bold">✔</span> скопировано (fallback)`;
+}
+}
 
-      /* Бейдж версии: читаем teacher.html из репозитория и достаём ?v=NN */
-      async function refreshVerBadge() {
-        const el = document.getElementById('verBadge');
-        if (!el) return;
-        el.textContent = '…';
-        const txt = await fetchFileRaw('teacher.html');
-        const m = txt && txt.match(/teacher\.js\?v=(\d+)/);
-        el.textContent = m ? 'v.' + m[1] : 'v.—';
-      }
+/* Бейдж версии: читаем teacher.html из репозитория и достаём ?v=NN */
+async function refreshVerBadge() {
+const el = document.getElementById('verBadge');
+if (!el) return;
+el.textContent = '…';
+const txt = await fetchFileRaw('teacher.html');
+const m = txt && txt.match(/teacher\.js\?v=(\d+)/);
+el.textContent = m ? 'v.' + m[1] : 'v.—';
+}
 
-      /* ═══ Подъём версии ассетов: один клик = все теги во всех HTML ═══ */
-      async function bumpVersion() {
-        if (DEMO) { alert('Подъём версии недоступен в демо-режиме: нужна запись в репозиторий.'); return; }
-        const st = document.getElementById('status');
-        st.textContent = 'поднимаю версию…';
-        try {
-          const files = ['teacher.html', 'index.html'];
-          const cur = {};
-          for (const p of files) {
-            const r = await gh('/contents/' + p);
-            if (!r.ok) throw new Error('Не удалось прочитать ' + p + ': ' + r.status);
-            const j = await r.json();
-            cur[p] = { sha: j.sha, text: decodeURIComponent(escape(atob(j.content))) };
-          }
-          let max = 0;
-          Object.values(cur).forEach(f => {
-            (f.text.match(/[?&]v=(\d+)/g) || []).forEach(m => { max = Math.max(max, +m.slice(4)); });
-          });
-          const next = max + 1;
-          const patch = t => t
-            .replace(/(assets\/(?:teacher\.js|style\.css)\?v=)\d+/g, '$1' + next)
-            .replace(/(assets\/(?:teacher\.js|style\.css))(")/g, '$1?v=' + next + '$2');
-          for (const p of files) {
-            const nt = patch(cur[p].text);
-            if (nt === cur[p].text) continue;
-            const b64 = btoa(unescape(encodeURIComponent(nt)));
-            const r = await gh('/contents/' + p, {
-              method: 'PUT',
-              body: JSON.stringify({ message: 'admin: bump assets version to v' + next, content: b64, sha: cur[p].sha })
-            });
-            if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error('Запись ' + p + ': ' + r.status + ' ' + (e.message || '')); }
-          }
-          st.innerHTML = `<span class="text-success fw-bold">✔</span> версия v${next}`;
-          refreshVerBadge();
-        } catch (err) {
-          st.innerHTML = '<span class="text-danger fw-bold">✗</span> версия';
-          alert('Исключение при подъёме версии: ' + err.message);
-        }
-      }
+/* ═══ Подъём версии ассетов: один клик = все теги во всех HTML ═══ */
+async function bumpVersion() {
+if (DEMO) { alert('Подъём версии недоступен в демо-режиме: нужна запись в репозиторий.'); return; }
+const st = document.getElementById('status');
+st.textContent = 'поднимаю версию…';
+try {
+/* 1. Читаем оба HTML из репозитория */
+const files = ['teacher.html', 'index.html'];
+const cur = {};
+for (const p of files) {
+const r = await gh('/contents/' + p);
+if (!r.ok) throw new Error('Не удалось прочитать ' + p + ': ' + r.status);
+const j = await r.json();
+cur[p] = { sha: j.sha, text: decodeURIComponent(escape(atob(j.content))) };
+}
+/* 2. Новый номер = максимум найденных + 1 */
+let max = 0;
+Object.values(cur).forEach(f => {
+f.text.replace(/[?&]v=(\d+)/g, (s, n) => { max = Math.max(max, +n); return s; });
+});
+const next = max + 1;
+/* 3. Меняем существующие ?v=NN у наших ассетов; голым ссылкам добавляем параметр */
+const patch = t => t
+.replace(/(assets\/(?:teacher\.js|style\.css)\?v=)\d+/g, (s, p1) => p1 + next)
+.replace(/(assets\/(?:teacher\.js|style\.css))(")/g, (s, p1, p2) => p1 + '?v=' + next + p2);
+/* 4. Пишем обратно (base64 через UTF-8-обёртку, кириллица не ломает btoa) */
+for (const p of files) {
+const nt = patch(cur[p].text);
+if (nt === cur[p].text) continue;
+const b64 = btoa(unescape(encodeURIComponent(nt)));
+const r = await gh('/contents/' + p, {
+method: 'PUT',
+body: JSON.stringify({ message: 'admin: bump assets version to v' + next, content: b64, sha: cur[p].sha })
+});
+if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error('Запись ' + p + ': ' + r.status + ' ' + (e.message || '')); }
+}
+st.innerHTML = `<span class="text-success fw-bold">✔</span> версия v${next}`;
+refreshVerBadge();
+} catch (err) {
+st.innerHTML = '<span class="text-danger fw-bold">✗</span> версия';
+alert('Исключение при подъёме версии: ' + err.message);
+}
+}
 
-      // * SCALAR
-      const SCALAR = {
-        id: ['ID (латиницей)', 'col-md-3'],
-        short: ['ФИО коротко', 'col-md-3'],
-        photo: ['URL фото', 'col-md-12'],
-        university: ['Университет (кратко)', 'w-univ'],
-        faculty: ['Факультет', 'w-fac'],
-        department: ['Кафедра', 'w-dep'],
-        name: ['ФИО полное', 'col-md-6'],
-        position: ['Должность (справочник)', 'col-md-4'],
-        post: ['Должность под ФИО (авто: должность + кафедра, можно править)', 'col-md-8'],
-        degree_level: ['Степень: ступень', 'col-md-3'],
-        degree_branch: ['Степень: отрасль наук', 'col-md-5'],
-        academic_title: ['Учёное звание', 'col-md-2'],
-        experience_years: ['Педагогический стаж, лет', 'col-md-2'],
-        email: ['E-mail', 'col-md-4'],
-        phone: ['Телефон', 'col-md-4'],
-        address: ['Адрес', 'col-md-8'],
-        site: ['Сайт', 'col-md-8'],
-        hours: ['Приёмные часы', 'col-md-4'],
-        share_tg_url: ['URL для Telegram share', 'col-md-6'],
-        share_vk_url: ['URL для VK share', 'col-md-6']
-      };
+// * SCALAR
+const SCALAR = {
+id: ['ID (латиницей)', 'col-md-3'],
+short: ['ФИО коротко', 'col-md-3'],
+photo: ['URL фото', 'col-md-12'],
+university: ['Университет (кратко)', 'w-univ'],
+faculty: ['Факультет', 'w-fac'],
+department: ['Кафедра', 'w-dep'],
+name: ['ФИО полное', 'col-md-6'],
+position: ['Должность (справочник)', 'col-md-4'],
+post: ['Должность под ФИО (авто: должность + кафедра, можно править)', 'col-md-8'],
+degree_level: ['Степень: ступень', 'col-md-3'],
+degree_branch: ['Степень: отрасль наук', 'col-md-5'],
+academic_title: ['Учёное звание', 'col-md-2'],
+experience_years: ['Педагогический стаж, лет', 'col-md-2'],
+email: ['E-mail', 'col-md-4'],
+phone: ['Телефон', 'col-md-4'],
+address: ['Адрес', 'col-md-8'],
+site: ['Сайт', 'col-md-8'],
+hours: ['Приёмные часы', 'col-md-4'],
+share_tg_url: ['URL для Telegram share', 'col-md-6'],
+share_vk_url: ['URL для VK share', 'col-md-6']
+};
 
-      const FACULTIES = [
-        'Факультет кораблестроения и океанотехники',
-        'Факультет корабельной энергетики и автоматики',
-        'Факультет гуманитарного образования',
-        'Факультет цифровых промышленных технологий',
-        'Факультет морского приборостроения',
-        'Инженерно-экономический факультет',
-        'Высшая физико-техническая школа',
-        'Колледж'
-      ];
-      const DEPARTMENTS = {
-        'Факультет кораблестроения и океанотехники': [
-          'Кафедра теории корабля', 'Кафедра гидроаэромеханики и морской акустики', 'Базовая кафедра «Судовая акустика»',
-          'Кафедра конструкции и технической эксплуатации судов', 'Кафедра океанотехники и морских технологий',
-          'Кафедра проектирования судов', 'Кафедра строительной механики корабля',
-          'Базовая кафедра прочности и конструкции корабля', 'Кафедра технологии судостроения'
-        ],
-        'Факультет корабельной энергетики и автоматики': [
-          'Кафедра судовой автоматики и измерений', 'Кафедра деталей машин и подъемно-транспортных механизмов',
-          'Кафедра судовых двигателей внутреннего сгорания и дизельных установок', 'Кафедра судовых турбин и турбинных установок',
-          'Базовая кафедра "Инновационное турбостроение"', 'Кафедра электротехники и электрооборудования судов',
-          'Кафедра судовых энергетических установок, систем и оборудования',
-          'Базовая кафедра "Информационные технологии в разработке и эксплуатации судовых энергетических установок"',
-          'Кафедра перспективных источников энергии и систем энергообеспечения', 'Кафедра технологии судового машиностроения',
-          'Базовая кафедра "Технологии энергетического машиностроения"', 'Базовая кафедра судового машиностроения'
-        ],
-        'Факультет гуманитарного образования': [
-          'Кафедра истории', 'Кафедра философии и социологии', 'Кафедра государственно-правовых дисциплин',
-          'Кафедра уголовно-правовых дисциплин', 'Кафедра гражданско-правовых дисциплин', 'Кафедра международного морского права',
-          'Кафедра физического воспитания', 'Кафедра иностранных языков', 'Кафедра эргономики и инженерной психологии'
-        ],
-        'Факультет цифровых промышленных технологий': [
-          'Кафедра сварки судовых конструкций', 'Кафедра цифровой безопасности',
-          'Кафедра вычислительной техники и информационных технологий', 'Кафедра прикладной математики и математического моделирования',
-          'Кафедра киберфизических систем', 'Кафедра цифровых лазерных технологий'
-        ],
-        'Факультет морского приборостроения': [
-          'Кафедра корабельных автоматизированных комплексов и информационно-управляющих систем',
-          'Базовая кафедра «Кораблестроение, корабельное вооружение и морская робототехника»', 'Кафедра гидрофизических средств поиска',
-          'Базовая кафедра физических полей объектов морской техники и океана',
-          'Кафедра систем автоматического управления и бортовой вычислительной техники',
-          'Базовая кафедра «Управление жизненным циклом морских технических систем»',
-          'Базовая кафедра «Информационно-измерительные системы и приборы морской техники»',
-          'Базовая кафедра «Навигационные и управляющие системы морской техники»',
-          'Кафедра проектирования и технологии производства морских подводных аппаратов и роботов',
-          'Базовая кафедра "Проектирование и технология производства морского подводного оружия"',
-          'Кафедра морских информационных систем и технологий', 'Базовая кафедра «Проектирование морских информационных систем»',
-          'Базовая кафедра «Мехатроника и робототехника»'
-        ],
-        'Инженерно-экономический факультет': [
-          'Кафедра управления судостроительным производством', 'Кафедра экономики судостроительной промышленности',
-          'Кафедра бухгалтерского учета и аудита', 'Кафедра "Инновационная экономика"',
-          'Кафедра "Международные экономические отношения"', 'Кафедра управления бизнес-технологиями'
-        ],
-        'Высшая физико-техническая школа': [
-          'Кафедра теоретической механики', 'Кафедра материаловедения и технологии материалов',
-          'Базовая кафедра «Современные материалы и технологии в судостроении»',
-          'Кафедра промышленной, экологической и климатической безопасности', 'Кафедра математики', 'Кафедра физики', 'Кафедра химии',
-          'Кафедра компьютерной графики и геометрического моделирования', 'Кафедра "Медицинской техники и робототехники"',
-          'Кафедра "Ядерная техника и теплофизика"', 'Базовая кафедра «Судовые ядерные энергетические установки»',
-          'Базовая кафедра «Медицинская инженерия»'
-        ],
-        'Колледж': []
-      };
+const FACULTIES = [
+'Факультет кораблестроения и океанотехники',
+'Факультет корабельной энергетики и автоматики',
+'Факультет гуманитарного образования',
+'Факультет цифровых промышленных технологий',
+'Факультет морского приборостроения',
+'Инженерно-экономический факультет',
+'Высшая физико-техническая школа',
+'Колледж'
+];
+const DEPARTMENTS = {
+'Факультет кораблестроения и океанотехники': [
+'Кафедра теории корабля', 'Кафедра гидроаэромеханики и морской акустики', 'Базовая кафедра «Судовая акустика»',
+'Кафедра конструкции и технической эксплуатации судов', 'Кафедра океанотехники и морских технологий',
+'Кафедра проектирования судов', 'Кафедра строительной механики корабля',
+'Базовая кафедра прочности и конструкции корабля', 'Кафедра технологии судостроения'
+],
+'Факультет корабельной энергетики и автоматики': [
+'Кафедра судовой автоматики и измерений', 'Кафедра деталей машин и подъемно-транспортных механизмов',
+'Кафедра судовых двигателей внутреннего сгорания и дизельных установок', 'Кафедра судовых турбин и турбинных установок',
+'Базовая кафедра "Инновационное турбостроение"', 'Кафедра электротехники и электрооборудования судов',
+'Кафедра судовых энергетических установок, систем и оборудования',
+'Базовая кафедра "Информационные технологии в разработке и эксплуатации судовых энергетических установок"',
+'Кафедра перспективных источников энергии и систем энергообеспечения', 'Кафедра технологии судового машиностроения',
+'Базовая кафедра "Технологии энергетического машиностроения"', 'Базовая кафедра судового машиностроения'
+],
+'Факультет гуманитарного образования': [
+'Кафедра истории', 'Кафедра философии и социологии', 'Кафедра государственно-правовых дисциплин',
+'Кафедра уголовно-правовых дисциплин', 'Кафедра гражданско-правовых дисциплин', 'Кафедра международного морского права',
+'Кафедра физического воспитания', 'Кафедра иностранных языков', 'Кафедра эргономики и инженерной психологии'
+],
+'Факультет цифровых промышленных технологий': [
+'Кафедра сварки судовых конструкций', 'Кафедра цифровой безопасности',
+'Кафедра вычислительной техники и информационных технологий', 'Кафедра прикладной математики и математического моделирования',
+'Кафедра киберфизических систем', 'Кафедра цифровых лазерных технологий'
+],
+'Факультет морского приборостроения': [
+'Кафедра корабельных автоматизированных комплексов и информационно-управляющих систем',
+'Базовая кафедра «Кораблестроение, корабельное вооружение и морская робототехника»', 'Кафедра гидрофизических средств поиска',
+'Базовая кафедра физических полей объектов морской техники и океана',
+'Кафедра систем автоматического управления и бортовой вычислительной техники',
+'Базовая кафедра «Управление жизненным циклом морских технических систем»',
+'Базовая кафедра «Информационно-измерительные системы и приборы морской техники»',
+'Базовая кафедра «Навигационные и управляющие системы морской техники»',
+'Кафедра проектирования и технологии производства морских подводных аппаратов и роботов',
+'Базовая кафедра "Проектирование и технология производства морского подводного оружия"',
+'Кафедра морских информационных систем и технологий', 'Базовая кафедра «Проектирование морских информационных систем»',
+'Базовая кафедра «Мехатроника и робототехника»'
+],
+'Инженерно-экономический факультет': [
+'Кафедра управления судостроительным производством', 'Кафедра экономики судостроительной промышленности',
+'Кафедра бухгалтерского учета и аудита', 'Кафедра "Инновационная экономика"',
+'Кафедра "Международные экономические отношения"', 'Кафедра управления бизнес-технологиями'
+],
+'Высшая физико-техническая школа': [
+'Кафедра теоретической механики', 'Кафедра материаловедения и технологии материалов',
+'Базовая кафедра «Современные материалы и технологии в судостроении»',
+'Кафедра промышленной, экологической и климатической безопасности', 'Кафедра математики', 'Кафедра физики', 'Кафедра химии',
+'Кафедра компьютерной графики и геометрического моделирования', 'Кафедра "Медицинской техники и робототехники"',
+'Кафедра "Ядерная техника и теплофизика"', 'Базовая кафедра «Судовые ядерные энергетические установки»',
+'Базовая кафедра «Медицинская инженерия»'
+],
+'Колледж': []
+};
 
-      const DEFAULTS = { university: 'СПбГМТУ' };
-      /* Ступени и отрасли наук для чипа «учёная степень»; отрась храним сразу с хвостом фразы */
-      const DEGREE_LEVELS = ['кандидат', 'доктор'];
-      const DEGREE_BRANCHES = [
-        'технических наук', 'физико-математических наук', 'химических наук', 'биологических наук',
-        'геолого-минералогических наук', 'медицинских наук', 'ветеринарных наук', 'сельскохозяйственных наук',
-        'экономических наук', 'юридических наук', 'педагогических наук', 'психологических наук',
-        'социологических наук', 'политических наук', 'философских наук', 'исторических наук',
-        'филологических наук', 'искусствоведения', 'архитектуры', 'военных наук', 'теологических наук'
-      ];
-      const ACADEMIC_TITLES = ['Профессор', 'Доцент'];
-      const makeShort = name => {
-        const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        if (!parts.length) return '';
-        const initials = parts.slice(1).map(w => w[0].toUpperCase() + '.').join('');
-        return initials ? parts[0] + ' ' + initials : parts[0];
-      };
-      /* Стартовый справочник должностей; сливается с уже вводившимися */
-      const POSITIONS_PRESET = [
-        'Профессор', 'Доцент', 'Заведующий', 'И.о. заведующего', 'Старший преподаватель',
-        'Преподаватель', 'Ассистент', 'Декан', 'Проректор', 'Начальник отдела', 'Заведующий лабораторией'
-      ];
-      const positionOptions = () => {
-        const vals = new Set(POSITIONS_PRESET);
-        (data.teachers || []).forEach(t => {
-          const v = String(t.position || '').trim();
-          if (v) vals.add(v);
-        });
-        return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
-      };
-      /* Склоняем слово «кафедра» в начале названия кафедры */
-      const declineKafedra = (dep, instr) => String(dep || '').trim()
-        .replace(/^базовая\s+кафедра/i, instr ? 'базовой кафедрой' : 'базовой кафедры')
-        .replace(/^кафедра/i, instr ? 'кафедрой' : 'кафедры');
-      /* Должность под ФИО: должность + кафедра (заведующий — творительный, остальные — родительный) */
-      const composePost = (pos, dep) => {
-        let p = String(pos || '').trim();
-        if (!p) return '';
-        /* Убираем хвост «кафедрой/кафедры» из должности, чтобы не удваивался */
-        p = p.replace(/\s+(?:базовой\s+)?кафедр(?:ой|ы)\.?$/i, '').trim();
-        const instr = /заведующ|зав\./i.test(p) && !/лаборатор|отдел|центр|сектор|часть|кабинет|музей/i.test(p);
-        const d = declineKafedra(dep, instr);
-        return d ? p + ' ' + d : p;
-      };
+const DEFAULTS = { university: 'СПбГМТУ' };
+/* Ступени и отрасли наук для чипа «учёная степень»; отрась храним сразу с хвостом фразы */
+const DEGREE_LEVELS = ['кандидат', 'доктор'];
+const DEGREE_BRANCHES = [
+'технических наук', 'физико-математических наук', 'химических наук', 'биологических наук',
+'геолого-минералогических наук', 'медицинских наук', 'ветеринарных наук', 'сельскохозяйственных наук',
+'экономических наук', 'юридических наук', 'педагогических наук', 'психологических наук',
+'социологических наук', 'политических наук', 'философских наук', 'исторических наук',
+'филологических наук', 'искусствоведения', 'архитектуры', 'военных наук', 'теологических наук'
+];
+const ACADEMIC_TITLES = ['Профессор', 'Доцент'];
+const makeShort = name => {
+const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+if (!parts.length) return '';
+const initials = parts.slice(1).map(w => w[0].toUpperCase() + '.').join('');
+return initials ? parts[0] + ' ' + initials : parts[0];
+};
+/* Стартовый справочник должностей; сливается с уже вводившимися */
+const POSITIONS_PRESET = [
+'Профессор', 'Доцент', 'Заведующий', 'И.о. заведующего', 'Старший преподаватель',
+'Преподаватель', 'Ассистент', 'Декан', 'Проректор', 'Начальник отдела', 'Заведующий лабораторией'
+];
+const positionOptions = () => {
+const vals = new Set(POSITIONS_PRESET);
+(data.teachers || []).forEach(t => {
+const v = String(t.position || '').trim();
+if (v) vals.add(v);
+});
+return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
+};
+/* Склоняем слово «кафедра» в начале названия кафедры */
+const declineKafedra = (dep, instr) => String(dep || '').trim()
+.replace(/^базовая\s+кафедра/i, instr ? 'базовой кафедрой' : 'базовой кафедры')
+.replace(/^кафедра/i, instr ? 'кафедрой' : 'кафедры');
+/* Должность под ФИО: должность + кафедра (заведующий — творительный, остальные — родительный) */
+const composePost = (pos, dep) => {
+let p = String(pos || '').trim();
+if (!p) return '';
+/* Убираем хвост «кафедрой/кафедры» из должности, чтобы не удваивался */
+p = p.replace(/\s+(?:базовой\s+)?кафедр(?:ой|ы)\.?$/i, '').trim();
+const instr = /заведующ|зав\./i.test(p) && !/лаборатор|отдел|центр|сектор|часть|кабинет|музей/i.test(p);
+const d = declineKafedra(dep, instr);
+return d ? p + ' ' + d : p;
+};
 
-      // * TEXTS
-      const TEXTS = {
-        ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
-        science_text: ['Текстовый блок научных интересов', 3],
-        ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
-        social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
-      };
+// * TEXTS
+const TEXTS = {
+ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
+science_text: ['Текстовый блок научных интересов', 3],
+ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
+social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
+};
 
-      // * GROUPS
-      const GROUPS = [
-        { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
-        {
-          title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
-        },
-        { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
-        { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
-        { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
-        { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
-        {
-          title: '6. Педагогическая деятельность',
-          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session']]
-        },
-        {
-          title: '7. Научная деятельность',
-          items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'projects'], ['a', 'patents']]
-        },
-        {
-          title: '8. Публикации (произведения героя)',
-          items: [['a', 'pub_articles'], ['a', 'pub_theses'], ['a', 'pub_textbooks'], ['a', 'pub_posobia'], ['a', 'pub_mono'], ['a', 'pub_other']]
-        },
-        { title: '9. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
-        { title: '10. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
-        { title: '11. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
-        { title: '12. Новости', items: [['a', 'news']] }
-      ];
+// * GROUPS
+const GROUPS = [
+{ title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
+{
+title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
+items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
+},
+{ title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
+{ title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
+{ title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
+{ title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
+{
+title: '6. Педагогическая деятельность',
+items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session']]
+},
+{
+title: '7. Научная деятельность',
+items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'projects'], ['a', 'patents']]
+},
+{
+title: '8. Публикации (произведения героя)',
+items: [['a', 'pub_articles'], ['a', 'pub_theses'], ['a', 'pub_textbooks'], ['a', 'pub_posobia'], ['a', 'pub_mono'], ['a', 'pub_other']]
+},
+{ title: '9. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
+{ title: '10. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
+{ title: '11. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
+{ title: '12. Новости', items: [['a', 'news']] }
+];
 
-      // * KEYS
-      const KEYS = {
-        chips: ['*'], positions: ['*'], memberships: ['*'], honors: ['*'],
-        email_extra: ['*'], phone_extra: ['*'],
-        education: ['year', 'institution', 'level', 'profile', 'qualification'],
-        upk: ['year', 'title', 'type', 'text'],
-        career: ['year', 'title', 'text'],
-        achievements: ['year', 'icon', 'title', 'text'],
-        programs: ['text', 'title', 'tag', 'comment', 'url'],
-        courses: ['a', 'b', 'c', 'd', 'e'],
-        schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
-        session: ['a', 'b', 'c', 'd', 'e', 'f'],
-        pub_articles: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
-        pub_theses: ['year', 'author', 'title', 'biblio', 'description', 'url'],
-        pub_textbooks: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
-        pub_posobia: ['year', 'author', 'title', 'biblio', 'description', 'url'],
-        pub_mono: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
-        pub_other: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
-        patents: ['year', 'title', 'text', 'tag'],
-        projects: ['year', 'title', 'text'],
-        social: ['title', 'text'],
-        metrics: ['n', 'l'],
-        events: ['day', 'time', 'subject', 'type', 'building', 'room', 'now'],
-        profiles: ['t', 'u'],
-        news: ['date', 'title', 'img', 'url'],
-        rail_edu: ['t', 'u'],
+// * KEYS
+const KEYS = {
+chips: ['*'], positions: ['*'], memberships: ['*'], honors: ['*'],
+email_extra: ['*'], phone_extra: ['*'],
+education: ['year', 'institution', 'level', 'profile', 'qualification'],
+upk: ['year', 'title', 'type', 'text'],
+career: ['year', 'title', 'text'],
+achievements: ['year', 'icon', 'title', 'text'],
+programs: ['text', 'title', 'tag', 'comment', 'url'],
+courses: ['a', 'b', 'c', 'd', 'e'],
+schedule: ['a', 'b', 'c', 'd', 'e', 'f'],
+session: ['a', 'b', 'c', 'd', 'e', 'f'],
+pub_articles: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
+pub_theses: ['year', 'author', 'title', 'biblio', 'description', 'url'],
+pub_textbooks: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+pub_posobia: ['year', 'author', 'title', 'biblio', 'description', 'url'],
+pub_mono: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+pub_other: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+patents: ['year', 'title', 'text', 'tag'],
+projects: ['year', 'title', 'text'],
+social: ['title', 'text'],
+metrics: ['n', 'l'],
+events: ['day', 'time', 'subject', 'type', 'building', 'room', 'now'],
+profiles: ['t', 'u'],
+news: ['date', 'title', 'img', 'url'],
+rail_edu: ['t', 'u'],
+};
 
-      };
+const ICONS = [
+['award', '🎖 award — медаль / лента'],
+['trophy', '🏆 trophy — кубок'],
+['award-fill', '🥇 award-fill — медаль с лентой (залитая)'],
+['star', '⭐ star — звезда'],
+['patch-check', '✅ patch-check — знак отличия'],
+['mortarboard', '🎓 mortarboard — академическая шапка'],
+['gem', '💎 gem — драгоценный камень'],
+['bookmark-star', '🔖 bookmark-star — закладка со звездой']
+];
 
-      const ICONS = [
-        ['award', '🎖 award — медаль / лента'],
-        ['trophy', '🏆 trophy — кубок'],
-        ['award-fill', '🥇 award-fill — медаль с лентой (залитая)'],
-        ['star', '⭐ star — звезда'],
-        ['patch-check', '✅ patch-check — знак отличия'],
-        ['mortarboard', '🎓 mortarboard — академическая шапка'],
-        ['gem', '💎 gem — драгоценный камень'],
-        ['bookmark-star', '🔖 bookmark-star — закладка со звездой']
-      ];
+// * NAMES
+const NAMES = {
+chips: 'Чипы', positions: 'Должности (1-я строка — авто из должности, далее вручную)',
+memberships: 'Членство в организациях', honors: 'Звания, награды, почётные статусы',
+email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
+education: 'Образование', upk: 'Повышение квалификации',
+career: 'Карьера', achievements: 'Профессиональные достижения',
+programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
+patents: 'Патенты', projects: 'Проекты', pub_articles: 'Статьи', pub_theses: 'Тезисы',
+pub_textbooks: 'Учебники', pub_posobia: 'Учебные пособия', pub_mono: 'Монографии',
+pub_other: 'Прочее',
+social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
+profiles: 'Профили (правый сайдбар)', news: 'Новости',
+rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
+mat_posobia: 'Учебники/Учебные пособия', mat_books: 'Книги/Монографии', mat_lectures: 'Записи лекций',
+mat_video: 'Видео-материалы', mat_resources: 'Полезные ресурсы',
+};
 
-      // * NAMES
-      const NAMES = {
-        chips: 'Чипы', positions: 'Должности (1-я строка — авто из должности, далее вручную)',
-        memberships: 'Членство в организациях', honors: 'Звания, награды, почётные статусы',
-        email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
-        education: 'Образование', upk: 'Повышение квалификации',
-        career: 'Карьера', achievements: 'Профессиональные достижения',
-        programs: 'Программы', courses: 'Дисциплины', schedule: 'Расписание', session: 'Сессия',
-        patents: 'Патенты', projects: 'Проекты', pub_articles: 'Статьи', pub_theses: 'Тезисы',
-        pub_textbooks: 'Учебники', pub_posobia: 'Учебные пособия', pub_mono: 'Монографии',
-        pub_other: 'Прочее',
-        social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
-        profiles: 'Профили (правый сайдбар)', news: 'Новости',
-        rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
-        mat_posobia: 'Учебники/Учебные пособия', mat_books: 'Книги/Монографии', mat_lectures: 'Записи лекций',
-        mat_video: 'Видео-материалы', mat_resources: 'Полезные ресурсы',
-      };
+// * MULTILINE
+const MULTILINE = {
+achievements: ['text'], patents: ['text'],
+projects: ['text'], social: ['text'], news: ['title'],
+pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description']
+};
+const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1 };
 
-      // * MULTILINE
-      const MULTILINE = {
-        achievements: ['text'], patents: ['text'],
-        projects: ['text'], social: ['text'], news: ['title'],
-        pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description']
-      };
-      const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1 };
+// * COL_NAMES
+const COL_NAMES = {
+'*': 'Значение', year: 'Год', date: 'Дата', day: 'День', title: 'Название', text: 'Описание',
+tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
+n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки',
+institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
+time: 'Время', subject: 'Предмет', type: 'Тип занятия',
+building: 'Корпус', room: 'Аудитория',
+author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание',
+};
 
-      // * COL_NAMES
-      const COL_NAMES = {
-        '*': 'Значение', year: 'Год', date: 'Дата', day: 'День', title: 'Название', text: 'Описание',
-        tag: 'Тег', icon: 'Иконка', link: 'Ссылка', doi: 'DOI',
-        n: 'Число', l: 'Подпись', t: 'Заголовок', x: 'Описание', now: 'Сейчас', u: 'URL', img: 'URL картинки',
-        institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
-        time: 'Время', subject: 'Предмет', type: 'Тип занятия',
-        building: 'Корпус', room: 'Аудитория',
-        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание',
-      };
+// * LEVELS
+const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
+const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30', '20:40-22:10', '22:20-23:50'];
+const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
+const METRIC_LABELS = ['публикаций', 'монографий', 'учебников', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патентов', 'индекс Хирша'];
+const PROFILE_TITLES = ['Scopus', 'ResearcherID-WoS', 'ORCID', 'РИНЦ', 'ВАК'];
 
-      // * LEVELS
-      const LEVELS = ['', 'бакалавриат', 'специалитет', 'магистратура', 'базовое высшее', 'специализированное высшее', 'аспирантура', 'докторантура', 'СПО', 'ДПО'];
-      const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-      const SLOTS = ['8:30-10:00', '10:10-11:40', '11:50-13:20', '14:00-15:30', '15:40-17:10', '17:20-18:50', '19:00-20:30', '20:40-22:10', '22:20-23:50'];
-      const LESSON_TYPES = ['лекция', 'семинар', 'вебинар', 'лабораторное занятие', 'практическое занятие'];
-      const METRIC_LABELS = ['публикаций', 'монографий', 'учебников', 'ст. ВАК', 'ст. Scopus', 'ст. WoS', 'ст. РИНЦ', 'НИОКР', 'объём НИОКР', 'патентов', 'индекс Хирша'];
-      const PROFILE_TITLES = ['Scopus', 'ResearcherID-WoS', 'ORCID', 'РИНЦ', 'ВАК'];
+// * SEC_COLS
+const SEC_COLS = {
+courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
+schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
+session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
+programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий', url: 'Страница программы' },
+career: { title: 'Учреждение', text: 'Должность' },
+publications: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
+books: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
+upk: { type: 'Тип', text: 'Организация' },
+};
 
-      // * SEC_COLS
-      const SEC_COLS = {
-        courses: { a: 'Дисциплина', b: 'Уровень', c: 'Курс', d: 'Семестр', e: 'Часы' },
-        schedule: { a: 'День', b: 'Время', c: 'Дисциплина', d: 'Тип', e: 'Группа', f: 'Ауд.' },
-        session: { a: 'Дата', b: 'Время', c: 'Дисциплина', d: 'Форма', e: 'Группа', f: 'Ауд.' },
-        programs: { text: 'Код ОП', title: 'Название', tag: 'Уровень', comment: 'Комментарий', url: 'Страница программы' },
-        career: { title: 'Учреждение', text: 'Должность' },
-        publications: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
-        books: { author: 'Автор', biblio: 'Выходные данные', description: 'Описание' },
-        upk: { type: 'Тип', text: 'Организация' },
-      };
+function colName(sec, key) {
+return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
+}
 
-      function colName(sec, key) {
-        return (SEC_COLS[sec] && SEC_COLS[sec][key]) || COL_NAMES[key] || key;
-      }
+/* ═══ Состояние и GitHub API ═══ */
+let TOK = sessionStorage.tok || '', data = null, cur = 0;
+const rememberCur = () => { try { localStorage.setItem('adminCur', String(cur)); } catch (e) { } };
+const restoreCur = n => {
+try {
+const v = parseInt(localStorage.getItem('adminCur'), 10);
+return isNaN(v) ? 0 : Math.min(Math.max(v, 0), n - 1);
+} catch (e) { return 0; }
+};
+function setCur(i) { cur = i; rememberCur(); build(); }
+const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
+{ ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
-      /* ═══ Состояние и GitHub API ═══ */
-      let TOK = sessionStorage.tok || '', data = null, cur = 0;
-      const rememberCur = () => { try { localStorage.setItem('adminCur', String(cur)); } catch (e) { } };
-      const restoreCur = n => {
-        try {
-          const v = parseInt(localStorage.getItem('adminCur'), 10);
-          return isNaN(v) ? 0 : Math.min(Math.max(v, 0), n - 1);
-        } catch (e) { return 0; }
-      };
-      function setCur(i) { cur = i; rememberCur(); build(); }
-      const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
-        { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
+function toggleHidden(v) {
+collect();
+data.teachers[cur].hidden = v;
+buildSel();
+}
 
-      function toggleHidden(v) {
-        collect();
-        data.teachers[cur].hidden = v;
-        buildSel();
-      }
+/* ═══ Вход и загрузка ═══ */
+function login() {
+TOK = document.getElementById('token').value.trim();
+if (!TOK) {
+/* Демо-дверь защищена паролем GATE */
+if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
+DEMO = true;
+loadDemo();
+return;
+}
+/* Боевой вход: токен — достаточное удостоверение */
+sessionStorage.tok = TOK;
+load();
+}
 
-      /* ═══ Вход и загрузка ═══ */
-      function login() {
-        TOK = document.getElementById('token').value.trim();
-        if (!TOK) {
-          /* Демо-дверь защищена паролем GATE */
-          if (GATE && document.getElementById('gate').value !== GATE) return alert('Неверный пароль');
-          DEMO = true;
-          loadDemo();
-          return;
-        }
-        /* Боевой вход: токен — достаточное удостоверение */
-        sessionStorage.tok = TOK;
-        load();
-      }
+/* Миграции данных — общие для боевого и демо-режима */
+function migrate(d) {
+(d.teachers || []).forEach(t => {
+/* ФИО без неразрывных пробелов и двойных пробелов — чтобы шапка делилась на две строки */
+if (t.name) t.name = String(t.name).replace(/[\u00A0\u2007\u202F]/g, ' ').replace(/\s{2,}/g, ' ').trim();
+/* Из старого post извлекаем должность для справочника (post не трогаем) */
+if (!t.position && t.post) {
+const m = String(t.post).match(/^(.+?)\s+(?:базовой\s+кафедры|базовой\s+кафедрой|кафедры|кафедрой)\b/i);
+if (m) t.position = m[1].trim();
+}
+/* Легаси-нормализация полей внутри строк books/publications */
+['books', 'publications'].forEach(k => {
+(t[k] || []).forEach(row => {
+if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
+if (row.link && !row.url) { row.url = row.link; delete row.link; }
+});
+});
+/* Сборка единого раздела «Публикации»: целые массивы уходят в новые рубрики.
+Стоит ПОСЛЕ нормализации полей, чтобы переехали уже исправленные строки */
+t.pub_articles = (t.pub_articles || []).concat(t.publications || []);
+delete t.publications;
+if ((t.books || []).length) t.pub_posobia = (t.pub_posobia || []).concat(t.books);
+delete t.books;
+(t.achievements || []).forEach(row => {
+if (row.icon === 'medal') row.icon = 'award-fill';
+});
 
-      /* Миграции данных — общие для боевого и демо-режима */
-      /* Миграции данных — общие для боевого и демо-режима */
-      function migrate(d) {
-        (d.teachers || []).forEach(t => {
-          /* ФИО без неразрывных пробелов и двойных пробелов — чтобы шапка делилась на две строки */
-          if (t.name) t.name = String(t.name).replace(/[\u00A0\u2007\u202F]/g, ' ').replace(/\s{2,}/g, ' ').trim();
-          /* Из старого post извлекаем должность для справочника (post не трогаем) */
-          if (!t.position && t.post) {
-            const m = String(t.post).match(/^(.+?)\s+(?:базовой\s+кафедры|базовой\s+кафедрой|кафедры|кафедрой)\b/i);
-            if (m) t.position = m[1].trim();
-          }
-          /* Легаси-нормализация полей внутри строк books/publications */
-          ['books', 'publications'].forEach(k => {
-            (t[k] || []).forEach(row => {
-              if (row.text && !row.biblio) { row.biblio = row.text; delete row.text; }
-              if (row.link && !row.url) { row.url = row.link; delete row.link; }
-            });
-          });
-          /* Сборка единого раздела «Публикации»: целые массивы уходят в новые рубрики.
-          Стоит ПОСЛЕ нормализации полей, чтобы переехали уже исправленные строки */
-          t.pub_articles = (t.pub_articles || []).concat(t.publications || []);
-          delete t.publications;
-          if ((t.books || []).length) t.pub_posobia = (t.pub_posobia || []).concat(t.books);
-          delete t.books;
-          (t.achievements || []).forEach(row => {
-            if (row.icon === 'medal') row.icon = 'award-fill';
-          });
+MAT_SECS_LIST.forEach(sec => migrateMatTree(t, sec));
+});
+}
 
-          MAT_SECS_LIST.forEach(sec => migrateMatTree(t, sec));
-        });
-      }
+function enterAdmin() {
+document.getElementById('login').style.display = 'none';
+document.getElementById('app').style.display = '';
+cur = restoreCur(data.teachers.length);
+buildSel(); build();
+refreshVerBadge();
+if (DEMO) {
+document.getElementById('status').innerHTML =
+'<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';
+}
+}
 
-      function enterAdmin() {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('app').style.display = '';
-        cur = restoreCur(data.teachers.length);
-        buildSel(); build();
-        refreshVerBadge();
-        if (DEMO) {
-          document.getElementById('status').innerHTML =
-            '<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';
-        }
-      }
+async function load() {
+const r = await gh('/contents/' + PATH);
+if (!r.ok) return alert('Токен не принят: ' + r.status);
+data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
+migrate(data);
+enterAdmin();
+}
 
-      async function load() {
-        const r = await gh('/contents/' + PATH);
-        if (!r.ok) return alert('Токен не принят: ' + r.status);
-        data = JSON.parse(decodeURIComponent(escape(atob((await r.json()).content))));
-        migrate(data);
-        enterAdmin();
-      }
+async function loadDemo() {
+const r = await fetch(PATH + '?v=' + Date.now());
+if (!r.ok) return alert('Не удалось загрузить данные: ' + r.status);
+data = await r.json();
+migrate(data);
+enterAdmin();
+}
 
-      async function loadDemo() {
-        const r = await fetch(PATH + '?v=' + Date.now());
-        if (!r.ok) return alert('Не удалось загрузить данные: ' + r.status);
-        data = await r.json();
-        migrate(data);
-        enterAdmin();
-      }
+// * buildSel
+function buildSel() {
+const s = document.getElementById('tsel');
+s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.hidden ? '🚫 ' : ''}${t.name || t.id}</option>`).join('');
+s.value = cur;
+}
 
-      // * buildSel
-      function buildSel() {
-        const s = document.getElementById('tsel');
-        s.innerHTML = data.teachers.map((t, i) => `<option value="${i}">${t.hidden ? '🚫 ' : ''}${t.name || t.id}</option>`).join('');
-        s.value = cur;
-      }
+const institutionOptions = () => {
+const vals = new Set();
+(data.teachers || []).forEach(t => (t.education || []).forEach(r => {
+const v = String((r && r.institution) || '').trim();
+if (v) vals.add(v);
+}));
+return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
+};
 
-      const institutionOptions = () => {
-        const vals = new Set();
-        (data.teachers || []).forEach(t => (t.education || []).forEach(r => {
-          const v = String((r && r.institution) || '').trim();
-          if (v) vals.add(v);
-        }));
-        return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
-      };
+/* ═══ Рендер формы ═══ */
+function renderEducation(arr) {
+const dl = `<datalist id="dl-institution">${institutionOptions()
+.map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
+return arr.map((row, i) => `
+<div class="ed-rec">
+<div class="d-flex justify-content-between align-items-center">
+<span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
+<button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
+</div>
+<div class="row g-2 mt-1">
+<div class="col-md-2"><label class="small text-secondary">Год</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
+value="${(row.year || '').replace(/"/g, '&quot;')}"></div>
+<div class="col-md-4"><label class="small text-secondary">Учреждение</label>
+<input class="form-control form-control-sm" list="dl-institution" data-sec="education" data-i="${i}" data-k="institution"
+value="${(row.institution || '').replace(/"/g, '&quot;')}"></div>
+<div class="col-md-3"><label class="small text-secondary">Уровень</label>
+<select class="form-select form-select-sm" data-sec="education" data-i="${i}" data-k="level">
+${LEVELS.map(v => `<option value="${v}" ${row.level === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+</select></div>
+<div class="col-md-6"><label class="small text-secondary">Профиль</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="profile"
+value="${(row.profile || '').replace(/"/g, '&quot;')}"></div>
+<div class="col-md-6"><label class="small text-secondary">Квалификация</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="qualification"
+value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
+</div>
+</div>`).join('') +
+`<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ запись</button>` + dl;
+}
 
-      /* ═══ Рендер формы ═══ */
-      function renderEducation(arr) {
-        const dl = `<datalist id="dl-institution">${institutionOptions()
-          .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
-        return arr.map((row, i) => `
-    <div class="ed-rec">
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
-        <button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
-      </div>
-      <div class="row g-2 mt-1">
-        <div class="col-md-2"><label class="small text-secondary">Год</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
-                 value="${(row.year || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-4"><label class="small text-secondary">Учреждение</label>
-          <input class="form-control form-control-sm" list="dl-institution" data-sec="education" data-i="${i}" data-k="institution"
-                 value="${(row.institution || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-3"><label class="small text-secondary">Уровень</label>
-          <select class="form-select form-select-sm" data-sec="education" data-i="${i}" data-k="level">
-            ${LEVELS.map(v => `<option value="${v}" ${row.level === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
-          </select></div>
-        <div class="col-md-6"><label class="small text-secondary">Профиль</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="profile"
-                 value="${(row.profile || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-6"><label class="small text-secondary">Квалификация</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="qualification"
-                 value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
-      </div>
-    </div>`).join('') +
-          `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ запись</button>` + dl;
-      }
+function renderHtmlField(t, key) {
+const [label, rows] = TEXTS[key];
+const val = t[key] || '';
+return `<div class="mt-3 mb-1">
+<label class="sec-title">${label}</label>
+<div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список">• список</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список">1. список</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть в li">li пункт</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p class='ms-4'>|</p>" title="Отступ">⇥ отступ</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
+</div>
+<textarea id="f-${key}" class="form-control form-control-sm" rows="${rows}" data-f="${key}">${val.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea>
+<div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
+<div class="html-preview border rounded p-2 mt-1" id="prev-${key}">${val}</div>
+</div>`;
+}
 
-      function renderHtmlField(t, key) {
-        const [label, rows] = TEXTS[key];
-        const val = t[key] || '';
-        return `<div class="mt-3 mb-1">
-    <label class="sec-title">${label}</label>
-   <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список">• список</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список">1. список</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть в li">li пункт</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p class='ms-4'>|</p>" title="Отступ">⇥ отступ</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
-    </div>
-    <textarea id="f-${key}" class="form-control form-control-sm" rows="${rows}" data-f="${key}">${val.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea>
-    <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
-    <div class="html-preview border rounded p-2 mt-1" id="prev-${key}">${val}</div>
-  </div>`;
-      }
+// * renderArray
+function renderArray(t, k, noHead) {
+const head = noHead ? '' : `<div class="sec-title">${NAMES[k]}</div>`;
+const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
+if (k === 'education') return head + renderEducation(arr);
+const dl = k.startsWith('mat_')
+? `<datalist id="dl-${k}">${[...new Set(arr.map(r => (r && r.rub) || '').filter(Boolean))]
+.map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`
+: '';
+return head + `<table class="ed" data-sec="${k}">
+<thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
+<tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
+const isArrItem = KEYS[k][0] === '*';
+const val = isArrItem ? row : (row[c] || '');
+if (k === 'events' && c === 'now') {
+return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
+}
+if (k === 'achievements' && c === 'icon') {
+return `<td>
+<span class="icon-prev bi bi-${val || 'award'} me-1"></span>
+<select data-sec="${k}" data-i="${i}" data-k="${c}"
+onchange="this.previousElementSibling.className='icon-prev bi bi-'+(this.value||'award')+' me-1'">
+<option value="" ${!val ? 'selected' : ''}>— авто —</option>
+${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
+</select></td>`;
+}
+if ((k === 'programs' && c === 'tag') || (k === 'courses' && c === 'b')) {
+return `<td>
+<select data-sec="${k}" data-i="${i}" data-k="${c}">
+${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+</select></td>`;
+}
+if (k === 'profiles' && c === 't') {
+const inList = PROFILE_TITLES.includes(val);
+return `<td>
+<select data-sec="${k}" data-i="${i}" data-k="${c}">
+${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+<option value="" ${!val ? 'selected' : ''}>—</option>
+${PROFILE_TITLES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
+</select></td>`;
+}
+if (k === 'metrics' && c === 'l') {
+const inList = METRIC_LABELS.includes(val);
+return `<td>
+<select data-sec="${k}" data-i="${i}" data-k="${c}">
+${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+<option value="" ${!val ? 'selected' : ''}>—</option>
+${METRIC_LABELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
+</select></td>`;
+}
+if ((k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) || (k === 'events' && c === 'day')) {
+const opts = k === 'events' ? DAYS : (c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES);
+const inList = opts.includes(val);
+return `<td>
+<select data-sec="${k}" data-i="${i}" data-k="${c}">
+${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
+<option value="" ${!val ? 'selected' : ''}>—</option>
+${opts.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
+</select></td>`;
+}
+if (k.startsWith('mat_') && c === 'rub') {
+return `<td><input list="dl-${k}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
+}
+if ((MULTILINE[k] || []).includes(c)) {
+return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
+}
+/* 1-я строка должностей — автоподстановка из «Должность под ФИО» */
+if (k === 'positions' && i === 0 && String(t.post || '').trim()) {
+return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}" disabled title="Авто: равно полю «Должность под ФИО»"></td>`;
+}
+const canUpload = !DEMO && (
+k.startsWith('pub_') ||
+(k.startsWith('mat_') && k !== 'mat_video') ||
+k === 'patents' || k === 'programs'
+) && c === 'url';
+const upBtn = canUpload
+? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i></button>`
+: '';
+return `<td><div class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</div></td>`;
+}).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
+</table>
+<button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ запись</button>${dl}`;
+}
 
-      // * renderArray
-      function renderArray(t, k, noHead) {
-        const head = noHead ? '' : `<div class="sec-title">${NAMES[k]}</div>`;
-        const arr = Array.isArray(t[k]) ? t[k] : (t[k] = []);
-        if (k === 'education') return head + renderEducation(arr);
-        const dl = k.startsWith('mat_')
-          ? `<datalist id="dl-${k}">${[...new Set(arr.map(r => (r && r.rub) || '').filter(Boolean))]
-            .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`
-          : '';
-        return head + `<table class="ed" data-sec="${k}">
-    <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
-    <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
-          const isArrItem = KEYS[k][0] === '*';
-          const val = isArrItem ? row : (row[c] || '');
-          if (k === 'events' && c === 'now') {
-            return `<td><input type="checkbox" data-sec="${k}" data-i="${i}" data-k="${c}" ${val ? 'checked' : ''}></td>`;
-          }
-          if (k === 'achievements' && c === 'icon') {
-            return `<td>
-          <span class="icon-prev bi bi-${val || 'award'} me-1"></span>
-          <select data-sec="${k}" data-i="${i}" data-k="${c}"
-            onchange="this.previousElementSibling.className='icon-prev bi bi-'+(this.value||'award')+' me-1'">
-            <option value="" ${!val ? 'selected' : ''}>— авто —</option>
-            ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l}</option>`).join('')}
-          </select></td>`;
-          }
-          if ((k === 'programs' && c === 'tag') || (k === 'courses' && c === 'b')) {
-            return `<td>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}">
-      ${LEVELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
-    </select></td>`;
-          }
-          if (k === 'profiles' && c === 't') {
-            const inList = PROFILE_TITLES.includes(val);
-            return `<td>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}">
-      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
-      <option value="" ${!val ? 'selected' : ''}>—</option>
-      ${PROFILE_TITLES.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
-    </select></td>`;
-          }
-          if (k === 'metrics' && c === 'l') {
-            const inList = METRIC_LABELS.includes(val);
-            return `<td>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}">
-      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
-      <option value="" ${!val ? 'selected' : ''}>—</option>
-      ${METRIC_LABELS.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
-    </select></td>`;
-          }
-          if ((k === 'schedule' && (c === 'a' || c === 'b' || c === 'd')) || (k === 'events' && c === 'day')) {
-            const opts = k === 'events' ? DAYS : (c === 'a' ? DAYS : c === 'b' ? SLOTS : LESSON_TYPES);
-            const inList = opts.includes(val);
-            return `<td>
-    <select data-sec="${k}" data-i="${i}" data-k="${c}">
-      ${!inList && val ? `<option value="${String(val).replace(/"/g, '&quot;')}" selected>${String(val).replace(/</g, '&lt;')}</option>` : ''}
-      <option value="" ${!val ? 'selected' : ''}>—</option>
-      ${opts.map(v => `<option value="${v}" ${val === v ? 'selected' : ''}>${v}</option>`).join('')}
-    </select></td>`;
-          }
-          if (k.startsWith('mat_') && c === 'rub') {
-            return `<td><input list="dl-${k}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
-          }
-          if ((MULTILINE[k] || []).includes(c)) {
-            return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
-          }
-          /* 1-я строка должностей — автоподстановка из «Должность под ФИО» */
-          if (k === 'positions' && i === 0 && String(t.post || '').trim()) {
-            return `<td><input data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}" disabled title="Авто: равно полю «Должность под ФИО»"></td>`;
-          }
-          const canUpload = !DEMO && (
-            k.startsWith('pub_') ||
-            (k.startsWith('mat_') && k !== 'mat_video') ||
-            k === 'patents' || k === 'programs'
-          ) && c === 'url';
-          const upBtn = canUpload
-            ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button>`
-            : '';
-          return `<td><div class="d-flex align-items-center gap-1"><input class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}">${upBtn}</div></td>`;
-        }).join('')}${actCell(k, i)}</tr>`).join('')}</tbody>
-  </table>
-  <button type="button" class="btn btn-sm btn-outline-dark mt-1 mb-2" onclick="add('${k}')">+ запись</button>${dl}`;
-      }
+// * actCell
+function actCell(k, i) {
+if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
+return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
+}
+const withArrows = k.startsWith('mat_') || k.startsWith('pub_') || k === 'metrics';
+return withArrows
+? `<td class="td-act">
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>
+<button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})" title="Удалить">✕</button>
+</td>`
+: `<td><button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td>`;
+}
 
-      // * actCell
-      function actCell(k, i) {
-        if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
-          return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
-        }
-        const withArrows = k.startsWith('mat_') || k.startsWith('pub_') || k === 'metrics';
-        return withArrows
-          ? `<td class="td-act">
-              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>
-              <button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})" title="Удалить">✕</button>
-            </td>`
-          : `<td><button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td>`;
-      }
+// * move
+function move(k, i, dir) {
+collect();
+const arr = data.teachers[cur][k];
+const j = i + dir;
+if (j < 0 || j >= arr.length) return;
+[arr[i], arr[j]] = [arr[j], arr[i]];
+build();
+}
 
-      // * move
-      function move(k, i, dir) {
-        collect();
-        const arr = data.teachers[cur][k];
-        const j = i + dir;
-        if (j < 0 || j >= arr.length) return;
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-        build();
-      }
+// * MAT TREE — редактор учебных материалов (дерево разделов и записей)
+const MAT_SECS_LIST = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video', 'mat_resources'];
+const MAT_FIELDS = {
+mat_posobia: ['author', 'title', 'biblio', 'description', 'url'],
+mat_books: ['author', 'title', 'biblio', 'url', 'url_buy'],
+mat_lectures: ['author', 'title', 'url'],
+mat_video: ['author', 'title', 'url'],
+mat_resources: ['title', 'url'],
+};
 
-      // * MAT TREE — редактор учебных материалов (дерево разделов и записей)
-      const MAT_SECS_LIST = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video', 'mat_resources'];
-      const MAT_FIELDS = {
-        mat_posobia: ['author', 'title', 'biblio', 'description', 'url'],
-        mat_books: ['author', 'title', 'biblio', 'url', 'url_buy'],
-        mat_lectures: ['author', 'title', 'url'],
-        mat_video: ['author', 'title', 'url'],
-        mat_resources: ['title', 'url'],
-      };
+/* Служебный id узла (не перечислимый → не попадает в JSON и не виден фронту)
+и память свёрнутости, переживающая любые перерисовки */
+let MAT_UID_SEQ = 1;
+const matSetUid = (node, uid) => Object.defineProperty(node, '__uid', { value: uid, enumerable: false, configurable: true });
+const matUid = node => node.__uid || (matSetUid(node, 'u' + (MAT_UID_SEQ++)), node.__uid);
+const MAT_COLLAPSED = new Set();
 
-      /* Служебный id узла (не перечислимый → не попадает в JSON и не виден фронту)
-      и память свёрнутости, переживающая любые перерисовки */
-      let MAT_UID_SEQ = 1;
-      const matSetUid = (node, uid) => Object.defineProperty(node, '__uid', { value: uid, enumerable: false, configurable: true });
-      const matUid = node => node.__uid || (matSetUid(node, 'u' + (MAT_UID_SEQ++)), node.__uid);
-      const MAT_COLLAPSED = new Set();
+/* Плоские строки с rub → дерево + схлопывание «книга, разбитая на главы» */
+function migrateMatTree(t, sec) {
+const arr = t[sec];
+if (!Array.isArray(arr) || !arr.length || arr[0].kind) return;
+const root = [];
+const findHead = (siblings, title) => {
+let h = siblings.find(n => n.kind === 'head' && n.title === title);
+if (!h) { h = { kind: 'head', title, children: [] }; siblings.push(h); }
+return h;
+};
+arr.forEach(row => {
+const path = String(row.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
+let siblings = root;
+path.forEach(p => { const h = findHead(siblings, p); siblings = h.children; });
+const node = { kind: 'rec' };
+(MAT_FIELDS[sec] || []).forEach(c => { if (row[c] !== undefined) node[c] = row[c]; });
+siblings.push(node);
+});
+const collapse = siblings => {
+const out = [];
+siblings.forEach(n => {
+if (n.children) collapse(n.children);
+if (n.kind === 'head' && (n.children || []).length &&
+n.children.every(c => c.kind === 'head' && (c.children || []).length === 1 && c.children[0].kind === 'rec')) {
+const recs = n.children.map(c => c.children[0]);
+const sig = r => [r.author || '', r.title || '', r.biblio || ''].join('|');
+if (recs.every(r => sig(r) === sig(recs[0]))) {
+const container = Object.assign({}, recs[0]);
+delete container.url; delete container.url_buy;
+container.children = n.children.map(c => {
+const r = c.children[0];
+const child = { kind: 'rec', title: c.title };
+if (r.url) child.url = r.url;
+if (r.url_buy) child.url_buy = r.url_buy;
+return child;
+});
+out.push(container);
+return;
+}
+}
+out.push(n);
+});
+siblings.length = 0;
+out.forEach(n => siblings.push(n));
+};
+collapse(root);
+t[sec] = root;
+}
+const matArr = (t, sec, path) => {
+if (!Array.isArray(t[sec])) t[sec] = [];
+if (!path) return t[sec];
+let arr = t[sec];
+path.split('.').map(Number).forEach(i => {
+const node = arr[i];
+if (!node.children) node.children = [];
+arr = node.children;
+});
+return arr;
+};
+function matToggle(btn) {
+const card = btn.closest('.mat-node');
+const collapsed = card.classList.toggle('collapsed');
+const key = card.dataset.sec + '|' + card.dataset.uid;
+if (collapsed) MAT_COLLAPSED.add(key); else MAT_COLLAPSED.delete(key);
+btn.textContent = collapsed ? '▸' : '▾';
+}
+function matAdd(sec, path, kind) {
+collect();
+const t = data.teachers[cur];
+const node = { kind };
+if (kind === 'rec') (MAT_FIELDS[sec] || []).forEach(c => node[c] = '');
+node.children = [];
+matArr(t, sec, path).push(node);
+build();
+/* Родителя, в которого добавляем, раскрываем — иначе новичка не видно */
+if (path) {
+const pcard = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
+if (pcard && pcard.classList.contains('collapsed')) {
+pcard.classList.remove('collapsed');
+MAT_COLLAPSED.delete(sec + '|' + pcard.dataset.uid);
+const pbtn = pcard.querySelector(':scope > .mat-node-bar > button');
+if (pbtn) pbtn.textContent = '▾';
+}
+}
+const box = path
+? document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"] > .mat-node-body > .mat-children`)
+: document.querySelector(`.mat-root[data-sec="${sec}"]`);
+if (box && box.lastElementChild) box.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+/* Добавить узел того же типа рядом, на уровне текущей карточки */
+function matAddSibling(sec, path) {
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+const arr = matArr(t, sec, p.join('.'));
+const kind = arr[i] ? arr[i].kind : 'rec';
+const node = { kind };
+if (kind === 'rec') (MAT_FIELDS[sec] || []).forEach(c => node[c] = '');
+node.children = [];
+arr.splice(i + 1, 0, node);
+build();
+const np = (p.length ? p.join('.') + '.' : '') + (i + 1);
+const el = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${np}"]`);
+if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function matMove(sec, path, dir) {
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+const arr = matArr(t, sec, p.join('.'));
+const j = i + dir;
+if (j < 0 || j >= arr.length) return;
+[arr[i], arr[j]] = [arr[j], arr[i]];
+build();
+}
+/* Перемещение по уровням: ⇥ вложить в предыдущий узел, ⇤ поднять к родителю */
+function matNest(sec, path, dir) {
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+const parentArr = matArr(t, sec, p.join('.'));
+const node = parentArr[i];
+if (!node) return;
+if (dir === 1) {
+/* Вложить: узел становится последним ребёнком предыдущего соседа */
+if (i === 0) return;
+const host = parentArr[i - 1];
+if (!host.children) host.children = [];
+parentArr.splice(i, 1);
+host.children.push(node);
+} else {
+/* Наружу: узел встаёт сразу после своего родителя на его уровне */
+if (!p.length) return;
+const gi = p.pop();
+const grandArr = matArr(t, sec, p.join('.'));
+parentArr.splice(i, 1);
+grandArr.splice(gi + 1, 0, node);
+}
+build();
+}
+function matRm(sec, path) {
+if (!confirm('Удалить узел вместе со всем вложением?')) return;
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+matArr(t, sec, p.join('.')).splice(i, 1);
+build();
+}
+const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
+const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-      /* Плоские строки с rub → дерево + схлопывание «книга, разбитая на главы» */
-      function migrateMatTree(t, sec) {
-        const arr = t[sec];
-        if (!Array.isArray(arr) || !arr.length || arr[0].kind) return;
-        const root = [];
-        const findHead = (siblings, title) => {
-          let h = siblings.find(n => n.kind === 'head' && n.title === title);
-          if (!h) { h = { kind: 'head', title, children: [] }; siblings.push(h); }
-          return h;
-        };
-        arr.forEach(row => {
-          const path = String(row.rub || '').split(/[\/›>|]/).map(s => s.trim()).filter(Boolean);
-          let siblings = root;
-          path.forEach(p => { const h = findHead(siblings, p); siblings = h.children; });
-          const node = { kind: 'rec' };
-          (MAT_FIELDS[sec] || []).forEach(c => { if (row[c] !== undefined) node[c] = row[c]; });
-          siblings.push(node);
-        });
-        const collapse = siblings => {
-          const out = [];
-          siblings.forEach(n => {
-            if (n.children) collapse(n.children);
-            if (n.kind === 'head' && (n.children || []).length &&
-              n.children.every(c => c.kind === 'head' && (c.children || []).length === 1 && c.children[0].kind === 'rec')) {
-              const recs = n.children.map(c => c.children[0]);
-              const sig = r => [r.author || '', r.title || '', r.biblio || ''].join('|');
-              if (recs.every(r => sig(r) === sig(recs[0]))) {
-                const container = Object.assign({}, recs[0]);
-                delete container.url; delete container.url_buy;
-                container.children = n.children.map(c => {
-                  const r = c.children[0];
-                  const child = { kind: 'rec', title: c.title };
-                  if (r.url) child.url = r.url;
-                  if (r.url_buy) child.url_buy = r.url_buy;
-                  return child;
-                });
-                out.push(container);
-                return;
-              }
-            }
-            out.push(n);
-          });
-          siblings.length = 0;
-          out.forEach(n => siblings.push(n));
-        };
-        collapse(root);
-        t[sec] = root;
-      }
-      const matArr = (t, sec, path) => {
-        if (!Array.isArray(t[sec])) t[sec] = [];
-        if (!path) return t[sec];
-        let arr = t[sec];
-        path.split('.').map(Number).forEach(i => {
-          const node = arr[i];
-          if (!node.children) node.children = [];
-          arr = node.children;
-        });
-        return arr;
-      };
-      function matToggle(btn) {
-        const card = btn.closest('.mat-node');
-        const collapsed = card.classList.toggle('collapsed');
-        const key = card.dataset.sec + '|' + card.dataset.uid;
-        if (collapsed) MAT_COLLAPSED.add(key); else MAT_COLLAPSED.delete(key);
-        btn.textContent = collapsed ? '▸' : '▾';
-      }
-      function matAdd(sec, path, kind) {
-        collect();
-        const t = data.teachers[cur];
-        const node = { kind };
-        if (kind === 'rec') (MAT_FIELDS[sec] || []).forEach(c => node[c] = '');
-        node.children = [];
-        matArr(t, sec, path).push(node);
-        build();
-        /* Родителя, в которого добавляем, раскрываем — иначе новичка не видно */
-        if (path) {
-          const pcard = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
-          if (pcard && pcard.classList.contains('collapsed')) {
-            pcard.classList.remove('collapsed');
-            MAT_COLLAPSED.delete(sec + '|' + pcard.dataset.uid);
-            const pbtn = pcard.querySelector(':scope > .mat-node-bar > button');
-            if (pbtn) pbtn.textContent = '▾';
-          }
-        }
-        const box = path
-          ? document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"] > .mat-node-body > .mat-children`)
-          : document.querySelector(`.mat-root[data-sec="${sec}"]`);
-        if (box && box.lastElementChild) box.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-
-      /* Добавить узел того же типа рядом, на уровне текущей карточки */
-      function matAddSibling(sec, path) {
-        collect();
-        const t = data.teachers[cur];
-        const p = path.split('.').map(Number);
-        const i = p.pop();
-        const arr = matArr(t, sec, p.join('.'));
-        const kind = arr[i] ? arr[i].kind : 'rec';
-        const node = { kind };
-        if (kind === 'rec') (MAT_FIELDS[sec] || []).forEach(c => node[c] = '');
-        node.children = [];
-        arr.splice(i + 1, 0, node);
-        build();
-        const np = (p.length ? p.join('.') + '.' : '') + (i + 1);
-        const el = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${np}"]`);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      function matMove(sec, path, dir) {
-        collect();
-        const t = data.teachers[cur];
-        const p = path.split('.').map(Number);
-        const i = p.pop();
-        const arr = matArr(t, sec, p.join('.'));
-        const j = i + dir;
-        if (j < 0 || j >= arr.length) return;
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-        build();
-      }
-
-      /* Перемещение по уровням: ⇥ вложить в предыдущий узел, ⇤ поднять к родителю */
-      function matNest(sec, path, dir) {
-        collect();
-        const t = data.teachers[cur];
-        const p = path.split('.').map(Number);
-        const i = p.pop();
-        const parentArr = matArr(t, sec, p.join('.'));
-        const node = parentArr[i];
-        if (!node) return;
-        if (dir === 1) {
-          /* Вложить: узел становится последним ребёнком предыдущего соседа */
-          if (i === 0) return;
-          const host = parentArr[i - 1];
-          if (!host.children) host.children = [];
-          parentArr.splice(i, 1);
-          host.children.push(node);
-        } else {
-          /* Наружу: узел встаёт сразу после своего родителя на его уровне */
-          if (!p.length) return;
-          const gi = p.pop();
-          const grandArr = matArr(t, sec, p.join('.'));
-          parentArr.splice(i, 1);
-          grandArr.splice(gi + 1, 0, node);
-        }
-        build();
-      }
-      function matRm(sec, path) {
-        if (!confirm('Удалить узел вместе со всем вложением?')) return;
-        collect();
-        const t = data.teachers[cur];
-        const p = path.split('.').map(Number);
-        const i = p.pop();
-        matArr(t, sec, p.join('.')).splice(i, 1);
-        build();
-      }
-      const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
-      const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
-
-      function matNodeCard(sec, node, path, depth) {
-        const isHead = node.kind === 'head';
-        const fields = MAT_FIELDS[sec] || [];
-        const uid = matUid(node);
-        const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
-        const pp = path.split('.');
-        const idx = +pp[pp.length - 1];
-
-        const inputs = isHead
-          ? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
-          : (() => {
-            const has = c => fields.includes(c);
-            const inp = c => `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
-            const urlCtrl = c => {
-              const plain = inp(c);
-              return (c === 'url' && sec !== 'mat_video' && !DEMO)
-                ? `<div class="d-flex gap-1">${plain}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button></div>`
-                : plain;
-            };
-            const hasDesc = has('description'), hasBuy = has('url_buy');
-            const urlCol = hasDesc ? (hasBuy ? 'col-md-4' : 'col-md-6') : (hasBuy ? 'col-md-6' : 'col');
-            return `<div class="row g-2">
+function matNodeCard(sec, node, path, depth) {
+const isHead = node.kind === 'head';
+const fields = MAT_FIELDS[sec] || [];
+const uid = matUid(node);
+const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
+const pp = path.split('.');
+const idx = +pp[pp.length - 1];
+const inputs = isHead
+? `<div class="row g-2"><div class="col-12"><input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="title" value="${escAttr(node.title)}" placeholder="Заголовок"></div></div>`
+: (() => {
+const has = c => fields.includes(c);
+const inp = c => `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
+const urlCtrl = c => {
+const plain = inp(c);
+return (c === 'url' && sec !== 'mat_video' && !DEMO)
+? `<div class="d-flex gap-1">${plain}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i></button></div>`
+: plain;
+};
+const hasDesc = has('description'), hasBuy = has('url_buy');
+const urlCol = hasDesc ? (hasBuy ? 'col-md-4' : 'col-md-6') : (hasBuy ? 'col-md-6' : 'col');
+return `<div class="row g-2">
 ${has('author') ? `<div class="col-md-3"><label class="small text-secondary">${colName(sec, 'author')}</label>${inp('author')}</div>` : ''}
 <div class="col"><label class="small text-secondary">${colName(sec, 'title')}</label>${inp('title')}</div>
 ${has('biblio') ? `<div class="col-md-3"><label class="small text-secondary">${colName(sec, 'biblio')}</label>${inp('biblio')}</div>` : ''}
@@ -1591,9 +1442,9 @@ ${hasDesc ? `<div class="col"><label class="small text-secondary">${colName(sec,
 ${has('url') ? `<div class="${urlCol}"><label class="small text-secondary">${colName(sec, 'url')}</label>${urlCtrl('url')}</div>` : ''}
 ${hasBuy ? `<div class="col-md-3"><label class="small text-secondary">${colName(sec, 'url_buy')}</label>${inp('url_buy')}</div>` : ''}
 </div>` : ''}`;
-          })()
-        const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
-        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'} mat-depth-${Math.min(depth, 3)}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
+})()
+const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
+return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'} mat-depth-${Math.min(depth, 3)}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
 <div class="mat-node-bar">
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">${isCol ? '▸' : '▾'}</button>
 <span class="me-1">${isHead ? '📁' : '📄'}</span>
@@ -1612,13 +1463,13 @@ ${inputs}
 <div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1)).join('')}</div>
 </div>
 </div>`;
-      }
-      const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
-      let MAT_OPEN = {};
-      function renderMatEditor(t, sec) {
-        const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-        const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : true;
-        return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
+}
+const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
+let MAT_OPEN = {};
+function renderMatEditor(t, sec) {
+const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : true;
+return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
 <summary>${NAMES[sec]}<span class="mat-sec-count">${matCountRec(arr)}</span></summary>
 <div class="mat-sec-body">
 <div class="mat-root" data-sec="${sec}">${arr.map((n, i) => matNodeCard(sec, n, String(i), 0)).join('')}</div>
@@ -1628,406 +1479,406 @@ ${inputs}
 </div>
 </div>
 </details>`;
-      }
-      const collectMatNodes = box => {
-        const out = [];
-        box.querySelectorAll(':scope > .mat-node').forEach(card => {
-          const node = { kind: card.dataset.kind };
-          if (card.dataset.uid) matSetUid(node, card.dataset.uid);
-          card.querySelectorAll(':scope > .mat-node-body > .row input[data-k], :scope > .mat-node-body > .row textarea[data-k]').forEach(inp => { node[inp.dataset.k] = inp.value; });
-          const kids = card.querySelector(':scope > .mat-node-body > .mat-children');
-          const cn = kids ? collectMatNodes(kids) : [];
-          if (cn.length) node.children = cn;
-          out.push(node);
-        });
-        return out;
-      };
+}
+const collectMatNodes = box => {
+const out = [];
+box.querySelectorAll(':scope > .mat-node').forEach(card => {
+const node = { kind: card.dataset.kind };
+if (card.dataset.uid) matSetUid(node, card.dataset.uid);
+card.querySelectorAll(':scope > .mat-node-body > .row input[data-k], :scope > .mat-node-body > .row textarea[data-k]').forEach(inp => { node[inp.dataset.k] = inp.value; });
+const kids = card.querySelector(':scope > .mat-node-body > .mat-children');
+const cn = kids ? collectMatNodes(kids) : [];
+if (cn.length) node.children = cn;
+out.push(node);
+});
+return out;
+};
 
-      // * build
-      function build() {
-        const t = data.teachers[cur];
-        const openState = {};
-        document.querySelectorAll('#secs details[data-g]').forEach(d => {
-          openState[d.dataset.g] = d.open;
-        });
-        MAT_OPEN = {};
-        document.querySelectorAll('#secs details[data-msec]').forEach(d => { MAT_OPEN[d.dataset.msec] = d.open; });
-        document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
-          let inner = '', rowBuf = null;
-          const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
-          g.items.forEach(([type, key, opt]) => {
-            if (type === 's') {
-              const [label, w] = SCALAR[key];
-              const v = t[key] || DEFAULTS[key] || '';
-              let ctrl;
-              if (key === 'faculty') {
-                const opts = (v && !FACULTIES.includes(v)) ? [v, ...FACULTIES] : FACULTIES;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="collect(); build()">
-                  <option value="" ${!v ? 'selected' : ''}>—</option>
-                  ${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
-                </select>`;
-              } else if (key === 'department') {
-                const deps = DEPARTMENTS[t.faculty] || [];
-                const opts = (v && !deps.includes(v)) ? [v, ...deps] : deps;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}">
-                  <option value="" ${!v ? 'selected' : ''}>—</option>
-                  ${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
-                </select>`;
-              } else if (key === 'position') {
-                ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
-                <datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
-              } else if (key === 'degree_level' || key === 'degree_branch' || key === 'academic_title') {
-                const opts = key === 'degree_level' ? DEGREE_LEVELS : key === 'degree_branch' ? DEGREE_BRANCHES : ACADEMIC_TITLES;
-                const list = (v && !opts.includes(v)) ? [v, ...opts] : opts;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}">
-                  <option value="" ${!v ? 'selected' : ''}>—</option>
-                  ${list.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
-                </select>`;
-              } else {
-                ctrl = `<input class="form-control form-control-sm" data-f="${key}" value="${String(v).replace(/"/g, '&quot;')}">`;
-              }
-              rowBuf = (rowBuf || '') + `<div class="${w}"><label class="small text-secondary">${label}</label>${ctrl}</div>`;
-            } else if (type === 't') {
-              const [label, rows] = TEXTS[key];
-              rowBuf = (rowBuf || '') + `<div class="col-12"><label class="small text-secondary">${label}</label>
-          <textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${(t[key] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></div>`;
-            } else {
-              flush();
-              if (type === 'H') inner += `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[key]}</div>`;
-              else if (type === 'a') inner += renderArray(t, key, opt);
-              else if (type === 'm') inner += renderMatEditor(t, key);
-              else if (type === 'h') inner += renderHtmlField(t, key);
-              else if (type === 'x') inner += `<div class="mt-4 mb-1">
-  <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
-   <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
+// * build
+function build() {
+const t = data.teachers[cur];
+const openState = {};
+document.querySelectorAll('#secs details[data-g]').forEach(d => {
+openState[d.dataset.g] = d.open;
+});
+MAT_OPEN = {};
+document.querySelectorAll('#secs details[data-msec]').forEach(d => { MAT_OPEN[d.dataset.msec] = d.open; });
+document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
+let inner = '', rowBuf = null;
+const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
+g.items.forEach(([type, key, opt]) => {
+if (type === 's') {
+const [label, w] = SCALAR[key];
+const v = t[key] || DEFAULTS[key] || '';
+let ctrl;
+if (key === 'faculty') {
+const opts = (v && !FACULTIES.includes(v)) ? [v, ...FACULTIES] : FACULTIES;
+ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="collect(); build()">
+<option value="" ${!v ? 'selected' : ''}>—</option>
+${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
+</select>`;
+} else if (key === 'department') {
+const deps = DEPARTMENTS[t.faculty] || [];
+const opts = (v && !deps.includes(v)) ? [v, ...deps] : deps;
+ctrl = `<select class="form-select form-select-sm" data-f="${key}">
+<option value="" ${!v ? 'selected' : ''}>—</option>
+${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
+</select>`;
+} else if (key === 'position') {
+ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
+<datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
+} else if (key === 'degree_level' || key === 'degree_branch' || key === 'academic_title') {
+const opts = key === 'degree_level' ? DEGREE_LEVELS : key === 'degree_branch' ? DEGREE_BRANCHES : ACADEMIC_TITLES;
+const list = (v && !opts.includes(v)) ? [v, ...opts] : opts;
+ctrl = `<select class="form-select form-select-sm" data-f="${key}">
+<option value="" ${!v ? 'selected' : ''}>—</option>
+${list.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
+</select>`;
+} else {
+ctrl = `<input class="form-control form-control-sm" data-f="${key}" value="${String(v).replace(/"/g, '&quot;')}">`;
+}
+rowBuf = (rowBuf || '') + `<div class="${w}"><label class="small text-secondary">${label}</label>${ctrl}</div>`;
+} else if (type === 't') {
+const [label, rows] = TEXTS[key];
+rowBuf = (rowBuf || '') + `<div class="col-12"><label class="small text-secondary">${label}</label>
+<textarea class="form-control form-control-sm" rows="${rows}" data-f="${key}">${(t[key] || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></div>`;
+} else {
+flush();
+if (type === 'H') inner += `<div class="fw-semibold small mt-3 mb-1" style="color:#2f6f63">${NAMES[key]}</div>`;
+else if (type === 'a') inner += renderArray(t, key, opt);
+else if (type === 'm') inner += renderMatEditor(t, key);
+else if (type === 'h') inner += renderHtmlField(t, key);
+else if (type === 'x') inner += `<div class="mt-4 mb-1">
+<label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
+<input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
 </div>`;
-            }
-          });
-          flush();
-          const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
-          return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
-      <summary class="fw-bold">${g.title}</summary>
-      <div class="mt-2">${inner}</div>
-    </details>`;
-        }).join('');
+}
+});
+flush();
+const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
+return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
+<summary class="fw-bold">${g.title}</summary>
+<div class="mt-2">${inner}</div>
+</details>`;
+}).join('');
 
-        /* Автогенерация: должность есть, post пуст — заполняем */
-        const pi = document.querySelector('[data-f="position"]');
-        const po = document.querySelector('[data-f="post"]');
-        if (pi && po && pi.value.trim() && !po.value.trim()) {
-          po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
-        }
-        /* 1-я строка должностей равна текущему post (если post заполнен) */
-        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
-        if (po && pos0 && po.value.trim()) pos0.value = po.value;
+/* Автогенерация: должность есть, post пуст — заполняем */
+const pi = document.querySelector('[data-f="position"]');
+const po = document.querySelector('[data-f="post"]');
+if (pi && po && pi.value.trim() && !po.value.trim()) {
+po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
+}
+/* 1-я строка должностей равна текущему post (если post заполнен) */
+const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+if (po && pos0 && po.value.trim()) pos0.value = po.value;
 
-        const hc = document.getElementById('hideChk');
-        if (hc) hc.checked = !!data.teachers[cur].hidden;
-      }
+const hc = document.getElementById('hideChk');
+if (hc) hc.checked = !!data.teachers[cur].hidden;
+}
 
-      /* ═══ Сбор данных из формы ═══ */
-      function collect() {
-        const t = data.teachers[cur];
-        document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
-        /* Основная должность зеркалит поле «Должность под ФИО» (если оно заполнено) */
-        const postVal = String(t.post || '').trim();
-        if (postVal) {
-          if (!Array.isArray(t.positions)) t.positions = [];
-          t.positions[0] = postVal;
-        }
-        if (!String(t.short || '').trim()) t.short = makeShort(t.name);
-        if (!t.external_links) t.external_links = {};
-        document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
-        Object.keys(KEYS).forEach(k => { t[k] = []; });
-        document.querySelectorAll('input[data-sec][data-i][data-k], textarea[data-sec][data-i][data-k], select[data-sec][data-i][data-k]').forEach(i => {
-          const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
-          const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
-          if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
-          else row[k] = i.type === 'checkbox' ? i.checked : i.value;
-        });
+/* ═══ Сбор данных из формы ═══ */
+function collect() {
+const t = data.teachers[cur];
+document.querySelectorAll('[data-f]').forEach(i => t[i.dataset.f] = i.value);
+/* Основная должность зеркалит поле «Должность под ФИО» (если оно заполнено) */
+const postVal = String(t.post || '').trim();
+if (postVal) {
+if (!Array.isArray(t.positions)) t.positions = [];
+t.positions[0] = postVal;
+}
+if (!String(t.short || '').trim()) t.short = makeShort(t.name);
+if (!t.external_links) t.external_links = {};
+document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
+Object.keys(KEYS).forEach(k => { t[k] = []; });
+document.querySelectorAll('input[data-sec][data-i][data-k], textarea[data-sec][data-i][data-k], select[data-sec][data-i][data-k]').forEach(i => {
+const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
+const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
+if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
+else row[k] = i.type === 'checkbox' ? i.checked : i.value;
+});
 
-        MAT_SECS_LIST.forEach(sec => {
-          const rootEl = document.querySelector(`.mat-root[data-sec="${sec}"]`);
-          if (rootEl) t[sec] = collectMatNodes(rootEl);
-        });
-      }
+MAT_SECS_LIST.forEach(sec => {
+const rootEl = document.querySelector(`.mat-root[data-sec="${sec}"]`);
+if (rootEl) t[sec] = collectMatNodes(rootEl);
+});
+}
 
-      // * add(k)
-      function add(k) {
-        collect();
-        const t = data.teachers[cur];
-        const prevRow = t[k] && t[k].length ? t[k][t[k].length - 1] : null;
-        const fresh = KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']));
-        if (k.startsWith('mat_') && prevRow && prevRow.rub) fresh.rub = prevRow.rub;
-        t[k].push(fresh);
-        build();
-        const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
-        if (newRow) {
-          newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          if (newRow.focus) newRow.focus({ preventScroll: true });
-        }
-      }
+// * add(k)
+function add(k) {
+collect();
+const t = data.teachers[cur];
+const prevRow = t[k] && t[k].length ? t[k][t[k].length - 1] : null;
+const fresh = KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']));
+if (k.startsWith('mat_') && prevRow && prevRow.rub) fresh.rub = prevRow.rub;
+t[k].push(fresh);
+build();
+const newRow = document.querySelector(`[data-sec="${k}"][data-i="${t[k].length - 1}"]`);
+if (newRow) {
+newRow.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
+if (newRow.focus) newRow.focus({ preventScroll: true });
+}
+}
 
-      function rm(k, i) {
-        collect();
-        data.teachers[cur][k].splice(i, 1);
-        build();
-      }
+function rm(k, i) {
+collect();
+data.teachers[cur][k].splice(i, 1);
+build();
+}
 
-      function addTeacher() {
-        collect();
-        data.teachers.push({
-          id: 'new' + Date.now(), name: 'Новый преподаватель',
-          chips: [], positions: [], education: [], career: [], news: [],
-          university: 'СПбГМТУ'
-        });
-        cur = data.teachers.length - 1;
-        rememberCur();
-        buildSel(); build();
-      }
+function addTeacher() {
+collect();
+data.teachers.push({
+id: 'new' + Date.now(), name: 'Новый преподаватель',
+chips: [], positions: [], education: [], career: [], news: [],
+university: 'СПбГМТУ'
+});
+cur = data.teachers.length - 1;
+rememberCur();
+buildSel(); build();
+}
 
-      function delTeacher() {
-        if (!confirm('Удалить преподавателя?')) return;
-        collect();
-        data.teachers.splice(cur, 1);
-        cur = Math.max(0, Math.min(cur, data.teachers.length - 1));
-        rememberCur();
-        buildSel(); build();
-      }
+function delTeacher() {
+if (!confirm('Удалить преподавателя?')) return;
+collect();
+data.teachers.splice(cur, 1);
+cur = Math.max(0, Math.min(cur, data.teachers.length - 1));
+rememberCur();
+buildSel(); build();
+}
 
-      /* ═══ Загрузка файла в репозиторий (папка files/) ═══ */
-      const FILES_DIR = 'files';
-      const sanitizeName = name => String(name || 'file').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '_').trim() || 'file';
-      async function uploadFileToRepo(file, onSuccess, btn) {
-        if (DEMO) { alert('В демо-режиме загрузка недоступна: нужен токен GitHub для записи в репозиторий.'); return; }
-        if (!file) return;
-        if (file.size > 100 * 1024 * 1024) { alert('Файл больше 100 МБ — ограничение GitHub API. Загрузите через веб-интерфейс репозитория.'); return; }
-        const name = sanitizeName(file.name);
-        const path = FILES_DIR + '/' + name;
-        const st = document.getElementById('status');
-        const prevIcon = btn ? btn.innerHTML : '';
-        if (btn) { btn.classList.add('uploading'); btn.innerHTML = '<span class="spinner-border"></span>'; }
-        st.textContent = 'загружаю ' + name + '…';
-        try {
-          /* 1. Читаем sha существующего файла (если есть) — нужен для перезаписи */
-          let sha = null;
-          try {
-            const probe = await gh('/contents/' + path);
-            if (probe.ok) { const j = await probe.json(); sha = j.sha; }
-          } catch (e) { /* файла ещё нет — это нормально */ }
-          /* Если файл существует — спрашиваем */
-          if (sha && !confirm('Файл «' + name + '» уже существует в репозитории. Перезаписать?')) {
-            if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
-            st.textContent = '';
-            return;
-          }
-          /* 2. Читаем содержимое как base64 */
-          const b64 = await new Promise((res, rej) => {
-            const r = new FileReader();
-            r.onload = () => res(r.result.split(',')[1]);
-            r.onerror = () => rej(r.error);
-            r.readAsDataURL(file);
-          });
-          /* 3. PUT — создаём или обновляем */
-          const body = {
-            message: 'admin: upload ' + name + ' (' + new Date().toISOString().slice(0, 10) + ')',
-            content: b64,
-            path: path
-          };
-          if (sha) body.sha = sha;
-          const r = await gh('/contents/' + path, { method: 'PUT', body: JSON.stringify(body) });
-          if (!r.ok) {
-            const e = await r.json().catch(() => ({}));
-            throw new Error('HTTP ' + r.status + ': ' + (e.message || JSON.stringify(e)));
-          }
-          /* 4. Успех — относительный путь для GitHub Pages */
-          const relUrl = path;
-          st.innerHTML = '<span class="text-success fw-bold">✔</span> ' + name + ' загружен';
-          onSuccess(relUrl);
-        } catch (err) {
-          st.innerHTML = '<span class="text-danger fw-bold">✗</span> загрузка не удалась';
-          alert('Ошибка загрузки:\n' + err.message);
-        } finally {
-          if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
-          setTimeout(() => { if (st.textContent.startsWith('загружаю')) st.textContent = ''; }, 3000);
-        }
-      }
-      /* Триггер скрытого input[type=file] */
-      function pickAndUpload(sec, idx, field) {
-        const inp = document.createElement('input');
-        inp.type = 'file';
-        inp.onchange = async () => {
-          const f = inp.files && inp.files[0];
-          if (!f) return;
-          const btn = document.querySelector(`.btn-upload[data-sec="${sec}"][data-i="${idx}"][data-k="${field}"]`);
-          await uploadFileToRepo(f, url => {
-            collect();
-            const t = data.teachers[cur];
-            if (!Array.isArray(t[sec])) t[sec] = [];
-            const row = t[sec][idx] = t[sec][idx] || {};
-            row[field] = url;
-            build();
-          }, btn);
-        };
-        inp.click();
-      }
-      function pickAndUploadMat(sec, path, field) {
-        const inp = document.createElement('input');
-        inp.type = 'file';
-        inp.onchange = async () => {
-          const f = inp.files && inp.files[0];
-          if (!f) return;
-          const btn = document.querySelector(`.mat-upload[data-sec="${sec}"][data-path="${path}"][data-k="${field}"]`);
-          await uploadFileToRepo(f, url => {
-            collect();
-            const t = data.teachers[cur];
-            const p = path.split('.').map(Number);
-            const i = p.pop();
-            let arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-            p.forEach(j => {
-              const n = arr[j];
-              if (!n.children) n.children = [];
-              arr = n.children;
-            });
-            if (arr[i]) arr[i][field] = url;
-            build();
-            const card = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
-            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }, btn);
-        };
-        inp.click();
-      }
+/* ═══ Загрузка файла в репозиторий (папка files/) ═══ */
+const FILES_DIR = 'files';
+const sanitizeName = name => String(name || 'file').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '_').trim() || 'file';
+async function uploadFileToRepo(file, onSuccess, btn) {
+if (DEMO) { alert('В демо-режиме загрузка недоступна: нужен токен GitHub для записи в репозиторий.'); return; }
+if (!file) return;
+if (file.size > 100 * 1024 * 1024) { alert('Файл больше 100 МБ — ограничение GitHub API. Загрузите через веб-интерфейс репозитория.'); return; }
+const name = sanitizeName(file.name);
+const path = FILES_DIR + '/' + name;
+const st = document.getElementById('status');
+const prevIcon = btn ? btn.innerHTML : '';
+if (btn) { btn.classList.add('uploading'); btn.innerHTML = '<span class="spinner-border"></span>'; }
+st.textContent = 'загружаю ' + name + '…';
+try {
+/* 1. Читаем sha существующего файла (если есть) — нужен для перезаписи */
+let sha = null;
+try {
+const probe = await gh('/contents/' + path);
+if (probe.ok) { const j = await probe.json(); sha = j.sha; }
+} catch (e) { /* файла ещё нет — это нормально */ }
+/* Если файл существует — спрашиваем */
+if (sha && !confirm('Файл «' + name + '» уже существует в репозитории. Перезаписать?')) {
+if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
+st.textContent = '';
+return;
+}
+/* 2. Читаем содержимое как base64 */
+const b64 = await new Promise((res, rej) => {
+const r = new FileReader();
+r.onload = () => res(r.result.split(',')[1]);
+r.onerror = () => rej(r.error);
+r.readAsDataURL(file);
+});
+/* 3. PUT — создаём или обновляем */
+const body = {
+message: 'admin: upload ' + name + ' (' + new Date().toISOString().slice(0, 10) + ')',
+content: b64,
+path: path
+};
+if (sha) body.sha = sha;
+const r = await gh('/contents/' + path, { method: 'PUT', body: JSON.stringify(body) });
+if (!r.ok) {
+const e = await r.json().catch(() => ({}));
+throw new Error('HTTP ' + r.status + ': ' + (e.message || JSON.stringify(e)));
+}
+/* 4. Успех — относительный путь для GitHub Pages */
+const relUrl = path;
+st.innerHTML = `<span class="text-success fw-bold">✔</span> ${name} загружен`;
+onSuccess(relUrl);
+} catch (err) {
+st.innerHTML = '<span class="text-danger fw-bold">✗</span> загрузка не удалась';
+alert('Ошибка загрузки:\n' + err.message);
+} finally {
+if (btn) { btn.classList.remove('uploading'); btn.innerHTML = prevIcon; }
+setTimeout(() => { if (st.textContent.startsWith('загружаю')) st.textContent = ''; }, 3000);
+}
+}
+/* Триггер скрытого input[type=file] */
+function pickAndUpload(sec, idx, field) {
+const inp = document.createElement('input');
+inp.type = 'file';
+inp.onchange = async () => {
+const f = inp.files && inp.files[0];
+if (!f) return;
+const btn = document.querySelector(`.btn-upload[data-sec="${sec}"][data-i="${idx}"][data-k="${field}"]`);
+await uploadFileToRepo(f, url => {
+collect();
+const t = data.teachers[cur];
+if (!Array.isArray(t[sec])) t[sec] = [];
+const row = t[sec][idx] = t[sec][idx] || {};
+row[field] = url;
+build();
+}, btn);
+};
+inp.click();
+}
+function pickAndUploadMat(sec, path, field) {
+const inp = document.createElement('input');
+inp.type = 'file';
+inp.onchange = async () => {
+const f = inp.files && inp.files[0];
+if (!f) return;
+const btn = document.querySelector(`.mat-upload[data-sec="${sec}"][data-path="${path}"][data-k="${field}"]`);
+await uploadFileToRepo(f, url => {
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+let arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+p.forEach(j => {
+const n = arr[j];
+if (!n.children) n.children = [];
+arr = n.children;
+});
+if (arr[i]) arr[i][field] = url;
+build();
+const card = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
+if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}, btn);
+};
+inp.click();
+}
 
-      // * save
-      /* ═══ Сохранение в GitHub ═══ */
-      async function save() {
-        collect();
-        const st = document.getElementById('status');
-        if (DEMO) {
-          st.innerHTML = '<span class="text-warning fw-bold">ДЕМО: правки не отправлены в GitHub</span>';
-          alert('Демо-режим: изменения остаются только в этой вкладке браузера.');
-          return;
-        }
-        st.textContent = 'сохраняю…';
-        try {
-          const g = await gh('/contents/' + PATH);
-          if (!g.ok) {
-            const e = await g.json().catch(() => ({}));
-            alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
-            st.textContent = '✗ GET ' + g.status; return;
-          }
-          const curFile = await g.json();
-          const json = JSON.stringify(data, null, 1);
-          const b64 = btoa(unescape(encodeURIComponent(json)));
-          const r = await gh('/contents/' + PATH, {
-            method: 'PUT',
-            body: JSON.stringify({
-              message: 'admin: update ' + new Date().toISOString(),
-              content: b64, sha: curFile.sha
-            })
-          });
-          const res = await r.json().catch(() => ({}));
-          if (r.ok) {
-            const stamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-            st.innerHTML = `<span class="text-success fw-bold">✔</span> ${stamp}`;
-          } else {
-            st.innerHTML = `<span class="text-danger fw-bold">✗</span> ${r.status}`;
-            alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res)));
-          }
-        } catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
-      }
+// * save
+/* ═══ Сохранение в GitHub ═══ */
+async function save() {
+collect();
+const st = document.getElementById('status');
+if (DEMO) {
+st.innerHTML = '<span class="text-warning fw-bold">ДЕМО: правки не отправлены в GitHub</span>';
+alert('Демо-режим: изменения остаются только в этой вкладке браузера.');
+return;
+}
+st.textContent = 'сохраняю…';
+try {
+const g = await gh('/contents/' + PATH);
+if (!g.ok) {
+const e = await g.json().catch(() => ({}));
+alert('Не удалось прочитать файл:\nGET ' + g.status + '\n' + (e.message || ''));
+st.textContent = '✗ GET ' + g.status; return;
+}
+const curFile = await g.json();
+const json = JSON.stringify(data, null, 1);
+const b64 = btoa(unescape(encodeURIComponent(json)));
+const r = await gh('/contents/' + PATH, {
+method: 'PUT',
+body: JSON.stringify({
+message: 'admin: update ' + new Date().toISOString(),
+content: b64, sha: curFile.sha
+})
+});
+const res = await r.json().catch(() => ({}));
+if (r.ok) {
+const stamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+st.innerHTML = `<span class="text-success fw-bold">✔</span> ${stamp}`;
+} else {
+st.innerHTML = `<span class="text-danger fw-bold">✗</span> ${r.status}`;
+alert('Ошибка ' + r.status + '\n' + (res.message || JSON.stringify(res)));
+}
+} catch (err) { st.textContent = '✗ сбой скрипта'; alert('Исключение: ' + err); }
+}
 
-      // * wrapSel
-      function wrapSel(ta, before, after) {
-        const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
-        ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
-        ta.focus();
-        ta.selectionStart = s + before.length;
-        ta.selectionEnd = e + before.length;
-        ta.dispatchEvent(new Event('input', { bubbles: true }));
-      }
+// * wrapSel
+function wrapSel(ta, before, after) {
+const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+ta.value = v.slice(0, s) + before + v.slice(s, e) + after + v.slice(e);
+ta.focus();
+ta.selectionStart = s + before.length;
+ta.selectionEnd = e + before.length;
+ta.dispatchEvent(new Event('input', { bubbles: true }));
+}
 
-      // * listSel
-      function listSel(ta, tag) {
-        const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
-        const lines = v.slice(s, e).split(/\r?\n/).map(l => l.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
-        const items = (lines.length ? lines : ['']).map(l => '  <li>' + l + '</li>').join('\n');
-        const insert = tag === 'li'
-          ? items
-          : '<' + tag + (tag === 'ul' ? " class='text-block-list'" : '') + '>\n' + items + '\n</' + tag + '>';
-        ta.value = v.slice(0, s) + insert + v.slice(e);
-        ta.focus();
-        ta.selectionStart = ta.selectionEnd = s + insert.length;
-        ta.dispatchEvent(new Event('input', { bubbles: true }));
-      }
+// * listSel
+function listSel(ta, tag) {
+const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+const lines = v.slice(s, e).split(/\r?\n/).map(l => l.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
+const items = (lines.length ? lines : ['']).map(l => '  <li>' + l + '</li>').join('\n');
+const insert = tag === 'li'
+? items
+: '<' + tag + (tag === 'ul' ? " class='text-block-list'" : '') + '>\n' + items + '\n</' + tag + '>';
+ta.value = v.slice(0, s) + insert + v.slice(e);
+ta.focus();
+ta.selectionStart = ta.selectionEnd = s + insert.length;
+ta.dispatchEvent(new Event('input', { bubbles: true }));
+}
 
-      document.addEventListener('click', e => {
-        const b = e.target.closest('.html-tools button');
-        if (!b) return;
-        const ta = document.getElementById(b.closest('.html-tools').dataset.target);
-        if (!ta) return;
-        if (b.dataset.list) { listSel(ta, b.dataset.list); return; }
-        const [before, after] = b.dataset.wrap.split('|');
-        wrapSel(ta, before, after);
-      });
+document.addEventListener('click', e => {
+const b = e.target.closest('.html-tools button');
+if (!b) return;
+const ta = document.getElementById(b.closest('.html-tools').dataset.target);
+if (!ta) return;
+if (b.dataset.list) { listSel(ta, b.dataset.list); return; }
+const [before, after] = b.dataset.wrap.split('|');
+wrapSel(ta, before, after);
+});
 
-      document.addEventListener('input', e => {
-        const f = e.target.dataset ? e.target.dataset.f : '';
-        const prev = f ? document.getElementById('prev-' + f) : null;
-        if (prev) prev.innerHTML = e.target.value;
-      });
+document.addEventListener('input', e => {
+const f = e.target.dataset ? e.target.dataset.f : '';
+const prev = f ? document.getElementById('prev-' + f) : null;
+if (prev) prev.innerHTML = e.target.value;
+});
 
-      /* Регенерация «Должность под ФИО» + зеркало в 1-ю строку должностей */
-      document.addEventListener('input', e => {
-        const f = e.target.dataset ? e.target.dataset.f : '';
-        if (f !== 'position' && f !== 'department' && f !== 'post') return;
-        const pos = document.querySelector('[data-f="position"]');
-        const dep = document.querySelector('[data-f="department"]');
-        const post = document.querySelector('[data-f="post"]');
-        if (!post) return;
-        if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '');
-        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
-        if (pos0 && post.value.trim()) pos0.value = post.value;
-      });
+/* Регенерация «Должность под ФИО» + зеркало в 1-ю строку должностей */
+document.addEventListener('input', e => {
+const f = e.target.dataset ? e.target.dataset.f : '';
+if (f !== 'position' && f !== 'department' && f !== 'post') return;
+const pos = document.querySelector('[data-f="position"]');
+const dep = document.querySelector('[data-f="department"]');
+const post = document.querySelector('[data-f="post"]');
+if (!post) return;
+if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '');
+const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+if (pos0 && post.value.trim()) pos0.value = post.value;
+});
 
-      /* Синхронизация метки узла дерева с его полем title (видна в свёрнутом виде) */
-      document.addEventListener('input', e => {
-        if (!e.target.matches || !e.target.matches('.mat-node [data-k="title"]')) return;
-        const card = e.target.closest('.mat-node');
-        if (!card) return;
-        const label = card.querySelector(':scope > .mat-node-bar > .mat-node-label');
-        if (!label) return;
-        const v = e.target.value.trim();
-        label.textContent = label.dataset.base + (v ? ': ' + v : '');
-      });
+/* Синхронизация метки узла дерева с его полем title (видна в свёрнутом виде) */
+document.addEventListener('input', e => {
+if (!e.target.matches || !e.target.matches('.mat-node [data-k="title"]')) return;
+const card = e.target.closest('.mat-node');
+if (!card) return;
+const label = card.querySelector(':scope > .mat-node-bar > .mat-node-label');
+if (!label) return;
+const v = e.target.value.trim();
+label.textContent = label.dataset.base + (v ? ': ' + v : '');
+});
 
-      /* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
-         или разблокируем строку, если post очищен */
-      document.addEventListener('change', e => {
-        const f = e.target.dataset ? e.target.dataset.f : '';
-        if (f !== 'position' && f !== 'department' && f !== 'post') return;
-        const post = document.querySelector('[data-f="post"]');
-        if (!post) return;
-        const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
-        if (!String(post.value).trim()) { if (pos0) pos0.disabled = false; return; }
-        if (!pos0) {
-          const t = data.teachers[cur];
-          if (!Array.isArray(t.positions)) t.positions = [];
-          t.positions[0] = String(post.value).trim();
-          build();
-        }
-      });
+/* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
+или разблокируем строку, если post очищен */
+document.addEventListener('change', e => {
+const f = e.target.dataset ? e.target.dataset.f : '';
+if (f !== 'position' && f !== 'department' && f !== 'post') return;
+const post = document.querySelector('[data-f="post"]');
+if (!post) return;
+const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
+if (!String(post.value).trim()) { if (pos0) pos0.disabled = false; return; }
+if (!pos0) {
+const t = data.teachers[cur];
+if (!Array.isArray(t.positions)) t.positions = [];
+t.positions[0] = String(post.value).trim();
+build();
+}
+});
 
-      document.addEventListener('blur', e => {
-        if (e.target.dataset && e.target.dataset.f === 'name') {
-          const shortInput = document.querySelector('[data-f="short"]');
-          if (shortInput && !shortInput.value.trim()) shortInput.value = makeShort(e.target.value);
-        }
-      }, true);
+document.addEventListener('blur', e => {
+if (e.target.dataset && e.target.dataset.f === 'name') {
+const shortInput = document.querySelector('[data-f="short"]');
+if (shortInput && !shortInput.value.trim()) shortInput.value = makeShort(e.target.value);
+}
+}, true);
 
-      if (TOK) load();
-    </script>
-  </div>
+if (TOK) load();
+</script>
+</div>
 </body>
 
 </html>

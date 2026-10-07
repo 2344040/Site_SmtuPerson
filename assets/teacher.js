@@ -285,16 +285,16 @@ const metricLabel = (n, l) =>
 
 const MAT_ICON = {
   pdf: 'bi-file-earmark-pdf-fill', doc: 'bi-file-earmark-word-fill',
-  excel: 'bi-file-earmark-excel-fill',
+  excel: 'bi-file-earmark-excel-fill',  djvu: 'bi-file-earmark-text-fill',
   ppt: 'bi-file-earmark-slides-fill', zip: 'bi-file-earmark-zip-fill',
   audio: 'bi-mic-fill', video: 'bi-camera-video-fill',
   'video-youtube': 'bi-youtube', image: 'bi-image-fill',
   shop: 'bi-cart-fill', book: 'bi-book-fill',
   file: 'bi-file-earmark-fill', link: 'bi-link-45deg',
 };
-const MAT_LABEL = { pdf: 'PDF', doc: 'DOC', excel: 'XLS', ppt: 'PPT', zip: 'архив', audio: 'аудио', video: 'видео', image: 'изображение', 'video-youtube': 'YouTube', shop: 'магазин' };
+const MAT_LABEL = { pdf: 'PDF', doc: 'DOC', excel: 'XLS', djvu: 'DJVU', ppt: 'PPT', zip: 'архив', audio: 'аудио', video: 'видео', image: 'изображение', 'video-youtube': 'YouTube', shop: 'магазин' };
 /* Типы, которые браузер реально скачивает: им кнопка скачивания, остальным — переход */
-const DL_TYPES = new Set(['pdf', 'doc', 'excel', 'ppt', 'zip', 'audio']);
+const DL_TYPES = new Set(['pdf', 'doc', 'djvu', 'excel', 'ppt', 'zip', 'audio']);
 
 const MAT_SRC = [
   [/youtube\.com|youtu\.be/, 'YouTube', 'video-youtube'],
@@ -310,9 +310,10 @@ const matType = url => {
   const u = String(url || '').toLowerCase();
   const src = MAT_SRC.find(([re]) => re.test(u));
   if (src) return src[2];
-  const ext = (u.match(/\.(pdf|docx?|pptx?|xlsx?|xlsm|csv|ods|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
+  const ext = (u.match(/\.(pdf|docx?|pptx?|xlsx?|xlsm|csv|ods|djvu|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
   if (!ext) return null;
-  if (ext === 'pdf') return 'pdf';
+if (ext === 'pdf') return 'pdf';
+if (ext === 'djvu') return 'djvu';
   if (ext.startsWith('doc')) return 'doc';
   if (ext.startsWith('ppt')) return 'ppt';
   if (/^(xlsx?|xlsm|csv|ods)$/.test(ext)) return 'excel';

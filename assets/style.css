@@ -2245,6 +2245,7 @@
    --fmt-pdf: #e04b3a;
    --fmt-doc: #2b579a;
    --fmt-excel: #1e7145;
+   --fmt-djvu: #7b5b3a;
    --fmt-ppt: #d24726;
    --fmt-zip: #b08d24;
    --fmt-audio: #7d4a8d;
@@ -2261,6 +2262,7 @@
    --fmt-pdf: #ff8078;
    --fmt-doc: #7fb0f0;
    --fmt-excel: #58c07c;
+   --fmt-djvu: #d3b08c;
    --fmt-ppt: #ff9b70;
    --fmt-zip: #d9b64e;
    --fmt-audio: #c39ae0;
@@ -2282,6 +2284,9 @@
 
  .mat-icon.fmt-excel {
    color: var(--fmt-excel);
+ }
+ .mat-icon.fmt-djvu {
+   color: var(--fmt-djvu);
  }
 
  .mat-icon.fmt-ppt {

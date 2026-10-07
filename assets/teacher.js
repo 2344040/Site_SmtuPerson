@@ -427,6 +427,7 @@ const matItem = (item, sec, isContainer, isSub) => {
 
 /* Ступени дерева: шрифт, цвет и отступ по уровню */
 const MAT_INDENT = 24; /* шаг отступа в px для каждого нового уровня */
+const MAT_HEAD_TEXT = 18; /* padding-left у .mat-h: где начинается фраза заголовка */
 const matHeadStyle = (lvl, ind) => {
   const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
   const c = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
@@ -437,8 +438,9 @@ const matHeadStyle = (lvl, ind) => {
 const renderMatNode = (node, depth, sec, sub, pos, ind) => {
   const kids = node.children || [];
   if (node.kind === 'head') {
+    /* Дети рубрики выравниваются по началу её фразы, а не по левому краю */
     return `<div class="mat-h" style="${matHeadStyle(depth + 1, ind)}">${esc(node.title)}</div>` +
-      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, ind)).join('');
+      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, ind + MAT_HEAD_TEXT)).join('');
   }
   const isContainer = kids.length > 0;
   const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';

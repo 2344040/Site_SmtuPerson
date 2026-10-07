@@ -430,16 +430,16 @@ const matHeadStyle = lvl => {
 };
 
 const renderMatNode = (node, depth, sec, sub) => {
-  const kids = node.children || [];
-  if (node.kind === 'head') {
-    return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
-      kids.map(c => renderMatNode(c, depth + 1, sec, sub)).join('');
-  }
-  const isContainer = kids.length > 0;
-  const listStyle = `margin-left:${depth * MAT_INDENT}px;` +
-    (depth > 0 ? 'background:var(--paper-light);border-radius:8px;' : '');
-  const row = `<ul class="mat-list" style="${listStyle}">${matItem(node, sec, isContainer, sub)}</ul>`;
-  return row + kids.map(c => renderMatNode(c, depth + 1, sec, isContainer ? true : sub)).join('');
+const kids = node.children || [];
+if (node.kind === 'head') {
+return `<div class="mat-h" style="${matHeadStyle(depth + 1)}">${esc(node.title)}</div>` +
+kids.map(c => renderMatNode(c, depth + 1, sec, sub)).join('');
+}
+const isContainer = kids.length > 0;
+const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}" style="margin-left:${depth * MAT_INDENT}px">${matItem(node, sec, isContainer, sub)}</ul>`;
+if (!kids.length) return row;
+/* Группа детей: обёртка .mat-kids несёт ствол-коннектор от родителя к потомкам */
+return row + `<div class="mat-kids">${kids.map(c => renderMatNode(c, depth + 1, sec, true)).join('')}</div>`;
 };
 
 const MAT_SECTIONS = [

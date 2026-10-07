@@ -1976,11 +1976,23 @@
 
 
  /* Список материалов — вертикальная линия дерева */
- .mat-list {
+ /* .mat-list {
    list-style: none;
    margin: 0 0 8px;
    padding: 0 0 0 18px;
    border-left: 1px solid var(--line);
+ } */
+
+ /* Список материалов — карточка; линии дерева живёт в .mat-kids */
+ .mat-list {
+   list-style: none;
+   margin: 0 0 8px;
+ }
+
+ /* Третий уровень и глубже — плотнее */
+ .mat-list.mat-lvl-2,
+ .mat-list.mat-lvl-3 {
+   margin-bottom: 4px;
  }
 
 
@@ -1997,21 +2009,63 @@
    gap: 14px;
  }
 
- .mat-item::before {
+ /* ── Коннекторы: ствол от родителя к группе потомков ── */
+ .mat-kids {
+   position: relative;
+   margin-left: 12px;
+   margin-bottom: 8px;
+ }
+
+ .mat-kids .mat-kids {
+   margin-left: 24px;
+ }
+
+ /* Ствол: начинается у нижней кромки карточки-родителя и идёт до последнего ребёнка */
+ .mat-kids::before {
    content: '';
    position: absolute;
-   left: -18px;
-   top: 20px;
-   width: 16px;
+   left: 0;
+   top: -8px;
+   height: calc(100% + 8px);
+   width: 1px;
+   background: var(--line);
+ }
+
+ /* На третьем уровне зазор между родителем и группой меньше — мост короче */
+ .mat-kids .mat-kids::before {
+   top: -4px;
+   height: calc(100% + 4px);
+ }
+
+ /* Тик от ствола к каждой дочерней карточке */
+ .mat-kids>.mat-list {
+   margin-left: 12px !important;
+   position: relative;
+ }
+
+ .mat-kids>.mat-list::before {
+   content: '';
+   position: absolute;
+   left: -12px;
+   top: 22px;
+   width: 12px;
    height: 1px;
    background: var(--line);
+ }
+
+ .mat-kids>.mat-list.mat-lvl-2::before {
+   top: 18px;
+ }
+
+ /* Заголовки внутри группы детей выравниваем по карточкам */
+ .mat-kids .mat-h {
+   margin-left: 12px !important;
  }
 
  /* Книга-контейнер: строка-шапка с главами внутри */
  .mat-item.mat-container {
    background: var(--paper-light);
    border: 1px solid var(--line);
-   border-left: 3px solid var(--amber);
    border-radius: 8px;
    box-shadow: 0 2px 6px rgba(18, 36, 31, .08);
  }

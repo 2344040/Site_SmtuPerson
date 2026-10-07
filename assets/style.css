@@ -2240,48 +2240,85 @@
    white-space: nowrap;
  }
 
-/* ── Цвета форматов: брендовые оттенки типов файлов ── */
-:root {
---fmt-pdf: #e04b3a;
---fmt-doc: #2b579a;
---fmt-excel: #1e7145;
---fmt-ppt: #d24726;
---fmt-zip: #b08d24;
---fmt-audio: #7d4a8d;
---fmt-video: #c4302b;
---fmt-video-youtube: #d02a20;
---fmt-image: #16876f;
---fmt-shop: #d97b29;
---fmt-file: #6f7a72;
---fmt-link: #2f6f63;
-}
-/* Тёмная схема: те же цвета, осветлённые для тёмного фона */
-html[data-theme="dark"] {
---fmt-pdf: #ff8078;
---fmt-doc: #7fb0f0;
---fmt-excel: #58c07c;
---fmt-ppt: #ff9b70;
---fmt-zip: #d9b64e;
---fmt-audio: #c39ae0;
---fmt-video: #ff7b72;
---fmt-video-youtube: #ff6f61;
---fmt-image: #4ec9b0;
---fmt-shop: #e8a25c;
---fmt-file: #93a1b3;
---fmt-link: #a9c9e8;
-}
-.mat-icon.fmt-pdf { color: var(--fmt-pdf); }
-.mat-icon.fmt-doc { color: var(--fmt-doc); }
-.mat-icon.fmt-excel { color: var(--fmt-excel); }
-.mat-icon.fmt-ppt { color: var(--fmt-ppt); }
-.mat-icon.fmt-zip { color: var(--fmt-zip); }
-.mat-icon.fmt-audio { color: var(--fmt-audio); }
-.mat-icon.fmt-video { color: var(--fmt-video); }
-.mat-icon.fmt-video-youtube { color: var(--fmt-video-youtube); }
-.mat-icon.fmt-image { color: var(--fmt-image); }
-.mat-icon.fmt-shop { color: var(--fmt-shop); }
-.mat-icon.fmt-file { color: var(--fmt-file); }
-.mat-icon.fmt-link { color: var(--fmt-link); }
+ /* ── Цвета форматов: брендовые оттенки типов файлов ── */
+ :root {
+   --fmt-pdf: #e04b3a;
+   --fmt-doc: #2b579a;
+   --fmt-excel: #1e7145;
+   --fmt-ppt: #d24726;
+   --fmt-zip: #b08d24;
+   --fmt-audio: #7d4a8d;
+   --fmt-video: #c4302b;
+   --fmt-video-youtube: #d02a20;
+   --fmt-image: #16876f;
+   --fmt-shop: #d97b29;
+   --fmt-file: #6f7a72;
+   --fmt-link: #2f6f63;
+ }
+
+ /* Тёмная схема: те же цвета, осветлённые для тёмного фона */
+ html[data-theme="dark"] {
+   --fmt-pdf: #ff8078;
+   --fmt-doc: #7fb0f0;
+   --fmt-excel: #58c07c;
+   --fmt-ppt: #ff9b70;
+   --fmt-zip: #d9b64e;
+   --fmt-audio: #c39ae0;
+   --fmt-video: #ff7b72;
+   --fmt-video-youtube: #ff6f61;
+   --fmt-image: #4ec9b0;
+   --fmt-shop: #e8a25c;
+   --fmt-file: #93a1b3;
+   --fmt-link: #a9c9e8;
+ }
+
+ .mat-icon.fmt-pdf {
+   color: var(--fmt-pdf);
+ }
+
+ .mat-icon.fmt-doc {
+   color: var(--fmt-doc);
+ }
+
+ .mat-icon.fmt-excel {
+   color: var(--fmt-excel);
+ }
+
+ .mat-icon.fmt-ppt {
+   color: var(--fmt-ppt);
+ }
+
+ .mat-icon.fmt-zip {
+   color: var(--fmt-zip);
+ }
+
+ .mat-icon.fmt-audio {
+   color: var(--fmt-audio);
+ }
+
+ .mat-icon.fmt-video {
+   color: var(--fmt-video);
+ }
+
+ .mat-icon.fmt-video-youtube {
+   color: var(--fmt-video-youtube);
+ }
+
+ .mat-icon.fmt-image {
+   color: var(--fmt-image);
+ }
+
+ .mat-icon.fmt-shop {
+   color: var(--fmt-shop);
+ }
+
+ .mat-icon.fmt-file {
+   color: var(--fmt-file);
+ }
+
+ .mat-icon.fmt-link {
+   color: var(--fmt-link);
+ }
 
 
  .mat-description {
@@ -2295,4 +2332,24 @@ html[data-theme="dark"] {
    align-items: center;
    gap: .5rem;
    margin-top: .3rem;
+ }
+
+ /* Кнопка сворачивания описания в материалах — компактная пилюля в строке */
+ .mat-description-line .text-toggle-btn {
+   align-self: center;
+   flex-shrink: 0;
+   margin: 0 0 0 .4rem;
+   padding: 2px 8px;
+   font-size: .78rem;
+   line-height: 1.2;
+   box-shadow: none;
+   border: 1px solid var(--line);
+   border-radius: 999px;
+   color: var(--muted);
+ }
+
+ .mat-description-line .text-toggle-btn:hover {
+   color: var(--teal);
+   border-color: var(--teal);
+   box-shadow: none;
  }

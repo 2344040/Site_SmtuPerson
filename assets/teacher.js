@@ -379,14 +379,17 @@ const matItem = (item, sec, isContainer, isSub) => {
   /* Выходные данные — мелким серым; слэш неотрываем от первого слова */
   const biblio = (item.author || item.title) && item.biblio ? biblioSpan(item.biblio) : '';
 
-  /* Описание — малый серый курсив */
-  const description = item.description ? `<span class="mat-description">${esc(item.description)}</span>` : '';
-
+  /* Описание — малый серый курсив; в книгах и пособиях сворачивается после 3 строк */
+  const descCollapsible = sec.key === 'mat_books' || sec.key === 'mat_posobia';
+  const description = item.description
+    ? (descCollapsible
+      ? `<span class="mat-description text-toggle-content">${esc(item.description)}</span><span class="text-toggle-btn mat-desc-toggle"><span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span><span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span></span>`
+      : `<span class="mat-description">${esc(item.description)}</span>`)
+    : '';
   /* Строка 1: автор + название + выходные данные */
   let line1 = `<div class="mat-line">${author}${title}${biblio ? ' ' + biblio : ''}</div>`;
-
-  /* Строка 2: только описание */
-  const line2 = description ? `<div class="mat-description-line">${description}</div>` : '';
+  /* Строка 2: описание + кнопка сворачивания (d-flex нужен initToggles для поиска контента) */
+  const line2 = description ? `<div class="mat-description-line d-flex">${description}</div>` : '';
 
   /* Ресурсы: своя раскладка (название + видимый URL) */
   if (isResources) {

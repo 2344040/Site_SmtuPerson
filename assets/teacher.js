@@ -435,8 +435,8 @@ const renderMatNode = (node, depth, sec, sub) => {
 };
 
 const MAT_SECTIONS = [
-  { key: 'mat_posobia', title: 'Учебные пособия', icon: 'bi-journal-text', fb: 'bi-file-earmark-fill' },
-  { key: 'mat_books', title: 'Книги', icon: 'bi-book', fb: 'bi-book-fill' },
+  { key: 'mat_posobia', title: 'Учебники/Учебные пособия', icon: 'bi-journal-text', fb: 'bi-file-earmark-fill' },
+  { key: 'mat_books', title: 'Книги/Монографии', icon: 'bi-book', fb: 'bi-book-fill' },
   { key: 'mat_lectures', title: 'Записи лекций', icon: 'bi-mic', fb: 'bi-mic-fill' },
   { key: 'mat_video', title: 'Видео-материалы', icon: 'bi-camera-video', fb: 'bi-camera-video-fill' },
   { key: 'mat_resources', title: 'Полезные ресурсы', icon: 'bi-link-45deg', fb: 'bi-link-45deg' },

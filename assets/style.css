@@ -2015,7 +2015,7 @@
  }
 
  .mat-list.mat-lvl-3 {
-   margin-left: 66px;
+   margin-left: 76px;
  }
 
 
@@ -2040,7 +2040,7 @@ padding: 0 обязателен: иначе включается дефолтн�
    padding: 10px 12px 10px 14px;
    /* background: var(--surface); */
    background: var(--paper-light);
-   border: 1px solid var(--line);
+   /* border: 1px solid var(--line); */
    border-radius: 8px;
    box-shadow: 0 1px 3px rgba(18, 36, 31, .06);
    display: flex;
@@ -2148,6 +2148,7 @@ padding: 0 обязателен: иначе включается дефолтн�
  .mat-item.mat-sub {
    padding: 8px 10px 8px 12px;
    box-shadow: none;
+   background-color: var(--surface);
  }
 
  .mat-item.mat-sub .mat-title {

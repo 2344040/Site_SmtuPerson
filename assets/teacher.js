@@ -20,6 +20,11 @@ const htmlOrText = s => /<[a-z!\/]/i.test(s) ? s : esc(s).replace(/\n/g, '<br>')
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
 
+/* Бейдж версии: берём из параметра ?v=NN, с которым этот файл загрузился */
+const SCRIPT_VER = ((document.currentScript && document.currentScript.src) || '').match(/[?&]v=(\d+)/);
+const verBadgeEl = document.getElementById('p-ver');
+if (verBadgeEl) verBadgeEl.textContent = SCRIPT_VER ? 'v.' + SCRIPT_VER[1] : 'v.—';
+
 fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
   T = d.teachers.find(t => t.id === new URLSearchParams(location.search).get('id'))
     || d.teachers.find(t => !t.hidden) || d.teachers[0];
@@ -285,7 +290,7 @@ const metricLabel = (n, l) =>
 
 const MAT_ICON = {
   pdf: 'bi-file-earmark-pdf-fill', doc: 'bi-file-earmark-word-fill',
-  excel: 'bi-file-earmark-excel-fill',  djvu: 'bi-file-earmark-text-fill',
+  excel: 'bi-file-earmark-excel-fill', djvu: 'bi-file-earmark-text-fill',
   ppt: 'bi-file-earmark-slides-fill', zip: 'bi-file-earmark-zip-fill',
   audio: 'bi-mic-fill', video: 'bi-camera-video-fill',
   'video-youtube': 'bi-youtube', image: 'bi-image-fill',
@@ -312,8 +317,8 @@ const matType = url => {
   if (src) return src[2];
   const ext = (u.match(/\.(pdf|docx?|pptx?|xlsx?|xlsm|csv|ods|djvu|zip|rar|7z|mp3|wav|m4a|mp4|avi|mov|mkv|webm|jpe?g|png|gif|webp)(?:[?#]|$)/) || [])[1];
   if (!ext) return null;
-if (ext === 'pdf') return 'pdf';
-if (ext === 'djvu') return 'djvu';
+  if (ext === 'pdf') return 'pdf';
+  if (ext === 'djvu') return 'djvu';
   if (ext.startsWith('doc')) return 'doc';
   if (ext.startsWith('ppt')) return 'ppt';
   if (/^(xlsx?|xlsm|csv|ods)$/.test(ext)) return 'excel';
@@ -423,26 +428,26 @@ const matItem = (item, sec, isContainer, isSub) => {
 /* Ступени дерева: шрифт, цвет и отступ по уровню */
 const MAT_INDENT = 24; /* шаг отступа в px для каждого нового уровня */
 const matHeadStyle = (lvl, ind) => {
-const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
-const c = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
-const fw = lvl <= 2 ? 700 : 600;
-return `font-size:${fs};color:${c};font-weight:${fw};margin-left:${ind}px;`;
+  const fs = lvl === 1 ? '20px' : lvl === 2 ? '16px' : lvl === 3 ? '14px' : '13px';
+  const c = lvl === 1 ? 'var(--teal)' : lvl === 2 ? 'var(--ink)' : 'var(--muted)';
+  const fw = lvl <= 2 ? 700 : 600;
+  return `font-size:${fs};color:${c};font-weight:${fw};margin-left:${ind}px;`;
 };
 /* pos: 0 — единственный ребёнок, 1 — первый, 2 — средний, 3 — последний (для коннекторов) */
 const renderMatNode = (node, depth, sec, sub, pos, ind) => {
-const kids = node.children || [];
-if (node.kind === 'head') {
-return `<div class="mat-h" style="${matHeadStyle(depth + 1, ind)}">${esc(node.title)}</div>` +
-kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, ind)).join('');
-}
-const isContainer = kids.length > 0;
-const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}" style="margin-left:${ind}px">${matItem(node, sec, isContainer, sub)}</ul>`;
-if (!kids.length) return row;
-/* Дети контейнера: +24px вправо и статус потомка для коннекторов */
-return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
-kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
-ind + MAT_INDENT)).join('');
+  const kids = node.children || [];
+  if (node.kind === 'head') {
+    return `<div class="mat-h" style="${matHeadStyle(depth + 1, ind)}">${esc(node.title)}</div>` +
+      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, ind)).join('');
+  }
+  const isContainer = kids.length > 0;
+  const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
+  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}" style="margin-left:${ind}px">${matItem(node, sec, isContainer, sub)}</ul>`;
+  if (!kids.length) return row;
+  /* Дети контейнера: +24px вправо и статус потомка для коннекторов */
+  return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
+    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
+    ind + MAT_INDENT)).join('');
 };
 
 const MAT_SECTIONS = [

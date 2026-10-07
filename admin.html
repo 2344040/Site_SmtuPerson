@@ -558,6 +558,18 @@
       border-width: .15em;
     }
 
+    .ver-badge {
+      font-size: .72rem;
+      font-weight: 600;
+      color: #6f7a72;
+      background: #fff;
+      border: 1px solid #dcd7c9;
+      border-radius: 999px;
+      padding: .2rem .55rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
     .sec-title {
       font-size: 0.95rem;
       font-weight: 600;
@@ -730,7 +742,8 @@
           <input class="form-check-input" type="checkbox" id="hideChk" onchange="toggleHidden(this.checked)"> Не выводить
         </label>
         <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻</button>
-        <button class="btn btn-success btn-sm ms-auto" onclick="save()">Сохранить и опубликовать</button>
+        <span class="ver-badge ms-auto" id="verBadge" onclick="refreshVerBadge()" title="Версия teacher.js в teacher.html репозитория — кликните для обновления"></span>
+        <button class="btn btn-success btn-sm" onclick="save()">Сохранить и опубликовать</button>
         <span id="status" class="small"></span>
       </div>
       <div id="secs"></div>
@@ -776,6 +789,16 @@
           document.body.removeChild(ta);
           st.innerHTML = `<span class="text-success fw-bold">✔</span> скопировано (fallback)`;
         }
+      }
+
+      /* Бейдж версии: читаем teacher.html из репозитория и достаём ?v=NN */
+      async function refreshVerBadge() {
+        const el = document.getElementById('verBadge');
+        if (!el) return;
+        el.textContent = '…';
+        const txt = await fetchFileRaw('teacher.html');
+        const m = txt && txt.match(/teacher\.js\?v=(\d+)/);
+        el.textContent = m ? 'v.' + m[1] : 'v.—';
       }
 
       // * SCALAR
@@ -1121,6 +1144,7 @@
         document.getElementById('app').style.display = '';
         cur = restoreCur(data.teachers.length);
         buildSel(); build();
+        refreshVerBadge();
         if (DEMO) {
           document.getElementById('status').innerHTML =
             '<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';

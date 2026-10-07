@@ -3373,7 +3373,7 @@
   },
   {
    "id": "100531",
-   "name": " Кожемякин Вячеслав Вячеславович",
+   "name": "Кожемякин Вячеслав Вячеславович",
    "chips": [],
    "positions": [
     "Профессор кафедры \"Ядерная техника и теплофизика\""
@@ -3813,6 +3813,20 @@
            "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21789.docx?token_static=071352f958f4bff34faf2351e0b0fbf3"
           }
          ]
+        }
+       ]
+      },
+      {
+       "kind": "head",
+       "title": "Справочники",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "Варгафтик Н.Б. ",
+         "title": "справочник по теплофизическим свойствам газов и жидкостей",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/02/01/30629.djvu?token_static=af96884f201b7c6518d952ccbd4f615d"
         }
        ]
       }

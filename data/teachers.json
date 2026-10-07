@@ -3724,7 +3724,97 @@
        "title": "Судовые ядерные паропроизводящие установки",
        "biblio": "учебник",
        "description": "",
-       "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/09/7578.pdf?token_static=1f1c51b19a918e8310ae8d4482c632a3"
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Часть 1.",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/09/7578.pdf?token_static=1f1c51b19a918e8310ae8d4482c632a3"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Часть 2",
+         "biblio": "",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/09/7579.pdf?token_static=5cd81de9b4db691e4a1fd8cfc7b9de5b"
+        }
+       ]
+      },
+      {
+       "kind": "head",
+       "title": "Ядерная физика",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "Сафаров Р.Ф.",
+         "title": "Физика атомного ядра и элементарных частиц",
+         "biblio": "учебное пособие (8.90M - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/04/10/8096.pdf?token_static=c612587585b4627219b5469433b7a351"
+        },
+        {
+         "kind": "rec",
+         "author": "В.В.Кожемякин ",
+         "title": "Математический аппарат физики ядерных реакторов ",
+         "biblio": "(878.90K - pdf) учебное пособие к курсу \"Численные методы\"",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21767.pdf?token_static=a84ce9aa137996e96bf11376243e72ef"
+        },
+        {
+         "kind": "rec",
+         "author": "Кожемякин В.В.",
+         "title": "Физика ядерных реакторов",
+         "biblio": "пособие",
+         "description": "",
+         "url": "",
+         "children": [
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Часть 1",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21785.docx?token_static=c211c4b4355701ef76d928dbba359cf4"
+          },
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Часть 2",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21786.docx?token_static=13a8316fd8ce7cf6110282610c6234d0"
+          },
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Часть 3",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21787.docx?token_static=15af38ff57ad6341e3d27a13d19b2eeb"
+          },
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Часть 4",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21788.docx?token_static=907441cf62d85f6c79a8ea21a29df99a"
+          },
+          {
+           "kind": "rec",
+           "author": "",
+           "title": "Часть 5",
+           "biblio": "",
+           "description": "",
+           "url": "https://ds1.smtu.ru/files/teacher_doc_file/2020/09/27/21789.docx?token_static=071352f958f4bff34faf2351e0b0fbf3"
+          }
+         ]
+        }
+       ]
       }
      ]
     }

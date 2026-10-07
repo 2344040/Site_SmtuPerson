@@ -2035,13 +2035,18 @@
    height: calc(100% + 4px);
  }
 
- /* Первый ребёнок: мост вверх до нижней кромки родителя */
+ /* Первый ребёнок: мост вверх до нижней кромки родителя
+(зазор 8px после родителя lvl-0/1, 4px после родителя lvl-2/3) */
  .mat-list.mat-kid-first::before {
    top: -8px;
    height: calc(100% + 16px);
  }
 
- .mat-list.mat-kid-first.mat-lvl-2::before,
+ .mat-list.mat-kid-first.mat-lvl-2::before {
+   top: -8px;
+   height: calc(100% + 12px);
+ }
+
  .mat-list.mat-kid-first.mat-lvl-3::before {
    top: -4px;
    height: calc(100% + 8px);
@@ -2052,15 +2057,24 @@
    height: 26px;
  }
 
+ .mat-list.mat-kid-last.mat-lvl-2::before,
+ .mat-list.mat-kid-last.mat-lvl-3::before {
+   height: 22px;
+ }
+
  .mat-list.mat-kid-first.mat-kid-last::before {
    top: -8px;
    height: 34px;
  }
 
- .mat-list.mat-kid-first.mat-kid-last.mat-lvl-2::before,
+ .mat-list.mat-kid-first.mat-kid-last.mat-lvl-2::before {
+   top: -8px;
+   height: 30px;
+ }
+
  .mat-list.mat-kid-first.mat-kid-last.mat-lvl-3::before {
    top: -4px;
-   height: 30px;
+   height: 26px;
  }
 
  /* Тик от ствола к карточке */

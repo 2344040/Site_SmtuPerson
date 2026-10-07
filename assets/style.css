@@ -2093,6 +2093,51 @@
    top: 18px;
  }
 
+ /* & Дерево: шрифты и отступы уровней — вся лестница правится здесь ── */
+ .mat-h-1 {
+   font-size: 20px;
+   color: var(--teal);
+   font-weight: 700;
+   margin-left: 0;
+ }
+
+ .mat-h-2 {
+   font-size: 16px;
+   color: var(--ink);
+   font-weight: 700;
+   margin-left: 18px;
+ }
+
+ .mat-h-3 {
+   font-size: 14px;
+   color: var(--muted);
+   font-weight: 600;
+   margin-left: 42px;
+ }
+
+ .mat-h-4 {
+   font-size: 13px;
+   color: var(--muted);
+   font-weight: 600;
+   margin-left: 66px;
+ }
+
+ .mat-list.mat-lvl-0 {
+   margin-left: 0;
+ }
+
+ .mat-list.mat-lvl-1 {
+   margin-left: 18px;
+ }
+
+ .mat-list.mat-lvl-2 {
+   margin-left: 42px;
+ }
+
+ .mat-list.mat-lvl-3 {
+   margin-left: 66px;
+ }
+
  /* Книга-контейнер: строка-шапка с главами внутри */
  .mat-item.mat-container {
    background: var(--paper-light);

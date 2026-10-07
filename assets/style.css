@@ -2049,8 +2049,13 @@ padding: 0 обязателен: иначе включается дефолтн�
    transition: background-color .2s ease;
  }
 
- .mat-item:hover {
+ .mat-item:hover,
+ .mat-item.mat-sub:hover {
    background: var(--row-hover);
+ }
+
+ .mat-item.mat-container:hover {
+   background: var(--amber-soft);
  }
 
  /* ── Коннекторы: каждый ребёнок рисует свой сегмент ствола и тик ── */

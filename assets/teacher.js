@@ -48,9 +48,13 @@ function fillHeader() {
   const kicker = [T.university, T.faculty].filter(Boolean).join(' · ');
   document.getElementById('p-kicker').textContent = kicker;
 
-  const nameParts = (T.name || '').split(' ');
+  /* ФИО делим по любым пробелам, включая неразрывные (копирование из Word/PDF) */
+  const nameParts = String(T.name || '').trim().split(/[\s\u00A0\u2007\u202F]+/).filter(Boolean);
   const surname = nameParts[0] || '';
   const rest = nameParts.slice(1).join(' ');
+  document.getElementById('p-name').innerHTML =
+    `<span class="surname">${esc(surname)}</span>` +
+    (rest ? `<br><span class="given-name">${esc(rest)}</span>` : '');
   document.getElementById('p-name').innerHTML =
     `<span class="surname">${esc(surname)}</span><br><span class="given-name">${esc(rest)}</span>`;
   document.getElementById('p-post').textContent = T.post;

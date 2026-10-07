@@ -104,6 +104,14 @@
    border-color: var(--line);
  }
 
+ html[data-theme="dark"] .mat-item {
+   box-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+ }
+
+ html[data-theme="dark"] .mat-item.mat-container {
+   box-shadow: 0 2px 6px rgba(0, 0, 0, .45);
+ }
+
  html {
    scroll-behavior: smooth;
    scroll-padding-top: 345px;
@@ -1945,7 +1953,7 @@
  .mat-h {
    font-weight: 600;
    color: var(--ink);
-   margin: 18px 0 6px;
+   margin: 26px 0 10px;
    padding: 6px 0 6px 18px;
    position: relative;
    line-height: 1.3;
@@ -1970,30 +1978,30 @@
  /* Список материалов — вертикальная линия дерева */
  .mat-list {
    list-style: none;
-   margin: 0;
+   margin: 0 0 8px;
    padding: 0 0 0 18px;
    border-left: 1px solid var(--line);
  }
 
- /* Элемент материала */
+
+ /* Элемент материала — карточка с лёгкой тенью */
  .mat-item {
    position: relative;
-   padding: 10px 8px 10px 16px;
-   border-bottom: 1px dashed var(--line);
+   padding: 10px 12px 10px 14px;
+   background: var(--surface);
+   border: 1px solid var(--line);
+   border-radius: 8px;
+   box-shadow: 0 1px 3px rgba(18, 36, 31, .06);
    display: flex;
    align-items: flex-start;
    gap: 14px;
- }
-
- .mat-item:last-child {
-   border-bottom: 0;
  }
 
  .mat-item::before {
    content: '';
    position: absolute;
    left: -18px;
-   top: 18px;
+   top: 20px;
    width: 16px;
    height: 1px;
    background: var(--line);
@@ -2002,8 +2010,10 @@
  /* Книга-контейнер: строка-шапка с главами внутри */
  .mat-item.mat-container {
    background: var(--paper-light);
+   border: 1px solid var(--line);
    border-left: 3px solid var(--amber);
-   border-radius: 6px;
+   border-radius: 8px;
+   box-shadow: 0 2px 6px rgba(18, 36, 31, .08);
  }
 
  .mat-item.mat-container .mat-title {
@@ -2012,7 +2022,8 @@
 
  /* Главы и вложения под книгой-контейнером: мельче и легче обычных строк */
  .mat-item.mat-sub {
-   padding: 8px 8px 8px 14px;
+   padding: 8px 10px 8px 12px;
+   box-shadow: none;
  }
 
  .mat-item.mat-sub .mat-title {
@@ -2285,6 +2296,7 @@
  .mat-icon.fmt-excel {
    color: var(--fmt-excel);
  }
+
  .mat-icon.fmt-djvu {
    color: var(--fmt-djvu);
  }

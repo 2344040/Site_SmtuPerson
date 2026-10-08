@@ -4618,7 +4618,32 @@
      "text": "ассистент - преподаватель - ст. преподаватель каф. математики"
     }
    ],
-   "news": [],
+   "news": [
+    {
+     "date": "15 Декабря 2025 года",
+     "title": "Визит делегации из провинции Шаньдун в СПбГМТУ",
+     "img": "https://ds1.smtu.ru/files/isu_file/2025/12/15/26784.jpg?token_static=a7f66a26163ab648356d19ecb97063b7",
+     "url": "https://www.smtu.ru/ru/viewnews/1693/"
+    },
+    {
+     "date": "25 Марта 2024 года",
+     "title": "Китайский профессор стал Почетным доктором СПбГМТУ",
+     "img": "https://ds1.smtu.ru/files/sitenews/2024/03/25/big/663.jpg?token_static=cab76ef0b57e4b61de41b94538a37602",
+     "url": "https://www.smtu.ru/ru/viewnews/663/"
+    },
+    {
+     "date": "22 Сентября 2023 года",
+     "title": "Делегации из китайских вузов-партнеров посетили СПбГМТУ",
+     "img": "https://ds1.smtu.ru/files/sitenews/2023/09/22/big/297.jpg?token_static=b0856ca45c10b80d4cb0866c80e8e1a4",
+     "url": "https://www.smtu.ru/ru/viewnews/297/"
+    },
+    {
+     "date": " 25 Мая 2023 года",
+     "title": "СПбГМТУ продолжает развивать сотрудничество с Вьетнамом",
+     "img": "https://ds1.smtu.ru/files/sitenews/2023/05/25/big/106.jpg?token_static=145e1da21e57980c64b149537a2f3b16",
+     "url": "https://www.smtu.ru/ru/viewnews/106/"
+    }
+   ],
    "university": "СПбГМТУ",
    "email_extra": [],
    "phone_extra": [],

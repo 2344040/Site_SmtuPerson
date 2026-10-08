@@ -4656,7 +4656,22 @@
     }
    ],
    "achievements": [],
-   "programs": [],
+   "programs": [
+    {
+     "text": "",
+     "title": "Высшая математика",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/71/"
+    },
+    {
+     "text": "",
+     "title": "Методы оптимальных решений",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/451/"
+    }
+   ],
    "courses": [
     {
      "a": "Высшая математика",
@@ -4719,38 +4734,6 @@
      "d": "практическое занятие",
      "e": "12638-05",
      "f": "Б 510"
-    },
-    {
-     "a": "",
-     "b": "",
-     "c": "",
-     "d": "",
-     "e": "",
-     "f": ""
-    },
-    {
-     "a": "",
-     "b": "",
-     "c": "",
-     "d": "",
-     "e": "",
-     "f": ""
-    },
-    {
-     "a": "",
-     "b": "",
-     "c": "",
-     "d": "",
-     "e": "",
-     "f": ""
-    },
-    {
-     "a": "",
-     "b": "",
-     "c": "",
-     "d": "",
-     "e": "",
-     "f": ""
     }
    ],
    "session": [],
@@ -4794,7 +4777,7 @@
    "science_text": "",
    "social_text": "",
    "external_links": {
-    "schedule": ""
+    "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100298/"
    }
   }
  ]

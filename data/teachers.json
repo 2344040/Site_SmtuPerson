@@ -3904,7 +3904,18 @@
    "metrics": [],
    "projects": [],
    "patents": [],
-   "pub_articles": [],
+   "pub_articles": [
+    {
+     "year": "",
+     "author": "",
+     "title": "Развитие коллективной памяти как фактор модернизации социальных отношений.",
+     "biblio": "Материалы 4-й научно-практической конференции преподавателей и студентов Санкт-Петербургского морского технического университета \"Гуманитарное образование в техническом вузе. Память в истории культуры России: актуальные проблемы современности».  29 апреля 2015. СПб.: \"Изд-во СПб ГМТУ\", 2015.",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    }
+   ],
    "pub_theses": [],
    "pub_textbooks": [
     {
@@ -3916,7 +3927,16 @@
      "url_buy": "https://www.litres.ru/book/raznoe-4340152/kulturologiya-uchebnik-dlya-voennyh-vuzov-28531047/?cat=17&utm_campaign=categories_nonfic_genre_gumanitarnyye-nauki_ret_dsa%7C713025607&utm_content=1916524275964430548&utm_medium=cpc&utm_source=ya&utm_term=---autotargeting%7C205776509336&lfrom_processed=1317595648"
     }
    ],
-   "pub_posobia": [],
+   "pub_posobia": [
+    {
+     "year": "2013",
+     "author": "Добряк И. В.",
+     "title": "Деловой этикет",
+     "biblio": "СПб.: Изд.центр СПбГМТУ, 2013",
+     "description": "Учебно-методическое пособие",
+     "url": ""
+    }
+   ],
    "pub_mono": [],
    "pub_other": [],
    "social": [],

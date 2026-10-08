@@ -4808,7 +4808,7 @@
      "type": "лекция",
      "building": "А",
      "room": "Актовый зал",
-     "now": false
+     "now": true
     },
     {
      "day": "Вт",

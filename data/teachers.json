@@ -3880,7 +3880,13 @@
      "qualification": ""
     }
    ],
-   "career": [],
+   "career": [
+    {
+     "year": "1998-н.в.",
+     "title": "СПбГМТУ",
+     "text": ""
+    }
+   ],
    "news": [],
    "university": "СПбГМТУ",
    "email_extra": [],
@@ -3932,7 +3938,7 @@
    "share_vk_url": "",
    "ach_text": "",
    "ped_text": "",
-   "science_text": "",
+   "science_text": "Сфера научных интересов:  нравственные аспекты культуры России, этика управления",
    "social_text": "",
    "external_links": {
     "schedule": ""

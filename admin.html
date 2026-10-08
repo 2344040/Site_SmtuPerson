@@ -121,7 +121,7 @@
     }
 
     table.ed[data-sec="courses"] th:last-child {
-      width: 44px;
+      width: 108px;
     }
 
     table.ed[data-sec="courses"] input,
@@ -172,7 +172,7 @@
     }
 
     table.ed[data-sec="achievements"] th:last-child {
-      width: 44px;
+      width: 108px;
     }
 
     table.ed[data-sec="achievements"] input,
@@ -199,7 +199,7 @@
     }
 
     table.ed[data-sec="programs"] th:last-child {
-      width: 44px;
+      width: 108px;
     }
 
     table.ed[data-sec="programs"] input,
@@ -238,12 +238,9 @@
     }
 
     table.ed[data-sec="events"] th:last-child {
-      width: 44px;
+      width: 108px;
     }
 
-    table.ed[data-sec="events"] th:last-child {
-      width: 44px;
-    }
 
     table.ed[data-sec="events"] input {
       width: 100%;
@@ -1205,10 +1202,14 @@
           .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
         return arr.map((row, i) => `
     <div class="ed-rec">
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
-        <button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
-      </div>
+    <div class="d-flex justify-content-between align-items-center">
+<span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
+<span class="d-flex gap-1">
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('education',${i},-1)" title="Выше">↑</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('education',${i},1)" title="Ниже">↓</button>
+<button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
+</span>
+</div>
       <div class="row g-2 mt-1">
         <div class="col-md-2"><label class="small text-secondary">Год</label>
           <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
@@ -1336,18 +1337,17 @@
       }
 
       // * actCell
+      // * actCell
       function actCell(k, i) {
         if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
           return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
         }
-        const withArrows = k.startsWith('mat_') || k.startsWith('pub_') || k === 'metrics';
-        return withArrows
-          ? `<td class="td-act">
-              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>
-              <button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})" title="Удалить">✕</button>
-            </td>`
-          : `<td><button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})">✕</button></td>`;
+        /* Стрелки во всех таблицах: порядок важен везде (ленты, карусель, сайдбар, лимиты) */
+        return `<td class="td-act">
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},-1)" title="Выше">↑</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('${k}',${i},1)" title="Ниже">↓</button>
+<button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('${k}',${i})" title="Удалить">✕</button>
+</td>`;
       }
 
       // * move

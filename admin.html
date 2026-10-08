@@ -756,7 +756,8 @@
         </label>
         <button class="btn btn-outline-secondary btn-sm ms-2" onclick="syncForLLM()" title="Собрать актуальные файлы из репозитория и положить в буфер обмена для вставки в чат">↻</button>
         <span class="ver-badge ms-auto" id="verBadge" onclick="refreshVerBadge()" title="Версия teacher.js в teacher.html репозитория — кликните для обновления"></span>
-        <button class="btn btn-success btn-sm" onclick="save()">Сохранить и опубликовать</button>
+        <button class="btn btn-success btn-sm" onclick="save()">Сохранить</button>
+        <span id="draftStatus" class="small ms-2"></span>
         <span id="status" class="small"></span>
       </div>
       <div id="secs"></div>
@@ -813,6 +814,85 @@
         const m = txt && txt.match(/teacher\.js\?v=(\d+)/);
         el.textContent = m ? 'v.' + m[1] : 'v.—';
       }
+
+      /* ═══ Черновик в localStorage: автосохранение без коммитов ═══ */
+      const DRAFT_KEY = id => 'draft_' + REPO + '_' + id;
+      let draftTimer = null;
+      let dirtySinceSave = false; /* есть ли правки после последней публикации */
+
+      function readDraft(id) {
+        try { const raw = localStorage.getItem(DRAFT_KEY(id)); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+      }
+      function writeDraft() {
+        if (!data || !data.teachers[cur]) return;
+        const t = data.teachers[cur];
+        collect();
+        const snapshot = JSON.parse(JSON.stringify(t));
+        try {
+          localStorage.setItem(DRAFT_KEY(t.id), JSON.stringify({ ts: Date.now(), data: snapshot }));
+          dirtySinceSave = true;
+          updateDraftIndicator();
+        } catch (e) { /* квота превышена — молча пропускаем */ }
+      }
+      function clearDraft(id) {
+        try { localStorage.removeItem(DRAFT_KEY(id || data.teachers[cur]?.id)); } catch (e) { }
+        dirtySinceSave = false;
+        updateDraftIndicator();
+      }
+      /* Debounced автосохранение: вызывается при любом изменении в форме */
+      function scheduleDraft() {
+        clearTimeout(draftTimer);
+        draftTimer = setTimeout(writeDraft, 500);
+      }
+      /* Сравнение черновика с текущей записью: нужны ли различия */
+      function draftDiffers(draft, current) {
+        if (!draft) return false;
+        const a = JSON.stringify(draft.data);
+        const b = JSON.stringify(current);
+        return a !== b;
+      }
+      /* Индикатор состояния черновика */
+      function updateDraftIndicator() {
+        const el = document.getElementById('draftStatus');
+        if (!el) return;
+        if (!dirtySinceSave) { el.textContent = ''; return; }
+        const d = readDraft(data.teachers[cur]?.id);
+        if (!d) { el.textContent = ''; return; }
+        const t = new Date(d.ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        el.innerHTML = `<span class="text-secondary">черновик ${t}</span>`;
+      }
+      /* Восстановление черновика с подтверждением */
+      function offerDraftRestore() {
+        const t = data.teachers[cur];
+        const d = readDraft(t.id);
+        if (!d || !draftDiffers(d, t)) { updateDraftIndicator(); return; }
+        const banner = document.createElement('div');
+        banner.className = 'alert alert-warning d-flex align-items-center gap-2 mb-3';
+        banner.innerHTML = `
+<span class="bi bi-exclamation-triangle-fill"></span>
+<span>Найден несохранённый черновик от ${new Date(d.ts).toLocaleString('ru-RU')}. Восстановить?</span>
+<button type="button" class="btn btn-sm btn-warning ms-auto" id="draftYes">Восстановить</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" id="draftNo">Отклонить</button>`;
+        const app = document.getElementById('app');
+        app.insertBefore(banner, app.firstChild);
+        document.getElementById('draftYes').onclick = () => {
+          Object.assign(t, d.data);
+          banner.remove();
+          build();
+          writeDraft();
+        };
+        document.getElementById('draftNo').onclick = () => {
+          clearDraft(t.id);
+          banner.remove();
+        };
+      }
+      /* Глобальные слушатели изменений формы */
+      document.addEventListener('input', scheduleDraft);
+      document.addEventListener('change', scheduleDraft);
+      /* Предупреждение при уходе со страницы */
+      window.addEventListener('beforeunload', e => {
+        if (dirtySinceSave) { e.preventDefault(); e.returnValue = ''; }
+      });
 
       // * SCALAR
       const SCALAR = {
@@ -1096,7 +1176,12 @@
           return isNaN(v) ? 0 : Math.min(Math.max(v, 0), n - 1);
         } catch (e) { return 0; }
       };
-      function setCur(i) { cur = i; rememberCur(); build(); }
+      function setCur(i) {
+        if (data && data.teachers[cur]) writeDraft();
+        cur = i; rememberCur(); build();
+        offerDraftRestore();
+        updateDraftIndicator();
+      }
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
         { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
@@ -1159,6 +1244,7 @@
         cur = restoreCur(data.teachers.length);
         buildSel(); build();
         refreshVerBadge();
+        offerDraftRestore();
         if (DEMO) {
           document.getElementById('status').innerHTML =
             '<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';
@@ -1904,6 +1990,7 @@ ${inputs}
           });
           const res = await r.json().catch(() => ({}));
           if (r.ok) {
+            clearDraft(data.teachers[cur].id);
             const stamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
             st.innerHTML = `<span class="text-success fw-bold">✔</span> ${stamp}`;
           } else {

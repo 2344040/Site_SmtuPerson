@@ -393,6 +393,21 @@
       width: 108px;
     }
 
+    /* Рубрики с описанием: боковые колонки уже, чтобы описанию хватило места */
+    table.ed:is([data-sec="pub_textbooks"], [data-sec="pub_mono"], [data-sec="pub_other"]) th:nth-child(1) {
+      width: 52px;
+    }
+
+    table.ed:is([data-sec="pub_textbooks"], [data-sec="pub_mono"], [data-sec="pub_other"]) th:nth-child(2) {
+      width: 11%;
+    }
+
+    table.ed:is([data-sec="pub_textbooks"], [data-sec="pub_mono"], [data-sec="pub_other"]) th:nth-child(6),
+    table.ed:is([data-sec="pub_textbooks"], [data-sec="pub_mono"], [data-sec="pub_other"]) th:nth-child(7) {
+      width: 13%;
+    }
+
+
     table.ed[data-sec="books"] {
       width: 100%;
       table-layout: fixed;
@@ -986,10 +1001,10 @@
         session: ['a', 'b', 'c', 'd', 'e', 'f'],
         pub_articles: ['year', 'author', 'title', 'biblio', 'description', 'tag', 'url', 'doi'],
         pub_theses: ['year', 'author', 'title', 'biblio', 'description', 'url'],
-        pub_textbooks: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+        pub_textbooks: ['year', 'author', 'title', 'biblio', 'description', 'url', 'url_buy'],
         pub_posobia: ['year', 'author', 'title', 'biblio', 'description', 'url'],
-        pub_mono: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
-        pub_other: ['year', 'author', 'title', 'biblio', 'url', 'url_buy'],
+        pub_mono: ['year', 'author', 'title', 'biblio', 'description', 'url', 'url_buy'],
+        pub_other: ['year', 'author', 'title', 'biblio', 'description', 'url', 'url_buy'],
         patents: ['year', 'title', 'text', 'tag'],
         projects: ['year', 'title', 'text'],
         social: ['title', 'text'],
@@ -1034,9 +1049,10 @@
       const MULTILINE = {
         achievements: ['text'], patents: ['text'],
         projects: ['text'], social: ['text'], news: ['title'],
-        pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description']
+        pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description'],
+        pub_textbooks: ['description'], pub_mono: ['description'], pub_other: ['description']
       };
-      const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1 };
+      const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1, pub_textbooks: 1, pub_mono: 1, pub_other: 1 };
 
       // * COL_NAMES
       const COL_NAMES = {
@@ -1348,9 +1364,9 @@
       const MAT_SECS_LIST = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video', 'mat_resources'];
       const MAT_FIELDS = {
         mat_posobia: ['author', 'title', 'biblio', 'description', 'url'],
-        mat_books: ['author', 'title', 'biblio', 'url', 'url_buy'],
-        mat_lectures: ['author', 'title', 'url'],
-        mat_video: ['author', 'title', 'url'],
+        mat_books: ['author', 'title', 'biblio', 'description', 'url', 'url_buy'],
+        mat_lectures: ['author', 'title', 'description', 'url'],
+        mat_video: ['author', 'title', 'description', 'url'],
         mat_resources: ['title', 'url'],
       };
 

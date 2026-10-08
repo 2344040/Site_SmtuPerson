@@ -240,7 +240,9 @@ const pubRow = (i, r, hidden) => {
   const biblioHtml = (i.author || i.title) ? biblioSpan(biblio) : '';
   const tag = r.tag && i.tag ? `<span class="tag ${pubTagCls(i.tag)}">${esc(i.tag)}</span>` : '';
   const doi = r.doi && i.doi ? `<span class="pub-doi">DOI: ${esc(i.doi)}</span>` : '';
-  const desc = i.description ? `<div class="mat-description-line"><span class="mat-description">${esc(i.description)}</span></div>` : '';
+  const desc = i.description
+    ? `<div class="mat-description-line d-flex"><span class="mat-description text-toggle-content">${esc(i.description)}</span><span class="text-toggle-btn mat-desc-toggle"><span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span><span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span></span></div>`
+    : '';
   const actions = [];
   if (i.url) actions.push(`<a class="mat-btn" href="${esc(i.url)}" target="_blank" rel="noopener" title="Открыть или скачать"><i class="bi bi-box-arrow-up-right"></i></a>`);
   if (r.buy && i.url_buy) actions.push(`<a class="mat-btn" href="${esc(i.url_buy)}" target="_blank" rel="noopener" title="Купить"><i class="bi bi-cart-fill"></i></a>`);
@@ -389,8 +391,8 @@ const matItem = (item, sec, isContainer, isSub) => {
   /* Выходные данные — мелким серым; слэш неотрываем от первого слова */
   const biblio = (item.author || item.title) && item.biblio ? biblioSpan(item.biblio) : '';
 
-  /* Описание — малый серый курсив; в книгах и пособиях сворачивается после 3 строк */
-  const descCollapsible = sec.key === 'mat_books' || sec.key === 'mat_posobia';
+  /* Описание — малый серый курсив; сворачивается после 3 строк во всех секциях материалов, кроме ресурсов */
+  const descCollapsible = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video'].includes(sec.key);
   const description = item.description
     ? (descCollapsible
       ? `<span class="mat-description text-toggle-content">${esc(item.description)}</span><span class="text-toggle-btn mat-desc-toggle"><span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span><span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span></span>`
@@ -428,17 +430,17 @@ const matItem = (item, sec, isContainer, isSub) => {
 /* pos: 0 — единственный ребёнок, 1 — первый, 2 — средний, 3 — последний (для коннекторов).
 Отступы и шрифты уровней живут в style.css (лестница .mat-h-N / .mat-lvl-N) */
 const renderMatNode = (node, depth, sec, sub, pos) => {
-const kids = node.children || [];
-if (node.kind === 'head') {
-return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
-kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos)).join('');
-}
-const isContainer = kids.length > 0;
-const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}">${matItem(node, sec, isContainer, sub)}</ul>`;
-if (!kids.length) return row;
-return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
-kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2)).join('');
+  const kids = node.children || [];
+  if (node.kind === 'head') {
+    return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
+      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos)).join('');
+  }
+  const isContainer = kids.length > 0;
+  const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
+  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}">${matItem(node, sec, isContainer, sub)}</ul>`;
+  if (!kids.length) return row;
+  return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
+    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2)).join('');
 };
 
 const MAT_SECTIONS = [
@@ -789,6 +791,8 @@ function initCardReveal() {
       isOpen = !isOpen;
       row.querySelectorAll('.reveal-hidden').forEach(c => c.classList.toggle('d-none', !isOpen));
       btn.textContent = isOpen ? 'Свернуть' : 'Показать ещё';
+      /* Строки стали видимыми — пересчитываем кнопки «подробнее» у их описаний */
+      window.dispatchEvent(new Event('resize'));
     });
   });
 }

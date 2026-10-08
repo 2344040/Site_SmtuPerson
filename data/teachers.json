@@ -4359,7 +4359,16 @@
     }
    ],
    "profiles": [],
-   "mat_posobia": [],
+   "mat_posobia": [
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "Культура домонгольской Руси ",
+     "biblio": "(2.50M - Документ)",
+     "description": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44056.docx?token_static=369b6048d06ea3cd60d7fd535442a7b1"
+    }
+   ],
    "mat_books": [],
    "mat_lectures": [
     {

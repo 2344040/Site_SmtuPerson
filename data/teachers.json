@@ -4274,6 +4274,7 @@
      "author": "Коллектив авторов",
      "title": "Культурология. Учебник для военных вузов",
      "biblio": "под ред О.Ю.Ефремова. СПб: Питер, 2017",
+     "description": "",
      "url": "",
      "url_buy": "https://www.litres.ru/book/raznoe-4340152/kulturologiya-uchebnik-dlya-voennyh-vuzov-28531047/?cat=17&utm_campaign=categories_nonfic_genre_gumanitarnyye-nauki_ret_dsa%7C713025607&utm_content=1916524275964430548&utm_medium=cpc&utm_source=ya&utm_term=---autotargeting%7C205776509336&lfrom_processed=1317595648"
     }
@@ -4326,6 +4327,7 @@
      "author": "Добряк И. В.",
      "title": "Нравоучительная литература в России рубежа XVII-XVIII вв.",
      "biblio": "",
+     "description": "",
      "url": "",
      "url_buy": ""
     }
@@ -4403,6 +4405,7 @@
      "author": "",
      "title": "",
      "biblio": "",
+     "description": "",
      "url": "",
      "url_buy": ""
     }
@@ -4420,42 +4423,49 @@
          "kind": "rec",
          "author": "Лекция 1.",
          "title": "Введение в культурологию",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 2.",
          "title": "Культура европейского средневековья",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 3. ",
          "title": "Культура эпохи Возрождения.",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 4. ",
          "title": "Культура русского средневековья.",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 5. ",
          "title": "Культура Нового времени.",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 6. ",
          "title": "Культура XIX века",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 7.",
          "title": "Культура XX-XXI вв.",
+         "description": "",
          "url": ""
         }
        ]
@@ -4468,12 +4478,14 @@
          "kind": "rec",
          "author": "Лекция 1.",
          "title": "Введение в культурологию",
+         "description": "",
          "url": ""
         },
         {
          "kind": "rec",
          "author": "Лекция 2.",
          "title": "Культура раннего европейского средневековья. Часть 1, 2",
+         "description": "",
          "url": ""
         }
        ]
@@ -4488,48 +4500,56 @@
        "kind": "rec",
        "author": "Лекция 1.",
        "title": "История культуры в контексте развития научного знания",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 2.",
        "title": "Значение античной цивилизации для европейской и русской культуры",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 3.",
        "title": "Киевская Русь в контексте развития мировой истории культуры средневековья",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 4.",
        "title": "Русская культура XIV-XVII вв.",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 5.",
        "title": "Специфика развития русской культуры в XVII – XVIII вв.",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 6.",
        "title": "Классические традиции архитектуры в России XIX в..",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 7.",
        "title": "Русская культура XIX в.",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Лекция 8.",
        "title": "Культура России ХХ-ХХI веков",
+       "description": "",
        "url": ""
       }
      ]
@@ -4560,6 +4580,68 @@
    "social_text": "",
    "external_links": {
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100346/"
+   }
+  },
+  {
+   "id": "100298",
+   "name": "Григорьев-Голубев Владимир Викторович",
+   "chips": [],
+   "positions": [],
+   "education": [],
+   "career": [],
+   "news": [],
+   "university": "СПбГМТУ",
+   "email_extra": [],
+   "phone_extra": [],
+   "memberships": [],
+   "honors": [],
+   "upk": [],
+   "achievements": [],
+   "programs": [],
+   "courses": [],
+   "schedule": [],
+   "session": [],
+   "metrics": [],
+   "projects": [],
+   "patents": [],
+   "pub_articles": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_posobia": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "social": [],
+   "events": [],
+   "rail_edu": [],
+   "profiles": [],
+   "mat_posobia": [],
+   "mat_books": [],
+   "mat_lectures": [],
+   "mat_video": [],
+   "mat_resources": [],
+   "short": "Григорьев-Голубев В.В.",
+   "photo": "",
+   "faculty": "",
+   "department": "",
+   "position": "",
+   "post": "",
+   "degree_level": "",
+   "degree_branch": "",
+   "academic_title": "",
+   "experience_years": "",
+   "email": "",
+   "phone": "",
+   "address": "",
+   "site": "",
+   "hours": "",
+   "share_tg_url": "",
+   "share_vk_url": "",
+   "ach_text": "",
+   "ped_text": "",
+   "science_text": "",
+   "social_text": "",
+   "external_links": {
+    "schedule": ""
    }
   }
  ]

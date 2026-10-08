@@ -3897,7 +3897,71 @@
    "honors": [],
    "upk": [],
    "achievements": [],
-   "programs": [],
+   "programs": [
+    {
+     "text": "",
+     "title": "Архитектура современных управленческих информационных систем",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/1/"
+    },
+    {
+     "text": "",
+     "title": "Деловые коммуникации",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/981/"
+    },
+    {
+     "text": "",
+     "title": "Задолженности по предмету",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/695/"
+    },
+    {
+     "text": "",
+     "title": "История",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/298/"
+    },
+    {
+     "text": "",
+     "title": "История искусств",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/140/"
+    },
+    {
+     "text": "",
+     "title": "История России",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/1759/"
+    },
+    {
+     "text": "",
+     "title": "Коммуникативные технологии делового общения",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/768/"
+    },
+    {
+     "text": "",
+     "title": "Культурология",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/51/"
+    },
+    {
+     "text": "",
+     "title": "Основы культурологии",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/678/"
+    }
+   ],
    "courses": [],
    "schedule": [],
    "session": [],

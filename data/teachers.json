@@ -4367,9 +4367,46 @@
      "biblio": "(2.50M - Документ)",
      "description": "",
      "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44056.docx?token_static=369b6048d06ea3cd60d7fd535442a7b1"
+    },
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "Русская культура с XIV по XVI вв ",
+     "biblio": "(23.47K - Документ)",
+     "description": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44057.docx?token_static=f63482c0eb0f69a40d9d747df5417f85"
+    },
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "Московская архитектурная школа",
+     "biblio": " (6.02M - Документ)",
+     "description": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44058.docx?token_static=6151922c598fdf819d1e1de7f83ca1b7"
+    },
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "Культурные преобразования в Русском государстве XVII–XVIII вв ",
+     "biblio": "(508.50K - Документ)",
+     "description": "",
+     "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44059.docx?token_static=85313ea681833003f98e473cdc847eb9"
     }
    ],
-   "mat_books": [],
+   "mat_books": [
+    {
+     "kind": "head",
+     "title": ""
+    },
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "",
+     "biblio": "",
+     "url": "",
+     "url_buy": ""
+    }
+   ],
    "mat_lectures": [
     {
      "kind": "head",

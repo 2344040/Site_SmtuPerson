@@ -734,6 +734,12 @@
     .mat-node-body textarea {
       resize: vertical;
     }
+
+    /* Колонка действий (↑ ↓ ✕): единая ширина во всех таблицах.
+Стоит последним, чтобы перебивать персональные width: 44px у секций */
+    table.ed[data-sec] th:last-child {
+      width: 108px;
+    }
   </style>
 </head>
 

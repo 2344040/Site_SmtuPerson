@@ -4737,20 +4737,185 @@
     }
    ],
    "session": [],
-   "metrics": [],
+   "metrics": [
+    {
+     "n": "100",
+     "l": "публикаций"
+    },
+    {
+     "n": "1",
+     "l": "монографий"
+    }
+   ],
    "projects": [],
    "patents": [],
    "pub_articles": [],
    "pub_theses": [],
    "pub_textbooks": [],
-   "pub_posobia": [],
-   "pub_mono": [],
+   "pub_posobia": [
+    {
+     "year": "",
+     "author": "",
+     "title": "Теория вероятностей и математическая статистика",
+     "biblio": "СПб, издательство БХВ",
+     "description": "",
+     "url": ""
+    }
+   ],
+   "pub_mono": [
+    {
+     "year": "",
+     "author": "Григорьев-Голубев В. В., М.И. Володичева, Леора С. Н. ",
+     "title": " «Собственные векторы, жордановы формы, функции матриц»",
+     "biblio": "",
+     "description": "",
+     "url": "",
+     "url_buy": ""
+    }
+   ],
    "pub_other": [],
    "social": [],
-   "events": [],
+   "events": [
+    {
+     "day": "Вт",
+     "time": "10:10-11:40",
+     "subject": "Высшая математика",
+     "type": "лекция",
+     "building": "А",
+     "room": "Актовый зал",
+     "now": false
+    },
+    {
+     "day": "Вт",
+     "time": "11:50-13:20",
+     "subject": "Высшая математика",
+     "type": "практическое занятие",
+     "building": "Б",
+     "room": "501(1)",
+     "now": false
+    }
+   ],
    "rail_edu": [],
-   "profiles": [],
-   "mat_posobia": [],
+   "profiles": [
+    {
+     "t": "Scopus",
+     "u": ""
+    },
+    {
+     "t": "ResearcherID-WoS",
+     "u": ""
+    },
+    {
+     "t": "ORCID",
+     "u": ""
+    },
+    {
+     "t": "РИНЦ",
+     "u": ""
+    }
+   ],
+   "mat_posobia": [
+    {
+     "kind": "head",
+     "title": "Высшая математика. ЗО.",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Производная",
+       "biblio": "",
+       "description": "",
+       "url": ""
+      },
+      {
+       "kind": "rec",
+       "author": "Тема 1.",
+       "title": "Дифференциальное исчисдение ФНП",
+       "biblio": "",
+       "description": "",
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Лекции-ФНП",
+         "biblio": " (628.88K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/12/29052.pdf?token_static=d6e4063ece655294b460dffe75abc1d5"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "ПРОИЗВОДНАЯ практика ПОВТОРЕНИЕ",
+         "biblio": " (358.36K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/12/29053.pdf?token_static=2e09ff9e034dd2e7160c768bb85af11c"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "РабочаяТетрадь ФНП ",
+         "biblio": "(381.02K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/12/29055.pdf?token_static=b93423fe2691d5413ecfd4ab86250cc7"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "ТаблицаПроизводных",
+         "biblio": " (234.78K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/12/29056.pdf?token_static=97997e617a061c78c32d24dd2b8e09d0"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Экстремум МНП",
+         "biblio": " (606.04K - pdf)",
+         "description": "",
+         "url": "ЭкстремумМНП (606.04K - pdf)"
+        }
+       ]
+      },
+      {
+       "kind": "rec",
+       "author": "Тема 2.",
+       "title": "Интегральное исчисление",
+       "biblio": "",
+       "description": "",
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "23 Интегралы",
+         "biblio": " (699.51K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/18/29319.pdf?token_static=324e9ff39c64971e6c8d26e11c5341ca"
+        }
+       ]
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Дополнительно Интегралы, 1 курс",
+       "biblio": "",
+       "description": "",
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "3-РабочаяТетрадьИнтегралы",
+         "biblio": " (416.35K - pdf)",
+         "description": "",
+         "url": "https://ds1.smtu.ru/files/teacher_doc_file/2021/01/13/29082.pdf?token_static=940d6506ba3d9ad044ec84127904f56e"
+        }
+       ]
+      }
+     ]
+    }
+   ],
    "mat_books": [],
    "mat_lectures": [],
    "mat_video": [],
@@ -4774,7 +4939,7 @@
    "share_vk_url": "",
    "ach_text": "Автор около 100 научных работ, среди них монография «Собственные векторы, жордановы формы, функции матриц» (в соавторстве с М.И. Володичевой и С.Н.Леорой), статьи в ведущих рецензируемых научных изданиях, учебное пособие «Теория вероятностей и математическая статистика», выпущенное в издательстве БХВ, а также несколько учебных пособий по компьютерной математике и численным методам. \n\nНагражден медалью ордена «За заслуги перед Отечеством» II степени и нагрудным знаком «Почетный работник высшего профессионального образования».",
    "ped_text": "",
-   "science_text": "",
+   "science_text": "Область научных интересов: компьютерная математика, прикладная математическая физика и механика.\n\nАвтор около 100 научных работ, среди них:\n<ul class='text-block-list'>\n  <li>монография «Собственные векторы, жордановы формы, функции матриц» (в соавторстве с М.И. Володичевой и С.Н.Леорой),</li>\n  <li>статьи в ведущих рецензируемых научных изданиях,</li>\n  <li>учебное пособие «Теория вероятностей и математическая статистика», выпущенное в издательстве БХВ,</li>\n  <li>несколько учебных пособий по компьютерной математике и численным методам.</li>\n</ul>",
    "social_text": "",
    "external_links": {
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100298/"

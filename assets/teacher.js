@@ -437,7 +437,7 @@ const renderMatNode = (node, depth, sec, sub, pos) => {
   }
   const isContainer = kids.length > 0;
   const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}">${matItem(node, sec, isContainer, sub)}</ul>`;
+  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub)}</ul>`;
   if (!kids.length) return row;
   return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
     kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2)).join('');

@@ -4307,7 +4307,26 @@
    ],
    "pub_other": [],
    "social": [],
-   "events": [],
+   "events": [
+    {
+     "day": "Вт",
+     "time": "10:10-11:40",
+     "subject": "История России",
+     "type": "лекция",
+     "building": "У",
+     "room": "504",
+     "now": true
+    },
+    {
+     "day": "Вт",
+     "time": "11:50-13:20",
+     "subject": "История России",
+     "type": "лекция",
+     "building": "У",
+     "room": "504",
+     "now": false
+    }
+   ],
    "rail_edu": [],
    "profiles": [],
    "mat_posobia": [],
@@ -4337,7 +4356,7 @@
    "science_text": "Сфера научных интересов:  нравственные аспекты культуры России, этика управления",
    "social_text": "",
    "external_links": {
-    "schedule": ""
+    "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100346/"
    }
   }
  ]

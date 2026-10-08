@@ -4361,7 +4361,26 @@
    "profiles": [],
    "mat_posobia": [],
    "mat_books": [],
-   "mat_lectures": [],
+   "mat_lectures": [
+    {
+     "kind": "head",
+     "title": "Культурология",
+     "children": [
+      {
+       "kind": "rec",
+       "author": "Лекция 1",
+       "title": "Введение в культурологию",
+       "url": ""
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "",
+       "url": ""
+      }
+     ]
+    }
+   ],
    "mat_video": [],
    "mat_resources": [],
    "short": "Добряк И.В.",

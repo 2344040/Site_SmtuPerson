@@ -816,6 +816,96 @@
       resize: vertical;
     }
 
+    /* ── Глобальные справочники: визуально отделены от ввода по персоне ── */
+    .dict-sec {
+      border: 1px solid #c9d6d2;
+      border-radius: 8px;
+      background: #f4f8f6;
+      margin: 14px 0;
+    }
+
+    .dict-sec>summary {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      font-weight: 600;
+      color: #235c52;
+      background: #dcebe6;
+      border-radius: 8px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .dict-sec>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dict-sec[open]>summary {
+      border-bottom: 1px dashed #c9d6d2;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .dict-badge {
+      margin-left: auto;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #2f6f63;
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    .dict-body {
+      padding: 8px 10px 10px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* Превью выбранного цвета категории */
+    .color-prev {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid #dcd7c9;
+    }
+
+    /* Справочник проектов: категория шире, ссылка уже; описание забирает остаток */
+    table.ed[data-sec="sci_dict"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="sci_dict"] th:nth-child(1) {
+      width: 32%;
+    }
+
+    table.ed[data-sec="sci_dict"] th:nth-child(2) {
+      width: 24%;
+    }
+
+    table.ed[data-sec="sci_dict"] th:nth-child(4) {
+      width: 15%;
+    }
+
+    table.ed[data-sec="sci_projects"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="sci_projects"] th:nth-child(1) {
+      width: 20%;
+    }
+
+    table.ed[data-sec="sci_projects"] th:nth-child(2) {
+      width: 30%;
+    }
+
+    table.ed[data-sec="sci_projects"] th:nth-child(4) {
+      width: 15%;
+    }
+
     /* Колонка действий (↑ ↓ ✕): единая ширина во всех таблицах.
 Стоит последним, чтобы перебивать персональные width: 44px у секций */
     table.ed[data-sec] th:last-child {
@@ -1517,8 +1607,18 @@ ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l
           }
 
           /* Цвет категории — компактный color-picker */
+          /* Цвет категории — дискретная палитра с превью */
           if (k === 'sci_cats' && c === 'color') {
-            return `<td><input type="color" data-sec="${k}" data-i="${i}" data-k="${c}" value="${/^#[0-9a-fA-F]{6}$/.test(val) ? val : '#d97b29'}"></td>`;
+            const cur = /^#[0-9a-fA-F]{6}$/.test(val) ? val : '';
+            return `<td><div class="d-flex align-items-center gap-1">
+<select class="flex-grow-1" data-sec="${k}" data-i="${i}" data-k="${c}"
+onchange="this.nextElementSibling.style.background=this.value||'#dcd7c9'">
+<option value="" ${!cur ? 'selected' : ''}>—</option>
+${SCI_CAT_COLORS.map(([hex, name]) => `<option value="${hex}" ${cur === hex ? 'selected' : ''}>${name}</option>`).join('')}
+${cur && !SCI_CAT_COLORS.some(p => p[0] === cur) ? `<option value="${cur}" selected>${cur} (свой)</option>` : ''}
+</select>
+<span class="color-prev" style="background:${cur || '#dcd7c9'}"></span>
+</div></td>`;
           }
           /* Категория: селект из справочника категорий; у преподавателя дополнительно фильтрует подсказки проектов */
           if ((k === 'sci_dict' || k === 'sci_projects') && c === 'cat') {
@@ -1588,6 +1688,20 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       const sciCats = () => Array.isArray(data.sci_cats) ? data.sci_cats : (data.sci_cats = []);
       const sciDict = () => Array.isArray(data.sci_dict) ? data.sci_dict : (data.sci_dict = []);
       const spOptions = cat => sciDict().filter(p => !cat || (p.cat || '') === cat);
+
+      /* Дискретная палитра цветов категорий: hex уходит в бордер карточки на фронте */
+      const SCI_CAT_COLORS = [
+        ['#d97b29', 'янтарный'],
+        ['#2f6f63', 'бирюзовый'],
+        ['#2b579a', 'синий'],
+        ['#1e7145', 'зелёный'],
+        ['#7a4a8d', 'пурпурный'],
+        ['#c0392b', 'красный'],
+        ['#b08d24', 'золотой'],
+        ['#16876f', 'морская волна'],
+        ['#5b84b1', 'голубой'],
+        ['#6f7a72', 'серый']
+      ];
       /* Перестроить подсказки названий проектов под выбранную категорию */
       function spSync(i) {
         const catEl = document.querySelector(`select[data-sec="sci_projects"][data-i="${i}"][data-k="cat"]`);
@@ -1832,6 +1946,7 @@ ${inputs}
       }
       const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
       let MAT_OPEN = {};
+      let DICT
       function renderMatEditor(t, sec) {
         const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
         const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : true;
@@ -1869,6 +1984,8 @@ ${inputs}
         });
         MAT_OPEN = {};
         document.querySelectorAll('#secs details[data-msec]').forEach(d => { MAT_OPEN[d.dataset.msec] = d.open; });
+        DICT_OPEN = {};
+        document.querySelectorAll('#secs details[data-dict]').forEach(d => { DICT_OPEN[d.dataset.dict] = d.open; });
         document.getElementById('secs').innerHTML = GROUPS.map((g, gi) => {
           let inner = '', rowBuf = null;
           const flush = () => { if (rowBuf !== null) { inner += '<div class="row g-2">' + rowBuf + '</div>'; rowBuf = null; } };
@@ -1908,7 +2025,11 @@ ${inputs}
               else if (type === 'a') inner += renderArray(t, key, opt);
               else if (type === 'm') inner += renderMatEditor(t, key);
               else if (type === 'h') inner += renderHtmlField(t, key);
-              else if (type === 'd') inner += `<div class="small text-secondary mt-3 mb-1">Глобальный справочник — общий для всех преподавателей</div>` + renderArray(data, key);
+              else if (type === 'd') inner += `
+<details class="dict-sec" data-dict="${key}" ${DICT_OPEN[key] ? 'open' : ''}>
+<summary><i class="bi bi-collection me-2"></i>${NAMES[key]}<span class="dict-badge">глобальный справочник</span></summary>
+<div class="dict-body">${renderArray(data, key, true)}</div>
+</details>`;
               else if (type === 'x') inner += `<div class="mt-4 mb-1">
   <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
    <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">

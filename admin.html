@@ -137,58 +137,95 @@
       flex-shrink: 0;
     }
 
-/* Образование: вся запись в одну строку */
-.ed-rec {
-display: flex;
-align-items: flex-end;
-gap: .5rem;
-flex-wrap: nowrap;
-padding: .5rem 0 .6rem;
-border-bottom: 1px dashed #dcd7c9;
-}
-.ed-rec:last-of-type {
-border-bottom: 0;
-}
-.ed-f {
-display: flex;
-flex-direction: column;
-min-width: 0;
-}
-.ed-f > label {
-margin-bottom: 2px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.ed-rec input,
-.ed-rec select {
-width: 100%;
-min-width: 0;
-}
-.ed-year { flex: 0 0 80px; }        /* как колонка года в таблицах */
-.ed-inst { flex: 1 1 30%; }         /* забирает весь остаток */
-.ed-level { flex: 0 1 150px; }      /* компактнее прежнего col-md-3 */
-.ed-profile { flex: 1 1 22%; }
-.ed-qual { flex: 1 1 18%; }
-.ed-act {
-flex: 0 0 auto;
-display: flex;
-align-items: center;
-gap: 4px;
-}
-.ed-num {
-min-width: 18px;
-text-align: center;
-font-size: .72rem;
-font-weight: 600;
-color: #6f7a72;
-}
-@media (max-width: 767.98px) {
-.ed-rec { flex-wrap: wrap; }
-.ed-f { flex: 1 1 46%; }
-.ed-year { flex: 0 0 80px; }
-.ed-act { flex: 1 0 auto; justify-content: flex-end; }
-}
+    /* Образование: вся запись в одну строку */
+    .ed-rec {
+      display: flex;
+      align-items: flex-end;
+      gap: .5rem;
+      flex-wrap: nowrap;
+      padding: .5rem 0 .6rem;
+      border-bottom: 1px dashed #dcd7c9;
+    }
+
+    .ed-rec:last-of-type {
+      border-bottom: 0;
+    }
+
+    .ed-f {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .ed-f>label {
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ed-rec input,
+    .ed-rec select {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .ed-year {
+      flex: 0 0 80px;
+    }
+
+    /* как колонка года в таблицах */
+    .ed-inst {
+      flex: 1 1 30%;
+    }
+
+    /* забирает весь остаток */
+    .ed-level {
+      flex: 0 1 150px;
+    }
+
+    /* компактнее прежнего col-md-3 */
+    .ed-profile {
+      flex: 1 1 22%;
+    }
+
+    .ed-qual {
+      flex: 1 1 18%;
+    }
+
+    .ed-act {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ed-num {
+      min-width: 18px;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #6f7a72;
+    }
+
+    @media (max-width: 767.98px) {
+      .ed-rec {
+        flex-wrap: wrap;
+      }
+
+      .ed-f {
+        flex: 1 1 46%;
+      }
+
+      .ed-year {
+        flex: 0 0 80px;
+      }
+
+      .ed-act {
+        flex: 1 0 auto;
+        justify-content: flex-end;
+      }
+    }
 
     .html-preview {
       background: #fff;
@@ -1100,6 +1137,7 @@ color: #6f7a72;
       const TEXTS = {
         ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
         science_text: ['Текстовый блок научных интересов', 3],
+        science_dirs: ['Текстовый блок «Основные направления научной деятельности» (разрешён HTML)', 4],
         ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
         social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
       };
@@ -1121,7 +1159,7 @@ color: #6f7a72;
         },
         {
           title: '7. Научная деятельность',
-          items: [['a', 'metrics'], ['h', 'science_text'], ['a', 'projects'], ['a', 'patents']]
+          items: [['a', 'metrics'], ['h', 'science_text'], ['h', 'science_dirs'], ['d', 'sci_cats'], ['d', 'sci_dict'], ['a', 'sci_projects'], ['a', 'projects'], ['a', 'patents']]
         },
         {
           title: '8. Публикации (произведения героя)',
@@ -1153,6 +1191,9 @@ color: #6f7a72;
         pub_other: ['year', 'author', 'title', 'biblio', 'description', 'url', 'url_buy'],
         patents: ['year', 'title', 'text', 'tag'],
         projects: ['year', 'title', 'text'],
+        sci_cats: ['title', 'color'],
+        sci_dict: ['title', 'cat', 'text', 'url'],
+        sci_projects: ['cat', 'title', 'text', 'url'],
         social: ['title', 'text'],
         metrics: ['n', 'l'],
         events: ['day', 'time', 'subject', 'type', 'building', 'room', 'now'],
@@ -1184,6 +1225,8 @@ color: #6f7a72;
         patents: 'Патенты', projects: 'Проекты', pub_articles: 'Статьи', pub_theses: 'Тезисы',
         pub_textbooks: 'Учебники', pub_posobia: 'Учебные пособия', pub_mono: 'Монографии',
         pub_other: 'Прочее',
+        sci_cats: 'Справочник: категории проектов', sci_dict: 'Справочник: проекты (название, категория, описание, ссылка)',
+        sci_projects: 'Участие в научно-исследовательских проектах СПбГМТУ',
         social: 'Общественная деятельность', metrics: 'Метрики науки', events: 'События (правый сайдбар)',
         profiles: 'Профили (правый сайдбар)', news: 'Новости',
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
@@ -1196,9 +1239,11 @@ color: #6f7a72;
         achievements: ['text'], patents: ['text'],
         projects: ['text'], social: ['text'], news: ['title'],
         pub_articles: ['description'], pub_theses: ['description'], pub_posobia: ['description'],
-        pub_textbooks: ['description'], pub_mono: ['description'], pub_other: ['description']
+        pub_textbooks: ['description'], pub_mono: ['description'], pub_other: ['description'],
+        sci_dict: ['text'], sci_projects: ['text']
       };
-      const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1, pub_textbooks: 1, pub_mono: 1, pub_other: 1 };
+
+      const AREA_ROWS = { achievements: 1, pub_articles: 1, pub_theses: 1, pub_posobia: 1, pub_textbooks: 1, pub_mono: 1, pub_other: 1, sci_dict: 1, sci_projects: 1 };
 
       // * COL_NAMES
       const COL_NAMES = {
@@ -1208,7 +1253,8 @@ color: #6f7a72;
         institution: 'Учреждение', level: 'Уровень', profile: 'Профиль', qualification: 'Квалификация',
         time: 'Время', subject: 'Предмет', type: 'Тип занятия',
         building: 'Корпус', room: 'Аудитория',
-        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание',
+        author: 'Автор', url: 'Ссылка / файл', url_buy: 'Ссылка на покупку', rub: 'Рубрика (через /)', biblio: 'Выходные данные', description: 'Описание', cat: 'Категория', color: 'Цвет',
+
       };
 
       // * LEVELS
@@ -1514,6 +1560,30 @@ ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l
 
       // * MAT TREE — редактор учебных материалов (дерево разделов и записей)
       const MAT_SECS_LIST = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video', 'mat_resources'];
+
+      /* ═══ Справочник научных проектов: категории и проекты — общие для всех преподавателей ═══ */
+      const DICT_SECS = ['sci_cats', 'sci_dict'];
+      const recTarget = k => (DICT_SECS.includes(k) ? data : data.teachers[cur]);
+      const sciCats = () => Array.isArray(data.sci_cats) ? data.sci_cats : (data.sci_cats = []);
+      const sciDict = () => Array.isArray(data.sci_dict) ? data.sci_dict : (data.sci_dict = []);
+      const spOptions = cat => sciDict().filter(p => !cat || (p.cat || '') === cat);
+      /* Перестроить подсказки названий проектов под выбранную категорию */
+      function spSync(i) {
+        const catEl = document.querySelector(`select[data-sec="sci_projects"][data-i="${i}"][data-k="cat"]`);
+        const dl = document.getElementById('dl-sp-' + i);
+        if (!dl) return;
+        dl.innerHTML = spOptions(catEl ? catEl.value : '').map(p => `<option value="${String(p.title || '').replace(/"/g, '&quot;')}"></option>`).join('');
+      }
+      /* Выбор проекта из справочника: описание и ссылка подставляются автоматически */
+      function spApply(i) {
+        const get = k => document.querySelector(`[data-sec="sci_projects"][data-i="${i}"][data-k="${k}"]`);
+        const ref = sciDict().find(p => (p.title || '') === (get('title') ? get('title').value : '').trim());
+        if (!ref) return;
+        const textEl = get('text'); if (textEl) textEl.value = ref.text || '';
+        const urlEl = get('url'); if (urlEl) urlEl.value = ref.url || '';
+        const catEl = get('cat'); if (catEl && ref.cat && !catEl.value) catEl.value = ref.cat;
+      }
+
       const MAT_FIELDS = {
         mat_posobia: ['author', 'title', 'biblio', 'description', 'url'],
         mat_books: ['author', 'title', 'biblio', 'description', 'url', 'url_buy'],
@@ -1860,11 +1930,12 @@ ${inputs}
         if (!String(t.short || '').trim()) t.short = makeShort(t.name);
         if (!t.external_links) t.external_links = {};
         document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
-        Object.keys(KEYS).forEach(k => { t[k] = []; });
+        Object.keys(KEYS).forEach(k => { (DICT_SECS.includes(k) ? data : t)[k] = []; });
         document.querySelectorAll('input[data-sec][data-i][data-k], textarea[data-sec][data-i][data-k], select[data-sec][data-i][data-k]').forEach(i => {
           const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;
-          const row = (t[sec][idx] = t[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
-          if (KEYS[sec][0] === '*') t[sec][idx] = i.value;
+          const host = DICT_SECS.includes(sec) ? data : t;
+          const row = (host[sec][idx] = host[sec][idx] || (KEYS[sec][0] === '*' ? '' : {}));
+          if (KEYS[sec][0] === '*') host[sec][idx] = i.value;
           else row[k] = i.type === 'checkbox' ? i.checked : i.value;
         });
 
@@ -1877,7 +1948,7 @@ ${inputs}
       // * add(k)
       function add(k) {
         collect();
-        const t = data.teachers[cur];
+        const t = recTarget(k);
         const prevRow = t[k] && t[k].length ? t[k][t[k].length - 1] : null;
         const fresh = KEYS[k][0] === '*' ? '' : Object.fromEntries(KEYS[k].map(c => [c, '']));
         if (k.startsWith('mat_') && prevRow && prevRow.rub) fresh.rub = prevRow.rub;

@@ -20,6 +20,8 @@ const htmlOrText = s => /<[a-z!\/]/i.test(s) ? s : esc(s).replace(/\n/g, '<br>')
 const has = k => Array.isArray(T[k]) && T[k].length;
 let T;
 
+let DICTS = { cats: [], projects: [] };
+
 /* Бейдж версии: берём из параметра ?v=NN, с которым этот файл загрузился */
 const SCRIPT_VER = ((document.currentScript && document.currentScript.src) || '').match(/[?&]v=(\d+)/);
 const verBadgeEl = document.getElementById('p-ver');
@@ -35,6 +37,8 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
     return;
   }
   Object.keys(T).forEach(k => { if (Array.isArray(T[k])) T[k] = T[k].filter(isFilled); });
+  DICTS.cats = d.sci_cats || [];
+  DICTS.projects = d.sci_dict || [];
   document.title = (T.short || makeShort(T.name) || T.name) + ' — СПбГМТУ';
   fillHeader();
   buildMenu();
@@ -170,6 +174,34 @@ const achievementCards = (a, limit = 6) => `
   </div>`;
 }).join('')}</div>
 ${a.length > limit ? `<div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary btn-sm reveal-btn">Показать ещё</button></div>` : ''}`;
+
+/* ═══ Научные проекты СПбГМТУ: категория сверху, цвет бордера по категории ═══ */
+const sciProjectCards = a => `<div class="row g-3 reveal">${a.map(i => {
+  const cat = (DICTS.cats || []).find(c => (c.title || '') === (i.cat || ''));
+  const color = cat && cat.color ? cat.color : 'var(--amber)';
+  const href = i.url ? esc(siteHref(i.url)) : '';
+  const headOpen = href ? `<a class="sci-proj-head" href="${href}" target="_blank" rel="noopener">` : '<div class="sci-proj-head">';
+  const headClose = href ? '</a>' : '</div>';
+  return `<div class="col-md-6">
+<div class="card-lift sci-proj">
+${headOpen}
+<div class="bar" style="background:${esc(color)}"></div>
+<div class="p-3 pb-2">
+<span class="sci-proj-cat">${esc(i.cat || '')}</span>
+<h3 class="sci-proj-title">${esc(i.title)}${href ? '<i class="bi bi-box-arrow-up-right prog-link" aria-hidden="true"></i>' : ''}</h3>
+</div>
+${headClose}
+<div class="p-3 pt-0 d-flex flex-column">
+<small class="sci-proj-desc text-toggle-content">${esc(i.text)}</small>
+<span class="text-toggle-btn">
+<span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span>
+<span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span>
+</span>
+</div>
+</div>
+</div>`;
+}).join('')}</div>`;
+
 
 /* ═══ Таблица ═══ */
 const table = (head, rows, hover = false) => `
@@ -588,7 +620,7 @@ function renderMain() {
     o.push(sec('edu-activity', 'alt', 'Педагогическая деятельность', body));
   }
   /* * SCIENCE */
-  if (has('metrics') || has('projects') || has('patents') || T.science_text) {
+  if (has('metrics') || has('projects') || has('patents') || T.science_text || T.science_dirs || has('sci_projects')) {
     let body = '';
     if (has('metrics')) {
       const items = T.metrics.map(m =>
@@ -607,7 +639,10 @@ function renderMain() {
       body += `<div class="metrics-grid mb-4 reveal">${grid}</div>`;
     }
     if (T.science_text) body += `<div class="text-block reveal">${htmlOrText(T.science_text)}</div>`;
+    if (T.science_dirs) body += sub('sci-dirs', 'Основные направления научной деятельности', `<div class="text-block reveal">${htmlOrText(T.science_dirs)}</div>`);
+    if (has('sci_projects')) body += sub('sci-projects', 'Участие в научно-исследовательских проектах СПбГМТУ', sciProjectCards(T.sci_projects));
     if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
+  
     if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));
 
     o.push(sec('science', '', 'Научная деятельность', body));

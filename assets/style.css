@@ -1192,6 +1192,48 @@
    border-radius: 14px 14px 0 0;
  }
 
+ /* ── Научные проекты СПбГМТУ ── */
+ .sci-proj-head {
+   display: block;
+   color: inherit;
+   text-decoration: none;
+ }
+
+ .sci-proj-cat {
+   font-size: .9em;
+   font-weight: 700;
+   text-transform: uppercase;
+   color: var(--muted);
+   letter-spacing: .06em;
+ }
+
+ .sci-proj-title {
+   font-size: 1.1em;
+   font-weight: 700;
+   color: var(--ink);
+   margin: .3rem 0 0;
+ }
+
+ .sci-proj-desc {
+   font-style: italic;
+   font-size: .8rem;
+   color: var(--muted);
+ }
+
+ .sci-proj .prog-link {
+   font-size: 1rem;
+   color: var(--teal);
+   opacity: 0;
+   margin-left: .4rem;
+   flex-shrink: 0;
+   transition: opacity .25s ease;
+ }
+
+ .sci-proj:hover .prog-link,
+ .sci-proj:focus-within .prog-link {
+   opacity: 1;
+ }
+
  .metric {
    border: 1px solid var(--line);
    border-radius: 14px;
@@ -2032,17 +2074,18 @@ padding: 0 обязателен: иначе включается дефолтн�
  .mat-list.mat-lvl-3 {
    margin-bottom: 4px;
  }
- 
+
  /* Карточка-заголовок группы: отрыв от предыдущей записи больше,
 чем зазор «заголовок → его записи» (8px) и «запись → запись» (8/4px) */
-.mat-list.mat-grp {
-margin-top: 18px;
-}
-/* Не удваиваем отступ сразу после рубрики-заголовка и на старте тела аккордеона */
-.mat-h + .mat-list.mat-grp,
-.mat-body > .mat-list:first-child {
-margin-top: 0;
-}
+ .mat-list.mat-grp {
+   margin-top: 18px;
+ }
+
+ /* Не удваиваем отступ сразу после рубрики-заголовка и на старте тела аккордеона */
+ .mat-h+.mat-list.mat-grp,
+ .mat-body>.mat-list:first-child {
+   margin-top: 0;
+ }
 
  /* Элемент материала — карточка с лёгкой тенью */
  .mat-item {

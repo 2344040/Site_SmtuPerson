@@ -1323,6 +1323,8 @@
       /* Миграции данных — общие для боевого и демо-режима */
       /* Миграции данных — общие для боевого и демо-режима */
       function migrate(d) {
+        if (!Array.isArray(d.sci_cats)) d.sci_cats = [];
+        if (!Array.isArray(d.sci_dict)) d.sci_dict = [];
         (d.teachers || []).forEach(t => {
           /* ФИО без неразрывных пробелов и двойных пробелов — чтобы шапка делилась на две строки */
           if (t.name) t.name = String(t.name).replace(/[\u00A0\u2007\u202F]/g, ' ').replace(/\s{2,}/g, ' ').trim();
@@ -1513,6 +1515,25 @@ ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l
           if (k.startsWith('mat_') && c === 'rub') {
             return `<td><input list="dl-${k}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}"></td>`;
           }
+
+          /* Цвет категории — компактный color-picker */
+          if (k === 'sci_cats' && c === 'color') {
+            return `<td><input type="color" data-sec="${k}" data-i="${i}" data-k="${c}" value="${/^#[0-9a-fA-F]{6}$/.test(val) ? val : '#d97b29'}"></td>`;
+          }
+          /* Категория: селект из справочника категорий; у преподавателя дополнительно фильтрует подсказки проектов */
+          if ((k === 'sci_dict' || k === 'sci_projects') && c === 'cat') {
+            return `<td><select data-sec="${k}" data-i="${i}" data-k="${c}" ${k === 'sci_projects' ? `onchange="spSync(${i})"` : ''}>
+<option value="" ${!val ? 'selected' : ''}>${k === 'sci_projects' ? '— все —' : '—'}</option>
+${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&quot;')}" ${val === ct.title ? 'selected' : ''}>${String(ct.title || '').replace(/</g, '&lt;')}</option>`).join('')}
+</select></td>`;
+          }
+          /* Название проекта: datalist с фильтром по категории; выбор из справочника тянет описание и ссылку */
+          if (k === 'sci_projects' && c === 'title') {
+            const rowCat = isArrItem ? '' : (row.cat || '');
+            return `<td><input list="dl-sp-${i}" data-sec="${k}" data-i="${i}" data-k="${c}" value="${String(val).replace(/"/g, '&quot;')}" onchange="spApply(${i})">
+<datalist id="dl-sp-${i}">${spOptions(rowCat).map(p => `<option value="${String(p.title || '').replace(/"/g, '&quot;')}"></option>`).join('')}</datalist></td>`;
+          }
+
           if ((MULTILINE[k] || []).includes(c)) {
             return `<td><textarea rows="${AREA_ROWS[k] || 2}" data-sec="${k}" data-i="${i}" data-k="${c}">${String(val).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea></td>`;
           }
@@ -1551,7 +1572,7 @@ ${ICONS.map(([v, l]) => `<option value="${v}" ${val === v ? 'selected' : ''}>${l
       // * move
       function move(k, i, dir) {
         collect();
-        const arr = data.teachers[cur][k];
+        const arr = recTarget(k)[k];
         const j = i + dir;
         if (j < 0 || j >= arr.length) return;
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -1887,6 +1908,7 @@ ${inputs}
               else if (type === 'a') inner += renderArray(t, key, opt);
               else if (type === 'm') inner += renderMatEditor(t, key);
               else if (type === 'h') inner += renderHtmlField(t, key);
+              else if (type === 'd') inner += `<div class="small text-secondary mt-3 mb-1">Глобальный справочник — общий для всех преподавателей</div>` + renderArray(data, key);
               else if (type === 'x') inner += `<div class="mt-4 mb-1">
   <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
    <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
@@ -1963,7 +1985,7 @@ ${inputs}
 
       function rm(k, i) {
         collect();
-        data.teachers[cur][k].splice(i, 1);
+        recTarget(k)[k].splice(i, 1);
         build();
       }
 

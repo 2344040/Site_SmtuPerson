@@ -5185,9 +5185,49 @@
    "pub_mono": [],
    "pub_other": [],
    "social": [],
-   "events": [],
+   "events": [
+    {
+     "day": "Пт",
+     "time": "11:50-13:20",
+     "subject": "Физическая химия",
+     "type": "Лекция",
+     "building": "У",
+     "room": "438",
+     "now": true
+    },
+    {
+     "day": "Пт",
+     "time": "14:00-15:30",
+     "subject": "Химия",
+     "type": "Лекция",
+     "building": "У",
+     "room": "535(1)",
+     "now": false
+    }
+   ],
    "rail_edu": [],
-   "profiles": [],
+   "profiles": [
+    {
+     "t": "Scopus",
+     "u": ""
+    },
+    {
+     "t": "ResearcherID-WoS",
+     "u": ""
+    },
+    {
+     "t": "ORCID",
+     "u": ""
+    },
+    {
+     "t": "РИНЦ",
+     "u": ""
+    },
+    {
+     "t": "ВАК",
+     "u": ""
+    }
+   ],
    "mat_posobia": [],
    "mat_books": [],
    "mat_lectures": [],

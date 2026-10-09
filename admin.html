@@ -137,14 +137,58 @@
       flex-shrink: 0;
     }
 
-    .ed-rec {
-      padding: .75rem 0 .9rem;
-      border-bottom: 1px dashed #dcd7c9;
-    }
-
-    .ed-rec:last-of-type {
-      border-bottom: 0;
-    }
+/* Образование: вся запись в одну строку */
+.ed-rec {
+display: flex;
+align-items: flex-end;
+gap: .5rem;
+flex-wrap: nowrap;
+padding: .5rem 0 .6rem;
+border-bottom: 1px dashed #dcd7c9;
+}
+.ed-rec:last-of-type {
+border-bottom: 0;
+}
+.ed-f {
+display: flex;
+flex-direction: column;
+min-width: 0;
+}
+.ed-f > label {
+margin-bottom: 2px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.ed-rec input,
+.ed-rec select {
+width: 100%;
+min-width: 0;
+}
+.ed-year { flex: 0 0 80px; }        /* как колонка года в таблицах */
+.ed-inst { flex: 1 1 30%; }         /* забирает весь остаток */
+.ed-level { flex: 0 1 150px; }      /* компактнее прежнего col-md-3 */
+.ed-profile { flex: 1 1 22%; }
+.ed-qual { flex: 1 1 18%; }
+.ed-act {
+flex: 0 0 auto;
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.ed-num {
+min-width: 18px;
+text-align: center;
+font-size: .72rem;
+font-weight: 600;
+color: #6f7a72;
+}
+@media (max-width: 767.98px) {
+.ed-rec { flex-wrap: wrap; }
+.ed-f { flex: 1 1 46%; }
+.ed-year { flex: 0 0 80px; }
+.ed-act { flex: 1 0 auto; justify-content: flex-end; }
+}
 
     .html-preview {
       background: #fff;
@@ -1312,34 +1356,30 @@
         const dl = `<datalist id="dl-institution">${institutionOptions()
           .map(v => `<option value="${String(v).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
         return arr.map((row, i) => `
-    <div class="ed-rec">
-    <div class="d-flex justify-content-between align-items-center">
-<span class="small fw-semibold" style="color:#2f6f63">Запись ${i + 1}</span>
-<span class="d-flex gap-1">
+<div class="ed-rec">
+<div class="ed-f ed-year"><label class="small text-secondary">Год</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
+value="${(row.year || '').replace(/"/g, '&quot;')}"></div>
+<div class="ed-f ed-inst"><label class="small text-secondary">Учреждение</label>
+<input class="form-control form-control-sm" list="dl-institution" data-sec="education" data-i="${i}" data-k="institution"
+value="${(row.institution || '').replace(/"/g, '&quot;')}"></div>
+<div class="ed-f ed-level"><label class="small text-secondary">Уровень</label>
+<select class="form-select form-select-sm" data-sec="education" data-i="${i}" data-k="level">
+${LEVELS.map(v => `<option value="${v}" ${row.level === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
+</select></div>
+<div class="ed-f ed-profile"><label class="small text-secondary">Профиль</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="profile"
+value="${(row.profile || '').replace(/"/g, '&quot;')}"></div>
+<div class="ed-f ed-qual"><label class="small text-secondary">Квалификация</label>
+<input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="qualification"
+value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
+<div class="ed-act">
+<span class="ed-num" title="Номер записи">${i + 1}</span>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('education',${i},-1)" title="Выше">↑</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move('education',${i},1)" title="Ниже">↓</button>
-<button class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})">✕ удалить</button>
-</span>
+<button type="button" class="btn btn-sm btn-outline-danger" onclick="rm('education',${i})" title="Удалить">✕</button>
 </div>
-      <div class="row g-2 mt-1">
-        <div class="col-md-2"><label class="small text-secondary">Год</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="year"
-                 value="${(row.year || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-4"><label class="small text-secondary">Учреждение</label>
-          <input class="form-control form-control-sm" list="dl-institution" data-sec="education" data-i="${i}" data-k="institution"
-                 value="${(row.institution || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-3"><label class="small text-secondary">Уровень</label>
-          <select class="form-select form-select-sm" data-sec="education" data-i="${i}" data-k="level">
-            ${LEVELS.map(v => `<option value="${v}" ${row.level === v ? 'selected' : ''}>${v || '—'}</option>`).join('')}
-          </select></div>
-        <div class="col-md-6"><label class="small text-secondary">Профиль</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="profile"
-                 value="${(row.profile || '').replace(/"/g, '&quot;')}"></div>
-        <div class="col-md-6"><label class="small text-secondary">Квалификация</label>
-          <input class="form-control form-control-sm" data-sec="education" data-i="${i}" data-k="qualification"
-                 value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
-      </div>
-    </div>`).join('') +
+</div>`).join('') +
           `<button class="btn btn-sm btn-outline-dark mt-2 mb-1" onclick="add('education')">+ запись</button>` + dl;
       }
 

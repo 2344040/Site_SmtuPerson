@@ -5026,7 +5026,56 @@
      "text": "Начальник управления организации научной работы"
     }
    ],
-   "news": [],
+   "news": [
+    {
+     "date": "28 Мая 2026 года",
+     "title": "Молодые ученые СПбГМТУ познакомили студентов с миром науки",
+     "img": "https://ds1.smtu.ru/files/isu_file/2026/05/28/27902.jpg?token_static=e1b3205725f18e1e585917e285831e06",
+     "url": "https://www.smtu.ru/ru/viewnews/1915/"
+    },
+    {
+     "date": "19 Мая 2026 года",
+     "title": "В СПбГМТУ пройдет конференция «Наука – просто о сложном»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/05/19/big/1897.jpg?token_static=1a13996f87b168ad076429d02009132b",
+     "url": "https://www.smtu.ru/ru/viewnews/1897/"
+    },
+    {
+     "date": "2 Февраля 2026 года",
+     "title": "СПбГМТУ укрепляет российско‑вьетнамское научное сотрудничество",
+     "img": "https://ds1.smtu.ru/files/sitenews/2026/02/12/big/1751.jpg?token_static=49fc60148175e350ecdb6a1f24307796",
+     "url": "https://www.smtu.ru/ru/viewnews/1751/"
+    },
+    {
+     "date": " 24 Ноября 2025 года",
+     "title": "Подводные роботы и виртуальные тренажеры для отработки погрузочно-разгрузочных работ на судне: в Корабелке стартовала «Неделя науки»",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/11/25/big/1637.jpg?token_static=80dae881641d0d0854c7eb05d647a6af",
+     "url": "https://www.smtu.ru/ru/viewnews/1637/"
+    },
+    {
+     "date": " 25 Октября 2025 года",
+     "title": "В Корабелке завершилась кросс-вузовская экспертиза",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/10/25/big/1582.jpg?token_static=8694c1c4fca593e904b86ebbcbed543d",
+     "url": "https://www.smtu.ru/ru/viewnews/1582/"
+    },
+    {
+     "date": " 4 Июля 2025 года",
+     "title": "Рабочий визит СПбГМТУ во Вьетнам приносит практические результаты",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/07/04/big/1461.jpg?token_static=7dc54da6a197e5f78c076d6d0a76fac6",
+     "url": "https://www.smtu.ru/ru/viewnews/1461/"
+    },
+    {
+     "date": " 2 Июля 2025 года",
+     "title": "Делегация СПбГМТУ посетила Приморское отделение Российско-Вьетнамского Тропического центра во Вьетнаме",
+     "img": "https://ds1.smtu.ru/files/sitenews/2025/07/02/big/1458.jpg?token_static=722e864ff8a1198ea7e4a56b7dccd75c",
+     "url": "https://www.smtu.ru/ru/viewnews/1458/"
+    },
+    {
+     "date": " 4 Июня 2024 года",
+     "title": "Стартовал совместный научный проект Корабелки и Тропического центра",
+     "img": "https://ds1.smtu.ru/files/sitenews/2024/06/04/big/821.jpg?token_static=e65bc0f1ce20af44e5d733de3f902311",
+     "url": "https://www.smtu.ru/ru/viewnews/821/"
+    }
+   ],
    "university": "СПбГМТУ",
    "email_extra": [],
    "phone_extra": [],

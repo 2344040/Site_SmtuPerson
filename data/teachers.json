@@ -5065,7 +5065,15 @@
     }
    ],
    "achievements": [],
-   "programs": [],
+   "programs": [
+    {
+     "text": "",
+     "title": "Химия",
+     "tag": "ДПО",
+     "comment": "",
+     "url": ""
+    }
+   ],
    "courses": [
     {
      "a": "Защита судов от коррозии и обрастания",

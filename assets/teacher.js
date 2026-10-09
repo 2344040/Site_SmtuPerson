@@ -50,7 +50,7 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
 function fillHeader() {
   document.getElementById('p-photo').src = T.photo;
 
-  const kicker = [T.university, T.faculty].filter(Boolean).join(' · ');
+  const kicker = [T.university, T.subdivision || T.faculty].filter(Boolean).join(' · ');
   document.getElementById('p-kicker').textContent = kicker;
 
   /* ФИО делим по любым пробелам, включая неразрывные (копирование из Word/PDF) */

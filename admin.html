@@ -906,10 +906,11 @@
         short: ['ФИО коротко', 'col-md-3'],
         photo: ['URL фото', 'col-md-12'],
         university: ['Университет (кратко)', 'w-univ'],
-        faculty: ['Факультет', 'w-fac'],
-        department: ['Кафедра', 'w-dep'],
+        faculty: ['Факультет (справочник или своё)', 'w-fac'],
+        department: ['Кафедра (справочник или своё)', 'w-dep'],
+        subdivision: ['Подразделение / управление (своё: в шапку и в должность)', 'col-md-6'],
         name: ['ФИО полное', 'col-md-6'],
-        position: ['Должность (справочник)', 'col-md-4'],
+        position: ['Должность (справочник или своё)', 'col-md-4'],
         post: ['Должность под ФИО (авто: должность + кафедра, можно править)', 'col-md-8'],
         degree_level: ['Степень: ступень', 'col-md-3'],
         degree_branch: ['Степень: отрасль наук', 'col-md-5'],
@@ -1019,18 +1020,35 @@
         });
         return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
       };
+
+      /* Списки подсказок: справочник + уже вводившиеся значения всех преподавателей */
+      const facultyOptions = () => {
+        const vals = new Set(FACULTIES);
+        (data.teachers || []).forEach(t => { const v = String(t.faculty || '').trim(); if (v) vals.add(v); });
+        return [...vals];
+      };
+      const departmentOptions = fac => {
+        const vals = new Set(DEPARTMENTS[fac] || []);
+        (data.teachers || []).forEach(t => {
+          const v = String(t.department || '').trim();
+          if (v && String(t.faculty || '').trim() === fac) vals.add(v);
+        });
+        return [...vals];
+      };
+
       /* Склоняем слово «кафедра» в начале названия кафедры */
       const declineKafedra = (dep, instr) => String(dep || '').trim()
         .replace(/^базовая\s+кафедра/i, instr ? 'базовой кафедрой' : 'базовой кафедры')
         .replace(/^кафедра/i, instr ? 'кафедрой' : 'кафедры');
       /* Должность под ФИО: должность + кафедра (заведующий — творительный, остальные — родительный) */
-      const composePost = (pos, dep) => {
+      const composePost = (pos, dep, unit) => {
         let p = String(pos || '').trim();
         if (!p) return '';
         /* Убираем хвост «кафедрой/кафедры» из должности, чтобы не удваивался */
         p = p.replace(/\s+(?:базовой\s+)?кафедр(?:ой|ы)\.?$/i, '').trim();
         const instr = /заведующ|зав\./i.test(p) && !/лаборатор|отдел|центр|сектор|часть|кабинет|музей/i.test(p);
-        const d = declineKafedra(dep, instr);
+        /* Кафедра склоняется по правилам; подразделение подставляется как введено */
+        const d = declineKafedra(dep, instr) || String(unit || '').trim();
         return d ? p + ' ' + d : p;
       };
 
@@ -1047,7 +1065,7 @@
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
           title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
-          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
+          items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'subdivision'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
         { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
@@ -1729,18 +1747,12 @@ ${inputs}
               const v = t[key] || DEFAULTS[key] || '';
               let ctrl;
               if (key === 'faculty') {
-                const opts = (v && !FACULTIES.includes(v)) ? [v, ...FACULTIES] : FACULTIES;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="collect(); build()">
-                  <option value="" ${!v ? 'selected' : ''}>—</option>
-                  ${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
-                </select>`;
+                ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-faculty" value="${String(v).replace(/"/g, '&quot;')}" onchange="collect(); build()">
+<datalist id="dl-faculty">${facultyOptions().map(f => `<option value="${f.replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
               } else if (key === 'department') {
-                const deps = DEPARTMENTS[t.faculty] || [];
-                const opts = (v && !deps.includes(v)) ? [v, ...deps] : deps;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}">
-                  <option value="" ${!v ? 'selected' : ''}>—</option>
-                  ${opts.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
-                </select>`;
+                ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-department" value="${String(v).replace(/"/g, '&quot;')}">
+<datalist id="dl-department">${departmentOptions(t.faculty).map(f => `<option value="${f.replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
+
               } else if (key === 'position') {
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
                 <datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
@@ -1783,7 +1795,9 @@ ${inputs}
         const pi = document.querySelector('[data-f="position"]');
         const po = document.querySelector('[data-f="post"]');
         if (pi && po && pi.value.trim() && !po.value.trim()) {
-          po.value = composePost(pi.value, document.querySelector('[data-f="department"]')?.value || '');
+          po.value = composePost(pi.value,
+            document.querySelector('[data-f="department"]')?.value || '',
+            document.querySelector('[data-f="subdivision"]')?.value || '');
         }
         /* 1-я строка должностей равна текущему post (если post заполнен) */
         const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
@@ -2049,12 +2063,13 @@ ${inputs}
       /* Регенерация «Должность под ФИО» + зеркало в 1-ю строку должностей */
       document.addEventListener('input', e => {
         const f = e.target.dataset ? e.target.dataset.f : '';
-        if (f !== 'position' && f !== 'department' && f !== 'post') return;
+        if (f !== 'position' && f !== 'department' && f !== 'subdivision' && f !== 'post') return;
         const pos = document.querySelector('[data-f="position"]');
         const dep = document.querySelector('[data-f="department"]');
+        const unit = document.querySelector('[data-f="subdivision"]');
         const post = document.querySelector('[data-f="post"]');
         if (!post) return;
-        if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '');
+        if (f !== 'post') post.value = composePost(pos ? pos.value : '', dep ? dep.value : '', unit ? unit.value : '');
         const pos0 = document.querySelector('[data-sec="positions"][data-i="0"]');
         if (pos0 && post.value.trim()) pos0.value = post.value;
       });
@@ -2093,6 +2108,22 @@ ${inputs}
           if (shortInput && !shortInput.value.trim()) shortInput.value = makeShort(e.target.value);
         }
       }, true);
+
+      /* ═══ Автоформат: первая буква значения всегда прописная ═══ */
+      const CAP_SKIP = new Set(['id', 'photo', 'email', 'site', 'share_tg_url', 'share_vk_url', 'url', 'url_buy', 'doi', 'img', 'u', 'year', 'n', 'experience_years']);
+      const capFirstChar = v => String(v)
+        .replace(/^([a-zа-яё])/, m => m.toUpperCase());
+      document.addEventListener('change', e => {
+        const el = e.target;
+        if (!el.matches || !el.matches('input[data-f], input[data-k], textarea[data-f], textarea[data-k]')) return;
+        const key = el.dataset.k || el.dataset.f;
+        if (CAP_SKIP.has(key)) return;
+        const fixed = capFirstChar(el.value);
+        if (fixed !== el.value) {
+          el.value = fixed;
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
 
       if (TOK) load();
     </script>

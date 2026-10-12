@@ -5630,6 +5630,66 @@
      "tag": "",
      "url": "",
      "doi": ""
+    },
+    {
+     "year": "1997",
+     "author": "K.Y. Polyakov, E.N. Rosenwasser, and B.P. Lampe",
+     "title": "Robust sampled-data control systems design on basis of parametric transfer function method",
+     "biblio": "Proc. Int. Conf. on Computer Methods for Control Systems, Szczecin, Poland, p. 15-21, 1997.",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "1996",
+     "author": "E.N. Rosenwasser, K.Y. Polyakov, and B.P. Lampe",
+     "title": "Entwurf optimaler Kursregler mit Hilfe von Parametrischen Ubertragungsfunktionen",
+     "biblio": "Automatisierungstechnik, vol. 44, N. 10, s. 487-495, 1996",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "1995",
+     "author": "E.N. Rosenwasser, K.Y. Polyakov",
+     "title": "A synthesis of optimal numerical algorithms for ship directional stabilization based on a parametric transfer method",
+     "biblio": "Proc. 1st MORINTECH, p. 91, 1995",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "1993",
+     "author": "К.Ю. Поляков",
+     "title": "Приближенный метод синтеза цифровых систем управления объектами с запаздыванием",
+     "biblio": "Известия ВУЗов, Приборостроение, N 5, 13-17, 1993.",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "1998",
+     "author": "К.Ю. Поляков",
+     "title": "Полиномиальный синтез цифровых систем управления, I. Квадратичная оптимизация",
+     "biblio": "Автоматика и телемеханика, N 10, с. 76-89, 1998.",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "1998",
+     "author": "К.Ю. Поляков",
+     "title": "Полиномиальный синтез цифровых систем управления, II. Робастная оптимизация",
+     "biblio": "Автоматика и телемеханика, N 12, с. 94-108, 1998",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
     }
    ],
    "pub_theses": [],

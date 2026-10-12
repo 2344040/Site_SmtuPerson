@@ -5701,7 +5701,24 @@
    "events": [],
    "rail_edu": [],
    "profiles": [],
-   "mat_posobia": [],
+   "mat_posobia": [
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "«Основы теории цифровых систем управления»",
+     "biblio": "",
+     "description": "",
+     "url": "https://kpolyakov.spb.ru/uni/digsys.htm"
+    },
+    {
+     "kind": "rec",
+     "author": "",
+     "title": "«Исследование непрерывных и цифровых систем управления в среде Scilab»",
+     "biblio": "",
+     "description": "",
+     "url": "https://kpolyakov.spb.ru/uni/scibook.htm"
+    }
+   ],
    "mat_books": [],
    "mat_lectures": [],
    "mat_video": [],

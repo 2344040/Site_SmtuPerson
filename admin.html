@@ -721,6 +721,45 @@
       box-shadow: 0 2px 8px rgba(18, 36, 31, .08);
     }
 
+    /* ── Быстрая навигация по разделам админки: одна строка мелких пилюль ── */
+    .admin-quicknav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 4px;
+      width: 100%;
+      margin-top: .35rem;
+      font-size: .68rem;
+      line-height: 1.2;
+    }
+
+    .admin-quicknav a {
+      padding: 2px 7px;
+      border: 1px solid #dcd7c9;
+      border-radius: 999px;
+      background: #fff;
+      color: #2f6f63;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .admin-quicknav a:hover {
+      background: #2f6f63;
+      border-color: #2f6f63;
+      color: #fff;
+    }
+
+    .admin-quicknav a.qn-active {
+      background: #d97b29;
+      border-color: #d97b29;
+      color: #fff;
+    }
+
+    /* Якоря разделов не прячутся под липкий тулбар */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
     /* ── Учебные материалы: редактор-дерево ── */
     .mat-root {
       margin: 4px 0 6px;
@@ -1024,6 +1063,7 @@
         <button class="btn btn-success btn-sm" onclick="save()">Сохранить</button>
         <span id="draftStatus" class="small ms-2"></span>
         <span id="status" class="small"></span>
+        <nav id="quicknav" class="admin-quicknav" aria-label="Быстрый переход по разделам админки"></nav>
       </div>
       <div id="secs"></div>
     </div>
@@ -1540,6 +1580,7 @@
         document.getElementById('app').style.display = '';
         cur = restoreCur(data.teachers.length);
         buildSel(); build();
+        buildQuickNav();
         refreshVerBadge();
         offerDraftRestore();
         if (DEMO) {
@@ -1579,6 +1620,16 @@
         }));
         return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
       };
+
+      /* ═══ Быстрая навигация: липкая строка пилюль-переходов ═══ */
+      const QUICK_LABELS = ['0', '1.Шапка', '2.Контакты', '3.Должности', '4.Образование', '5.Карьера', '6.Преподавание', '7.Наука', '8.Публ', '9.Общ', '10.Хобби', '11.Сайдбар', '12.Уч мат-лы', '13.Новости'];
+      function buildQuickNav() {
+        const nav = document.getElementById('quicknav');
+        if (!nav) return;
+        nav.innerHTML = GROUPS.map((g, i) =>
+          `<a href="#grp-${i}" title="${g.title}">${QUICK_LABELS[i] || i + '.' + g.title}</a>`).join('');
+      }
+
 
       /* ═══ Рендер формы ═══ */
       function renderEducation(arr) {
@@ -2133,7 +2184,7 @@ ${inputs}
           });
           flush();
           const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
-          return `<details class="card p-2 mb-2" data-g="${gi}" ${isOpen ? 'open' : ''}>
+          return `<details class="card p-2 mb-2" id="grp-${gi}" data-g="${gi}" ${isOpen ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
       <div class="mt-2">${inner}</div>
     </details>`;
@@ -2498,6 +2549,16 @@ ${inputs}
           el.dispatchEvent(new Event('input', { bubbles: true }));
         }
       });
+
+      /* Быстрая навигация: раскрыть свёрнутый раздел и подсветить кнопку */
+document.addEventListener('click', e => {
+const a = e.target.closest('#quicknav a');
+if (!a) return;
+const tgt = document.querySelector(a.getAttribute('href'));
+if (tgt && tgt.tagName === 'DETAILS' && !tgt.open) tgt.open = true;
+document.querySelectorAll('#quicknav a').forEach(x => x.classList.remove('qn-active'));
+a.classList.add('qn-active');
+});
 
       if (TOK) load();
     </script>

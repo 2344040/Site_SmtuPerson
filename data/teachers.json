@@ -5455,6 +5455,13 @@
      "tag": "магистратура",
      "comment": "",
      "url": "https://www.smtu.ru/ru/vieweduprog/94/"
+    },
+    {
+     "text": "",
+     "title": "Цифровые системы управления",
+     "tag": "ДПО",
+     "comment": "",
+     "url": "https://isu.smtu.ru/view_course_view/567/"
     }
    ],
    "courses": [
@@ -5535,7 +5542,7 @@
    "science_dirs": "",
    "social_text": "",
    "external_links": {
-    "schedule": ""
+    "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100927/"
    }
   }
  ],

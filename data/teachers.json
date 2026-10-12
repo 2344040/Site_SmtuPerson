@@ -5448,7 +5448,15 @@
     }
    ],
    "achievements": [],
-   "programs": [],
+   "programs": [
+    {
+     "text": "26.04.02.33",
+     "title": "Системотехника автоматизированных объектов морской техники",
+     "tag": "магистратура",
+     "comment": "",
+     "url": "https://www.smtu.ru/ru/vieweduprog/94/"
+    }
+   ],
    "courses": [
     {
      "a": "Импульсные системы",

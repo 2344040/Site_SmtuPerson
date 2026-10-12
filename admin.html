@@ -817,50 +817,56 @@
     }
 
     /* ── Глобальные справочники: тёплая янтарная зона, отличная от бирюзовых секций ── */
-.dict-sec {
-border: 1px solid #e6cfa8;
-border-left: 4px solid #d97b29;
-border-radius: 8px;
-background: #fdf9f0;
-margin: 16px 0;
-}
-.dict-sec > summary {
-display: flex;
-align-items: center;
-gap: 8px;
-padding: 8px 12px;
-font-weight: 600;
-color: #7c4a12;
-background: #f6e7cb;
-border-radius: 6px;
-cursor: pointer;
-list-style: none;
-}
-.dict-sec > summary::-webkit-details-marker {
-display: none;
-}
-.dict-sec[open] > summary {
-border-bottom: 1px dashed #e6cfa8;
-border-radius: 6px 6px 0 0;
-}
-.dict-sec > summary .bi {
-color: #d97b29;
-}
-.dict-badge {
-margin-left: auto;
-font-size: .68rem;
-font-weight: 700;
-letter-spacing: .06em;
-text-transform: uppercase;
-color: #fff;
-background: #d97b29;
-border-radius: 999px;
-padding: 2px 8px;
-}
-.dict-body {
-padding: 8px 10px 10px;
-border-radius: 0 0 8px 8px;
-}
+    .dict-sec {
+      border: 1px solid #e6cfa8;
+      border-left: 4px solid #d97b29;
+      border-radius: 8px;
+      background: #fdf9f0;
+      margin: 16px 0;
+    }
+
+    .dict-sec>summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-weight: 600;
+      color: #7c4a12;
+      background: #f6e7cb;
+      border-radius: 6px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .dict-sec>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dict-sec[open]>summary {
+      border-bottom: 1px dashed #e6cfa8;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .dict-sec>summary .bi {
+      color: #d97b29;
+    }
+
+    .dict-badge {
+      margin-left: auto;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #d97b29;
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    .dict-body {
+      padding: 8px 10px 10px;
+      border-radius: 0 0 8px 8px;
+    }
 
     /* Превью выбранного цвета категории */
     .color-prev {
@@ -1281,7 +1287,9 @@ border-radius: 0 0 8px 8px;
         science_dirs: ['Текстовый блок «Основные направления научной деятельности» (разрешён HTML)', 4],
         ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
         social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
+        hobby_text: ['Текстовый блок «Увлечения, хобби» (разрешён HTML)', 5],
       };
+
 
       // * GROUPS
       const GROUPS = [
@@ -1307,9 +1315,10 @@ border-radius: 0 0 8px 8px;
           items: [['a', 'pub_articles'], ['a', 'pub_theses'], ['a', 'pub_textbooks'], ['a', 'pub_posobia'], ['a', 'pub_mono'], ['a', 'pub_other']]
         },
         { title: '9. Общественная деятельность', items: [['h', 'social_text'], ['a', 'social']] },
-        { title: '10. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
-        { title: '11. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
-        { title: '12. Новости', items: [['a', 'news']] }
+        { title: '10. Увлечения, хобби', items: [['h', 'hobby_text']] },
+        { title: '11. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
+        { title: '12. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
+        { title: '13. Новости', items: [['a', 'news']] }
       ];
 
       // * KEYS

@@ -88,10 +88,11 @@ function buildMenu() {
     { h: 'main', t: '<i class="fa-regular fa-user"></i>', v: true },
     { h: 'education', t: 'Образование', v: has('education') || has('upk') },
     { h: 'career', t: 'Карьера', v: has('career') || has('achievements') },
-    { h: 'edu-activity', t: 'Педагогическая деятельность', v: has('programs') || has('courses') || has('schedule') || has('session') || has('books') || hasMat() },
-    { h: 'science', t: 'Научная деятельность', v: has('metrics') || has('publications') || has('projects') || has('patents') },
+    { h: 'edu-activity', t: 'Преподавание', v: has('programs') || has('courses') || has('schedule') || has('session') || has('books') || hasMat() },
+    { h: 'science', t: 'Наука', v: has('metrics') || has('publications') || has('projects') || has('patents') },
     { h: 'publications', t: 'Публикации', v: PUB_RUBRICS.some(r => has(r.key)) },
     { h: 'social', t: 'Общественная деятельность', v: has('social') || T.social_text },
+    { h: 'hobby', t: 'Хобби', v: !!T.hobby_text },
     { h: 'news', t: 'Новости', v: has('news') }
   ];
   document.getElementById('menu').innerHTML = items.filter(i => i.v).map(i =>
@@ -642,7 +643,7 @@ function renderMain() {
     if (T.science_dirs) body += sub('sci-dirs', 'Основные направления научной деятельности', `<div class="text-block reveal">${htmlOrText(T.science_dirs)}</div>`);
     if (has('sci_projects')) body += sub('sci-projects', 'Участие в научно-исследовательских проектах СПбГМТУ', sciProjectCards(T.sci_projects));
     if (has('projects')) body += sub('projects', 'Проекты', timeline(T.projects));
-  
+
     if (has('patents')) body += sub('patents', 'Патенты и НИОКР', pubs(T.patents));
 
     o.push(sec('science', '', 'Научная деятельность', body));
@@ -662,6 +663,10 @@ function renderMain() {
     if (has('social')) body += `<div class="text-block"><ul class="text-block-list">${T.social.map(s =>
       `<li>${esc(s.text || s.title)}</li>`).join('')}</ul></div>`;
     o.push(sec('social', 'alt', 'Общественная деятельность', body));
+  }
+  /* * HOBBY — увлечения: один текстовый блок */
+  if (T.hobby_text) {
+    o.push(sec('hobby', 'alt', 'Увлечения и хобби', `<div class="text-block reveal">${htmlOrText(T.hobby_text)}</div>`));
   }
   /* * CONTACTS (blue) */
   o.push(`<section class="section blue" id="contact" style="border:0">

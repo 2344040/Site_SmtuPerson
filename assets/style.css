@@ -630,6 +630,33 @@
    border-right: 1px solid var(--line);
  }
 
+ /* Меню держит 9 пунктов: уплотняем шаги на средних экранах,
+на планшете переносимся в две строки вместо горизонтального скролла */
+@media (max-width: 1399.98px) {
+.sticky-tabs .nav-link {
+padding: .85rem 1rem;
+}
+}
+@media (max-width: 1199.98px) {
+.sticky-tabs .nav-link {
+padding: .85rem .7rem;
+font-size: .92rem;
+}
+}
+@media (max-width: 991.98px) {
+.sticky-tabs .nav {
+flex-wrap: wrap;
+overflow-x: visible;
+}
+.sticky-tabs .nav-link {
+padding: .6rem .7rem;
+font-size: .9rem;
+}
+html {
+scroll-padding-top: 395px;
+}
+}
+
  /* & секции */
  .section {
    padding: 2rem 2rem;

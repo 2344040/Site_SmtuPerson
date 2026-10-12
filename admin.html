@@ -1589,6 +1589,7 @@ value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-link title="Гиперссылка: обернуть выделение в <a> (внешняя откроется в новой вкладке)"><i class="bi bi-link-45deg"></i> ссылка</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список">• список</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список">1. список</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-list="li" title="Обернуть в li">li пункт</button>
@@ -1596,7 +1597,7 @@ value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
     </div>
     <textarea id="f-${key}" class="form-control form-control-sm" rows="${rows}" data-f="${key}">${val.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea>
-    <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
+   <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;a&gt; (кнопка «ссылка»), &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
     <div class="html-preview border rounded p-2 mt-1" id="prev-${key}">${val}</div>
   </div>`;
       }
@@ -2364,12 +2365,31 @@ ${inputs}
         ta.dispatchEvent(new Event('input', { bubbles: true }));
       }
 
+      // * linkSel
+      function linkSel(ta, url) {
+        const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+        const text = v.slice(s, e) || url; /* нет выделения — текст ссылки равен адресу */
+        const open = `<a href="${url}" target="_blank" rel="noopener">`;
+        const insert = open + text + '</a>';
+        ta.value = v.slice(0, s) + insert + v.slice(e);
+        ta.focus();
+        ta.selectionStart = s + open.length; /* выделяем текст ссылки для быстрой правки */
+        ta.selectionEnd = ta.selectionStart + text.length;
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
       document.addEventListener('click', e => {
         const b = e.target.closest('.html-tools button');
         if (!b) return;
         const ta = document.getElementById(b.closest('.html-tools').dataset.target);
         if (!ta) return;
         if (b.dataset.list) { listSel(ta, b.dataset.list); return; }
+        if ('link' in b.dataset) {
+          const url = prompt('Адрес ссылки (внешние открываются в новой вкладке):', 'https://');
+          const u = (url || '').trim();
+          if (u && u !== 'https://') linkSel(ta, u);
+          return;
+        }
         const [before, after] = b.dataset.wrap.split('|');
         wrapSel(ta, before, after);
       });

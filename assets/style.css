@@ -632,30 +632,34 @@
 
  /* Меню держит 9 пунктов: уплотняем шаги на средних экранах,
 на планшете переносимся в две строки вместо горизонтального скролла */
-@media (max-width: 1399.98px) {
-.sticky-tabs .nav-link {
-padding: .85rem 1rem;
-}
-}
-@media (max-width: 1199.98px) {
-.sticky-tabs .nav-link {
-padding: .85rem .7rem;
-font-size: .92rem;
-}
-}
-@media (max-width: 991.98px) {
-.sticky-tabs .nav {
-flex-wrap: wrap;
-overflow-x: visible;
-}
-.sticky-tabs .nav-link {
-padding: .6rem .7rem;
-font-size: .9rem;
-}
-html {
-scroll-padding-top: 395px;
-}
-}
+ @media (max-width: 1399.98px) {
+   .sticky-tabs .nav-link {
+     padding: .85rem 1rem;
+   }
+ }
+
+ @media (max-width: 1199.98px) {
+   .sticky-tabs .nav-link {
+     padding: .85rem .7rem;
+     font-size: .92rem;
+   }
+ }
+
+ @media (max-width: 991.98px) {
+   .sticky-tabs .nav {
+     flex-wrap: wrap;
+     overflow-x: visible;
+   }
+
+   .sticky-tabs .nav-link {
+     padding: .6rem .7rem;
+     font-size: .9rem;
+   }
+
+   html {
+     scroll-padding-top: 395px;
+   }
+ }
 
  /* & секции */
  .section {
@@ -1773,6 +1777,21 @@ scroll-padding-top: 395px;
 
  .text-block-list li:last-child {
    margin-bottom: 0;
+ }
+
+ /* Ссылки внутри текстовых блоков: бирюзовые с янтарным подчёркиванием */
+ .text-block a,
+ .creds a,
+ .mat-description a {
+   color: var(--teal);
+   text-decoration-color: var(--amber);
+   text-underline-offset: 3px;
+ }
+
+ .text-block a:hover,
+ .creds a:hover,
+ .mat-description a:hover {
+   color: var(--amber);
  }
 
  @media (max-width:767.98px) {

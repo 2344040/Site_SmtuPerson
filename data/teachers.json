@@ -5591,11 +5591,47 @@
     }
    ],
    "session": [],
-   "metrics": [],
+   "metrics": [
+    {
+     "n": "67",
+     "l": "публикаций"
+    }
+   ],
    "sci_projects": [],
    "projects": [],
    "patents": [],
-   "pub_articles": [],
+   "pub_articles": [
+    {
+     "year": "2007",
+     "author": "K.Y. Polyakov, E.N. Rosenwasser, and B.P. Lampe",
+     "title": "Optimal stochastic SD-control with preview",
+     "biblio": "IEEE Trans. Automat. Control, vol. 52, no. 7, p. 1532-1538, 2007",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "",
+     "author": "K.Y. Polyakov",
+     "title": "H2-optimal sampled-data control for plants with multiple input and output delays",
+     "biblio": "Asian Journal of Control, vol. 8, Iss. 2, pp. 107-116",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    },
+    {
+     "year": "2006",
+     "author": "К.Ю. Поляков",
+     "title": "H2-оптимальное цифровое управление объектами с множественными запаздываниями",
+     "biblio": "Изв. РАН. Теория и системы управления, 2006, № 6, с. 1-10",
+     "description": "",
+     "tag": "",
+     "url": "",
+     "doi": ""
+    }
+   ],
    "pub_theses": [],
    "pub_textbooks": [],
    "pub_posobia": [],

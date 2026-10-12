@@ -236,6 +236,37 @@
       padding-left: 1.2rem;
     }
 
+    /* Текстовые блоки: стартовая высота 300px, растягивается вручную */
+    textarea[data-f] {
+      height: 300px;
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    /* Предпросмотр: заголовки не разрывают блок дефолтными гигантскими размерами */
+    .html-preview h1 {
+      font-size: 1.45rem;
+    }
+
+    .html-preview h2 {
+      font-size: 1.25rem;
+    }
+
+    .html-preview h3 {
+      font-size: 1.1rem;
+    }
+
+    .html-preview h1,
+    .html-preview h2,
+    .html-preview h3 {
+      font-weight: 700;
+      margin: .8rem 0 .4rem;
+    }
+
+    .html-preview> :first-child {
+      margin-top: 0;
+    }
+
     table.ed[data-sec="achievements"] {
       width: 100%;
       table-layout: fixed;
@@ -1588,7 +1619,10 @@ value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
     <label class="sec-title">${label}</label>
    <div class="d-flex gap-1 mb-1 html-tools" data-target="f-${key}">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<b>|</b>" title="Жирный"><b>Ж</b></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
+     <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<i>|</i>" title="Курсив"><i>К</i></button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<h1>|</h1>" title="Заголовок 1-го уровня (крупный)">H1</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<h2>|</h2>" title="Заголовок 2-го уровня (средний)">H2</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<h3>|</h3>" title="Заголовок 3-го уровня (малый)">H3</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-link title="Гиперссылка: обернуть выделение в <a> (внешняя откроется в новой вкладке)"><i class="bi bi-link-45deg"></i> ссылка</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ul" title="Маркированный список">• список</button>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-list="ol" title="Нумерованный список">1. список</button>
@@ -1597,7 +1631,7 @@ value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-wrap="<p>|</p>" title="Абзац">¶ абзац</button>
     </div>
     <textarea id="f-${key}" class="form-control form-control-sm" rows="${rows}" data-f="${key}">${val.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</textarea>
-   <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;a&gt; (кнопка «ссылка»), &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
+ <div class="small text-secondary mt-1">Можно использовать HTML: &lt;b&gt;, &lt;i&gt;, &lt;h1&gt;–&lt;h3&gt;, &lt;ul class='text-block-list'&gt;, &lt;p class='ms-4'&gt;. Ниже — живой предпросмотр.</div>
     <div class="html-preview border rounded p-2 mt-1" id="prev-${key}">${val}</div>
   </div>`;
       }

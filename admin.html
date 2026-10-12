@@ -816,51 +816,51 @@
       resize: vertical;
     }
 
-    /* ── Глобальные справочники: визуально отделены от ввода по персоне ── */
-    .dict-sec {
-      border: 1px solid #c9d6d2;
-      border-radius: 8px;
-      background: #f4f8f6;
-      margin: 14px 0;
-    }
-
-    .dict-sec>summary {
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      font-weight: 600;
-      color: #235c52;
-      background: #dcebe6;
-      border-radius: 8px;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .dict-sec>summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .dict-sec[open]>summary {
-      border-bottom: 1px dashed #c9d6d2;
-      border-radius: 8px 8px 0 0;
-    }
-
-    .dict-badge {
-      margin-left: auto;
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: #fff;
-      background: #2f6f63;
-      border-radius: 999px;
-      padding: 2px 8px;
-    }
-
-    .dict-body {
-      padding: 8px 10px 10px;
-      border-radius: 0 0 8px 8px;
-    }
+    /* ── Глобальные справочники: тёплая янтарная зона, отличная от бирюзовых секций ── */
+.dict-sec {
+border: 1px solid #e6cfa8;
+border-left: 4px solid #d97b29;
+border-radius: 8px;
+background: #fdf9f0;
+margin: 16px 0;
+}
+.dict-sec > summary {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 8px 12px;
+font-weight: 600;
+color: #7c4a12;
+background: #f6e7cb;
+border-radius: 6px;
+cursor: pointer;
+list-style: none;
+}
+.dict-sec > summary::-webkit-details-marker {
+display: none;
+}
+.dict-sec[open] > summary {
+border-bottom: 1px dashed #e6cfa8;
+border-radius: 6px 6px 0 0;
+}
+.dict-sec > summary .bi {
+color: #d97b29;
+}
+.dict-badge {
+margin-left: auto;
+font-size: .68rem;
+font-weight: 700;
+letter-spacing: .06em;
+text-transform: uppercase;
+color: #fff;
+background: #d97b29;
+border-radius: 999px;
+padding: 2px 8px;
+}
+.dict-body {
+padding: 8px 10px 10px;
+border-radius: 0 0 8px 8px;
+}
 
     /* Превью выбранного цвета категории */
     .color-prev {

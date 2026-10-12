@@ -906,6 +906,57 @@
       width: 15%;
     }
 
+    /* ── Научные справочники и участие: фиксированная сетка, селекты не наезжают ── */
+    table.ed[data-sec="sci_cats"],
+    table.ed[data-sec="sci_dict"],
+    table.ed[data-sec="sci_projects"] {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    table.ed[data-sec="sci_cats"] input,
+    table.ed[data-sec="sci_cats"] select,
+    table.ed[data-sec="sci_dict"] input,
+    table.ed[data-sec="sci_dict"] select,
+    table.ed[data-sec="sci_dict"] textarea,
+    table.ed[data-sec="sci_projects"] input,
+    table.ed[data-sec="sci_projects"] select,
+    table.ed[data-sec="sci_projects"] textarea {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* Категории: название + колонка цвета */
+    table.ed[data-sec="sci_cats"] th:nth-child(2) {
+      width: 180px;
+    }
+
+    /* Справочник проектов: название и категория шире, ссылка уже, описание забирает остаток */
+    table.ed[data-sec="sci_dict"] th:nth-child(1) {
+      width: 28%;
+    }
+
+    table.ed[data-sec="sci_dict"] th:nth-child(2) {
+      width: 24%;
+    }
+
+    table.ed[data-sec="sci_dict"] th:nth-child(4) {
+      width: 14%;
+    }
+
+    /* Участие преподавателя: категория, название, описание, ссылка */
+    table.ed[data-sec="sci_projects"] th:nth-child(1) {
+      width: 20%;
+    }
+
+    table.ed[data-sec="sci_projects"] th:nth-child(2) {
+      width: 30%;
+    }
+
+    table.ed[data-sec="sci_projects"] th:nth-child(4) {
+      width: 14%;
+    }
+
     /* Колонка действий (↑ ↓ ✕): единая ширина во всех таблицах.
 Стоит последним, чтобы перебивать персональные width: 44px у секций */
     table.ed[data-sec] th:last-child {
@@ -1387,7 +1438,7 @@
         updateDraftIndicator();
       }
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
-        { ...o, headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
+        { ...o, cache: 'no-store', headers: { Authorization: 'Bearer ' + TOK, 'Content-Type': 'application/json' } });
 
       function toggleHidden(v) {
         collect();
@@ -2255,13 +2306,19 @@ ${inputs}
           const curFile = await g.json();
           const json = JSON.stringify(data, null, 1);
           const b64 = btoa(unescape(encodeURIComponent(json)));
-          const r = await gh('/contents/' + PATH, {
-            method: 'PUT',
-            body: JSON.stringify({
-              message: 'admin: update ' + new Date().toISOString(),
-              content: b64, sha: curFile.sha
-            })
+          const putBody = sha => JSON.stringify({
+            message: 'admin: update ' + new Date().toISOString(),
+            content: b64, sha
           });
+          let r = await gh('/contents/' + PATH, { method: 'PUT', body: putBody(curFile.sha) });
+          if (r.status === 409) {
+            /* sha устарел между чтением и записью (параллельный коммит): перечитываем актуальный и повторяем */
+            const g2 = await gh('/contents/' + PATH + '?retry=' + Date.now());
+            if (g2.ok) {
+              const sha2 = (await g2.json()).sha;
+              r = await gh('/contents/' + PATH, { method: 'PUT', body: putBody(sha2) });
+            }
+          }
           const res = await r.json().catch(() => ({}));
           if (r.ok) {
             clearDraft(data.teachers[cur].id);

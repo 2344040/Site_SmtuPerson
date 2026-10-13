@@ -2504,6 +2504,14 @@ border: 1px solid var(--line); */
    font-weight: 500;
  }
 
+ /* Номер записи в пронумерованных списках материалов */
+ .mat-num {
+   font-weight: 700;
+   color: var(--teal);
+   margin-right: .45em;
+   font-variant-numeric: tabular-nums;
+ }
+
  .mat-biblio {
    font-size: .9rem;
    color: var(--muted);

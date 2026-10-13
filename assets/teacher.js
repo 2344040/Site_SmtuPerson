@@ -409,7 +409,7 @@ const matNorm = arr => {
 };
 const matCount = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCount(x.children || []), 0);
 
-const matItem = (item, sec, isContainer, isSub) => {
+const matItem = (item, sec, isContainer, isSub, numPrefix) => {
   const t = matType(item.url);
   const fmt = t || (item.url ? 'link' : '');
   const icon = t ? MAT_ICON[t] : (item.url ? 'bi-link-45deg' : sec.fb);
@@ -431,17 +431,18 @@ const matItem = (item, sec, isContainer, isSub) => {
       ? `<span class="mat-description text-toggle-content">${esc(item.description)}</span><span class="text-toggle-btn mat-desc-toggle"><span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span><span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span></span>`
       : `<span class="mat-description">${esc(item.description)}</span>`)
     : '';
-  /* Строка 1: автор + название + выходные данные */
-  let line1 = `<div class="mat-line">${author}${title}${biblio ? ' ' + biblio : ''}</div>`;
+  /* Строка 1: автор + номер (если список пронумерован) + название + выходные данные */
+  const num = numPrefix ? `<span class="mat-num">${esc(numPrefix)}</span>` : '';
+  let line1 = `<div class="mat-line">${author}${num}${title}${biblio ? ' ' + biblio : ''}</div>`;
   /* Строка 2: описание + кнопка сворачивания (d-flex нужен initToggles для поиска контента) */
   const line2 = description ? `<div class="mat-description-line d-flex">${description}</div>` : '';
 
   /* Ресурсы: своя раскладка (название + видимый URL) */
   if (isResources) {
     line1 = `<div class="mat-line mat-line-res">
-      <span class="mat-title">${esc(item.title)}</span>
-      <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
-    </div>`;
+${num}<span class="mat-title">${esc(item.title)}</span>
+<span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
+</div>`;
   }
 
   /* Правая часть: иконка формата (янтарная) + кнопка по типу ссылки:
@@ -460,20 +461,28 @@ const matItem = (item, sec, isContainer, isSub) => {
   </li>`;
 };
 
+/* Префикс номера ребёнка: порядковый среди rec-соседей при включённом num у родителя */
+const childNumPrefix = (parent, i) => {
+  const kids = parent.children || [];
+  if (!parent.num || (kids[i] || {}).kind !== 'rec') return '';
+  return (kids.slice(0, i).filter(x => x.kind === 'rec').length + 1) + '. ';
+};
+
 /* pos: 0 — единственный ребёнок, 1 — первый, 2 — средний, 3 — последний (для коннекторов).
 Отступы и шрифты уровней живут в style.css (лестница .mat-h-N / .mat-lvl-N) */
-const renderMatNode = (node, depth, sec, sub, pos) => {
+const renderMatNode = (node, depth, sec, sub, pos, prefix) => {
   const kids = node.children || [];
   if (node.kind === 'head') {
     return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
-      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos)).join('');
+      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, '')).join('');
   }
   const isContainer = kids.length > 0;
   const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub)}</ul>`;
+  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;
   if (!kids.length) return row;
   return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
-    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2)).join('');
+    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
+    childNumPrefix(node, ci))).join('');
 };
 
 const MAT_SECTIONS = [

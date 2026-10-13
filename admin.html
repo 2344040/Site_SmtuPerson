@@ -886,6 +886,16 @@
       resize: vertical;
     }
 
+    /* Префикс номера в поле названия пронумерованной записи */
+    .mat-num-grp {
+      font-weight: 600;
+      color: #2f6f63;
+      background: #eef3f1;
+      border-color: #dcd7c9;
+      min-width: 2.4rem;
+      justify-content: center;
+    }
+
     /* ── Глобальные справочники: тёплая янтарная зона, отличная от бирюзовых секций ── */
     .dict-sec {
       border: 1px solid #e6cfa8;
@@ -1987,6 +1997,26 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         const el = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${np}"]`);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+
+      /* Префикс номера ребёнка: порядковый среди rec-соседей, если у родителя включён флаг num */
+      const childNumPrefix = (parent, i) => {
+        if (!parent || !parent.num) return '';
+        const kids = parent.children || [];
+        if ((kids[i] || {}).kind !== 'rec') return '';
+        return (kids.slice(0, i).filter(x => x.kind === 'rec').length + 1) + '. ';
+      };
+      /* Кнопка «№»: пронумеровать дочерний список */
+      function matNum(sec, path) {
+        collect();
+        const t = data.teachers[cur];
+        const p = path.split('.').map(Number);
+        let node = (t[sec] || [])[p.shift()];
+        p.forEach(i => { node = node && node.children ? node.children[i] : undefined; });
+        if (!node) return;
+        node.num = !node.num;
+        build();
+      }
+
       function matMove(sec, path, dir) {
         collect();
         const t = data.teachers[cur];
@@ -2037,8 +2067,9 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
       const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-      function matNodeCard(sec, node, path, depth) {
+      function matNodeCard(sec, node, path, depth, prefix) {
         const isHead = node.kind === 'head';
+        const numPrefix = String(prefix || '');
         const fields = MAT_FIELDS[sec] || [];
         const uid = matUid(node);
         const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
@@ -2060,7 +2091,7 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
             const urlCol = hasDesc ? (hasBuy ? 'col-md-4' : 'col-md-6') : (hasBuy ? 'col-md-6' : 'col');
             return `<div class="row g-2">
 ${has('author') ? `<div class="col-md-3"><label class="small text-secondary">${colName(sec, 'author')}</label>${inp('author')}</div>` : ''}
-<div class="col"><label class="small text-secondary">${colName(sec, 'title')}</label>${inp('title')}</div>
+<div class="col"><label class="small text-secondary">${colName(sec, 'title')}</label>${numPrefix ? `<div class="input-group input-group-sm"><span class="input-group-text mat-num-grp">${numPrefix}</span>${inp('title')}</div>` : inp('title')}</div>
 ${has('biblio') ? `<div class="col-md-3"><label class="small text-secondary">${colName(sec, 'biblio')}</label>${inp('biblio')}</div>` : ''}
 </div>
 ${(hasDesc || has('url') || hasBuy) ? `<div class="row g-2 mt-1">
@@ -2070,23 +2101,24 @@ ${hasBuy ? `<div class="col-md-3"><label class="small text-secondary">${colName(
 </div>` : ''}`;
           })()
         const kindLabel = isHead ? (depth === 0 ? 'раздел' : 'подраздел') : 'запись';
-        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'} mat-depth-${Math.min(depth, 3)}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}">
+        return `<div class="mat-node ${isHead ? 'mat-node-head' : 'mat-node-rec'} mat-depth-${Math.min(depth, 3)}${isCol ? ' collapsed' : ''}" data-sec="${sec}" data-path="${path}" data-kind="${node.kind}" data-uid="${uid}" data-num="${node.num ? 1 : ''}">
 <div class="mat-node-bar">
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matToggle(this)" title="Свернуть/развернуть">${isCol ? '▸' : '▾'}</button>
 <span class="me-1">${isHead ? '📁' : '📄'}</span>
-<span class="small text-secondary me-auto mat-node-label" data-base="${kindLabel}">${kindLabel}${(node.title || '').trim() ? ': ' + escTa(node.title) : ''}</span>
+<span class="small text-secondary me-auto mat-node-label" data-base="${kindLabel}">${kindLabel}${(node.title || '').trim() ? ': ' + numPrefix + escTa(node.title) : ''}</span>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',-1)" title="Выше среди соседей">↑</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matMove('${sec}','${path}',1)" title="Ниже среди соседей">↓</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',1)" title="Вложить в узел выше (сделать его последним подразделом/вложением)" ${idx === 0 ? 'disabled' : ''}>⇥</button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',-1)" title="Поднять на уровень выше, сразу после родителя" ${depth === 0 ? 'disabled' : ''}>⇤</button>
 <button type="button" class="btn btn-sm btn-outline-danger" onclick="matRm('${sec}','${path}')" title="Удалить">✕</button>
 <button type="button" class="btn btn-sm btn-outline-dark ms-2" onclick="matAddSibling('${sec}','${path}')" title="Добавить ${isHead ? 'заголовок' : 'запись'} рядом, на этом же уровне">+ ${isHead ? 'заголовок' : 'строка'}</button>
+${!isHead && (node.children || []).length ? `<button type="button" class="btn btn-sm ${node.num ? 'btn-dark' : 'btn-outline-secondary'}" onclick="matNum('${sec}','${path}')" title="${node.num ? 'Убрать нумерацию дочернего списка' : 'Пронумеровать дочерний список'}">№</button>` : ''}
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matAdd('${sec}','${path}','head')" title="Подраздел внутри этого узла"><i class="bi bi-folder-plus"></i></button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matAdd('${sec}','${path}','rec')" title="Запись внутри этого узла"><i class="bi bi-file-earmark-plus"></i></button>
 </div>
 <div class="mat-node-body">
 ${inputs}
-<div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1)).join('')}</div>
+<div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1, childNumPrefix(node, i))).join('')}</div>
 </div>
 </div>`;
       }
@@ -2112,6 +2144,7 @@ ${inputs}
         box.querySelectorAll(':scope > .mat-node').forEach(card => {
           const node = { kind: card.dataset.kind };
           if (card.dataset.uid) matSetUid(node, card.dataset.uid);
+          if (card.dataset.num) node.num = true;
           card.querySelectorAll(':scope > .mat-node-body > .row input[data-k], :scope > .mat-node-body > .row textarea[data-k]').forEach(inp => { node[inp.dataset.k] = inp.value; });
           const kids = card.querySelector(':scope > .mat-node-body > .mat-children');
           const cn = kids ? collectMatNodes(kids) : [];
@@ -2507,7 +2540,8 @@ ${inputs}
         const label = card.querySelector(':scope > .mat-node-bar > .mat-node-label');
         if (!label) return;
         const v = e.target.value.trim();
-        label.textContent = label.dataset.base + (v ? ': ' + v : '');
+        const numSpan = card.querySelector(':scope > .mat-node-body .mat-num-grp');
+        label.textContent = label.dataset.base + (v ? ': ' + (numSpan ? numSpan.textContent : '') + v : '');
       });
 
       /* При уходе с поля: материализуем 1-ю строку, если таблицы должностей ещё не было,
@@ -2551,14 +2585,14 @@ ${inputs}
       });
 
       /* Быстрая навигация: раскрыть свёрнутый раздел и подсветить кнопку */
-document.addEventListener('click', e => {
-const a = e.target.closest('#quicknav a');
-if (!a) return;
-const tgt = document.querySelector(a.getAttribute('href'));
-if (tgt && tgt.tagName === 'DETAILS' && !tgt.open) tgt.open = true;
-document.querySelectorAll('#quicknav a').forEach(x => x.classList.remove('qn-active'));
-a.classList.add('qn-active');
-});
+      document.addEventListener('click', e => {
+        const a = e.target.closest('#quicknav a');
+        if (!a) return;
+        const tgt = document.querySelector(a.getAttribute('href'));
+        if (tgt && tgt.tagName === 'DETAILS' && !tgt.open) tgt.open = true;
+        document.querySelectorAll('#quicknav a').forEach(x => x.classList.remove('qn-active'));
+        a.classList.add('qn-active');
+      });
 
       if (TOK) load();
     </script>

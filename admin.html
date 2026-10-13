@@ -2112,7 +2112,7 @@ ${hasBuy ? `<div class="col-md-3"><label class="small text-secondary">${colName(
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matNest('${sec}','${path}',-1)" title="Поднять на уровень выше, сразу после родителя" ${depth === 0 ? 'disabled' : ''}>⇤</button>
 <button type="button" class="btn btn-sm btn-outline-danger" onclick="matRm('${sec}','${path}')" title="Удалить">✕</button>
 <button type="button" class="btn btn-sm btn-outline-dark ms-2" onclick="matAddSibling('${sec}','${path}')" title="Добавить ${isHead ? 'заголовок' : 'запись'} рядом, на этом же уровне">+ ${isHead ? 'заголовок' : 'строка'}</button>
-${!isHead && (node.children || []).length ? `<button type="button" class="btn btn-sm ${node.num ? 'btn-dark' : 'btn-outline-secondary'}" onclick="matNum('${sec}','${path}')" title="${node.num ? 'Убрать нумерацию дочернего списка' : 'Пронумеровать дочерний список'}">№</button>` : ''}
+${(node.children || []).length ? `<button type="button" class="btn btn-sm ${node.num ? 'btn-dark' : 'btn-outline-secondary'}" onclick="matNum('${sec}','${path}')" title="${node.num ? 'Убрать нумерацию дочернего списка' : 'Пронумеровать дочерний список'}">№</button>` : ''}
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matAdd('${sec}','${path}','head')" title="Подраздел внутри этого узла"><i class="bi bi-folder-plus"></i></button>
 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="matAdd('${sec}','${path}','rec')" title="Запись внутри этого узла"><i class="bi bi-file-earmark-plus"></i></button>
 </div>

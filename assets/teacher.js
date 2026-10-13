@@ -471,11 +471,11 @@ const childNumPrefix = (parent, i) => {
 /* pos: 0 — единственный ребёнок, 1 — первый, 2 — средний, 3 — последний (для коннекторов).
 Отступы и шрифты уровней живут в style.css (лестница .mat-h-N / .mat-lvl-N) */
 const renderMatNode = (node, depth, sec, sub, pos, prefix) => {
-  const kids = node.children || [];
-  if (node.kind === 'head') {
-    return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
-      kids.map(c => renderMatNode(c, depth + 1, sec, sub, pos, '')).join('');
-  }
+const kids = node.children || [];
+if (node.kind === 'head') {
+return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
+kids.map((c, ci) => renderMatNode(c, depth + 1, sec, sub, pos, childNumPrefix(node, ci))).join('');
+}
   const isContainer = kids.length > 0;
   const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
   const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;

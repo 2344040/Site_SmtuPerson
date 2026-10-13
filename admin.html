@@ -1998,12 +1998,19 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      /* Префикс номера ребёнка: порядковый среди rec-соседей, если у родителя включён флаг num */
-      const childNumPrefix = (parent, i) => {
+      /* Собственный номер ребёнка без завершающей точки:
+    пусто, если нумерация родителя выключена; иначе n или «ownРодителя.n» (сквозная иерархия) */
+      const childOwnNum = (parent, i, parentOwn) => {
         if (!parent || !parent.num) return '';
         const kids = parent.children || [];
         if ((kids[i] || {}).kind !== 'rec') return '';
-        return (kids.slice(0, i).filter(x => x.kind === 'rec').length + 1) + '. ';
+        const n = kids.slice(0, i).filter(x => x.kind === 'rec').length + 1;
+        return parentOwn ? parentOwn + '.' + n : String(n);
+      };
+      /* Префикс для отображения: собственный номер + точка с пробелом */
+      const childNumPrefix = (parent, i, parentOwn) => {
+        const own = childOwnNum(parent, i, parentOwn);
+        return own ? own + '. ' : '';
       };
       /* Кнопка «№»: пронумеровать дочерний список */
       function matNum(sec, path) {
@@ -2067,9 +2074,10 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       const escAttr = v => String(v ?? '').replace(/"/g, '&quot;');
       const escTa = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-      function matNodeCard(sec, node, path, depth, prefix) {
+      function matNodeCard(sec, node, path, depth, prefix, ownNum) {
         const isHead = node.kind === 'head';
         const numPrefix = String(prefix || '');
+        const own = String(ownNum || '');
         const fields = MAT_FIELDS[sec] || [];
         const uid = matUid(node);
         const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
@@ -2118,7 +2126,7 @@ ${(node.children || []).length ? `<button type="button" class="btn btn-sm ${node
 </div>
 <div class="mat-node-body">
 ${inputs}
-<div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1, childNumPrefix(node, i))).join('')}</div>
+<div class="mat-children">${(node.children || []).map((c, i) => matNodeCard(sec, c, path + '.' + i, depth + 1, childNumPrefix(node, i, own), childOwnNum(node, i, own))).join('')}</div>
 </div>
 </div>`;
       }
@@ -2131,7 +2139,7 @@ ${inputs}
         return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
 <summary>${NAMES[sec]}<span class="mat-sec-count">${matCountRec(arr)}</span></summary>
 <div class="mat-sec-body">
-<div class="mat-root" data-sec="${sec}">${arr.map((n, i) => matNodeCard(sec, n, String(i), 0)).join('')}</div>
+<div class="mat-root" data-sec="${sec}">${arr.map((n, i) => matNodeCard(sec, n, String(i), 0, '', '')).join('')}</div>
 <div class="d-flex gap-2 mt-1 mb-2">
 <button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','','head')">+ заголовок</button>
 <button type="button" class="btn btn-sm btn-outline-dark" onclick="matAdd('${sec}','','rec')">+ запись</button>

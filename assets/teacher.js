@@ -462,27 +462,31 @@ ${num}<span class="mat-title">${esc(item.title)}</span>
 };
 
 /* Префикс номера ребёнка: порядковый среди rec-соседей при включённом num у родителя */
-const childNumPrefix = (parent, i) => {
-  const kids = parent.children || [];
-  if (!parent.num || (kids[i] || {}).kind !== 'rec') return '';
-  return (kids.slice(0, i).filter(x => x.kind === 'rec').length + 1) + '. ';
+/* Собственный номер ребёнка без завершающей точки: n либо «ownРодителя.n» — сквозная иерархия */
+const childOwnNum = (parent, i, parentOwn) => {
+const kids = parent.children || [];
+if (!parent.num || (kids[i] || {}).kind !== 'rec') return '';
+const n = kids.slice(0, i).filter(x => x.kind === 'rec').length + 1;
+return parentOwn ? parentOwn + '.' + n : String(n);
 };
-
-/* pos: 0 — единственный ребёнок, 1 — первый, 2 — средний, 3 — последний (для коннекторов).
-Отступы и шрифты уровней живут в style.css (лестница .mat-h-N / .mat-lvl-N) */
-const renderMatNode = (node, depth, sec, sub, pos, prefix) => {
+const childNumPrefix = (parent, i, parentOwn) => {
+const own = childOwnNum(parent, i, parentOwn);
+return own ? own + '. ' : '';
+};
+const renderMatNode = (node, depth, sec, sub, pos, prefix, ownNum) => {
 const kids = node.children || [];
+const own = String(ownNum || '');
 if (node.kind === 'head') {
 return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
-kids.map((c, ci) => renderMatNode(c, depth + 1, sec, sub, pos, childNumPrefix(node, ci))).join('');
+kids.map((c, ci) => renderMatNode(c, depth + 1, sec, sub, pos, childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
 }
-  const isContainer = kids.length > 0;
-  const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;
-  if (!kids.length) return row;
-  return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
-    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
-    childNumPrefix(node, ci))).join('');
+const isContainer = kids.length > 0;
+const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
+const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;
+if (!kids.length) return row;
+return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
+kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
+childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
 };
 
 const MAT_SECTIONS = [

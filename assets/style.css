@@ -1030,6 +1030,28 @@ border-radius: 10px;
 background: #000;
 display: block;
 }
+
+.si-head {
+min-width: 0;
+}
+.si-updated {
+font-size: .72rem;
+color: var(--muted);
+margin-top: 2px;
+}
+.btn-side.si-btn .si-new {
+flex-shrink: 0;
+font-size: .6rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: .06em;
+color: #fff;
+background: var(--amber);
+border-radius: 999px;
+padding: 1px 6px;
+margin-left: .35rem;
+}
+
 @media (max-width: 520px) {
 .si-imgs {
 grid-template-columns: 1fr;

@@ -765,8 +765,9 @@ function renderRail() {
   ].filter(Boolean).join('');
 
  /* Кнопка блока для студентов — самая первая, над расписанием; только при наличии контента */
+const siFresh = T.si_updated && (Date.now() - new Date(T.si_updated).getTime()) < 7 * 864e5;
 const siLink = siHas()
-? `<a class="btn-side si-btn" href="#si-panel" data-bs-toggle="offcanvas" data-bs-target="#siPanel" aria-controls="siPanel"><span>${esc(T.si_title || 'Информация для студентов')}</span><i class="bi bi-megaphone-fill"></i></a>`
+? `<a class="btn-side si-btn" href="#si-panel" data-bs-toggle="offcanvas" data-bs-target="#siPanel" aria-controls="siPanel"><span>${esc(T.si_title || 'Информация для студентов')}</span>${siFresh ? '<span class="si-new">new</span>' : ''}<i class="bi bi-megaphone-fill"></i></a>`
 : '';
 const eduLinks = siLink + manualLinks + autoLinks + matLink;
 
@@ -817,7 +818,10 @@ const files = T.si_files || [], images = T.si_images || [], videos = T.si_videos
 document.body.insertAdjacentHTML('beforeend', `
 <div class="offcanvas offcanvas-end" tabindex="-1" id="siPanel" aria-labelledby="siPanelLabel" style="width:min(620px,96%)">
 <div class="offcanvas-header">
+<div class="si-head">
 <h5 class="offcanvas-title" id="siPanelLabel"><i class="bi bi-megaphone-fill me-2" style="color:var(--amber)"></i>${esc(T.si_title || 'Информация для студентов')}</h5>
+${T.si_updated ? `<div class="si-updated">Обновлено: ${esc(new Date(T.si_updated).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }))}</div>` : ''}
+</div>
 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 </div>
 <div class="offcanvas-body si-body">

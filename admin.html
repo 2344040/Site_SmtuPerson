@@ -1540,6 +1540,7 @@
         if (data && data.teachers[cur]) writeDraft();
         cur = i; rememberCur(); build();
         offerDraftRestore();
+        siSnap = siSig(data.teachers[cur]);
         updateDraftIndicator();
       }
       const gh = (u, o) => fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + u,
@@ -1608,6 +1609,7 @@
         buildQuickNav();
         refreshVerBadge();
         offerDraftRestore();
+        siSnap = siSig(data.teachers[cur]);
         if (DEMO) {
           document.getElementById('status').innerHTML =
             '<span class="text-warning fw-bold">ДЕМО-режим — правки не публикуются</span>';
@@ -2444,11 +2446,17 @@ ${inputs}
         inp.click();
       }
 
+/* Сигнатура содержимого блока «Студентам»: для автоштампа даты обновления */
+const siSig = t => JSON.stringify([t.si_title || '', t.si_text || '', t.si_files || [], t.si_images || [], t.si_videos || []]);
+let siSnap = '';
+
       // * save
       /* ═══ Сохранение в GitHub ═══ */
-      async function save() {
-        collect();
-        const st = document.getElementById('status');
+async function save() {
+collect();
+const t0 = data.teachers[cur];
+if (siSig(t0) !== siSnap) t0.si_updated = new Date().toISOString();
+const st = document.getElementById('status');
         if (DEMO) {
           st.innerHTML = '<span class="text-warning fw-bold">ДЕМО: правки не отправлены в GitHub</span>';
           alert('Демо-режим: изменения остаются только в этой вкладке браузера.');
@@ -2480,6 +2488,7 @@ ${inputs}
           }
           const res = await r.json().catch(() => ({}));
           if (r.ok) {
+            siSnap = siSig(data.teachers[cur]);
             clearDraft(data.teachers[cur].id);
             const stamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
             st.innerHTML = `<span class="text-success fw-bold">✔</span> ${stamp}`;

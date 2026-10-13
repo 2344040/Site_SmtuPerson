@@ -5824,6 +5824,29 @@
          "url": "https://kpolyakov.spb.ru/download/sdsys-2n.pdf"
         }
        ]
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Анализ цифровых систем",
+       "description": "Дискретизация непрерывных процессов. Дискретизация импульсных систем. Процессы между моментами квантования. Дискретные передаточные функции. Частотные характеристики. Устойчивость цифровых систем. Показатели качества цифровых систем.",
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Слайды в формате PPT (архив ZIP, 2528 Кб) 30.11.2018 ",
+         "description": "",
+         "url": "https://kpolyakov.spb.ru/download/sdsys-3n.zip"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Слайды в формате PDF (466 Кб) 30.11.2018",
+         "description": "",
+         "url": "https://kpolyakov.spb.ru/download/sdsys-3n.pdf"
+        }
+       ]
       }
      ]
     }

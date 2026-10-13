@@ -5721,7 +5721,20 @@
     }
    ],
    "rail_edu": [],
-   "profiles": [],
+   "profiles": [
+    {
+     "t": "ORCID",
+     "u": ""
+    },
+    {
+     "t": "Scopus",
+     "u": ""
+    },
+    {
+     "t": "РИНЦ",
+     "u": ""
+    }
+   ],
    "mat_posobia": [
     {
      "kind": "rec",

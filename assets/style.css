@@ -1039,23 +1039,25 @@ font-size: .72rem;
 color: var(--muted);
 margin-top: 2px;
 }
-.btn-side.si-btn .si-new {
-flex: 0 0 auto;          /* не растёт и не сжимается — только по содержимому */
+
+/* Метка «new»: мелкий зелёный текст без пилюли */
+.btn-side.si-btn span.si-new {
+flex: 0 0 auto;
 align-self: center;
-font-size: .55rem;
+font-size: .62rem;
 line-height: 1;
 font-weight: 700;
-text-transform: uppercase;
-letter-spacing: .05em;
-color: #fff;
-background: #3f9e63;     /* тот же зелёный, что у индикатора «Сейчас» */
-border-radius: 999px;
-padding: 2px 5px;
-margin: 0 0 0 .4rem;
+letter-spacing: .03em;
+text-transform: none;
+color: #3f9e63;
+background: none;
+border: 0;
+border-radius: 0;
+padding: 0;
+margin: 0 0 0 .45rem;
 }
-html[data-theme="dark"] .btn-side.si-btn .si-new {
-background: #58c07c;
-color: #12241f;
+html[data-theme="dark"] .btn-side.si-btn span.si-new {
+color: #58c07c;
 }
 
 @media (max-width: 520px) {

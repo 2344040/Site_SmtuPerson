@@ -903,6 +903,138 @@
    transform: translateX(3px);
  }
 
+ /* ── Информация для студентов: кнопка в сайдбаре и offcanvas-блок ── */
+.btn-side.si-btn {
+background: var(--amber-soft);
+border-color: var(--amber);
+font-weight: 600;
+}
+.btn-side.si-btn > span {
+flex: 1 1 auto;
+min-width: 0;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.btn-side.si-btn > i {
+color: var(--amber);
+font-size: .95rem;
+flex-shrink: 0;
+}
+.btn-side.si-btn:hover {
+background: var(--amber);
+border-color: var(--amber);
+color: #fff;
+}
+.btn-side.si-btn:hover > i {
+color: #fff;
+transform: none;
+}
+#siPanel {
+background: var(--paper);
+color: var(--ink);
+}
+html[data-theme="dark"] #siPanel .btn-close {
+filter: invert(1) grayscale(1);
+}
+.si-body {
+display: flex;
+flex-direction: column;
+gap: 1.1rem;
+}
+.si-body .si-text {
+padding: 0;
+margin: 0;
+}
+.si-sec {
+display: flex;
+flex-direction: column;
+gap: .45rem;
+}
+.si-sec h6 {
+font-size: .72rem;
+letter-spacing: .18em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+margin: 0;
+}
+.si-file {
+display: flex;
+align-items: center;
+gap: .6rem;
+padding: .55rem .7rem;
+border: 1px solid var(--line);
+border-radius: 10px;
+background: var(--surface);
+color: var(--ink);
+text-decoration: none;
+transition: .2s;
+}
+.si-file:hover {
+border-color: var(--amber);
+color: var(--amber);
+transform: translateX(3px);
+}
+.si-file-ico {
+font-size: 1.1rem;
+flex-shrink: 0;
+}
+.si-file-title {
+flex: 1 1 auto;
+min-width: 0;
+font-size: .85rem;
+font-weight: 500;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.si-imgs {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: .6rem;
+}
+.si-img {
+margin: 0;
+min-width: 0;
+}
+.si-img a {
+display: block;
+border: 1px solid var(--line);
+border-radius: 10px;
+overflow: hidden;
+background: var(--surface);
+}
+.si-img img {
+width: 100%;
+aspect-ratio: 4 / 3;
+object-fit: cover;
+display: block;
+}
+.si-img figcaption {
+font-size: .75rem;
+color: var(--muted);
+margin-top: .3rem;
+}
+.si-video-title {
+font-size: .8rem;
+font-weight: 600;
+margin: .2rem 0 .35rem;
+}
+.si-video iframe,
+.si-video video {
+width: 100%;
+aspect-ratio: 16 / 9;
+border: 0;
+border-radius: 10px;
+background: #000;
+display: block;
+}
+@media (max-width: 520px) {
+.si-imgs {
+grid-template-columns: 1fr;
+}
+}
 
  .timeline {
    list-style: none;

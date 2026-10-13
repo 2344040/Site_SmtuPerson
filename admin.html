@@ -1231,8 +1231,16 @@
         site: ['Сайт', 'col-md-8'],
         hours: ['Приёмные часы', 'col-md-4'],
         share_tg_url: ['URL для Telegram share', 'col-md-6'],
-        share_vk_url: ['URL для VK share', 'col-md-6']
+        share_vk_url: ['URL для VK share', 'col-md-6'],
+        si_title: ['Заголовок блока на кнопке в сайдбаре (до 30 знаков)', 'col-md-6'],
       };
+
+      /* Пресеты заголовка кнопки блока для студентов (все ≤ 30 знаков) */
+      const SI_TITLE_PRESET = [
+        'Важная информация!', 'Информация для студентов', 'Материалы к зачёту и экзамену',
+        'Расписание консультаций', 'Анонсы и события', 'Опрос для студентов'
+      ];
+      const SI_TITLE_MAX = 30;
 
       const FACULTIES = [
         'Факультет кораблестроения и океанотехники',
@@ -1369,6 +1377,7 @@
         ach_text: ['Свободный текст блока достижений (разрешён HTML)', 6],
         social_text: ['Текстовый блок общественной деятельности (разрешён HTML)', 6],
         hobby_text: ['Текстовый блок «Увлечения, хобби» (разрешён HTML)', 5],
+        si_text: ['Текст блока для студентов (разрешён HTML: списки, ссылки, заголовки)', 6],
       };
 
 
@@ -1399,7 +1408,8 @@
         { title: '10. Увлечения, хобби', items: [['h', 'hobby_text']] },
         { title: '11. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
         { title: '12. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
-        { title: '13. Новости', items: [['a', 'news']] }
+        { title: '13. Новости', items: [['a', 'news']] },
+        { title: '14. Информация для студентов (скрытый блок; кнопка в сайдбаре)', items: [['s', 'si_title'], ['h', 'si_text'], ['a', 'si_files'], ['a', 'si_images'], ['a', 'si_videos']] },
       ];
 
       // * KEYS
@@ -1431,7 +1441,9 @@
         profiles: ['t', 'u'],
         news: ['date', 'title', 'img', 'url'],
         rail_edu: ['t', 'u'],
-
+        si_files: ['title', 'url'],
+        si_images: ['title', 'url'],
+        si_videos: ['title', 'url'],
       };
 
       const ICONS = [
@@ -1463,6 +1475,9 @@
         rail_edu: 'Учебный процесс (ссылки правого сайдбара)',
         mat_posobia: 'Учебники/Учебные пособия', mat_books: 'Книги/Монографии', mat_lectures: 'Записи лекций',
         mat_video: 'Видео-материалы', mat_resources: 'Полезные ресурсы',
+        si_files: 'Файлы для скачивания (название + ссылка или загруженный файл)',
+        si_images: 'Картинки (подпись + ссылка или загруженный файл)',
+        si_videos: 'Видео (подпись + ссылка YouTube/Rutube/Vimeo или загруженный файл)',
       };
 
       // * MULTILINE
@@ -1631,8 +1646,9 @@
         return [...vals].sort((a, b) => a.localeCompare(b, 'ru'));
       };
 
-      /* ═══ Быстрая навигация: липкая строка пилюль-переходов ═══ */
-      const QUICK_LABELS = ['0', '1.Шапка', '2.Контакты', '3.Должности', '4.Образование', '5.Карьера', '6.Преподавание', '7.Наука', '8.Публ', '9.Общ', '10.Хобби', '11.Сайдбар', '12.Уч мат-лы', '13.Новости'];
+      // * QUICK_LABELS
+      /* ═══ Быстрая навигация: липкая строка пил юль-переходов ═══ */
+      const QUICK_LABELS = ['0', '1.Шапка', '2.Контакты', '3.Должности', '4.Образование', '5.Карьера', '6.Преподавание', '7.Наука', '8.Публ', '9.Общ', '10.Хобби', '11.Сайдбар', '12.Уч мат-лы', '13.Новости', '14.Студентам'];
       function buildQuickNav() {
         const nav = document.getElementById('quicknav');
         if (!nav) return;
@@ -1800,7 +1816,8 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
           const canUpload = !DEMO && (
             k.startsWith('pub_') ||
             (k.startsWith('mat_') && k !== 'mat_video') ||
-            k === 'patents' || k === 'programs'
+            k === 'patents' || k === 'programs' ||
+            k === 'si_files' || k === 'si_images' || k === 'si_videos'
           ) && c === 'url';
           const upBtn = canUpload
             ? `<button type="button" class="btn btn-sm btn-outline-secondary btn-upload ms-1" data-sec="${k}" data-i="${i}" data-k="${c}" onclick="pickAndUpload('${k}',${i},'${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button>`
@@ -1812,7 +1829,7 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       }
 
       // * actCell
-      // * actCell
+  
       function actCell(k, i) {
         if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
           return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
@@ -2198,6 +2215,9 @@ ${inputs}
                   <option value="" ${!v ? 'selected' : ''}>—</option>
                   ${list.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
                 </select>`;
+              } else if (key === 'si_title') {
+                ctrl = `<input class="form-control form-control-sm" data-f="${key}" maxlength="${SI_TITLE_MAX}" list="dl-si-title" value="${String(v).replace(/"/g, '&quot;')}" placeholder="Не более ${SI_TITLE_MAX} знаков — иначе не вместится в кнопку сайдбара">
+<datalist id="dl-si-title">${SI_TITLE_PRESET.map(p => `<option value="${p}"></option>`).join('')}</datalist>`;
               } else {
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" value="${String(v).replace(/"/g, '&quot;')}">`;
               }
@@ -2246,6 +2266,9 @@ ${inputs}
         const hc = document.getElementById('hideChk');
         if (hc) hc.checked = !!data.teachers[cur].hidden;
       }
+
+
+
 
       /* ═══ Сбор данных из формы ═══ */
       function collect() {

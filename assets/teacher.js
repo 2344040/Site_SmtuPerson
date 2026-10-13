@@ -44,6 +44,7 @@ fetch('data/teachers.json?v=' + Date.now()).then(r => r.json()).then(d => {
   buildMenu();
   renderMain();
   renderRail();
+  renderSiPanel();
   initReveal();
   initToggles();
   initCardReveal();
@@ -763,7 +764,11 @@ function renderRail() {
     // has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
   ].filter(Boolean).join('');
 
-  const eduLinks = manualLinks + autoLinks + matLink;
+ /* Кнопка блока для студентов — самая первая, над расписанием; только при наличии контента */
+const siLink = siHas()
+? `<a class="btn-side si-btn" href="#si-panel" data-bs-toggle="offcanvas" data-bs-target="#siPanel" aria-controls="siPanel"><span>${esc(T.si_title || 'Информация для студентов')}</span><i class="bi bi-megaphone-fill"></i></a>`
+: '';
+const eduLinks = siLink + manualLinks + autoLinks + matLink;
 
   /* Профили — без изменений */
 
@@ -783,6 +788,54 @@ function renderRail() {
   document.getElementById('rail').innerHTML = railHtml;
   const railMobile = document.getElementById('railMobile');
   if (railMobile) railMobile.innerHTML = railHtml;
+}
+
+/* ═══ Информация для студентов: скрытый блок-offcanvas по кнопке сайдбара ═══ */
+const siHas = () => !!((T.si_text && String(T.si_text).trim()) ||
+(T.si_files || []).length || (T.si_images || []).length || (T.si_videos || []).length);
+/* Ссылки видеосервисов превращаем в embed; остальное — плеер или ссылка */
+const SI_VIDEO_EMBED = u => {
+const url = String(u || '');
+let m;
+if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/))) return 'https://www.youtube.com/embed/' + m[1];
+if ((m = url.match(/rutube\.ru\/(?:video\/|play\/embed\/)?([a-f0-9]{32})/i))) return 'https://rutube.ru/play/embed/' + m[1];
+if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return 'https://player.vimeo.com/video/' + m[1];
+return null;
+};
+const siVideoBlock = v => {
+const emb = SI_VIDEO_EMBED(v.url);
+const head = v.title ? `<div class="si-video-title">${esc(v.title)}</div>` : '';
+if (emb) return `<div class="si-video">${head}<iframe src="${esc(emb)}" loading="lazy" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe></div>`;
+if (matType(v.url) === 'video') return `<div class="si-video">${head}<video controls preload="metadata" src="${esc(matHref(v.url))}"></video></div>`;
+return `<a class="si-file" href="${esc(matHref(v.url))}" target="_blank" rel="noopener"><i class="bi bi-camera-video-fill si-file-ico fmt-video"></i><span class="si-file-title">${esc(v.title || v.url)}</span><i class="bi bi-box-arrow-up-right"></i></a>`;
+};
+function renderSiPanel() {
+const prev = document.getElementById('siPanel');
+if (prev) prev.remove();
+if (!siHas()) return;
+const files = T.si_files || [], images = T.si_images || [], videos = T.si_videos || [];
+document.body.insertAdjacentHTML('beforeend', `
+<div class="offcanvas offcanvas-end" tabindex="-1" id="siPanel" aria-labelledby="siPanelLabel" style="width:min(620px,96%)">
+<div class="offcanvas-header">
+<h5 class="offcanvas-title" id="siPanelLabel"><i class="bi bi-megaphone-fill me-2" style="color:var(--amber)"></i>${esc(T.si_title || 'Информация для студентов')}</h5>
+<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+</div>
+<div class="offcanvas-body si-body">
+${T.si_text ? `<div class="si-text text-block">${htmlOrText(T.si_text)}</div>` : ''}
+${files.length ? `<div class="si-sec"><h6>Файлы для скачивания</h6>${files.map(f => {
+const t = matType(f.url);
+return `<a class="si-file" href="${esc(matHref(f.url))}" target="_blank" rel="noopener">
+<i class="bi ${t ? MAT_ICON[t] : 'bi-file-earmark-fill'} si-file-ico${t ? ' fmt-' + t : ''}"></i>
+<span class="si-file-title">${esc(f.title || f.url)}</span>
+<i class="bi ${DL_TYPES.has(t) ? 'bi-download' : 'bi-box-arrow-up-right'}"></i></a>`;
+}).join('')}</div>` : ''}
+${images.length ? `<div class="si-sec"><h6>Картинки</h6><div class="si-imgs">${images.map(im => `<figure class="si-img">
+<a href="${esc(matHref(im.url))}" target="_blank" rel="noopener" title="Открыть в полном размере"><img src="${esc(im.url)}" alt="${esc(im.title || '')}" loading="lazy"></a>
+${im.title ? `<figcaption>${esc(im.title)}</figcaption>` : ''}
+</figure>`).join('')}</div></div>` : ''}
+${videos.length ? `<div class="si-sec"><h6>Видео</h6>${videos.map(siVideoBlock).join('')}</div>` : ''}
+</div>
+</div>`);
 }
 
 /* ═══ Анимация появления ═══ */

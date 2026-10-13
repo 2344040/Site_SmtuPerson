@@ -5847,6 +5847,29 @@
          "url": "https://kpolyakov.spb.ru/download/sdsys-3n.pdf"
         }
        ]
+      },
+      {
+       "kind": "rec",
+       "author": "",
+       "title": "Дискретизация аналоговых регуляторов",
+       "description": "Задача дискретизации аналоговых регуляторов. Приближенное интегрирование. Фиктивное квантование. Отображение нулей и полюсов. Аппроксимация переходных процессов. Аппроксимация частотных характеристик.",
+       "url": "",
+       "children": [
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Слайды в формате PPT (архив ZIP, 672 Кб) 27.03.2017",
+         "description": "",
+         "url": "https://kpolyakov.spb.ru/download/sdsys-4n.zip"
+        },
+        {
+         "kind": "rec",
+         "author": "",
+         "title": "Слайды в формате PDF (386 Кб) 27.03.2017",
+         "description": "",
+         "url": "https://kpolyakov.spb.ru/download/sdsys-4n.pdf"
+        }
+       ]
       }
      ]
     }

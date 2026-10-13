@@ -826,8 +826,12 @@ ${T.si_updated ? `<div class="si-updated">Обновлено: ${esc(new Date(T.s
 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 </div>
 <div class="offcanvas-body si-body">
-${T.si_poll_url ? `<a class="si-poll-btn" href="${esc(siteHref(T.si_poll_url))}" target="_blank" rel="noopener"><i class="bi bi-clipboard2-check-fill"></i><span>Пройти опрос</span><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
 ${T.si_text ? `<div class="si-text text-block">${htmlOrText(T.si_text)}</div>` : ''}
+${T.si_poll_url ? `<div class="si-poll">
+<h1 class="si-poll-title">${esc(T.si_poll_title || 'Опрос студентов')}</h1>
+<div class="si-poll-note">${esc(T.si_poll_note || 'Анонимная форма откроется в новой вкладке; займёт 2–3 минуты.')}</div>
+<a class="si-poll-btn" href="${esc(siteHref(T.si_poll_url))}" target="_blank" rel="noopener"><i class="bi bi-clipboard2-check-fill"></i><span>Пройти опрос</span><i class="bi bi-box-arrow-up-right"></i></a>
+</div>` : ''}
 ${files.length ? `<div class="si-sec"><h6>Файлы для скачивания</h6>${files.map(f => {
 const t = matType(f.url);
 return `<a class="si-file" href="${esc(matHref(f.url))}" target="_blank" rel="noopener">

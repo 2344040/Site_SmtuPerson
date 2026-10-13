@@ -1101,6 +1101,26 @@ opacity: .7;
 flex-shrink: 0;
 }
 
+/* ── Опрос: заголовок h1 в масштабе блока + комментарий курсивом ── */
+.si-poll {
+display: flex;
+flex-direction: column;
+gap: .4rem;
+}
+.si-poll-title {
+font-size: 1.45rem;
+font-weight: 700;
+color: var(--ink);
+margin: 0;
+line-height: 1.2;
+}
+.si-poll-note {
+font-style: italic;
+color: var(--muted);
+font-size: .85rem;
+margin: 0 0 .2rem;
+}
+
  .timeline {
    list-style: none;
    padding: 0;

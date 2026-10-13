@@ -1234,6 +1234,8 @@
         share_vk_url: ['URL для VK share', 'col-md-6'],
         si_title: ['Заголовок блока на кнопке в сайдбаре (до 30 знаков)', 'col-md-6'],
         si_poll_url: ['Ссылка на опрос (Яндекс/Google Forms) — кнопка «Пройти опрос» в блоке', 'col-md-8'],
+        si_poll_title: ['Опрос: заголовок (пусто → «Опрос студентов»)', 'col-md-6'],
+        si_poll_note: ['Опрос: комментарий о заполнении (пусто → дефолт-подсказка)', 'col-md-6'],
       };
 
       /* Пресеты заголовка кнопки блока для студентов (все ≤ 30 знаков) */
@@ -1410,7 +1412,7 @@
         { title: '11. Правый сайдбар', items: [['a', 'events'], ['a', 'rail_edu'], ['a', 'profiles']] },
         { title: '12. Учебные материалы (для студентов, всех авторов)', items: [['m', 'mat_posobia'], ['m', 'mat_books'], ['m', 'mat_lectures'], ['m', 'mat_video'], ['m', 'mat_resources']] },
         { title: '13. Новости', items: [['a', 'news']] },
-       { title: '14. Информация для студентов (скрытый блок; кнопка в сайдбаре)', items: [['s', 'si_title'], ['s', 'si_poll_url'], ['h', 'si_text'], ['a', 'si_files'], ['a', 'si_images'], ['a', 'si_videos']] },
+       { title: '14. Информация для студентов (скрытый блок; кнопка в сайдбаре)', items: [['s', 'si_title'], ['s', 'si_poll_url'], ['s', 'si_poll_title'], ['s', 'si_poll_note'], ['h', 'si_text'], ['a', 'si_files'], ['a', 'si_images'], ['a', 'si_videos']] },
       ];
 
       // * KEYS
@@ -1832,7 +1834,7 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       }
 
       // * actCell
-  
+
       function actCell(k, i) {
         if (k === 'positions' && i === 0 && String(data.teachers[cur].post || '').trim()) {
           return `<td class="td-act"><span class="small text-secondary" title="Строка подставляется автоматически из поля «Должность под ФИО»">авто</span></td>`;
@@ -2447,17 +2449,17 @@ ${inputs}
         inp.click();
       }
 
-/* Сигнатура содержимого блока «Студентам»: для автоштампа даты обновления */
-const siSig = t => JSON.stringify([t.si_title || '', t.si_text || '', t.si_files || [], t.si_images || [], t.si_videos || []]);
-let siSnap = '';
+      /* Сигнатура содержимого блока «Студентам»: для автоштампа даты обновления */
+      const siSig = t => JSON.stringify([t.si_title || '', t.si_text || '', t.si_files || [], t.si_images || [], t.si_videos || []]);
+      let siSnap = '';
 
       // * save
       /* ═══ Сохранение в GitHub ═══ */
-async function save() {
-collect();
-const t0 = data.teachers[cur];
-if (siSig(t0) !== siSnap) t0.si_updated = new Date().toISOString();
-const st = document.getElementById('status');
+      async function save() {
+        collect();
+        const t0 = data.teachers[cur];
+        if (siSig(t0) !== siSnap) t0.si_updated = new Date().toISOString();
+        const st = document.getElementById('status');
         if (DEMO) {
           st.innerHTML = '<span class="text-warning fw-bold">ДЕМО: правки не отправлены в GitHub</span>';
           alert('Демо-режим: изменения остаются только в этой вкладке браузера.');
@@ -2610,7 +2612,7 @@ const st = document.getElementById('status');
       }, true);
 
       /* ═══ Автоформат: первая буква значения всегда прописная ═══ */
-  const CAP_SKIP = new Set(['id', 'photo', 'email', 'site', 'share_tg_url', 'share_vk_url', 'url', 'url_buy', 'doi', 'img', 'u', 'year', 'n', 'experience_years', 'si_poll_url']);
+      const CAP_SKIP = new Set(['id', 'photo', 'email', 'site', 'share_tg_url', 'share_vk_url', 'url', 'url_buy', 'doi', 'img', 'u', 'year', 'n', 'experience_years', 'si_poll_url']);
       const capFirstChar = v => String(v)
         .replace(/^([a-zа-яё])/, m => m.toUpperCase());
       document.addEventListener('change', e => {

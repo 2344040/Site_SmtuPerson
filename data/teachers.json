@@ -5828,7 +5828,39 @@
     }
    ],
    "mat_video": [],
-   "mat_resources": [],
+   "mat_resources": [
+    {
+     "kind": "head",
+     "title": "Тесты",
+     "children": [
+      {
+       "kind": "rec",
+       "title": "Цифровые системы управления: основные понятия",
+       "url": "https://kpolyakov.spb.ru/uni/dcs-basic.htm"
+      },
+      {
+       "kind": "rec",
+       "title": "Последовательности и Z-преобразование",
+       "url": "https://kpolyakov.spb.ru/uni/dcs-ztrans.htm"
+      },
+      {
+       "kind": "rec",
+       "title": "Линейные дискретные системы",
+       "url": "https://kpolyakov.spb.ru/uni/dcs-linsys.htm"
+      },
+      {
+       "kind": "rec",
+       "title": "Устойчивость дискретных систем",
+       "url": "https://kpolyakov.spb.ru/uni/dcs-stability.htm"
+      },
+      {
+       "kind": "rec",
+       "title": "Анализ цифровых систем",
+       "url": "https://kpolyakov.spb.ru/uni/dcs-analysis.htm"
+      }
+     ]
+    }
+   ],
    "short": "Поляков К.Ю.",
    "photo": "https://kpolyakov.spb.ru/images/photo.jpg",
    "faculty": "Факультет корабельной энергетики и автоматики",

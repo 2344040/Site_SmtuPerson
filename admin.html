@@ -237,14 +237,14 @@
     }
 
     /* Блок опроса: корпус продолжает плашку заголовка тем же бледно-зелёным */
-.poll-block {
-background: #f5f7f6;
-border: 1px solid #e2e8e5;
-border-top: 0;
-border-radius: 0 0 8px 8px;
-padding: 12px 14px 14px;
-margin: -12px 0 16px;
-}
+    .poll-block {
+      background: #f5f7f6;
+      border: 1px solid #e2e8e5;
+      border-top: 0;
+      border-radius: 0 0 8px 8px;
+      padding: 12px 14px 14px;
+      margin: -12px 0 16px;
+    }
 
     /* Текстовые блоки: стартовая высота 300px, растягивается вручную */
     textarea[data-f] {
@@ -1729,17 +1729,17 @@ value="${(row.qualification || '').replace(/"/g, '&quot;')}"></div>
       }
 
       /* Блок опроса: заголовок-плашка как у остальных блоков раздела + бледно-зелёный корпус */
-function renderPollBlock(t) {
-const inp = (key, label, ph) => `<div class="col-md-6"><label class="small text-secondary">${label}</label>
+      function renderPollBlock(t) {
+        const inp = (key, label, ph) => `<div class="col-md-6"><label class="small text-secondary">${label}</label>
 <input class="form-control form-control-sm" data-f="${key}" value="${String(t[key] || '').replace(/"/g, '&quot;')}" placeholder="${ph || ''}"></div>`;
-return `<label class="sec-title">Опрос / голосование: ссылка и оформление кнопки</label>
+        return `<label class="sec-title">Опрос / голосование: ссылка и оформление кнопки</label>
 <div class="row g-2 poll-block">
 ${inp('si_poll_url', 'Ссылка на опрос (Яндекс/Google Forms) — кнопка «Пройти опрос»', 'https://forms.yandex.ru/…')}
 ${inp('si_poll_title', 'Заголовок опроса (пусто → «Опрос студентов»)')}
 <div class="col-12"><label class="small text-secondary">Комментарий о заполнении (пусто → дефолт-подсказка)</label>
 <input class="form-control form-control-sm" data-f="si_poll_note" value="${String(t.si_poll_note || '').replace(/"/g, '&quot;')}" placeholder="Например: заполните до 25 мая, ответы анонимны"></div>
 </div>`;
-}
+      }
 
       // * renderArray
       function renderArray(t, k, noHead) {
@@ -2474,7 +2474,11 @@ ${inputs}
       }
 
       /* Сигнатура содержимого блока «Студентам»: для автоштампа даты обновления */
-      const siSig = t => JSON.stringify([t.si_title || '', t.si_text || '', t.si_files || [], t.si_images || [], t.si_videos || []]);
+      const siSig = t => JSON.stringify([
+        t.si_title || '', t.si_text || '',
+        t.si_poll_url || '', t.si_poll_title || '', t.si_poll_note || '',
+        t.si_files || [], t.si_images || [], t.si_videos || []
+      ]);
       let siSnap = '';
 
       // * save

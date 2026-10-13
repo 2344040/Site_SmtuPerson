@@ -909,7 +909,7 @@ background: var(--amber-soft);
 border-color: var(--amber);
 font-weight: 600;
 }
-.btn-side.si-btn > span {
+.btn-side.si-btn > span:first-of-type {
 flex: 1 1 auto;
 min-width: 0;
 overflow: hidden;
@@ -1040,16 +1040,22 @@ color: var(--muted);
 margin-top: 2px;
 }
 .btn-side.si-btn .si-new {
-flex-shrink: 0;
-font-size: .6rem;
+flex: 0 0 auto;          /* не растёт и не сжимается — только по содержимому */
+align-self: center;
+font-size: .55rem;
+line-height: 1;
 font-weight: 700;
 text-transform: uppercase;
-letter-spacing: .06em;
+letter-spacing: .05em;
 color: #fff;
-background: var(--amber);
+background: #3f9e63;     /* тот же зелёный, что у индикатора «Сейчас» */
 border-radius: 999px;
-padding: 1px 6px;
-margin-left: .35rem;
+padding: 2px 5px;
+margin: 0 0 0 .4rem;
+}
+html[data-theme="dark"] .btn-side.si-btn .si-new {
+background: #58c07c;
+color: #12241f;
 }
 
 @media (max-width: 520px) {

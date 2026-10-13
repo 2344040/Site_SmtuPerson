@@ -1057,6 +1057,41 @@ margin-left: .35rem;
 grid-template-columns: 1fr;
 }
 }
+/* Кнопка опроса: янтарный акцент сверху панели */
+.si-poll-btn {
+display: flex;
+align-items: center;
+gap: .6rem;
+padding: .7rem .9rem;
+border: 1px solid var(--amber);
+border-radius: 12px;
+background: var(--amber-soft);
+color: var(--ink);
+font-weight: 600;
+text-decoration: none;
+transition: .25s;
+}
+.si-poll-btn:hover {
+background: var(--amber);
+border-color: var(--amber);
+color: #fff;
+transform: translateY(-2px);
+}
+.si-poll-btn > i:first-child {
+font-size: 1.15rem;
+color: var(--amber);
+}
+.si-poll-btn:hover > i:first-child {
+color: #fff;
+}
+.si-poll-btn > span {
+flex: 1 1 auto;
+min-width: 0;
+}
+.si-poll-btn > i:last-child {
+opacity: .7;
+flex-shrink: 0;
+}
 
  .timeline {
    list-style: none;

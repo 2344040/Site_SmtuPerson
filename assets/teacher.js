@@ -793,7 +793,8 @@ const eduLinks = siLink + manualLinks + autoLinks + matLink;
 
 /* ═══ Информация для студентов: скрытый блок-offcanvas по кнопке сайдбара ═══ */
 const siHas = () => !!((T.si_text && String(T.si_text).trim()) ||
-(T.si_files || []).length || (T.si_images || []).length || (T.si_videos || []).length);
+(T.si_files || []).length || (T.si_images || []).length || (T.si_videos || []).length ||
+(T.si_poll_url && String(T.si_poll_url).trim()));
 /* Ссылки видеосервисов превращаем в embed; остальное — плеер или ссылка */
 const SI_VIDEO_EMBED = u => {
 const url = String(u || '');
@@ -825,6 +826,7 @@ ${T.si_updated ? `<div class="si-updated">Обновлено: ${esc(new Date(T.s
 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 </div>
 <div class="offcanvas-body si-body">
+${T.si_poll_url ? `<a class="si-poll-btn" href="${esc(siteHref(T.si_poll_url))}" target="_blank" rel="noopener"><i class="bi bi-clipboard2-check-fill"></i><span>Пройти опрос</span><i class="bi bi-box-arrow-up-right"></i></a>` : ''}
 ${T.si_text ? `<div class="si-text text-block">${htmlOrText(T.si_text)}</div>` : ''}
 ${files.length ? `<div class="si-sec"><h6>Файлы для скачивания</h6>${files.map(f => {
 const t = matType(f.url);

@@ -5700,7 +5700,26 @@
    "pub_mono": [],
    "pub_other": [],
    "social": [],
-   "events": [],
+   "events": [
+    {
+     "day": "Вт",
+     "time": "10:10-11:40",
+     "subject": "Цифровые системы управления",
+     "type": "\tлекция",
+     "building": "А",
+     "room": "517",
+     "now": true
+    },
+    {
+     "day": "Вт",
+     "time": "11:50-13:20",
+     "subject": "Цифровые системы управления",
+     "type": "Практическое занятие",
+     "building": "А",
+     "room": "517",
+     "now": false
+    }
+   ],
    "rail_edu": [],
    "profiles": [],
    "mat_posobia": [

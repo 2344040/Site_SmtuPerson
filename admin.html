@@ -1416,7 +1416,7 @@ max-width: 100%;
       const GROUPS = [
         { title: '0. Служебное', open: true, items: [['s', 'id'], ['s', 'name'], ['s', 'short']] },
         {
-          title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы', open: true,
+          title: '1. Шапка: фото, вуз, факультет, ФИО, должность, чипсы',
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'subdivision'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
@@ -2207,7 +2207,7 @@ ${inputs}
       let DICT
       function renderMatEditor(t, sec) {
         const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-        const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : true;
+        const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false;
         return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
 <summary>${NAMES[sec]}<span class="mat-sec-count">${matCountRec(arr)}</span></summary>
 <div class="mat-sec-body">
@@ -2300,7 +2300,7 @@ ${inputs}
             }
           });
           flush();
-          const isOpen = (openState[gi] !== undefined) ? openState[gi] : !!g.open;
+          const isOpen = (openState[gi] !== undefined) ? openState[gi] : false; /* при открытии страницы все секции свёрнуты */
           return `<details class="card p-2 mb-2" id="grp-${gi}" data-g="${gi}" ${isOpen ? 'open' : ''}>
       <summary class="fw-bold">${g.title}</summary>
       <div class="mt-2">${inner}</div>

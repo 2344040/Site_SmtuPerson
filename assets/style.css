@@ -2546,11 +2546,24 @@ max-width: 100%;
 .mat-url {
 width: 100%;
 min-width: 0;
-color: var(--muted);
+color: var(--amber);
 font-size: .8rem;
 overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
+}
+
+/* Описание ресурса: тем же кеглем и цветом, что ссылка, но курсивом; обрезка после 2 строк */
+.mat-res-desc {
+width: 100%;
+min-width: 0;
+color: var(--muted);
+font-size: .8rem;
+font-style: italic;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
 }
 
  /* Правая часть: иконка формата + кнопки */

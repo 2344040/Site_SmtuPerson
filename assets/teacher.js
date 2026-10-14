@@ -427,7 +427,8 @@ const matItem = (item, sec, isContainer, isSub, numPrefix) => {
 
   /* Описание — малый серый курсив; сворачивается после 3 строк во всех секциях материалов, кроме ресурсов */
   const descCollapsible = ['mat_posobia', 'mat_books', 'mat_lectures', 'mat_video'].includes(sec.key);
-  const description = item.description
+  const description = (item.description && !isResources)
+
     ? (descCollapsible
       ? `<span class="mat-description text-toggle-content">${esc(item.description)}</span><span class="text-toggle-btn mat-desc-toggle"><span class="dots">подробнее <i class="bi bi-caret-down-fill"></i></span><span class="collapse-text" style="display:none">скрыть <i class="bi bi-caret-up-fill"></i></span></span>`
       : `<span class="mat-description">${esc(item.description)}</span>`)
@@ -439,12 +440,13 @@ const matItem = (item, sec, isContainer, isSub, numPrefix) => {
   const line2 = description ? `<div class="mat-description-line d-flex">${description}</div>` : '';
 
   /* Ресурсы: своя раскладка (название + видимый URL) */
-  if (isResources) {
-    line1 = `<div class="mat-line mat-line-res">
-${num}<span class="mat-title">${esc(item.title)}</span>
+if (isResources) {
+line1 = `<div class="mat-line mat-line-res">
+<span class="mat-title">${esc(item.title)}</span>
+${item.description ? `<span class="mat-res-desc" title="${esc(item.description)}">${esc(item.description)}</span>` : ''}
 <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
 </div>`;
-  }
+}
 
   /* Правая часть: иконка формата (янтарная) + кнопка по типу ссылки:
   файл (pdf/doc/xls/…) → скачать, страница/стрим/магазин → перейти */

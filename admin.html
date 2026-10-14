@@ -896,6 +896,24 @@
       resize: vertical;
     }
 
+    /* Ресурсы: фиксированные доли строки 40% / 40% / остаток */
+.res-w40 {
+flex: 0 0 40%;
+max-width: 40%;
+min-width: 0;
+}
+.res-wrest {
+flex: 1 1 0;
+min-width: 0;
+}
+@media (max-width: 767.98px) {
+.res-w40,
+.res-wrest {
+flex: 0 0 100%;
+max-width: 100%;
+}
+}
+
     /* Префикс номера в поле названия пронумерованной записи */
     .mat-num-grp {
       font-weight: 600;
@@ -1925,7 +1943,7 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         mat_books: ['author', 'title', 'biblio', 'description', 'url', 'url_buy'],
         mat_lectures: ['author', 'title', 'description', 'url'],
         mat_video: ['author', 'title', 'description', 'url'],
-        mat_resources: ['title', 'url'],
+        mat_resources: ['title', 'description', 'url'],
       };
 
       /* Служебный id узла (не перечислимый → не попадает в JSON и не виден фронту)
@@ -2135,12 +2153,14 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
             const has = c => fields.includes(c);
             const inp = c => `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
             /* Ресурсы: одна строка — ~60% название, остаток ссылка; загрузка файла не нужна */
-            if (sec === 'mat_resources') {
-              return `<div class="row g-2">
-<div class="col-md-7"><label class="small text-secondary">${colName(sec, 'title')}</label>${inp('title')}</div>
-<div class="col-md-5"><label class="small text-secondary">${colName(sec, 'url')}</label>${inp('url')}</div>
+        /* Ресурсы: одна строка — название 40%, описание 40%, ссылка забирает остаток; загрузка не нужна */
+if (sec === 'mat_resources') {
+return `<div class="row g-2">
+<div class="res-w40"><label class="small text-secondary">${colName(sec, 'title')}</label>${inp('title')}</div>
+<div class="res-w40"><label class="small text-secondary">${colName(sec, 'description')}</label><textarea rows="1" class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="description">${escTa(node.description)}</textarea></div>
+<div class="res-wrest"><label class="small text-secondary">${colName(sec, 'url')}</label>${inp('url')}</div>
 </div>`;
-            }
+}
             const urlCtrl = c => {
               const plain = inp(c);
              return (c === 'url' && sec !== 'mat_video' && sec !== 'mat_resources' && !DEMO)

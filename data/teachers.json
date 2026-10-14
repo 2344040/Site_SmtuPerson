@@ -5917,26 +5917,31 @@
       {
        "kind": "rec",
        "title": "Цифровые системы управления: основные понятия",
+       "description": "Тест на освоение основных понятий цифровых систем управления. Пройдите по ссылке, ответьте на все вопросы теста, нажмите на кнопку проверить ответы. Всего вопросов 31, ответить необходимо на все.",
        "url": "https://kpolyakov.spb.ru/uni/dcs-basic.htm"
       },
       {
        "kind": "rec",
        "title": "Последовательности и Z-преобразование",
+       "description": "",
        "url": "https://kpolyakov.spb.ru/uni/dcs-ztrans.htm"
       },
       {
        "kind": "rec",
        "title": "Линейные дискретные системы",
+       "description": "",
        "url": "https://kpolyakov.spb.ru/uni/dcs-linsys.htm"
       },
       {
        "kind": "rec",
        "title": "Устойчивость дискретных систем",
+       "description": "",
        "url": "https://kpolyakov.spb.ru/uni/dcs-stability.htm"
       },
       {
        "kind": "rec",
        "title": "Анализ цифровых систем",
+       "description": "",
        "url": "https://kpolyakov.spb.ru/uni/dcs-analysis.htm"
       }
      ]

@@ -2205,9 +2205,9 @@ ${inputs}
       const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
       let MAT_OPEN = {};
       let DICT
-      function renderMatEditor(t, sec) {
-        const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-        const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false;
+     function renderMatEditor(t, sec) {
+const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false; /* при открытии страницы — свёрнуты */
         return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
 <summary>${NAMES[sec]}<span class="mat-sec-count">${matCountRec(arr)}</span></summary>
 <div class="mat-sec-body">

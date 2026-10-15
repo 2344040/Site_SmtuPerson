@@ -5751,7 +5751,12 @@
    "pub_posobia": [],
    "pub_mono": [],
    "pub_other": [],
-   "social": [],
+   "social": [
+    {
+     "title": "Старший помощник шлюпочных походов СПбГМТУ",
+     "text": ""
+    }
+   ],
    "events": [
     {
      "day": "Вт",

@@ -2539,10 +2539,7 @@
     "Председатель секции «Электромагнитная совместимость в техно- и биосфере» в Доме Ученых Российской академии наук",
     "Член диссертационного совета  Д 212.228.03 при СПбГМТУ"
    ],
-   "honors": [
-    "Доктор технических наук",
-    "Доцент"
-   ],
+   "honors": [],
    "upk": [
     {
      "year": "2017",
@@ -2935,6 +2932,7 @@
      "author": "Воршевский А.А., Гальперин В.Е",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": " Учебник, СПбГМТУ.-СПб., 2010",
+     "description": "",
      "url": "",
      "url_buy": "",
      "children": [
@@ -2943,6 +2941,7 @@
        "author": "",
        "title": "Глава 1. Проблема электромагнитной совместимости судового электротехнического и электронного оборудования ",
        "biblio": "",
+       "description": "",
        "url": "files/договор_новая_форма.docx",
        "url_buy": ""
       },
@@ -2951,6 +2950,7 @@
        "author": "",
        "title": " Глава 2. Возникновение помех в судовых электроэнергетических системах",
        "biblio": "",
+       "description": "",
        "url": "files/договор_новая_форма.pdf",
        "url_buy": ""
       },
@@ -2959,6 +2959,7 @@
        "author": "",
        "title": " Глава 3. Распространение помех в судовой электроэнергетической системе",
        "biblio": "",
+       "description": "",
        "url": "files/!!ПЕРЕЧЕНЬ_ОП_И_КАФЕДР.xlsx",
        "url_buy": ""
       },
@@ -2967,6 +2968,7 @@
        "author": "",
        "title": "Глава 4. Влияние помех на судовое электронное и электротехническое оборудование",
        "biblio": "",
+       "description": "",
        "url": "",
        "url_buy": ""
       },
@@ -2975,6 +2977,7 @@
        "author": "",
        "title": "Глава 5. Снижение уровней помех в электроэнергетической системе",
        "biblio": "",
+       "description": "",
        "url": "",
        "url_buy": ""
       }
@@ -2990,18 +2993,21 @@
        "kind": "rec",
        "author": "Elya Joffe (Израиль)",
        "title": "Принцип минимизации индуктивности заземления и его применение",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "ЭМС проблемы при переходных процессах на силовых подстанциях",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "Концепции помехозащиты линий, кабелей и цепей",
+       "description": "",
        "url": ""
       }
      ]
@@ -3012,6 +3018,7 @@
     {
      "kind": "rec",
      "title": "ЭЛЕМКОМ",
+     "description": "",
      "url": ""
     },
     {
@@ -3021,11 +3028,13 @@
       {
        "kind": "rec",
        "title": "IEEE Home page",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "EMC Society",
+       "description": "",
        "url": ""
       }
      ]
@@ -3037,11 +3046,13 @@
       {
        "kind": "rec",
        "title": "Compliance Engineering",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "Conformity Newsletter",
+       "description": "",
        "url": ""
       }
      ]
@@ -3053,11 +3064,13 @@
       {
        "kind": "rec",
        "title": "ANSI",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "Canadian SA",
+       "description": "",
        "url": ""
       }
      ]
@@ -3319,6 +3332,7 @@
      "author": "Воршевский А. А.",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": "СПбГМТУ",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3327,6 +3341,7 @@
      "author": "Воршевский А. А.",
      "title": "Основы электромагнитной совместимости",
      "biblio": "Tallina Tehnikaulikooli elektrotehnika aluste ja elektrimasinate instituut",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3335,6 +3350,7 @@
      "author": "Воршевский А. А.",
      "title": "Elektromagnetiline uhilduvus ",
      "biblio": "Tallina Tehnikaulikooli elektrotehnika aluste ja elektrimasinate instituut ",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3343,6 +3359,7 @@
      "author": "Воршевский А. А.",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": "СПбГМТУ. (Второе издание, исправленное) ",
+     "description": "",
      "url": "",
      "url_buy": ""
     }
@@ -3418,7 +3435,20 @@
    "degree_level": "доктор",
    "degree_branch": "технических наук",
    "academic_title": "Доцент",
-   "experience_years": "46"
+   "experience_years": "46",
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100531",

@@ -7,11 +7,7 @@
    "faculty": "Ректорат",
    "post": "Проректор по научной работе",
    "photo": "https://ds1.smtu.ru/files/isu_person/photo/2023/03/17/big/p100607.jpg?token_static=2a6965c6377aabe6b7b8baa849627bc8",
-   "chips": [
-    "Доктор технических наук",
-    "Доцент",
-    "Педагогический стаж — 28 лет"
-   ],
+   "chips": [],
    "positions": [
     "Проректор по научной работе",
     "Заведующий Кафедрой проектирования и технологии производства морских подводных аппаратов и роботов",
@@ -435,18 +431,19 @@
    "si_images": [],
    "si_videos": [],
    "subdivision": "",
-   "position": "",
-   "degree_level": "",
-   "degree_branch": "",
-   "academic_title": "",
-   "experience_years": "",
+   "position": "Проректор по научной работе",
+   "degree_level": "доктор",
+   "degree_branch": "технических наук",
+   "academic_title": "Доцент",
+   "experience_years": "28",
    "science_dirs": "",
    "hobby_text": "",
    "si_title": "",
    "si_text": "",
    "si_poll_url": "",
    "si_poll_title": "",
-   "si_poll_note": ""
+   "si_poll_note": "",
+   "degrees": []
   },
   {
    "id": "106490",
@@ -736,13 +733,15 @@
      "text": "26.03.02.06",
      "title": "Компьютерное моделирование динамики корабля",
      "tag": "бакалавриат",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "26.04.02.06",
      "title": "Теория корабля и гидродинамика",
      "tag": "магистратура",
-     "comment": ""
+     "comment": "",
+     "url": ""
     }
    ],
    "courses": [
@@ -876,6 +875,7 @@
    "social": [],
    "events": [
     {
+     "day": "",
      "time": "10:10-11:40",
      "subject": "Теория корабля",
      "type": "лабораторное занятие",
@@ -884,6 +884,7 @@
      "now": true
     },
     {
+     "day": "",
      "time": "11:50-13:20",
      "subject": "Теория корабля",
      "type": "Лабораторное занятие",
@@ -970,7 +971,29 @@
      "url": "https://www.elibrary.ru/item.asp?id=37102683",
      "doi": ""
     }
-   ]
+   ],
+   "degrees": [],
+   "sci_projects": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_posobia": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "degree_level": "",
+   "degree_branch": "",
+   "academic_title": "",
+   "experience_years": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100328",

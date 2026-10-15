@@ -1380,11 +1380,7 @@
   {
    "id": "122535",
    "name": "Колесников Юрий Леонидович",
-   "chips": [
-    "Доктор физико-математических наук",
-    "Профессор",
-    "Педагогический стаж - 54 года"
-   ],
+   "chips": [],
    "positions": [
     "Профессор кафедры физики"
    ],
@@ -1596,6 +1592,7 @@
    "social": [],
    "events": [
     {
+     "day": "",
      "time": "10:10-11:40",
      "subject": "Физика",
      "type": "практическое занятие",
@@ -1604,6 +1601,7 @@
      "now": true
     },
     {
+     "day": "",
      "time": "11:50-13:20",
      "subject": "Физика",
      "type": "практическое занятие",
@@ -1911,6 +1909,7 @@
      "author": "Трофимова Т.И.",
      "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования",
      "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
+     "description": "",
      "url": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования / Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
      "url_buy": "https://www.ozon.ru/product/rukovodstvo-k-resheniyu-zadach-po-fizike-185238992/?at=1gmn1V9SbpPoSHppMUJe1KUMmRsojeOY"
     },
@@ -1919,6 +1918,7 @@
      "author": "Трофимова Т.И.",
      "title": "Сборник задач по курсу физики с решениями",
      "biblio": "букинистика",
+     "description": "",
      "url": "",
      "url_buy": "https://www.ozon.ru/product/sbornik-zadach-po-kursu-fiziki-s-resheniyami-trofimova-1999-god-izdaniya-4177497208/?at=1gmn1TLJA1eJLl8plTCz03NfANZjp6N7&sh=-x-AaettXg#section-description--offset-140--offset-80"
     }
@@ -1932,24 +1932,28 @@
        "kind": "rec",
        "author": "",
        "title": "Методические указания по выполнению самостоятельной работы студента No1 по обработке результатов физического эксперимента (729.89K - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46909.pdf?token_static=c767595a5783d753ffc337b8ccb4536f"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Методические указания по выполнению лабораторной работы No 2-30 «Исследование температурной зависимости сопротивления металлов» (777.90K - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46910.pdf?token_static=1458858f89c4530bd5601c6776e796ea"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Графическое оформление результатов физического эксперимента (основные правила построения графиков) (1.12M - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46911.pdf?token_static=ca6bb8a0337455e017b824889fb08f4e"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Правило округления результата физического эксперимента (699.15K - pdf)",
+       "description": "",
        "url": "Правило округления результата физического эксперимента (699.15K - pdf)"
       }
      ]
@@ -1964,12 +1968,14 @@
        "kind": "rec",
        "author": "",
        "title": "Что такое квантовая физика? Объяснение для начинающих.",
+       "description": "",
        "url": "https://rutube.ru/video/cc7634d97e535809b7a7a50e17ae62fe/"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Урок 1 (осн). Физика  - наука о природеУрок 1 (осн). Физика  - наука о природе12+34:59 Урок 1 (осн). Физика - наука о природе",
+       "description": "",
        "url": "https://rutube.ru/video/39cd9b308d37feebd85fac0b1b9f7d86/"
       }
      ]
@@ -1979,11 +1985,13 @@
     {
      "kind": "rec",
      "title": "Физика: уроки, тесты, задания.",
+     "description": "",
      "url": "https://www.yaklass.ru/p/fizika"
     },
     {
      "kind": "rec",
      "title": "Физика-наука о природе. ",
+     "description": "",
      "url": "https://foxford.ru/wiki/fizika/fizika-nauka-o-prirode?ysclid=mumqfww8og616598558"
     }
    ],
@@ -2066,7 +2074,28 @@
      "description": "",
      "url": ""
     }
-   ]
+   ],
+   "degrees": [],
+   "sci_projects": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "degree_level": "доктор",
+   "degree_branch": "физико-математических наук",
+   "academic_title": "Профессор",
+   "experience_years": "54",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "101074",

@@ -566,7 +566,8 @@ function renderMain() {
         ? '<i class="bi bi-mortarboard-fill"></i>'
         : cls === 'c3'
           // * иконки в первом блоке
-          ? '<i class="bi bi-people-fill"></i>' 
+          // ? '<i class="bi bi-people-fill"></i>' 
+          ? '<i class="fa-solid fa-user-tie"></i>' 
           // ? '<i class="bi bi-diagram-3-fill"></i>'
           // ? '<i class="bi bi-globe2"></i>' 
           : cls === 'c4'

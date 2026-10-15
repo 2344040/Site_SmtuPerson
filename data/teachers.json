@@ -998,11 +998,7 @@
   {
    "id": "100328",
    "name": "Демешко Геннадий Фёдорович",
-   "chips": [
-    "Доктор технических наук",
-    "Профессор",
-    "Педагогический стаж - 50 лет"
-   ],
+   "chips": [],
    "positions": [
     "Профессор кафедры проектирования судов"
    ],
@@ -1387,10 +1383,10 @@
    "si_images": [],
    "si_videos": [],
    "subdivision": "",
-   "degree_level": "",
-   "degree_branch": "",
-   "academic_title": "",
-   "experience_years": "",
+   "degree_level": "доктор",
+   "degree_branch": "технических наук",
+   "academic_title": "Профессор",
+   "experience_years": "50",
    "science_dirs": "",
    "hobby_text": "",
    "si_title": "",
@@ -1398,7 +1394,8 @@
    "si_poll_url": "",
    "si_poll_title": "",
    "si_poll_note": "",
-   "hidden": true
+   "hidden": true,
+   "degrees": []
   },
   {
    "id": "122535",

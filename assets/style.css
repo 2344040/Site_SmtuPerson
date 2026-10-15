@@ -904,222 +904,253 @@
  }
 
  /* ── Информация для студентов: кнопка в сайдбаре и offcanvas-блок ── */
-.btn-side.si-btn {
-background: var(--amber-soft);
-border-color: var(--amber);
-font-weight: 600;
-}
-.btn-side.si-btn > span:first-of-type {
-flex: 1 1 auto;
-min-width: 0;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-}
-.btn-side.si-btn > i {
-color: var(--amber);
-font-size: .95rem;
-flex-shrink: 0;
-}
-.btn-side.si-btn:hover {
-background: var(--amber);
-border-color: var(--amber);
-color: #fff;
-}
-.btn-side.si-btn:hover > i {
-color: #fff;
-transform: none;
-}
-#siPanel {
-background: var(--paper);
-color: var(--ink);
-}
-html[data-theme="dark"] #siPanel .btn-close {
-filter: invert(1) grayscale(1);
-}
-.si-body {
-display: flex;
-flex-direction: column;
-gap: 1.1rem;
-}
-.si-body .si-text {
-padding: 0;
-margin: 0;
-}
-.si-sec {
-display: flex;
-flex-direction: column;
-gap: .45rem;
-}
-.si-sec h6 {
-font-size: .72rem;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: var(--muted);
-font-weight: 700;
-margin: 0;
-}
-.si-file {
-display: flex;
-align-items: center;
-gap: .6rem;
-padding: .55rem .7rem;
-border: 1px solid var(--line);
-border-radius: 10px;
-background: var(--surface);
-color: var(--ink);
-text-decoration: none;
-transition: .2s;
-}
-.si-file:hover {
-border-color: var(--amber);
-color: var(--amber);
-transform: translateX(3px);
-}
-.si-file-ico {
-font-size: 1.1rem;
-flex-shrink: 0;
-}
-.si-file-title {
-flex: 1 1 auto;
-min-width: 0;
-font-size: .85rem;
-font-weight: 500;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-}
-.si-imgs {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: .6rem;
-}
-.si-img {
-margin: 0;
-min-width: 0;
-}
-.si-img a {
-display: block;
-border: 1px solid var(--line);
-border-radius: 10px;
-overflow: hidden;
-background: var(--surface);
-}
-.si-img img {
-width: 100%;
-aspect-ratio: 4 / 3;
-object-fit: cover;
-display: block;
-}
-.si-img figcaption {
-font-size: .75rem;
-color: var(--muted);
-margin-top: .3rem;
-}
-.si-video-title {
-font-size: .8rem;
-font-weight: 600;
-margin: .2rem 0 .35rem;
-}
-.si-video iframe,
-.si-video video {
-width: 100%;
-aspect-ratio: 16 / 9;
-border: 0;
-border-radius: 10px;
-background: #000;
-display: block;
-}
+ .btn-side.si-btn {
+   background: var(--amber-soft);
+   border-color: var(--amber);
+   font-weight: 600;
+ }
 
-.si-head {
-min-width: 0;
-}
-.si-updated {
-font-size: .72rem;
-color: var(--muted);
-margin-top: 2px;
-}
+ .btn-side.si-btn>span:first-of-type {
+   flex: 1 1 auto;
+   min-width: 0;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
 
-/* Метка «new»: мелкий зелёный текст без пилюли */
-.btn-side.si-btn span.si-new {
-flex: 0 0 auto;
-align-self: center;
-font-size: .62rem;
-line-height: 1;
-font-weight: 700;
-letter-spacing: .03em;
-text-transform: none;
-color: #3f9e63;
-background: none;
-border: 0;
-border-radius: 0;
-padding: 0;
-margin: 0 0.3rem 0 .45rem;
-}
-html[data-theme="dark"] .btn-side.si-btn span.si-new {
-color: #58c07c;
-}
+ .btn-side.si-btn>i {
+   color: var(--amber);
+   font-size: .95rem;
+   flex-shrink: 0;
+ }
 
-@media (max-width: 520px) {
-.si-imgs {
-grid-template-columns: 1fr;
-}
-}
-/* Кнопка опроса: янтарный акцент сверху панели */
-.si-poll-btn {
-display: flex;
-align-items: center;
-gap: .6rem;
-padding: .7rem .9rem;
-border: 1px solid var(--amber);
-border-radius: 12px;
-background: var(--amber-soft);
-color: var(--ink);
-font-weight: 600;
-text-decoration: none;
-transition: .25s;
-}
-.si-poll-btn:hover {
-background: var(--amber);
-border-color: var(--amber);
-color: #fff;
-transform: translateY(-2px);
-}
-.si-poll-btn > i:first-child {
-font-size: 1.15rem;
-color: var(--amber);
-}
-.si-poll-btn:hover > i:first-child {
-color: #fff;
-}
-.si-poll-btn > span {
-flex: 1 1 auto;
-min-width: 0;
-}
-.si-poll-btn > i:last-child {
-opacity: .7;
-flex-shrink: 0;
-}
+ .btn-side.si-btn:hover {
+   background: var(--amber);
+   border-color: var(--amber);
+   color: #fff;
+ }
 
-/* ── Опрос: заголовок h1 в масштабе блока + комментарий курсивом ── */
-.si-poll {
-display: flex;
-flex-direction: column;
-gap: .4rem;
-}
-.si-poll-title {
-font-size: 1.45rem;
-font-weight: 700;
-color: var(--ink);
-margin: 0;
-line-height: 1.2;
-}
-.si-poll-note {
-font-style: italic;
-color: var(--muted);
-font-size: .85rem;
-margin: 0 0 .2rem;
-}
+ .btn-side.si-btn:hover>i {
+   color: #fff;
+   transform: none;
+ }
+
+ #siPanel {
+   background: var(--paper);
+   color: var(--ink);
+ }
+
+ html[data-theme="dark"] #siPanel .btn-close {
+   filter: invert(1) grayscale(1);
+ }
+
+ .si-body {
+   display: flex;
+   flex-direction: column;
+   gap: 1.1rem;
+ }
+
+ .si-body .si-text {
+   padding: 0;
+   margin: 0;
+ }
+
+ .si-sec {
+   display: flex;
+   flex-direction: column;
+   gap: .45rem;
+ }
+
+ .si-sec h6 {
+   font-size: .72rem;
+   letter-spacing: .18em;
+   text-transform: uppercase;
+   color: var(--muted);
+   font-weight: 700;
+   margin: 0;
+ }
+
+ .si-file {
+   display: flex;
+   align-items: center;
+   gap: .6rem;
+   padding: .55rem .7rem;
+   border: 1px solid var(--line);
+   border-radius: 10px;
+   background: var(--surface);
+   color: var(--ink);
+   text-decoration: none;
+   transition: .2s;
+ }
+
+ .si-file:hover {
+   border-color: var(--amber);
+   color: var(--amber);
+   transform: translateX(3px);
+ }
+
+ .si-file-ico {
+   font-size: 1.1rem;
+   flex-shrink: 0;
+ }
+
+ .si-file-title {
+   flex: 1 1 auto;
+   min-width: 0;
+   font-size: .85rem;
+   font-weight: 500;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+
+ .si-imgs {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: .6rem;
+ }
+
+ .si-img {
+   margin: 0;
+   min-width: 0;
+ }
+
+ .si-img a {
+   display: block;
+   border: 1px solid var(--line);
+   border-radius: 10px;
+   overflow: hidden;
+   background: var(--surface);
+ }
+
+ .si-img img {
+   width: 100%;
+   aspect-ratio: 4 / 3;
+   object-fit: cover;
+   display: block;
+ }
+
+ .si-img figcaption {
+   font-size: .75rem;
+   color: var(--muted);
+   margin-top: .3rem;
+ }
+
+ .si-video-title {
+   font-size: .8rem;
+   font-weight: 600;
+   margin: .2rem 0 .35rem;
+ }
+
+ .si-video iframe,
+ .si-video video {
+   width: 100%;
+   aspect-ratio: 16 / 9;
+   border: 0;
+   border-radius: 10px;
+   background: #000;
+   display: block;
+ }
+
+ .si-head {
+   min-width: 0;
+ }
+
+ .si-updated {
+   font-size: .72rem;
+   color: var(--muted);
+   margin-top: 2px;
+ }
+
+ /* Метка «new»: мелкий зелёный текст без пилюли */
+ .btn-side.si-btn span.si-new {
+   flex: 0 0 auto;
+   align-self: center;
+   font-size: .62rem;
+   line-height: 1;
+   font-weight: 700;
+   letter-spacing: .03em;
+   text-transform: none;
+   color: #3f9e63;
+   background: none;
+   border: 0;
+   border-radius: 0;
+   padding: 0;
+   margin: 0 0.3rem 0 .45rem;
+ }
+
+ html[data-theme="dark"] .btn-side.si-btn span.si-new {
+   color: #58c07c;
+ }
+
+ @media (max-width: 520px) {
+   .si-imgs {
+     grid-template-columns: 1fr;
+   }
+ }
+
+ /* Кнопка опроса: янтарный акцент сверху панели */
+ .si-poll-btn {
+   display: flex;
+   align-items: center;
+   gap: .6rem;
+   padding: .7rem .9rem;
+   border: 1px solid var(--amber);
+   border-radius: 12px;
+   background: var(--amber-soft);
+   color: var(--ink);
+   font-weight: 600;
+   text-decoration: none;
+   transition: .25s;
+ }
+
+ .si-poll-btn:hover {
+   background: var(--amber);
+   border-color: var(--amber);
+   color: #fff;
+   transform: translateY(-2px);
+ }
+
+ .si-poll-btn>i:first-child {
+   font-size: 1.15rem;
+   color: var(--amber);
+ }
+
+ .si-poll-btn:hover>i:first-child {
+   color: #fff;
+ }
+
+ .si-poll-btn>span {
+   flex: 1 1 auto;
+   min-width: 0;
+ }
+
+ .si-poll-btn>i:last-child {
+   opacity: .7;
+   flex-shrink: 0;
+ }
+
+ /* ── Опрос: заголовок h1 в масштабе блока + комментарий курсивом ── */
+ .si-poll {
+   display: flex;
+   flex-direction: column;
+   gap: .4rem;
+ }
+
+ .si-poll-title {
+   font-size: 1.45rem;
+   font-weight: 700;
+   color: var(--ink);
+   margin: 0;
+   line-height: 1.2;
+ }
+
+ .si-poll-note {
+   font-style: italic;
+   color: var(--muted);
+   font-size: .85rem;
+   margin: 0 0 .2rem;
+ }
 
  .timeline {
    list-style: none;
@@ -1914,6 +1945,11 @@ margin: 0 0 .2rem;
 
  }
 
+ /* 5 — учёная степень и звание: академическая шапка, глубокий синий */
+ .creds-list li.c5 .creds-ico {
+   color: var(--teal-light);
+ }
+
  @media (max-width: 767.98px) {
    .creds {
      padding: 1rem 1.1rem;
@@ -2533,38 +2569,40 @@ padding: 0 обязателен: иначе включается дефолтн�
    margin-top: 2px;
  }
 
-/* ── Ресурсы: название во всю ширину, ссылка строкой ниже ── */
-.mat-line-res {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 2px;
-}
-.mat-line-res .mat-title {
-max-width: 100%;
-}
-.mat-url {
-width: 100%;
-min-width: 0;
-color: var(--amber);
-font-size: .8rem;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-}
+ /* ── Ресурсы: название во всю ширину, ссылка строкой ниже ── */
+ .mat-line-res {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 2px;
+ }
 
-/* Описание ресурса: тем же кеглем и цветом, что ссылка, но курсивом; обрезка после 2 строк */
-.mat-res-desc {
-width: 100%;
-min-width: 0;
-color: var(--muted);
-font-size: .8rem;
-font-style: italic;
-display: -webkit-box;
--webkit-line-clamp: 2;
--webkit-box-orient: vertical;
-overflow: hidden;
-}
+ .mat-line-res .mat-title {
+   max-width: 100%;
+ }
+
+ .mat-url {
+   width: 100%;
+   min-width: 0;
+   color: var(--amber);
+   font-size: .8rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+
+ /* Описание ресурса: тем же кеглем и цветом, что ссылка, но курсивом; обрезка после 2 строк */
+ .mat-res-desc {
+   width: 100%;
+   min-width: 0;
+   color: var(--muted);
+   font-size: .8rem;
+   font-style: italic;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+ }
 
  /* Правая часть: иконка формата + кнопки */
  .mat-actions {

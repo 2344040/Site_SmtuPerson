@@ -1403,6 +1403,17 @@
         return d ? p + ' ' + d : p;
       };
 
+      /* Автостроки «Учёная степень и звание»: зеркало чипов блока 1 (степень → звание).
+В JSON не хранятся — вычисляются при рендере, рассинхрон исключён */
+const degreeAutoRows = t => {
+const rows = [];
+const lvl = String(t.degree_level || '').trim();
+const deg = [lvl ? lvl.charAt(0).toUpperCase() + lvl.slice(1) : '', String(t.degree_branch || '').trim()].filter(Boolean).join(' ');
+if (deg) rows.push(deg);
+if (String(t.academic_title || '').trim()) rows.push(String(t.academic_title).trim());
+return rows;
+};
+
       // * TEXTS
       const TEXTS = {
         ped_text: ['Текстовый блок педагогической деятельности (опционально)', 6],
@@ -1423,7 +1434,7 @@
           items: [['s', 'photo'], ['s', 'university'], ['s', 'faculty'], ['s', 'department'], ['s', 'subdivision'], ['s', 'position'], ['s', 'post'], ['s', 'degree_level'], ['s', 'degree_branch'], ['s', 'academic_title'], ['s', 'experience_years'], ['a', 'chips']]
         },
         { title: '2. Контакты', items: [['s', 'email'], ['a', 'email_extra'], ['s', 'phone'], ['a', 'phone_extra'], ['s', 'address'], ['s', 'site'], ['s', 'hours'], ['s', 'share_tg_url'], ['s', 'share_vk_url']] },
-        { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'memberships'], ['a', 'honors']] },
+        { title: '3. Должности, членство, звания (верх блок основной информации)', items: [['a', 'positions'], ['a', 'degrees'], ['a', 'memberships'], ['a', 'honors']] },
         { title: '4. Образование', items: [['a', 'education'], ['a', 'upk']] },
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
@@ -1448,7 +1459,7 @@
 
       // * KEYS
       const KEYS = {
-        chips: ['*'], positions: ['*'], memberships: ['*'], honors: ['*'],
+        chips: ['*'], positions: ['*'], degrees: ['*'], memberships: ['*'], honors: ['*'],
         email_extra: ['*'], phone_extra: ['*'],
         education: ['year', 'institution', 'level', 'profile', 'qualification'],
         upk: ['year', 'title', 'type', 'text'],
@@ -1494,6 +1505,7 @@
       // * NAMES
       const NAMES = {
         chips: 'Чипы', positions: 'Должности (1-я строка — авто из должности, далее вручную)',
+        degrees: 'Учёная степень и звание (первые строки — авто из блока 1)',
         memberships: 'Членство в организациях', honors: 'Звания, награды, почётные статусы',
         email_extra: 'Доп. e-mail', phone_extra: 'Доп. телефоны',
         education: 'Образование', upk: 'Повышение квалификации',
@@ -1773,7 +1785,7 @@ ${inp('si_poll_title', 'Заголовок опроса (пусто → «Опр
           : '';
         return head + `<table class="ed" data-sec="${k}">
     <thead><tr>${KEYS[k].map(c => `<th>${colName(k, c)}</th>`).join('')}<th></th></tr></thead>
-    <tbody>${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
+    <tbody>${k === 'degrees' ? degreeAutoRows(t).map(v => `<tr><td><input value="${String(v).replace(/"/g, '&quot;')}" disabled title="Авто: из полей блока 1 (степень, звание)"></td><td class="td-act"><span class="small text-secondary" title="Строка формируется автоматически из значений блока 1">авто</span></td></tr>`).join('') : ''}${arr.map((row, i) => `<tr>${KEYS[k].map(c => {
           const isArrItem = KEYS[k][0] === '*';
           const val = isArrItem ? row : (row[c] || '');
           if (k === 'events' && c === 'now') {
@@ -2277,9 +2289,9 @@ ${inputs}
                 ctrl = `<input class="form-control form-control-sm" data-f="${key}" list="dl-position" value="${String(v).replace(/"/g, '&quot;')}">
                 <datalist id="dl-position">${positionOptions().map(p => `<option value="${String(p).replace(/"/g, '&quot;')}"></option>`).join('')}</datalist>`;
               } else if (key === 'degree_level' || key === 'degree_branch' || key === 'academic_title') {
-                const opts = key === 'degree_level' ? DEGREE_LEVELS : key === 'degree_branch' ? DEGREE_BRANCHES : ACADEMIC_TITLES;
-                const list = (v && !opts.includes(v)) ? [v, ...opts] : opts;
-                ctrl = `<select class="form-select form-select-sm" data-f="${key}">
+const opts = key === 'degree_level' ? DEGREE_LEVELS : key === 'degree_branch' ? DEGREE_BRANCHES : ACADEMIC_TITLES;
+const list = (v && !opts.includes(v)) ? [v, ...opts] : opts;
+ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="collect(); build()">
                   <option value="" ${!v ? 'selected' : ''}>—</option>
                   ${list.map(f => `<option value="${f.replace(/"/g, '&quot;')}" ${v === f ? 'selected' : ''}>${f}</option>`).join('')}
                 </select>`;

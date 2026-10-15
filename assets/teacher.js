@@ -440,13 +440,13 @@ const matItem = (item, sec, isContainer, isSub, numPrefix) => {
   const line2 = description ? `<div class="mat-description-line d-flex">${description}</div>` : '';
 
   /* Ресурсы: своя раскладка (название + видимый URL) */
-if (isResources) {
-line1 = `<div class="mat-line mat-line-res">
+  if (isResources) {
+    line1 = `<div class="mat-line mat-line-res">
 <span class="mat-title">${esc(item.title)}</span>
 ${item.description ? `<span class="mat-res-desc" title="${esc(item.description)}">${esc(item.description)}</span>` : ''}
 <span class="mat-url" title="${esc(item.url)}">${esc(item.url)}</span>
 </div>`;
-}
+  }
 
   /* Правая часть: иконка формата (янтарная) + кнопка по типу ссылки:
   файл (pdf/doc/xls/…) → скачать, страница/стрим/магазин → перейти */
@@ -467,29 +467,29 @@ ${item.description ? `<span class="mat-res-desc" title="${esc(item.description)}
 /* Префикс номера ребёнка: порядковый среди rec-соседей при включённом num у родителя */
 /* Собственный номер ребёнка без завершающей точки: n либо «ownРодителя.n» — сквозная иерархия */
 const childOwnNum = (parent, i, parentOwn) => {
-const kids = parent.children || [];
-if (!parent.num || (kids[i] || {}).kind !== 'rec') return '';
-const n = kids.slice(0, i).filter(x => x.kind === 'rec').length + 1;
-return parentOwn ? parentOwn + '.' + n : String(n);
+  const kids = parent.children || [];
+  if (!parent.num || (kids[i] || {}).kind !== 'rec') return '';
+  const n = kids.slice(0, i).filter(x => x.kind === 'rec').length + 1;
+  return parentOwn ? parentOwn + '.' + n : String(n);
 };
 const childNumPrefix = (parent, i, parentOwn) => {
-const own = childOwnNum(parent, i, parentOwn);
-return own ? own + '. ' : '';
+  const own = childOwnNum(parent, i, parentOwn);
+  return own ? own + '. ' : '';
 };
 const renderMatNode = (node, depth, sec, sub, pos, prefix, ownNum) => {
-const kids = node.children || [];
-const own = String(ownNum || '');
-if (node.kind === 'head') {
-return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
-kids.map((c, ci) => renderMatNode(c, depth + 1, sec, sub, pos, childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
-}
-const isContainer = kids.length > 0;
-const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
-const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;
-if (!kids.length) return row;
-return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
-kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
-childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
+  const kids = node.children || [];
+  const own = String(ownNum || '');
+  if (node.kind === 'head') {
+    return `<div class="mat-h mat-h-${Math.min(depth + 1, 4)}">${esc(node.title)}</div>` +
+      kids.map((c, ci) => renderMatNode(c, depth + 1, sec, sub, pos, childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
+  }
+  const isContainer = kids.length > 0;
+  const kidCls = sub ? ` mat-kid${pos === 0 || pos === 1 ? ' mat-kid-first' : ''}${pos === 0 || pos === 3 ? ' mat-kid-last' : ''}` : '';
+  const row = `<ul class="mat-list mat-lvl-${Math.min(depth, 3)}${kidCls}${isContainer ? ' mat-grp' : ''}">${matItem(node, sec, isContainer, sub, prefix || '')}</ul>`;
+  if (!kids.length) return row;
+  return row + kids.map((c, ci) => renderMatNode(c, depth + 1, sec, true,
+    kids.length === 1 ? 0 : ci === 0 ? 1 : ci === kids.length - 1 ? 3 : 2,
+    childNumPrefix(node, ci, own), childOwnNum(node, ci, own))).join('');
 };
 
 const MAT_SECTIONS = [
@@ -554,23 +554,31 @@ function renderMain() {
   const o = [];
   /* MAIN: блок должностей */
   /* MAIN: карточка регалий — должности, членство, звания */
-  if (has('positions') || has('memberships') || has('honors')) {
+  const degLine = [capFirst(T.degree_level || ''), T.degree_branch || ''].filter(Boolean).join(' ');
+  const degRows = [degLine, T.academic_title || ''].map(s => String(s || '').trim()).filter(Boolean).concat(T.degrees || []);
+  if (has('positions') || has('memberships') || has('honors') || degRows.length) {
     const credsGroup = (cap, items, mode) => items.length ? `
       <div class="creds-group">
         ${cap ? `<div class="creds-cap">${cap}</div>` : ''}
         <ul class="creds-list">${items.map((p, i) => {
       const cls = mode === 'pos' ? (i === 0 ? 'c1' : 'c2') : mode;
-      const ico = cls === 'c3'
+      const ico = cls === 'c5'
         ? '<i class="bi bi-mortarboard-fill"></i>'
-        : cls === 'c4'
-          ? '<i class="bi bi-award-fill"></i>'
-          : '<i class="bi bi-bank2"></i>';
+        : cls === 'c3'
+          // * иконки в первом блоке
+          // ? '<i class="bi bi-people-fill"></i>' 
+          ? '<i class="bi bi-diagram-3-fill"></i>'
+          // ? '<i class="bi bi-globe2"></i>' 
+          : cls === 'c4'
+            ? '<i class="bi bi-award-fill"></i>'
+            : '<i class="bi bi-bank2"></i>';
       return `<li class="${cls}"><span class="creds-ico">${ico}</span><span>${esc(p)}</span></li>`;
     }).join('')}</ul>
       </div>` : '';
     o.push(`<section class="section mt-4 py-0 px-0 reveal" id="main">
       <div class="creds reveal alt">
         ${credsGroup('', T.positions || [], 'pos')}
+        ${credsGroup('', degRows, 'c5')}
         ${credsGroup('', T.memberships || [], 'c3')}
         ${credsGroup('', T.honors || [], 'c4')}
       </div>
@@ -766,12 +774,12 @@ function renderRail() {
     // has('books') ? `<a class="btn-side" href="#books"><span>Учебные пособия</span><i class="bi bi-arrow-right arr"></i></a>` : ''
   ].filter(Boolean).join('');
 
- /* Кнопка блока для студентов — самая первая, над расписанием; только при наличии контента */
-const siFresh = T.si_updated && (Date.now() - new Date(T.si_updated).getTime()) < 7 * 864e5;
-const siLink = siHas()
-? `<a class="btn-side si-btn" href="#si-panel" data-bs-toggle="offcanvas" data-bs-target="#siPanel" aria-controls="siPanel"><span>${esc(T.si_title || 'Информация для студентов')}</span>${siFresh ? '<span class="si-new">new</span>' : ''}<i class="bi bi-megaphone-fill"></i></a>`
-: '';
-const eduLinks = siLink + manualLinks + autoLinks + matLink;
+  /* Кнопка блока для студентов — самая первая, над расписанием; только при наличии контента */
+  const siFresh = T.si_updated && (Date.now() - new Date(T.si_updated).getTime()) < 7 * 864e5;
+  const siLink = siHas()
+    ? `<a class="btn-side si-btn" href="#si-panel" data-bs-toggle="offcanvas" data-bs-target="#siPanel" aria-controls="siPanel"><span>${esc(T.si_title || 'Информация для студентов')}</span>${siFresh ? '<span class="si-new">new</span>' : ''}<i class="bi bi-megaphone-fill"></i></a>`
+    : '';
+  const eduLinks = siLink + manualLinks + autoLinks + matLink;
 
   /* Профили — без изменений */
 
@@ -795,30 +803,30 @@ const eduLinks = siLink + manualLinks + autoLinks + matLink;
 
 /* ═══ Информация для студентов: скрытый блок-offcanvas по кнопке сайдбара ═══ */
 const siHas = () => !!((T.si_text && String(T.si_text).trim()) ||
-(T.si_files || []).length || (T.si_images || []).length || (T.si_videos || []).length ||
-(T.si_poll_url && String(T.si_poll_url).trim()));
+  (T.si_files || []).length || (T.si_images || []).length || (T.si_videos || []).length ||
+  (T.si_poll_url && String(T.si_poll_url).trim()));
 /* Ссылки видеосервисов превращаем в embed; остальное — плеер или ссылка */
 const SI_VIDEO_EMBED = u => {
-const url = String(u || '');
-let m;
-if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/))) return 'https://www.youtube.com/embed/' + m[1];
-if ((m = url.match(/rutube\.ru\/(?:video\/|play\/embed\/)?([a-f0-9]{32})/i))) return 'https://rutube.ru/play/embed/' + m[1];
-if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return 'https://player.vimeo.com/video/' + m[1];
-return null;
+  const url = String(u || '');
+  let m;
+  if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/))) return 'https://www.youtube.com/embed/' + m[1];
+  if ((m = url.match(/rutube\.ru\/(?:video\/|play\/embed\/)?([a-f0-9]{32})/i))) return 'https://rutube.ru/play/embed/' + m[1];
+  if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return 'https://player.vimeo.com/video/' + m[1];
+  return null;
 };
 const siVideoBlock = v => {
-const emb = SI_VIDEO_EMBED(v.url);
-const head = v.title ? `<div class="si-video-title">${esc(v.title)}</div>` : '';
-if (emb) return `<div class="si-video">${head}<iframe src="${esc(emb)}" loading="lazy" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe></div>`;
-if (matType(v.url) === 'video') return `<div class="si-video">${head}<video controls preload="metadata" src="${esc(matHref(v.url))}"></video></div>`;
-return `<a class="si-file" href="${esc(matHref(v.url))}" target="_blank" rel="noopener"><i class="bi bi-camera-video-fill si-file-ico fmt-video"></i><span class="si-file-title">${esc(v.title || v.url)}</span><i class="bi bi-box-arrow-up-right"></i></a>`;
+  const emb = SI_VIDEO_EMBED(v.url);
+  const head = v.title ? `<div class="si-video-title">${esc(v.title)}</div>` : '';
+  if (emb) return `<div class="si-video">${head}<iframe src="${esc(emb)}" loading="lazy" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe></div>`;
+  if (matType(v.url) === 'video') return `<div class="si-video">${head}<video controls preload="metadata" src="${esc(matHref(v.url))}"></video></div>`;
+  return `<a class="si-file" href="${esc(matHref(v.url))}" target="_blank" rel="noopener"><i class="bi bi-camera-video-fill si-file-ico fmt-video"></i><span class="si-file-title">${esc(v.title || v.url)}</span><i class="bi bi-box-arrow-up-right"></i></a>`;
 };
 function renderSiPanel() {
-const prev = document.getElementById('siPanel');
-if (prev) prev.remove();
-if (!siHas()) return;
-const files = T.si_files || [], images = T.si_images || [], videos = T.si_videos || [];
-document.body.insertAdjacentHTML('beforeend', `
+  const prev = document.getElementById('siPanel');
+  if (prev) prev.remove();
+  if (!siHas()) return;
+  const files = T.si_files || [], images = T.si_images || [], videos = T.si_videos || [];
+  document.body.insertAdjacentHTML('beforeend', `
 <div class="offcanvas offcanvas-end" tabindex="-1" id="siPanel" aria-labelledby="siPanelLabel" style="width:min(620px,96%)">
 <div class="offcanvas-header">
 <div class="si-head">
@@ -835,12 +843,12 @@ ${T.si_poll_url ? `<div class="si-poll">
 <a class="si-poll-btn" href="${esc(siteHref(T.si_poll_url))}" target="_blank" rel="noopener"><i class="bi bi-clipboard2-check-fill"></i><span>Пройти опрос</span><i class="bi bi-box-arrow-up-right"></i></a>
 </div>` : ''}
 ${files.length ? `<div class="si-sec"><h6>Файлы для скачивания</h6>${files.map(f => {
-const t = matType(f.url);
-return `<a class="si-file" href="${esc(matHref(f.url))}" target="_blank" rel="noopener">
+    const t = matType(f.url);
+    return `<a class="si-file" href="${esc(matHref(f.url))}" target="_blank" rel="noopener">
 <i class="bi ${t ? MAT_ICON[t] : 'bi-file-earmark-fill'} si-file-ico${t ? ' fmt-' + t : ''}"></i>
 <span class="si-file-title">${esc(f.title || f.url)}</span>
 <i class="bi ${DL_TYPES.has(t) ? 'bi-download' : 'bi-box-arrow-up-right'}"></i></a>`;
-}).join('')}</div>` : ''}
+  }).join('')}</div>` : ''}
 ${images.length ? `<div class="si-sec"><h6>Картинки</h6><div class="si-imgs">${images.map(im => `<figure class="si-img">
 <a href="${esc(matHref(im.url))}" target="_blank" rel="noopener" title="Открыть в полном размере"><img src="${esc(im.url)}" alt="${esc(im.title || '')}" loading="lazy"></a>
 ${im.title ? `<figcaption>${esc(im.title)}</figcaption>` : ''}

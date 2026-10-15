@@ -851,7 +851,7 @@
 
     .mat-sec>summary {
       position: sticky;
-      top: 52px;
+      top: 78px;
       z-index: 1040;
       display: flex;
       justify-content: space-between;
@@ -1212,8 +1212,9 @@
         const t = data.teachers[cur];
         const d = readDraft(t.id);
         if (!d || !draftDiffers(d, t)) { updateDraftIndicator(); return; }
-        const banner = document.createElement('div');
-        banner.className = 'alert alert-warning d-flex align-items-center gap-2 mb-3';
+        document.querySelectorAll('.draft-banner').forEach(b => b.remove());
+const banner = document.createElement('div');
+banner.className = 'draft-banner alert alert-warning d-flex align-items-center gap-2 mb-3';
         banner.innerHTML = `
 <span class="bi bi-exclamation-triangle-fill"></span>
 <span>Найден несохранённый черновик от ${new Date(d.ts).toLocaleString('ru-RU')}. Восстановить?</span>
@@ -1264,9 +1265,7 @@
         share_tg_url: ['URL для Telegram share', 'col-md-6'],
         share_vk_url: ['URL для VK share', 'col-md-6'],
         si_title: ['Заголовок блока на кнопке в сайдбаре (до 30 знаков)', 'col-md-6'],
-        si_poll_url: ['Ссылка на опрос (Яндекс/Google Forms) — кнопка «Пройти опрос» в блоке', 'col-md-8'],
-        si_poll_title: ['Опрос: заголовок (пусто → «Опрос студентов»)', 'col-md-6'],
-        si_poll_note: ['Опрос: комментарий о заполнении (пусто → дефолт-подсказка)', 'col-md-6'],
+   
       };
 
       /* Пресеты заголовка кнопки блока для студентов (все ≤ 30 знаков) */
@@ -2229,7 +2228,7 @@ ${inputs}
       }
       const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
       let MAT_OPEN = {};
-      let DICT
+      let DICT_OPEN = {};
       function renderMatEditor(t, sec) {
         const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
         const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false; /* при открытии страницы — свёрнуты */

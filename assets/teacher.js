@@ -62,9 +62,7 @@ function fillHeader() {
   const nameParts = String(T.name || '').trim().split(/[\s\u00A0\u2007\u202F]+/).filter(Boolean);
   const surname = nameParts[0] || '';
   const rest = nameParts.slice(1).join(' ');
-  document.getElementById('p-name').innerHTML =
-    `<span class="surname">${esc(surname)}</span>` +
-    (rest ? `<br><span class="given-name">${esc(rest)}</span>` : '');
+
   document.getElementById('p-name').innerHTML =
     `<span class="surname">${esc(surname)}</span><br><span class="given-name">${esc(rest)}</span>`;
   document.getElementById('p-post').textContent = T.post;
@@ -747,9 +745,8 @@ function renderRail() {
   </div>
 `).join('');
 
-  /* ── 3б: Учебный процесс — из данных rail_edu, с фолбэком ── */
-  const ext = T.external_links || {};
-  /* ── 3б: Учебный процесс ── */
+ 
+
   /* Кнопка материалов — последняя, только если есть хотя бы одна запись */
   const matLink = hasMat()
     ? `<a class="btn-side" href="#materials"><span>Учебные материалы</span><i class="bi bi-arrow-right arr"></i></a>`

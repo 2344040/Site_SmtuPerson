@@ -897,22 +897,25 @@
     }
 
     /* Ресурсы: фиксированные доли строки 40% / 40% / остаток */
-.res-w40 {
-flex: 0 0 40%;
-max-width: 40%;
-min-width: 0;
-}
-.res-wrest {
-flex: 1 1 0;
-min-width: 0;
-}
-@media (max-width: 767.98px) {
-.res-w40,
-.res-wrest {
-flex: 0 0 100%;
-max-width: 100%;
-}
-}
+    .res-w40 {
+      flex: 0 0 40%;
+      max-width: 40%;
+      min-width: 0;
+    }
+
+    .res-wrest {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    @media (max-width: 767.98px) {
+
+      .res-w40,
+      .res-wrest {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
 
     /* Префикс номера в поле названия пронумерованной записи */
     .mat-num-grp {
@@ -1951,7 +1954,9 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       let MAT_UID_SEQ = 1;
       const matSetUid = (node, uid) => Object.defineProperty(node, '__uid', { value: uid, enumerable: false, configurable: true });
       const matUid = node => node.__uid || (matSetUid(node, 'u' + (MAT_UID_SEQ++)), node.__uid);
-      const MAT_COLLAPSED = new Set();
+      /* Память ЯВНЫХ состояний узла (ключ "sec|uid" → свёрнут).
+      Нет записи = дефолт: узел с детьми свёрнут, лист раскрыт */
+      const MAT_STATE = new Map();
 
       /* Плоские строки с rub → дерево + схлопывание «книга, разбитая на главы» */
       function migrateMatTree(t, sec) {
@@ -2015,10 +2020,19 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
       function matToggle(btn) {
         const card = btn.closest('.mat-node');
         const collapsed = card.classList.toggle('collapsed');
-        const key = card.dataset.sec + '|' + card.dataset.uid;
-        if (collapsed) MAT_COLLAPSED.add(key); else MAT_COLLAPSED.delete(key);
+        MAT_STATE.set(card.dataset.sec + '|' + card.dataset.uid, collapsed);
         btn.textContent = collapsed ? '▸' : '▾';
       }
+
+      /* Раскрыть узел по пути: снимает дефолтную свёрнутость и помнит явное состояние */
+function matExpand(sec, path) {
+const card = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
+if (!card) return;
+card.classList.remove('collapsed');
+MAT_STATE.set(sec + '|' + card.dataset.uid, false);
+const btn = card.querySelector(':scope > .mat-node-bar > button');
+if (btn) btn.textContent = '▾';
+}
       function matAdd(sec, path, kind) {
         collect();
         const t = data.teachers[cur];
@@ -2027,16 +2041,9 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         node.children = [];
         matArr(t, sec, path).push(node);
         build();
-        /* Родителя, в которого добавляем, раскрываем — иначе новичка не видно */
-        if (path) {
-          const pcard = document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"]`);
-          if (pcard && pcard.classList.contains('collapsed')) {
-            pcard.classList.remove('collapsed');
-            MAT_COLLAPSED.delete(sec + '|' + pcard.dataset.uid);
-            const pbtn = pcard.querySelector(':scope > .mat-node-bar > button');
-            if (pbtn) pbtn.textContent = '▾';
-          }
-        }
+/* Родителя, в которого добавляем, раскрываем — иначе новичка не видно
+(узел с детьми по умолчанию свёрнут, а лист, ставший родителем, свернулся бы сам) */
+if (path) matExpand(sec, path);
         const box = path
           ? document.querySelector(`.mat-node[data-sec="${sec}"][data-path="${path}"] > .mat-node-body > .mat-children`)
           : document.querySelector(`.mat-root[data-sec="${sec}"]`);
@@ -2099,32 +2106,36 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         build();
       }
 
-      /* Перемещение по уровням: ⇥ вложить в предыдущий узел, ⇤ поднять к родителю */
-      function matNest(sec, path, dir) {
-        collect();
-        const t = data.teachers[cur];
-        const p = path.split('.').map(Number);
-        const i = p.pop();
-        const parentArr = matArr(t, sec, p.join('.'));
-        const node = parentArr[i];
-        if (!node) return;
-        if (dir === 1) {
-          /* Вложить: узел становится последним ребёнком предыдущего соседа */
-          if (i === 0) return;
-          const host = parentArr[i - 1];
-          if (!host.children) host.children = [];
-          parentArr.splice(i, 1);
-          host.children.push(node);
-        } else {
-          /* Наружу: узел встаёт сразу после своего родителя на его уровне */
-          if (!p.length) return;
-          const gi = p.pop();
-          const grandArr = matArr(t, sec, p.join('.'));
-          parentArr.splice(i, 1);
-          grandArr.splice(gi + 1, 0, node);
-        }
-        build();
-      }
+     /* Перемещение по уровням: ⇥ вложить в предыдущий узел, ⇤ поднять к родителю */
+function matNest(sec, path, dir) {
+collect();
+const t = data.teachers[cur];
+const p = path.split('.').map(Number);
+const i = p.pop();
+const parentArr = matArr(t, sec, p.join('.'));
+const node = parentArr[i];
+if (!node) return;
+let expandPath = null;
+if (dir === 1) {
+/* Вложить: узел становится последним ребёнком предыдущего соседа */
+if (i === 0) return;
+expandPath = (p.length ? p.join('.') + '.' : '') + (i - 1);
+const host = parentArr[i - 1];
+if (!host.children) host.children = [];
+parentArr.splice(i, 1);
+host.children.push(node);
+} else {
+/* Наружу: узел встаёт сразу после своего родителя на его уровне */
+if (!p.length) return;
+const gi = p.pop();
+expandPath = p.join('.') || null;
+const grandArr = matArr(t, sec, p.join('.'));
+parentArr.splice(i, 1);
+grandArr.splice(gi + 1, 0, node);
+}
+build();
+if (expandPath) matExpand(sec, expandPath);
+}
       function matRm(sec, path) {
         if (!confirm('Удалить узел вместе со всем вложением?')) return;
         collect();
@@ -2143,7 +2154,9 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
         const own = String(ownNum || '');
         const fields = MAT_FIELDS[sec] || [];
         const uid = matUid(node);
-        const isCol = MAT_COLLAPSED.has(sec + '|' + uid);
+        const stateKey = sec + '|' + uid;
+        /* Дефолт: узел с детьми свёрнут, лист раскрыт; явное состояние перебивает */
+        const isCol = MAT_STATE.has(stateKey) ? MAT_STATE.get(stateKey) : (node.children || []).length > 0;
         const pp = path.split('.');
         const idx = +pp[pp.length - 1];
 
@@ -2153,17 +2166,17 @@ ${sciCats().map(ct => `<option value="${String(ct.title || '').replace(/"/g, '&q
             const has = c => fields.includes(c);
             const inp = c => `<input class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="${c}" value="${escAttr(node[c])}">`;
             /* Ресурсы: одна строка — ~60% название, остаток ссылка; загрузка файла не нужна */
-        /* Ресурсы: одна строка — название 40%, описание 40%, ссылка забирает остаток; загрузка не нужна */
-if (sec === 'mat_resources') {
-return `<div class="row g-2">
+            /* Ресурсы: одна строка — название 40%, описание 40%, ссылка забирает остаток; загрузка не нужна */
+            if (sec === 'mat_resources') {
+              return `<div class="row g-2">
 <div class="res-w40"><label class="small text-secondary">${colName(sec, 'title')}</label>${inp('title')}</div>
 <div class="res-w40"><label class="small text-secondary">${colName(sec, 'description')}</label><textarea rows="1" class="form-control form-control-sm" data-sec="${sec}" data-path="${path}" data-k="description">${escTa(node.description)}</textarea></div>
 <div class="res-wrest"><label class="small text-secondary">${colName(sec, 'url')}</label>${inp('url')}</div>
 </div>`;
-}
+            }
             const urlCtrl = c => {
               const plain = inp(c);
-             return (c === 'url' && sec !== 'mat_video' && sec !== 'mat_resources' && !DEMO)
+              return (c === 'url' && sec !== 'mat_video' && sec !== 'mat_resources' && !DEMO)
                 ? `<div class="d-flex gap-1">${plain}<button type="button" class="btn btn-sm btn-outline-secondary btn-upload mat-upload" data-sec="${sec}" data-path="${path}" data-k="${c}" onclick="pickAndUploadMat('${sec}','${path}','${c}')" title="Загрузить файл в репозиторий и вставить ссылку"><i class="bi bi-cloud-arrow-up"></i> </button></div>`
                 : plain;
             };
@@ -2205,9 +2218,9 @@ ${inputs}
       const matCountRec = nodes => nodes.reduce((n, x) => n + (x.kind === 'rec' ? 1 : 0) + matCountRec(x.children || []), 0);
       let MAT_OPEN = {};
       let DICT
-     function renderMatEditor(t, sec) {
-const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
-const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false; /* при открытии страницы — свёрнуты */
+      function renderMatEditor(t, sec) {
+        const arr = Array.isArray(t[sec]) ? t[sec] : (t[sec] = []);
+        const isOpen = (MAT_OPEN[sec] !== undefined) ? MAT_OPEN[sec] : false; /* при открытии страницы — свёрнуты */
         return `<details class="mat-sec" data-msec="${sec}" ${isOpen ? 'open' : ''}>
 <summary>${NAMES[sec]}<span class="mat-sec-count">${matCountRec(arr)}</span></summary>
 <div class="mat-sec-body">

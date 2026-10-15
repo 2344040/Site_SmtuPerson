@@ -4474,21 +4474,7 @@
      "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44059.docx?token_static=85313ea681833003f98e473cdc847eb9"
     }
    ],
-   "mat_books": [
-    {
-     "kind": "head",
-     "title": ""
-    },
-    {
-     "kind": "rec",
-     "author": "",
-     "title": "",
-     "biblio": "",
-     "description": "",
-     "url": "",
-     "url_buy": ""
-    }
-   ],
+   "mat_books": [],
    "mat_lectures": [
     {
      "kind": "head",
@@ -4659,7 +4645,20 @@
    "social_text": "",
    "external_links": {
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100346/"
-   }
+   },
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100298",

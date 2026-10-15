@@ -7,11 +7,7 @@
    "faculty": "Ректорат",
    "post": "Проректор по научной работе",
    "photo": "https://ds1.smtu.ru/files/isu_person/photo/2023/03/17/big/p100607.jpg?token_static=2a6965c6377aabe6b7b8baa849627bc8",
-   "chips": [
-    "Доктор технических наук",
-    "Доцент",
-    "Педагогический стаж — 28 лет"
-   ],
+   "chips": [],
    "positions": [
     "Проректор по научной работе",
     "Заведующий Кафедрой проектирования и технологии производства морских подводных аппаратов и роботов",
@@ -435,18 +431,19 @@
    "si_images": [],
    "si_videos": [],
    "subdivision": "",
-   "position": "",
-   "degree_level": "",
-   "degree_branch": "",
-   "academic_title": "",
-   "experience_years": "",
+   "position": "Проректор по научной работе",
+   "degree_level": "доктор",
+   "degree_branch": "технических наук",
+   "academic_title": "Доцент",
+   "experience_years": "28",
    "science_dirs": "",
    "hobby_text": "",
    "si_title": "",
    "si_text": "",
    "si_poll_url": "",
    "si_poll_title": "",
-   "si_poll_note": ""
+   "si_poll_note": "",
+   "degrees": []
   },
   {
    "id": "106490",
@@ -736,13 +733,15 @@
      "text": "26.03.02.06",
      "title": "Компьютерное моделирование динамики корабля",
      "tag": "бакалавриат",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "26.04.02.06",
      "title": "Теория корабля и гидродинамика",
      "tag": "магистратура",
-     "comment": ""
+     "comment": "",
+     "url": ""
     }
    ],
    "courses": [
@@ -876,6 +875,7 @@
    "social": [],
    "events": [
     {
+     "day": "",
      "time": "10:10-11:40",
      "subject": "Теория корабля",
      "type": "лабораторное занятие",
@@ -884,6 +884,7 @@
      "now": true
     },
     {
+     "day": "",
      "time": "11:50-13:20",
      "subject": "Теория корабля",
      "type": "Лабораторное занятие",
@@ -970,16 +971,34 @@
      "url": "https://www.elibrary.ru/item.asp?id=37102683",
      "doi": ""
     }
-   ]
+   ],
+   "degrees": [],
+   "sci_projects": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_posobia": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "degree_level": "",
+   "degree_branch": "",
+   "academic_title": "",
+   "experience_years": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100328",
    "name": "Демешко Геннадий Фёдорович",
-   "chips": [
-    "Доктор технических наук",
-    "Профессор",
-    "Педагогический стаж - 50 лет"
-   ],
+   "chips": [],
    "positions": [
     "Профессор кафедры проектирования судов"
    ],
@@ -1364,10 +1383,10 @@
    "si_images": [],
    "si_videos": [],
    "subdivision": "",
-   "degree_level": "",
-   "degree_branch": "",
-   "academic_title": "",
-   "experience_years": "",
+   "degree_level": "доктор",
+   "degree_branch": "технических наук",
+   "academic_title": "Профессор",
+   "experience_years": "50",
    "science_dirs": "",
    "hobby_text": "",
    "si_title": "",
@@ -1375,16 +1394,13 @@
    "si_poll_url": "",
    "si_poll_title": "",
    "si_poll_note": "",
-   "hidden": true
+   "hidden": true,
+   "degrees": []
   },
   {
    "id": "122535",
    "name": "Колесников Юрий Леонидович",
-   "chips": [
-    "Доктор физико-математических наук",
-    "Профессор",
-    "Педагогический стаж - 54 года"
-   ],
+   "chips": [],
    "positions": [
     "Профессор кафедры физики"
    ],
@@ -1596,6 +1612,7 @@
    "social": [],
    "events": [
     {
+     "day": "",
      "time": "10:10-11:40",
      "subject": "Физика",
      "type": "практическое занятие",
@@ -1604,6 +1621,7 @@
      "now": true
     },
     {
+     "day": "",
      "time": "11:50-13:20",
      "subject": "Физика",
      "type": "практическое занятие",
@@ -1911,6 +1929,7 @@
      "author": "Трофимова Т.И.",
      "title": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования",
      "biblio": "Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
+     "description": "",
      "url": "Курс физики. Задачи и решения: учеб. пособие для учреждений высшего профессионального образования / Т.И. Трофимова, А.В. Фирсов. — 4-ое изд., испр. — М. : Издательский центр «Академия», 2011. — 592 с. — (Сер. Бакалавриат) (7.07M - pdf)",
      "url_buy": "https://www.ozon.ru/product/rukovodstvo-k-resheniyu-zadach-po-fizike-185238992/?at=1gmn1V9SbpPoSHppMUJe1KUMmRsojeOY"
     },
@@ -1919,6 +1938,7 @@
      "author": "Трофимова Т.И.",
      "title": "Сборник задач по курсу физики с решениями",
      "biblio": "букинистика",
+     "description": "",
      "url": "",
      "url_buy": "https://www.ozon.ru/product/sbornik-zadach-po-kursu-fiziki-s-resheniyami-trofimova-1999-god-izdaniya-4177497208/?at=1gmn1TLJA1eJLl8plTCz03NfANZjp6N7&sh=-x-AaettXg#section-description--offset-140--offset-80"
     }
@@ -1932,24 +1952,28 @@
        "kind": "rec",
        "author": "",
        "title": "Методические указания по выполнению самостоятельной работы студента No1 по обработке результатов физического эксперимента (729.89K - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46909.pdf?token_static=c767595a5783d753ffc337b8ccb4536f"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Методические указания по выполнению лабораторной работы No 2-30 «Исследование температурной зависимости сопротивления металлов» (777.90K - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46910.pdf?token_static=1458858f89c4530bd5601c6776e796ea"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Графическое оформление результатов физического эксперимента (основные правила построения графиков) (1.12M - pdf)",
+       "description": "",
        "url": "https://ds1.smtu.ru/files/teacher_doc_file/2025/04/10/46911.pdf?token_static=ca6bb8a0337455e017b824889fb08f4e"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Правило округления результата физического эксперимента (699.15K - pdf)",
+       "description": "",
        "url": "Правило округления результата физического эксперимента (699.15K - pdf)"
       }
      ]
@@ -1964,12 +1988,14 @@
        "kind": "rec",
        "author": "",
        "title": "Что такое квантовая физика? Объяснение для начинающих.",
+       "description": "",
        "url": "https://rutube.ru/video/cc7634d97e535809b7a7a50e17ae62fe/"
       },
       {
        "kind": "rec",
        "author": "",
        "title": "Урок 1 (осн). Физика  - наука о природеУрок 1 (осн). Физика  - наука о природе12+34:59 Урок 1 (осн). Физика - наука о природе",
+       "description": "",
        "url": "https://rutube.ru/video/39cd9b308d37feebd85fac0b1b9f7d86/"
       }
      ]
@@ -1979,11 +2005,13 @@
     {
      "kind": "rec",
      "title": "Физика: уроки, тесты, задания.",
+     "description": "",
      "url": "https://www.yaklass.ru/p/fizika"
     },
     {
      "kind": "rec",
      "title": "Физика-наука о природе. ",
+     "description": "",
      "url": "https://foxford.ru/wiki/fizika/fizika-nauka-o-prirode?ysclid=mumqfww8og616598558"
     }
    ],
@@ -2066,16 +2094,33 @@
      "description": "",
      "url": ""
     }
-   ]
+   ],
+   "degrees": [],
+   "sci_projects": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "degree_level": "доктор",
+   "degree_branch": "физико-математических наук",
+   "academic_title": "Профессор",
+   "experience_years": "54",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "101074",
    "name": "Сиек Юрий Леонардович",
-   "chips": [
-    "Доктор технических наук",
-    "Профессор",
-    "Педагогический стаж - 51 год"
-   ],
+   "chips": [],
    "positions": [
     "Заведующий кафедрой систем автоматического управления и бортовой вычислительной техники",
     "Лауреат премии им. Ленинского комсомола в области науки и техники",
@@ -2181,55 +2226,64 @@
      "text": "17.03.01.03",
      "title": "Компьютерные системы управления морской техникой",
      "tag": "базовое высшее",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "27.03.04.04",
      "title": "Интеллектуальное управление морскими автономными системами",
      "tag": "базовое высшее",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "09.04.01.01",
      "title": "Вычислительная техника в системах управления морскими объектами",
      "tag": "магистратура",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "17.04.01.01",
      "title": "Управление и автоматизация систем и объектов морской техники",
      "tag": "магистратура",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "",
      "title": "Объекты морской техники",
      "tag": "ДПО",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "",
      "title": "Проблемы механотроники",
      "tag": "ДПО",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "",
      "title": "Проектирование систем автоматического управления объектами морской техники",
      "tag": "ДПО",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "",
      "title": "Теория автоматического управления",
      "tag": "ДПО",
-     "comment": ""
+     "comment": "",
+     "url": ""
     },
     {
      "text": "",
      "title": "Теория автоматов",
      "tag": "ДПО",
-     "comment": ""
+     "comment": "",
+     "url": ""
     }
    ],
    "courses": [
@@ -2329,6 +2383,7 @@
    "social": [],
    "events": [
     {
+     "day": "",
      "time": "10:10-11:40",
      "subject": "Теория управляющих автоматов",
      "type": "лекция",
@@ -2337,6 +2392,7 @@
      "now": true
     },
     {
+     "day": "",
      "time": "11:50-13:20",
      "subject": "Теория управляющих автоматов",
      "type": "практическое занятие",
@@ -2514,7 +2570,29 @@
      "url": "",
      "doi": ""
     }
-   ]
+   ],
+   "degrees": [],
+   "sci_projects": [],
+   "pub_theses": [],
+   "pub_textbooks": [],
+   "pub_posobia": [],
+   "pub_mono": [],
+   "pub_other": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "degree_level": "доктор",
+   "degree_branch": "технических наук",
+   "academic_title": "Профессор",
+   "experience_years": "51",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100239",
@@ -2539,10 +2617,7 @@
     "Председатель секции «Электромагнитная совместимость в техно- и биосфере» в Доме Ученых Российской академии наук",
     "Член диссертационного совета  Д 212.228.03 при СПбГМТУ"
    ],
-   "honors": [
-    "Доктор технических наук",
-    "Доцент"
-   ],
+   "honors": [],
    "upk": [
     {
      "year": "2017",
@@ -2935,6 +3010,7 @@
      "author": "Воршевский А.А., Гальперин В.Е",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": " Учебник, СПбГМТУ.-СПб., 2010",
+     "description": "",
      "url": "",
      "url_buy": "",
      "children": [
@@ -2943,6 +3019,7 @@
        "author": "",
        "title": "Глава 1. Проблема электромагнитной совместимости судового электротехнического и электронного оборудования ",
        "biblio": "",
+       "description": "",
        "url": "files/договор_новая_форма.docx",
        "url_buy": ""
       },
@@ -2951,6 +3028,7 @@
        "author": "",
        "title": " Глава 2. Возникновение помех в судовых электроэнергетических системах",
        "biblio": "",
+       "description": "",
        "url": "files/договор_новая_форма.pdf",
        "url_buy": ""
       },
@@ -2959,6 +3037,7 @@
        "author": "",
        "title": " Глава 3. Распространение помех в судовой электроэнергетической системе",
        "biblio": "",
+       "description": "",
        "url": "files/!!ПЕРЕЧЕНЬ_ОП_И_КАФЕДР.xlsx",
        "url_buy": ""
       },
@@ -2967,6 +3046,7 @@
        "author": "",
        "title": "Глава 4. Влияние помех на судовое электронное и электротехническое оборудование",
        "biblio": "",
+       "description": "",
        "url": "",
        "url_buy": ""
       },
@@ -2975,6 +3055,7 @@
        "author": "",
        "title": "Глава 5. Снижение уровней помех в электроэнергетической системе",
        "biblio": "",
+       "description": "",
        "url": "",
        "url_buy": ""
       }
@@ -2990,18 +3071,21 @@
        "kind": "rec",
        "author": "Elya Joffe (Израиль)",
        "title": "Принцип минимизации индуктивности заземления и его применение",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "ЭМС проблемы при переходных процессах на силовых подстанциях",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "author": "Michel Ianoz (Швейцария)",
        "title": "Концепции помехозащиты линий, кабелей и цепей",
+       "description": "",
        "url": ""
       }
      ]
@@ -3012,6 +3096,7 @@
     {
      "kind": "rec",
      "title": "ЭЛЕМКОМ",
+     "description": "",
      "url": ""
     },
     {
@@ -3021,11 +3106,13 @@
       {
        "kind": "rec",
        "title": "IEEE Home page",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "EMC Society",
+       "description": "",
        "url": ""
       }
      ]
@@ -3037,11 +3124,13 @@
       {
        "kind": "rec",
        "title": "Compliance Engineering",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "Conformity Newsletter",
+       "description": "",
        "url": ""
       }
      ]
@@ -3053,11 +3142,13 @@
       {
        "kind": "rec",
        "title": "ANSI",
+       "description": "",
        "url": ""
       },
       {
        "kind": "rec",
        "title": "Canadian SA",
+       "description": "",
        "url": ""
       }
      ]
@@ -3319,6 +3410,7 @@
      "author": "Воршевский А. А.",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": "СПбГМТУ",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3327,6 +3419,7 @@
      "author": "Воршевский А. А.",
      "title": "Основы электромагнитной совместимости",
      "biblio": "Tallina Tehnikaulikooli elektrotehnika aluste ja elektrimasinate instituut",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3335,6 +3428,7 @@
      "author": "Воршевский А. А.",
      "title": "Elektromagnetiline uhilduvus ",
      "biblio": "Tallina Tehnikaulikooli elektrotehnika aluste ja elektrimasinate instituut ",
+     "description": "",
      "url": "",
      "url_buy": ""
     },
@@ -3343,6 +3437,7 @@
      "author": "Воршевский А. А.",
      "title": "Электромагнитная совместимость судовых технических средств",
      "biblio": "СПбГМТУ. (Второе издание, исправленное) ",
+     "description": "",
      "url": "",
      "url_buy": ""
     }
@@ -3418,7 +3513,20 @@
    "degree_level": "доктор",
    "degree_branch": "технических наук",
    "academic_title": "Доцент",
-   "experience_years": "46"
+   "experience_years": "46",
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100531",
@@ -3909,7 +4017,20 @@
    "social_text": "",
    "external_links": {
     "schedule": ""
-   }
+   },
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100346",
@@ -4444,21 +4565,7 @@
      "url": "https://ds1.smtu.ru/files/teacher_doc_file/2023/10/18/44059.docx?token_static=85313ea681833003f98e473cdc847eb9"
     }
    ],
-   "mat_books": [
-    {
-     "kind": "head",
-     "title": ""
-    },
-    {
-     "kind": "rec",
-     "author": "",
-     "title": "",
-     "biblio": "",
-     "description": "",
-     "url": "",
-     "url_buy": ""
-    }
-   ],
+   "mat_books": [],
    "mat_lectures": [
     {
      "kind": "head",
@@ -4629,7 +4736,20 @@
    "social_text": "",
    "external_links": {
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100346/"
-   }
+   },
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "subdivision": "",
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100298",
@@ -5018,7 +5138,19 @@
    "external_links": {
     "schedule": "https://www.smtu.ru/ru/viewschedule/teacher/100298/"
    },
-   "subdivision": ""
+   "subdivision": "",
+   "degrees": [],
+   "sci_projects": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "science_dirs": "",
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "106390",
@@ -5443,7 +5575,17 @@
      "url": ""
     }
    ],
-   "science_dirs": "Защита металлов от коррозии в средах с сульфатредуцирующими бактериями и мицелиальными грибами, биообрастание, ингибирование коррозии и наводороживания стали соединениями с биоцидной активностью, гальванотехника."
+   "science_dirs": "Защита металлов от коррозии в средах с сульфатредуцирующими бактериями и мицелиальными грибами, биообрастание, ингибирование коррозии и наводороживания стали соединениями с биоцидной активностью, гальванотехника.",
+   "degrees": [],
+   "si_files": [],
+   "si_images": [],
+   "si_videos": [],
+   "hobby_text": "",
+   "si_title": "",
+   "si_text": "",
+   "si_poll_url": "",
+   "si_poll_title": "",
+   "si_poll_note": ""
   },
   {
    "id": "100927",
@@ -5536,10 +5678,12 @@
    "email_extra": [],
    "phone_extra": [],
    "memberships": [
+    "Автор учебников, курсов и обучающего ПО по информатике",
     "Член Гребного клуба Корабелки"
    ],
    "honors": [
-    "Почетный работник общего образования РФ"
+    "Почетный работник общего образования РФ",
+    "Учитель высшей категории"
    ],
    "upk": [
     {

@@ -1439,7 +1439,7 @@ return rows;
         { title: '5. Карьера', items: [['a', 'career'], ['H', 'achievements'], ['h', 'ach_text'], ['a', 'achievements']] },
         {
           title: '6. Педагогическая деятельность',
-          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'], ['x', 'schedule'], ['a', 'session']]
+          items: [['h', 'ped_text'], ['a', 'programs'], ['a', 'courses'], ['a', 'schedule'],  ['a', 'session']]
         },
         {
           title: '7. Научная деятельность',
@@ -2318,10 +2318,7 @@ ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="col
 <summary><i class="bi bi-collection me-2"></i>${NAMES[key]}<span class="dict-badge">глобальный справочник</span></summary>
 <div class="dict-body">${renderArray(data, key, true)}</div>
 </details>`;
-              else if (type === 'x') inner += `<div class="mt-4 mb-1">
-  <label class="small fw-semibold" style="color:#2f6f63">Ссылка на полное расписание (внешний URL)</label>
-   <input class="form-control form-control-sm" data-ext="${key}" placeholder="https://..." value="${(t.external_links?.[key] || '').replace(/"/g, '&quot;')}">
-</div>`;
+            
             }
           });
           flush();
@@ -2362,8 +2359,7 @@ ctrl = `<select class="form-select form-select-sm" data-f="${key}" onchange="col
           t.positions[0] = postVal;
         }
         if (!String(t.short || '').trim()) t.short = makeShort(t.name);
-        if (!t.external_links) t.external_links = {};
-        document.querySelectorAll('[data-ext]').forEach(i => t.external_links[i.dataset.ext] = i.value);
+       
         Object.keys(KEYS).forEach(k => { (DICT_SECS.includes(k) ? data : t)[k] = []; });
         document.querySelectorAll('input[data-sec][data-i][data-k], textarea[data-sec][data-i][data-k], select[data-sec][data-i][data-k]').forEach(i => {
           const sec = i.dataset.sec, idx = +i.dataset.i, k = i.dataset.k;

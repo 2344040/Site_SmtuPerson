@@ -624,15 +624,13 @@ function renderMain() {
         )
       );
 
-      // 1. Кнопка "Полное расписание" под таблицей (если ссылка задана)
-      const fullScheduleUrl = T.external_links?.schedule;
-      if (fullScheduleUrl) {
-        body += `<div class="mt-3 reveal">
-      <a href="${esc(fullScheduleUrl)}" class="btn-schedule" target="_blank" rel="noopener">
-        Полное расписание <i class="bi bi-box-arrow-up-right"></i>
-      </a>
-    </div>`;
-      }
+  // 1. Кнопка "Полное расписание" под таблицей (генерируется автоматически по ID)
+const fullScheduleUrl = `https://www.smtu.ru/ru/viewschedule/teacher/${T.id}/`;
+body += `<div class="mt-3 reveal">
+<a href="${esc(fullScheduleUrl)}" class="btn-schedule" target="_blank" rel="noopener">
+Полное расписание <i class="bi bi-box-arrow-up-right"></i>
+</a>
+</div>`;
     }
     if (has('session')) body += sub('session', 'Расписание сессии', table(
       [{ t: 'Дата' }, { t: 'Время' }, { t: 'Дисциплина' }, { t: 'Форма' }, { t: 'Группа' }, { t: 'Ауд.' }],

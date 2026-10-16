@@ -1375,7 +1375,8 @@
    "si_poll_url": "",
    "si_poll_title": "",
    "si_poll_note": "",
-   "hidden": true
+   "hidden": false,
+   "degrees": []
   },
   {
    "id": "122535",
@@ -2329,7 +2330,12 @@
    ],
    "projects": [],
    "patents": [],
-   "social": [],
+   "social": [
+    {
+     "title": "",
+     "text": ""
+    }
+   ],
    "events": [
     {
      "day": "",
